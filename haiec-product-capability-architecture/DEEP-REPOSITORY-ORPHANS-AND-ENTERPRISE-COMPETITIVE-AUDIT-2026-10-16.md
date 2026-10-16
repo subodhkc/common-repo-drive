@@ -154,3 +154,7 @@ The earlier references to guardrail contracts and limited telemetry were deliber
 - Some legacy AWS/Azure/GCP/Jira scanners produce fabricated positive control results but their old `scanAllSources` import has **no caller confirmed by indexed search**; do not describe customer exposure or a production exploit as confirmed until a complete caller/build trace establishes it.
 
 **Preferred follow-on:** see `OWN-REUSE-INTEGRATE-DEFER-ENTERPRISE-STRATEGY-2026-10-16.md` and `INTEGRATION-AND-BUILD-DECISION-REGISTER.csv`. Current recommendation: no new general scanner, policy engine, observability SaaS, generic asset inventory or broad agent-builder. Compose and qualify canonical owners, then validate one specific governed consequential action end-to-end.
+
+## Implementation checkpoint: Product-truth verification
+
+[HAIEC PR #2220](https://github.com/subodhkc/haiec-website/pull/2220) proposes fail-closed handling of historical demonstration scanners, stronger organization binding for operational controls, more conservative browser credential handling, and qualified protection/monitoring product copy. This is staged work, not a verified Main release. The detailed UI/API/MCP route analysis and acceptance gates are in `PRODUCT-TRUTH-WORKFLOW-REACHABILITY-AND-P0-CORRECTIONS-2026-10-16.md`. The issue register now has 21 entries. Read these findings before broad UX or integration expansion.
