@@ -17,11 +17,12 @@
     "tests/security/kill-switch-trigger-tenant-boundary.test.ts"
   ],
   "checks": {
-    "githubLint": "SKIPPED",
-    "githubTypecheck": "SKIPPED",
-    "vercelPreview": "BLOCKED",
-    "vitest": "NOT_RUN",
-    "productionSmoke": "NOT_RUN"
+    "githubLint": "FAILED (repo-wide ESLint; large pre-existing baseline)",
+    "githubTypecheck": "PASSED (GitHub Actions PR head 32e54c58, 2026-10-16)",
+    "vercelPreview": "NOT VERIFIED (Vercel Preview Comments passed, which is not a deployed functional preview)",
+    "vitest": "NOT_RUN_OR_NOT_CONFIRMED",
+    "productionSmoke": "NOT_RUN",
+    "githubNewViolations": "FAILED (7546 baseline signatures / 7550 current; 30 new unused-parameter occurrences introduced by five legacy scanner compatibility wrappers)"
   },
   "changedSourceFamilies": [
     "legacy provider scanner quarantine",
@@ -31,8 +32,9 @@
     "monitoring evidence limitations"
   ],
   "criticalConditions": [
+    "Remove only PR-introduced lint diagnostics in five legacy provider/orchestrator wrappers (retain typed export signatures and hard fail-closed behavior). Do not normalize/suppress baseline.",
     "Run targeted Vitest negative tests",
-    "TypeScript/Next build verification",
+    "Re-run new-violations lint gate; verify targeted TS remains green and minimal build/page smoke.",
     "Correct-org and foreign-org runtime control smoke",
     "Browser old key purge and rotation guidance",
     "Review remaining marketing surfaces",
@@ -51,11 +53,22 @@
     "overlapAssessment": "No shared changed paths found in inspected previous-Main -> current-Main diff, but review PR against current Main and run tests"
   },
   "operationalAlignment": "3 pillars / 6 independent capability families / 5 orthogonal evidence planes / separately-authorized human decisions and runtime protection",
-  "releaseReadiness": "NOT_READY: PR open, no verified targeted test result, lint/typecheck skipped, Vercel preview blocked",
+  "releaseReadiness": "BLOCKED: PR #2220 not merged; 30 PR-induced unused-parameter diagnostics in new-violations gate; repo-wide lint fails; targeted Vitest and org-bound runtime smoke not confirmed; Vercel production unverified.",
   "preDevinHandoff": "PRE-DEVIN-EXECUTION-GATE-AND-LAYER-ALIGNMENT-2026-10-16.md",
   "sprint24Demo": {
     "origin": "SIMULATED",
     "scope": "Presentation playback only; does not write real decisions or execute operational controls",
     "notAssurance": "Do not promote scenario monitoring/approval to customer evidence"
+  },
+  "latestCIReview": {
+    "headSha": "32e54c58d9622fb26c5b035fcf471b1886109964",
+    "source": "GitHub check-runs + job logs, 2026-10-16",
+    "newGateJob": "https://github.com/subodhkc/haiec-website/actions/runs/38884791468/job/116920344246",
+    "lintJob": "https://github.com/subodhkc/haiec-website/actions/runs/38884792042/job/116920347772",
+    "typecheck": "PASS",
+    "eslint": "FAIL",
+    "newViolations": "FAIL",
+    "rootCause": "Compatibility scanner parameters unused after fail-closed conversion. Fix wrappers without allowing synthetic affirmative controls or increasing lint baseline.",
+    "checksNeedRerun": true
   }
 }
