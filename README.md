@@ -18,6 +18,13 @@ Shared, version-controlled **planning, diagrams and developer handoff** for HAIE
 - **Public/private boundary:** this common-repo is public; Kestrel source is private. Never add private exploit details, customer telemetry, tokens or route-level vulnerability proofs here. Use a restricted private security tracker for source-specific findings. Earlier public docs also warrant disclosure review. No product tests or implementation were requested or performed.
 
 
+## HAIEC enhancement-first plan (2026-10-16)
+
+- [Enhance HAIEC before any external Kestrel tenant testing](./haiec-product-capability-architecture/HAIEC-ENHANCEMENT-FIRST-RESEARCH-ROADMAP-AND-KESTREL-EXTERNAL-MCP-ACCEPTANCE-2026-10-16.md): E0–E7 owner work, R1–R10 research, deferred external client screenshot/evidence capture.
+- [22-item handoff backlog](./haiec-product-capability-architecture/HAIEC-ENHANCEMENT-FIRST-DEFERRED-TEST-BACKLOG-2026-10-16.csv): owner, scope and closure per task.
+- GitHub visibility is currently **public**; restricted findings should be placed here only once repository access is appropriately restricted.
+
+
 ## Active project handoffs
 
 ### [HAIEC Product Capability & Workflow Architecture](./haiec-product-capability-architecture/README.md)
