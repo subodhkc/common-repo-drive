@@ -69,3 +69,10 @@ The corrections are currently proposed on an HAIEC feature branch; not yet a Mai
 
 ## Pending release gate — product-truth correction
 The [PR #2220 implementation](https://github.com/subodhkc/haiec-website/pull/2220) remains **unmerged**. The [release gate status](./haiec-product-capability-architecture/PRODUCT-TRUTH-RELEASE-GATE-STATUS.json) records source-level checks, skipped GitHub CI and blocked Vercel preview attempts. Do not treat staged branch edits as deployed production controls.
+
+### Pre-Devin HAIEC architecture sign-off and execution gate
+
+- [Layer alignment, optional workflows and bounded Devin execution packet](./haiec-product-capability-architecture/PRE-DEVIN-EXECUTION-GATE-AND-LAYER-ALIGNMENT-2026-10-16.md)
+- [Current product-truth release gate (updated Main/Sprint 24)](./haiec-product-capability-architecture/PRODUCT-TRUTH-RELEASE-GATE-STATUS.json)
+
+Architecture: Understand / Assure / Govern & Operate with six selectable workflows; Sprint 24 scenario playback remains explicitly synthetic; PR #2220 is still unmerged pending tests and deployment proof.
