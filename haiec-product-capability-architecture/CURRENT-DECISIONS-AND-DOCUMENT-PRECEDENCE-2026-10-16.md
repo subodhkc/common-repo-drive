@@ -51,11 +51,13 @@ The two **security-first** and **enhancement-first** priorities apply to **diffe
 | Source | Observed commit | Qualification |
 | --- | --- | --- |
 | HAIEC `Main` | `66f5208613c3b5cd7e38ca1a5d9fa1d0aa2d1ff1` | Includes merged Sprint 25 PR #2221; not proof current Vercel deployment |
-| Manufacturing `main` | `44dbe7e4bcc029448300a356835d559790a47ed2` | Sprint 27 PR #48 merged in GitHub, actual Vercel release **NOT VERIFIED HERE** |
+| Manufacturing `main` | `1fa4c6405808edea64540021df8b1d261cd43c3d` | Sprint 28 PR #49 merged in GitHub; supersedes Sprint 27 simulated commit semantics, actual Vercel release **NOT VERIFIED HERE** |
 | HAIEC PR #2220 | head `32e54c58d9622fb26c5b035fcf471b1886109964` | **OPEN, unmerged**, earlier ESLint/new-violations gate failed |
 | Common repo pre-audit tree | `9178573a4cf19598f740d30b22419d99820c4013` | 52 tracked files audited; later documentation commits add audit artifacts |
 | KestrelVoice `main` | `aafce1d15e6a3f9dbc69307c57c95eb03993eca7` | Earlier source inspection, **not rechecked** in this 52-file docs-only audit |
 | LogSense `main` | `c7491ba9124e5df72d250f1b32a4b2c77ccc2993` | Historical source inspection, **not rechecked** in this audit |
+
+**Sprint 28 source correction and evidence boundary:** [Sprint 28 status](SPRINT-28-DECISION-INTEGRITY-STATUS-2026-10-16.md) documents that the prior synthetic PO path could change a cumulative total before supplier qualification was checked. Its later GitHub-merged code addresses the commit gate and adds fictional reviewer-role restrictions, but source assertions of 209/209 and 24/24 tests were not rerun here, nor was Vercel deployment verified. Preserve Sprint 27 as prior-version history; no simulated role is HAIEC authenticated operator authorization.
 
 **No continuous monitoring is implied.** Re-query HEAD/PR states before any code edit, PR merge, deployment or public feature claim.
 
@@ -76,7 +78,7 @@ The two **security-first** and **enhancement-first** priorities apply to **diffe
 - `KESTREL-FIRST-PILOT-AUTH...`: Kestrel real-action pilot direction preserved, **testing deferred**.
 - `CAPABILITY-MATRIX.csv/json` (87 rows): curated old source snapshot, internally consistent but not current tenant availability. `CAPABILITY-MATRIX-V2-SCHEMA.json` is **proposed/unmigrated**.
 - `DIAGRAM-SPECIFICATIONS.md`, `V3-AND-GENERATED-DIAGRAM-VALIDATION.md`, the six tracked SVGs: illustrations may use technical domain/family groupings, but **3-pillars/6-customer-jobs remains the top-level product story**.
-- Sprint 25/26/27 status: versioned demo implementation evidence; not real Kestrel/MES/PLC enforcement or HAIEC-issued demo-record certification.
+- Sprint 25/26/27/28 status: versioned demo implementation evidence; Sprint 28 fixes a simulated PO partial-mutation defect from the earlier source. No real Kestrel/MES/PLC enforcement or HAIEC-issued demo-record certification.
 
 ## 6. Nonnegotiable user/engineering constraints
 
