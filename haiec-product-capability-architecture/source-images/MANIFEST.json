@@ -1,0 +1,53 @@
+{
+  "schemaVersion": "image-handoff/1.0",
+  "capturedOn": "2026-10-16",
+  "imageCount": 6,
+  "uniqueSha256Count": 5,
+  "source": "User-supplied ChatGPT conversation attachments",
+  "repoAssetStatus": "PENDING_BINARY_UPLOAD",
+  "note": "Manifest commits exact hashes and names. GitHub connector text writes cannot transfer mounted PNG bytes. Use preserved originals in handoff ZIP and scripts/import-source-images.py then commit binary files. Do not mark done before real GitHub image URLs return 200.",
+  "files": [
+    {
+      "name": "haiec-architecture-infographic-v2.png",
+      "bytes": 449235,
+      "sha256": "6bbd817c1405e94cb949daf4132a3c8214c12e27795c8b18a348ee61b2b2ba7b",
+      "path": "haiec-product-capability-architecture/source-images/haiec-architecture-infographic-v2.png",
+      "status": "PENDING_BINARY_UPLOAD"
+    },
+    {
+      "name": "haiec-simplified-architecture-infographic.png",
+      "bytes": 96014,
+      "sha256": "1eb5dab2eddf023c2a98d51340efd60ce831a0910cda12cdc872f06be12f42f6",
+      "path": "haiec-product-capability-architecture/source-images/haiec-simplified-architecture-infographic.png",
+      "status": "PENDING_BINARY_UPLOAD"
+    },
+    {
+      "name": "haiec-combined-capability-architecture.png",
+      "bytes": 213277,
+      "sha256": "aa307bc3217e2ec0ff1f58908c045e96b1b38c2005202aed874273db9ccae12b",
+      "path": "haiec-product-capability-architecture/source-images/haiec-combined-capability-architecture.png",
+      "status": "PENDING_BINARY_UPLOAD"
+    },
+    {
+      "name": "haiec-architecture-diagram.png",
+      "bytes": 269091,
+      "sha256": "92826db03b89d09af6b4534c72108a2aa8c9edf6f999324d01b28eab745b65e9",
+      "path": "haiec-product-capability-architecture/source-images/haiec-architecture-diagram.png",
+      "status": "PENDING_BINARY_UPLOAD"
+    },
+    {
+      "name": "HAIEC_Architecture_and_Capability_Engine.png",
+      "bytes": 4063188,
+      "sha256": "71818293b7dd358806e6b893452f3540257dff4066a80af53e70e29945e197f0",
+      "path": "haiec-product-capability-architecture/source-images/HAIEC_Architecture_and_Capability_Engine.png",
+      "status": "PENDING_BINARY_UPLOAD"
+    },
+    {
+      "name": "haiec-architecture-infographic-v2(1).png",
+      "bytes": 449235,
+      "sha256": "6bbd817c1405e94cb949daf4132a3c8214c12e27795c8b18a348ee61b2b2ba7b",
+      "path": "haiec-product-capability-architecture/source-images/haiec-architecture-infographic-v2(1).png",
+      "status": "PENDING_BINARY_UPLOAD"
+    }
+  ]
+}
