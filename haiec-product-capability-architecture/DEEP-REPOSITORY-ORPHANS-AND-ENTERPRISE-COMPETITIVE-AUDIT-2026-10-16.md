@@ -126,3 +126,20 @@ Overlooked use cases to validate and explicitly model:
 - Quantify first meaningful outcome time, source connection success, evidence gap closure, role-restricted actions and partner onboarding friction.
 - Use targeted code/tests then acceptance only on touched critical paths; do not turn this into a full regression campaign.
 - Keep website draft PR #2217 unmerged until new claims and visuals pass factual/accessibility QA. Changes to Main auto-trigger production deployment; verify only after approved merge.
+
+## 8. Additional sensitive operational surface review (source-inspected)
+These route names should enter the closure census even though existence alone does not demonstrate an exploit.
+
+| Surface | Current observed authorization | Action |
+|---|---|---|
+| `app/api/_diag/env/route.ts` | Session **and** `isSuperAdmin` before returning Modal/environment endpoint URLs | Consider production-disable or restrict environment disclosures to necessary operational metadata |
+| `app/api/_diag/db/route.ts` | Session **and** `isSuperAdmin`, then DB/migration metadata | Reduce error/details exposure and gate to short-lived admin support workflow |
+| `app/api/_diag/scanner/route.ts` | Session **and** `isSuperAdmin`, performs scanner version probe | Prefer internal admin health/readiness projection over generic public diagnostic URL |
+| `app/api/debug/prisma-models/route.ts` and `debug/session` | Superadmin-gated; returns sensitive model/session metadata and on error can include stack/details | Restrict diagnostic detail in production; negative role tests |
+| `app/api/dev/auto-login/route.ts` and `dev/bypass-checkout` | Explicit hard `NODE_ENV === production` 403 guard, and separate `HAIEC_DEV_BYPASS` flag | Verify production build env, no accidental preview/tier escalation; keep hard guard and add route negative assertions |
+| `app/api/admin/run-migrations/route.ts` | `CRON_SECRET` bearer gate; source flags deprecated/manual SQL/schema alteration and prefers Prisma deploy | Confirm no active dependency; remove endpoint in a standalone reviewed migration-hardening PR |
+| `app/api/admin/seed-demo/route.ts` | Session + platform superadmin check; creates fictional users/data | Keep synthetic/test identities visibly separated and prevent propagation into customer evidence or executive metrics |
+
+**Finding qualification:** No unauthenticated exploitation was established from this source review. Production env, actual ingress routing, deployed origin and role enforcement were not exercised. Treat as *attack-surface review*, not a confirmed vulnerability.
+
+**Priority change:** Add production-sensitive endpoint retirement and negative tests to the P1 security/truth census. No broad auth rewrite.
