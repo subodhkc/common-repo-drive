@@ -66,3 +66,6 @@ HAIEC owns consequential-action assurance. Use external policy engines, agent id
 - [HAIEC PR #2220: legacy evidence quarantine + Kill Switch tenant safety + truthful marketing](https://github.com/subodhkc/haiec-website/pull/2220)
 
 The corrections are currently proposed on an HAIEC feature branch; not yet a Main/Vercel release. This discovery **adds P0 operational-control authorization and browser credential-handling gates** ahead of the enterprise POC. Three product pillars and six independently available workflows remain unchanged.
+
+## Pending release gate — product-truth correction
+The [PR #2220 implementation](https://github.com/subodhkc/haiec-website/pull/2220) remains **unmerged**. The [release gate status](./haiec-product-capability-architecture/PRODUCT-TRUTH-RELEASE-GATE-STATUS.json) records source-level checks, skipped GitHub CI and blocked Vercel preview attempts. Do not treat staged branch edits as deployed production controls.
