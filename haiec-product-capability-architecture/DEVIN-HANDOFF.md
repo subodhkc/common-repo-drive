@@ -59,7 +59,7 @@ Review `PRODUCT-UX-OPERATIONAL-REVIEW-AND-DECISION-2026-10-16.md` and `MATRIX-CO
 ## Deep repository and market reconciliation (2026-10-16)
 
 - `DEEP-REPOSITORY-ORPHANS-AND-ENTERPRISE-COMPETITIVE-AUDIT-2026-10-16.md` — current source-confirmed audit, Accenture/Microsoft/IBM/AWS/Cisco benchmark, clear operational product and UX priorities
-- `DEEP-AUDIT-ISSUE-REGISTER.csv` — 18 prioritized, source-anchored findings and candidate remediation owners
+- `DEEP-AUDIT-ISSUE-REGISTER.csv` — 21 prioritized, source-anchored findings and candidate remediation owners
 - Existing 87-row matrix is **curated but not exhaustive**. Do not declare parity or completeness without current route-to-tool-to-producer acceptance.
 - No production HAIEC code was modified by this audit; diagram PR #2217 remains review-only.
 
@@ -70,10 +70,10 @@ Read `OWN-REUSE-INTEGRATE-DEFER-ENTERPRISE-STRATEGY-2026-10-16.md` and `INTEGRAT
 
 ## Immediate next work: validated product truth
 
-Review [HAIEC PR #2220](https://github.com/subodhkc/haiec-website/pull/2220) and `PRODUCT-TRUTH-WORKFLOW-REACHABILITY-AND-P0-CORRECTIONS-2026-10-16.md` before editing any product capability. Existing source has a scoped UI/MCP/API workflow registry and numerous canonical services; do not add another engine. Run two focused tests: `tests/unit/legacy-simulated-provider-quarantine.test.ts` and `tests/security/kill-switch-trigger-tenant-boundary.test.ts`. Run a targeted TypeScript/build check and a small role/organization smoke. GitHub lint/typecheck checks for the branch were skipped, not passed. Confirm source-specific control states, browser credential handling and monitoring messaging. Review/merge PR #2220 after checks; Main auto-deploy requires Vercel confirmation. Keep the three-pillar, six-job product plan unchanged.
+Review [HAIEC PR #2220](https://github.com/subodhkc/haiec-website/pull/2220) and `PRODUCT-TRUTH-WORKFLOW-REACHABILITY-AND-P0-CORRECTIONS-2026-10-16.md` before editing any product capability. Existing source has a scoped UI/MCP/API workflow registry and numerous canonical services; do not add another engine. Run two focused tests: `tests/unit/legacy-simulated-provider-quarantine.test.ts` and `tests/security/kill-switch-trigger-tenant-boundary.test.ts`. Run a targeted TypeScript/build check and a small role/organization smoke. GitHub TypeScript passed; repo-wide ESLint and the new-violations gate failed on branch head `32e54c58`. See latest CI section below. Confirm source-specific control states, browser credential handling and monitoring messaging. Review/merge PR #2220 after checks; Main auto-deploy requires Vercel confirmation. Keep the three-pillar, six-job product plan unchanged.
 
 ## Current validation reality
-Read `PRODUCT-TRUTH-RELEASE-GATE-STATUS.json` before PR #2220 release. Source-level static assertions passed (14/14 targeted source files); GitHub CI jobs were skipped and branch Vercel preview was blocked. Do not claim test success or a deployed fix. Prioritize targeted Vitest, TypeScript/build checks, tenant-negative runtime smoke and truthful Kill Switch/monitoring UI review. No Vercel Git identity remediation is requested.
+Read `PRODUCT-TRUTH-RELEASE-GATE-STATUS.json` before PR #2220 release. Source-level static assertions passed (14/14 targeted source files); GitHub TypeScript passed, lint/new-violations failed, and a usable branch Vercel functional preview has not been confirmed. Do not claim test success or a deployed fix. Prioritize targeted Vitest, TypeScript/build checks, tenant-negative runtime smoke and truthful Kill Switch/monitoring UI review. No Vercel Git identity remediation is requested.
 
 ## Pre-Devin acceptance packet (supersedes older implementation ordering)
 
