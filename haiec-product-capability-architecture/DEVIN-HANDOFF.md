@@ -72,3 +72,7 @@ Review [HAIEC PR #2220](https://github.com/subodhkc/haiec-website/pull/2220) and
 
 ## Current validation reality
 Read `PRODUCT-TRUTH-RELEASE-GATE-STATUS.json` before PR #2220 release. Source-level static assertions passed (14/14 targeted source files); GitHub CI jobs were skipped and branch Vercel preview was blocked. Do not claim test success or a deployed fix. Prioritize targeted Vitest, TypeScript/build checks, tenant-negative runtime smoke and truthful Kill Switch/monitoring UI review. No Vercel Git identity remediation is requested.
+
+## Pre-Devin acceptance packet (supersedes older implementation ordering)
+
+Start with `PRE-DEVIN-EXECUTION-GATE-AND-LAYER-ALIGNMENT-2026-10-16.md` and `PRODUCT-TRUTH-RELEASE-GATE-STATUS.json`. Current Main includes Sprint 24 scenario playback; PR #2220 is based on an older Main and must be reconciled and tested before merge. One active safety workstream first, then source-to-workflow availability reconciliation, then a deliberately selected enterprise action pilot. **Do not initiate broad UI navigation rewrite, additional engine development, all-provider IAM/OTLP connector work, or mandatory manifests.** Preserve demo/prod evidence separation.
