@@ -6,6 +6,10 @@
 **Source review:** Private KestrelVoice repository `subodhkc/AI-Service-Call-Agent-`, main `aafce1d15e6a3f9dbc69307c57c95eb03993eca7`; HAIEC platform Main `75ffb329cb75b35280456884299bfd16a9e7a0e8`. These are point-in-time snapshots.
 **Disclosure rule:** `common-repo-drive` is **PUBLIC**; KestrelVoice code is **PRIVATE**. Accordingly this report contains defensible architecture, observed classes of control gaps, and acceptance criteria, but **does not publish exploitation conditions, private security implementation snippets, secrets, tenant identifiers or detailed private vulnerability reproductions**. Security engineers must carry restricted route-level findings in a private access-controlled tracker. Do not copy a full private security assessment into this repo.
 
+**Catalog-to-control completeness companion:** [37-feature Kestrel security/assurance crosswalk](KESTRELVOICE-37-CAPABILITY-SECURITY-HAIEC-COVERAGE-CROSSWALK-2026-10-16.csv) covers every current catalog entry (29 available, 3 requires setup, 3 planned, 2 unsupported) with provider mandatory controls and tenant optional HAIEC handling. “Catalog-complete” is not equivalent to runtime/path-complete.
+
+**Concurrent update notice:** During this document's authoring, HAIEC Main advanced to `66f5208613c3b5cd7e38ca1a5d9fa1d0aa2d1ff1` (Sprint 25 PR #2221). Kestrel research references its own fixed Main snapshot. No integration/runtime parity was reverified against the newer HAIEC commit. Future implementer must re-read both HEADs; no code was modified here.
+
 ## 1. Executive product decision
 
 KestrelVoice's value proposition must be **secure, reliable AI business automation by default**. HAIEC must be a **proof-producing governance and assurance layer** embedded into the existing operating model, not a substitute for engineering fixes, native security features, or baseline tenant protection.
