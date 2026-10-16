@@ -1,11 +1,13 @@
 # HAIEC Common Repository Drive
 
 
+**Concurrent Sprint 28 correction:** [Sprint 28 status](./haiec-product-capability-architecture/SPRINT-28-DECISION-INTEGRITY-STATUS-2026-10-16.md) records a **simulated** PO partial-mutation defect repaired at the shared commit boundary. GitHub manufacturing `main` `1fa4c640` is a code-merge observation, not Vercel runtime verification. See the [full audit](./haiec-product-capability-architecture/COMMON-REPO-FULL-52-FILE-ALIGNMENT-AUDIT-2026-10-16.md) for versioned caveats.
+
 ## Start here — current HAIEC / Kestrel decision authority
 
 **[Current decisions and document precedence](./haiec-product-capability-architecture/CURRENT-DECISIONS-AND-DOCUMENT-PRECEDENCE-2026-10-16.md)** governs **future work sequencing and status interpretation**. [52-file repository audit](./haiec-product-capability-architecture/COMMON-REPO-FULL-52-FILE-ALIGNMENT-AUDIT-2026-10-16.md) and [20-finding resolution register](./haiec-product-capability-architecture/COMMON-REPO-52-FILE-ALIGNMENT-FINDINGS-2026-10-16.csv) identify the remaining alignment/security/release concerns. Historical snapshot docs remain for source provenance.
 
-As of 2026-10-16: HAIEC Main `66f52086` (Sprint 25 merged), MFG main `44dbe7e4` (Sprint 27 GitHub merge observed; Vercel production not verified), HAIEC PR #2220 remains unmerged. E1/E2 implementation specifications are complete but **not shipped**; E3 P0 security/release and E4 evidence lanes require separate ownership. External Kestrel remote-MCP test, screenshots and illustrated report remain **deferred until enhancements**. This common repo is **PUBLIC**; do not post private exploitable findings or secrets without first restricting access and reviewing publication risk.
+As of 2026-10-16: HAIEC Main `66f52086` (Sprint 25 merged), MFG main `1fa4c640` (Sprint 28 GitHub merge observed; Vercel production not verified), HAIEC PR #2220 remains unmerged. E1/E2 implementation specifications are complete but **not shipped**; E3 P0 security/release and E4 evidence lanes require separate ownership. External Kestrel remote-MCP test, screenshots and illustrated report remain **deferred until enhancements**. This common repo is **PUBLIC**; do not post private exploitable findings or secrets without first restricting access and reviewing publication risk.
 
 
 Shared, version-controlled **planning, diagrams and developer handoff** for HAIEC projects. This is deliberately not the HAIEC execution repository, runtime evidence database, or a canonical assurance policy store. Product truth continues to live in its owning repositories and operational evidence systems.
