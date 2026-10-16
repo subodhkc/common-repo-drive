@@ -55,7 +55,15 @@ This folder is the shared source of planning and Devin handoff artifacts for HAI
 ## Own-vs-integrate strategy (2026-10-16)
 
 - `OWN-REUSE-INTEGRATE-DEFER-ENTERPRISE-STRATEGY-2026-10-16.md` — source-checked architecture, existing OTLP/MCP/DAI/guardrail/human-decision reuse, external provider/OSS comparison, one production-grade example, exact no-go claims.
-- `INTEGRATION-AND-BUILD-DECISION-REGISTER.csv` — 24 candidate investments with decision, source owner, enterprise leverage, release gate and priority.
+- `INTEGRATION-AND-BUILD-DECISION-REGISTER.csv` — 26 candidate investments with decision, source owner, enterprise leverage, release gate and priority.
 - A correction appendix in `DEEP-REPOSITORY-ORPHANS-AND-ENTERPRISE-COMPETITIVE-AUDIT-2026-10-16.md` reconciles existing OTLP receiver and guardrail persistence omitted from earlier blanket statements.
 - **Preferred first integrator:** AWS AgentCore Gateway policy-mode and applied-action evidence; provider read-only integration first, no new policy engine or guaranteed customer runtime kill.
 - Product development remains governed by **one user goal → exact prerequisites → qualified evidence → canonical decision/proof**, with independent operation paths and explicit unknowns.
+
+## Product-truth and security workflow gate (16 October 2026)
+
+- `PRODUCT-TRUTH-WORKFLOW-REACHABILITY-AND-P0-CORRECTIONS-2026-10-16.md` — source/authorization reachability, staged changes and roadmap impact.
+- `UI-MCP-API-WORKFLOW-AVAILABILITY-RECONCILIATION.csv` — 16 explicit user workflows, existing tool names, UI/API routes, auth and source-evidence limitations.
+- [HAIEC PR #2220](https://github.com/subodhkc/haiec-website/pull/2220) — code changes and focused tests, not yet deployed.
+- Updated product plans: `PRODUCT-UX-OPERATIONAL-REVIEW-AND-DECISION-2026-10-16.md`, `OWN-REUSE-INTEGRATE-DEFER-ENTERPRISE-STRATEGY-2026-10-16.md` and `DEEP-REPOSITORY-ORPHANS-AND-ENTERPRISE-COMPETITIVE-AUDIT-2026-10-16.md`.
+- Open build gate: lint/typecheck CI skipped; focused source tests and smoke verification pending. Do not describe this as production remediated.
