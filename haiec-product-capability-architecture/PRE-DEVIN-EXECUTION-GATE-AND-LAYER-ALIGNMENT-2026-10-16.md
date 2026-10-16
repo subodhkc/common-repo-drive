@@ -68,7 +68,7 @@ Do not allow an LLM to compute an assurance disposition. It may help collect mis
 8. Main advanced by three new commits after PR #2220 branch originated; the new files are Sprint 24 governance and website playback, not these P0 fixes.
 
 ### Not established
-- PR #2220 Vitest/TypeScript execution (previous GitHub checks were skipped), successful Vercel preview, Main merge and production deploy.
+- PR #2220 targeted Vitest execution, correct-org/foreign-org smoke, Vercel functional preview, Main merge and production deploy. GitHub TypeScript has passed, but new-violations and repo-wide lint gates failed.
 - One customer's real API/tool execution hook and an independently proven applied enforcement receipt.
 - Exhaustive every-route/producer implementation parity or full customer entitlements across plan/organization types.
 - The absence of all unmediated runtime action paths.
