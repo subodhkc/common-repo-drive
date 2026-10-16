@@ -25,6 +25,14 @@ This folder is the shared source of planning and Devin handoff artifacts for HAI
 - Public repository: security-sensitive private findings need restricted visibility before inclusion.
 
 
+## E0/R1 completed — source and ownership, NOT release validation
+
+- [Main source/PR/ownership research report](E0-R1-READ-ONLY-SOURCE-PR-AND-OWNERSHIP-RECONCILIATION-2026-10-16.md) — Main `66f52086`, 58 source-declared MCP tools, 16/16 priority route and canonical owner matches, exact staged/open PR boundaries, and next E1–E7 owners.
+- [Machine-readable 16-journey source reconciliation](E0-R1-16-WORKFLOW-CANONICAL-OWNER-SOURCE-RECONCILIATION-2026-10-16.csv) — separate source-route registration from tenant, entitlement and runtime verification.
+- [Updated PR #2220 staged release gate](PRODUCT-TRUTH-RELEASE-GATE-STATUS.json) — five intervening Main commits and exact-path non-overlap, but open failing lint gates; no merge/deploy evidence.
+- **E0 is not production release acceptance. R1 research is complete. No product code or testing was performed.**
+
+
 ## Deliverables
 
 - `HAIEC-PRODUCT-CAPABILITY-WORKFLOW-MATRIX.md`: evidence-backed capability and user workflow matrix
