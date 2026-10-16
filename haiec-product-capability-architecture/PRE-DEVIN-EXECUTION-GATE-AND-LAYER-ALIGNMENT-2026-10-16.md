@@ -4,6 +4,11 @@
 **Pending safety PR:** [#2220](https://github.com/subodhkc/haiec-website/pull/2220), head `32e54c58d9622fb26c5b035fcf471b1886109964`, originally based on `b2c1489773bd95b9e361714fbf7c808bbc866ffb`.
 **Purpose:** Single decision boundary *before* Devin begins broad UX, orchestration, enterprise integration or new capability work. Documents do not assert deployed customer integration.
 
+## Updated primary research owner document
+
+The consolidated research closure is [PRE-DEVIN-RESEARCH-CLOSURE-AND-SOURCE-DECISIONS-2026-10-16.md](PRE-DEVIN-RESEARCH-CLOSURE-AND-SOURCE-DECISIONS-2026-10-16.md); use with the [six-journey acceptance CSV](SIX-CUSTOMER-JOURNEYS-ACCEPTANCE-RESEARCH-2026-10-16.csv). This current pointer supersedes incomplete earlier external-policy/OAuth scope notes. Research was committed only to common-repo-drive; another Devin implementation session owns HAIEC and MAA. No product code, tests, PRs or deployment were modified by this work.
+
+
 ## Decision
 **YES — operational architecture remains aligned.** Keep three explanatory product pillars **Understand / Assure / Govern & Operate**, six independently selectable jobs **Discover / Evaluate / Authorize / Monitor / Protect / Verify**, one shared deterministic evidence foundation, and conditional per-job workflow prerequisites. No forced global onboarding pipeline and no fourth mandatory final "proof" stage.
 
