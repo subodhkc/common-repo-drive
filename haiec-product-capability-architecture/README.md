@@ -1,11 +1,13 @@
 # HAIEC Product Capability & Workflow Architecture
 
 
+**Concurrent Sprint 28 correction:** [Sprint 28 status](./SPRINT-28-DECISION-INTEGRITY-STATUS-2026-10-16.md) records a **simulated** PO partial-mutation defect repaired at the shared commit boundary. GitHub manufacturing `main` `1fa4c640` is a code-merge observation, not Vercel runtime verification. See the [full audit](./COMMON-REPO-FULL-52-FILE-ALIGNMENT-AUDIT-2026-10-16.md) for versioned caveats.
+
 ## Start here — current work order and 52-file audit
 
 **[Current decisions and precedence](CURRENT-DECISIONS-AND-DOCUMENT-PRECEDENCE-2026-10-16.md)** is the current authority for future implementation priorities, superseding older Task-A-before-B plans **as overall sprint scheduling** while preserving PR #2220 as a P0 release/security gate. Consult the [full 52-file alignment audit](COMMON-REPO-FULL-52-FILE-ALIGNMENT-AUDIT-2026-10-16.md) and [20-item audit resolution register](COMMON-REPO-52-FILE-ALIGNMENT-FINDINGS-2026-10-16.csv). E1/E2 design is complete, **code is not shipped**; E3/E4 are separate lanes; Kestrel external MCP acceptance remains deferred.
 
-Checked heads (2026-10-16): HAIEC `66f52086`; manufacturing `44dbe7e4` (Sprint 27 merged on GitHub, Vercel production unverified). This planning repo is public; route-specific confidential weaknesses require restricted access.
+Checked heads (2026-10-16): HAIEC `66f52086`; manufacturing `1fa4c640` (Sprint 28 merged on GitHub, Vercel production unverified). This planning repo is public; route-specific confidential weaknesses require restricted access.
 
 
 This folder is the shared source of planning and Devin handoff artifacts for HAIEC, LogSense and the manufacturing application. It is a **planning and provenance repository**, not executable product truth.
