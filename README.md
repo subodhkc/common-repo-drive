@@ -13,6 +13,7 @@ Shared, version-controlled **planning, diagrams and developer handoff** for HAIE
 ## KestrelVoice security-first architecture study (2026-10-16)
 
 - [Detailed secure-SaaS architecture, telemetry, tenant assurance and remediation program](./haiec-product-capability-architecture/KESTRELVOICE-SECURE-SAAS-INFRASTRUCTURE-HAIEC-ASSURANCE-REMEDIATION-STUDY-2026-10-16.md) — mandatory Kestrel security floor before optional HAIEC add-ons; architecture/research only.
+- [Kestrel catalog-to-control coverage — all 37 features](./haiec-product-capability-architecture/KESTRELVOICE-37-CAPABILITY-SECURITY-HAIEC-COVERAGE-CROSSWALK-2026-10-16.csv): provider security responsibilities, HAIEC assurance use, tenant options and unsupported/planned boundaries.
 - [38-control Kestrel/HAIEC remediation register](./haiec-product-capability-architecture/KESTRELVOICE-SECURE-SAAS-CONTROLS-REMEDIATION-REGISTER-2026-10-16.csv) — platform/tenant scopes, priorities, evidence criteria, and claim boundaries.
 - **Public/private boundary:** this common-repo is public; Kestrel source is private. Never add private exploit details, customer telemetry, tokens or route-level vulnerability proofs here. Use a restricted private security tracker for source-specific findings. Earlier public docs also warrant disclosure review. No product tests or implementation were requested or performed.
 
