@@ -129,7 +129,7 @@ For the other 8 workflow rows, use [16-workflow CSV](E0-R1-16-WORKFLOW-CANONICAL
 
 **E1 implementation owner (product/workflow, exclusive):** compose read-only goal availability from canonical services and reuse existing UI shell. Suggested inspection files: `lib/mcp/capability-guide.ts`, `lib/mcp/tool-registry.ts`, `lib/ai-inventory/system-next-action.ts`, `lib/ai-inventory/next-action-access.ts`, `lib/dashboard/product-surface-registry.ts`, `lib/ai-inventory/system-workspace.ts`, relevant `app/(workspace)` screens. **No touching** security authorization implementation, raw ingest schemas, historic evaluation persistence, or active manufacturing scenario playback.
 
-**E2 owner** takes over source connection wizard/user consent and source preflight messaging (separate files, below). **E3 owner** controls `lib/org-context.ts`, `lib/api-auth.ts`, session/role/security, Kill Switch/PR #2220. **E4 owner** controls OTLP producer/adapter/monitor source pipeline. Interface boundaries are in [E3/E4 owner handoff](E3-E4-OWNER-BOUNDARIES-AND-INTERFACES-2026-10-16.md).
+**E2 owner** takes over source connection wizard/user consent and source preflight messaging (separate files, below). **E3 owner** controls `lib/org-context.ts`, `lib/api-auth.ts`, session/role/security, Kill Switch/PR #2220. **E4 owner** controls OTLP producer/adapter/monitor source pipeline. Interface boundaries are in [E3/E4 owner handoff](E3-E4-SEPARATE-SECURITY-TELEMETRY-OWNERSHIP-AND-E1-E2-HANDOFF-2026-10-16.md).
 
 **Active PR freeze:** do not modify `app/page.tsx` while draft PR #2217 and merged #2219 homepage changes must be reconciled; do not absorb PR #2220's scanner/kill-switch/marketing files into E1. No separate clone-to-Main merge without owner's consent.
 
