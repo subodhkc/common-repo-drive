@@ -143,3 +143,14 @@ These route names should enter the closure census even though existence alone do
 **Finding qualification:** No unauthenticated exploitation was established from this source review. Production env, actual ingress routing, deployed origin and role enforcement were not exercised. Treat as *attack-surface review*, not a confirmed vulnerability.
 
 **Priority change:** Add production-sensitive endpoint retirement and negative tests to the P1 security/truth census. No broad auth rewrite.
+
+## Audit correction / deeper implementation review (same-day follow-up)
+
+The earlier references to guardrail contracts and limited telemetry were deliberately conservative but require these **specific current-source corrections**:
+- `lib/assurance/guardrail-decision.ts` is a base contract, **and separate modules** `lib/assurance/guardrail-decision-transition.ts` and `lib/assurance/guardrail-decision-persistence.ts` implement deterministic ladder transitions and persisted decision evidence. **A persisted decision does not imply actual external enforcement**, but these components should not be called totally unwired.
+- `lib/evidence/adapters/otlp-receiver.ts`, `lib/evidence/streaming-telemetry-collector.ts`, `lib/evidence/telemetry-readiness.ts`, and `lib/assurance/monitoring-read-model.ts` are present. A stale comment in `lib/assurance/dai-observed-scope.ts` referring to no OTLP receiver must not be repeated as an architecture fact.
+- `lib/integrations/model-gateway/enforcement-sdk.ts`, `lib/integrations/agentcore-gateway/preflight.ts`, `lib/evidence/adapters/logsense-competition-bundle.ts`, and `lib/evidence/adapters/cyclonedx-intake.ts` are real bounded integration foundations. Validate availability/actual customer wiring before a new product module.
+- The OpenAI/Anthropic wrappers do submit usage records to `app/api/v1/inventory/usage/log/route.ts`. Their limited token/latency/cost signals are **not**, by themselves, proven tool effects.
+- Some legacy AWS/Azure/GCP/Jira scanners produce fabricated positive control results but their old `scanAllSources` import has **no caller confirmed by indexed search**; do not describe customer exposure or a production exploit as confirmed until a complete caller/build trace establishes it.
+
+**Preferred follow-on:** see `OWN-REUSE-INTEGRATE-DEFER-ENTERPRISE-STRATEGY-2026-10-16.md` and `INTEGRATION-AND-BUILD-DECISION-REGISTER.csv`. Current recommendation: no new general scanner, policy engine, observability SaaS, generic asset inventory or broad agent-builder. Compose and qualify canonical owners, then validate one specific governed consequential action end-to-end.
