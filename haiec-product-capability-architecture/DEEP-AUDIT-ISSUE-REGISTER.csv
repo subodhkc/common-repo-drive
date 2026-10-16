@@ -17,3 +17,4 @@ gap_id,priority,gap,evidence_status,next_action,repo_anchor,product_pillar,owner
 "A16","P2","Tracked nested node_modules","CONFIRMED_TRACKED","Separate controlled cleanup with lockfile/build regression","packages/haiec-openai/node_modules/","All","Engineering"
 "A17","P2","Obsolete architecture docs","HISTORICAL_STALE","Mark superseded and build evidence-to-claim docs index","docs/architecture/U0-INTERNAL-TOOLS-MAP.md","All","Documentation"
 "A18","P2","Specialist regulatory/risk/forensic modules","CANDIDATE_READINESS","Qualify 20 modules for entrypoints, scopes, source and deliverables before promotion","lib/wizard-v2/","All","Product"
+"A19","P1","Deprecated migration and sensitive diagnostic endpoints","ADMIN_AND_ENV_GUARDED_SOURCE_REVIEW","Confirm unused migration route; restrict prod diagnostics and add negative authorization tests","app/api/admin/run-migrations/route.ts","All","Security"
