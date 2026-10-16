@@ -91,3 +91,5 @@ This folder is the shared source of planning and Devin handoff artifacts for HAI
 **Decision:** no change to three pillars or six selectable capabilities. Confirm operational-control authorization, no simulated results, no silent effect inference, and a verified release before broader UX or provider integrations.
 
 **2026-10-16 pilot decision:** [Kestrel-first real-action pilot, operator authentication and optional AWS targets](KESTREL-FIRST-PILOT-AUTH-AND-AWS-ALTERNATIVES-2026-10-16.md). Research-only: exact Kestrel dispatch/effect concern, 10 prioritized research steps and decision to defer AWS dependency. No product repo edits.
+
+**KestrelVoice SaaS productization (2026-10-16):** [Full action-to-effect map, platform-admin vs tenant boundaries, onboarding/late opt-in, HAIEC trust positioning and pilot](KESTREL-SAAS-ACTION-TO-EFFECT-HAIEC-TRUST-INTEGRATION-PLAN-2026-10-16.md). Source-anchored architecture and security review; no code changes.
