@@ -33,6 +33,15 @@ This folder is the shared source of planning and Devin handoff artifacts for HAI
 - **E0 is not production release acceptance. R1 research is complete. No product code or testing was performed.**
 
 
+## E1/E2 implementation-ready packet — work in the owning Devin session
+
+- [E1 Capability Availability / Workflow Composition](E1-CUSTOMER-GOAL-AVAILABILITY-AND-WORKFLOW-COMPOSITION-IMPLEMENTATION-CONTRACT-2026-10-16.md) — 13 real canonical goal IDs, six selectable customer job families, per-tenant eligible/readiness/next-step projection, existing UX and tool paths.
+- [E2 Source Onboarding](E2-LOW-FRICTION-SOURCE-ONBOARDING-AND-EVIDENCE-QUALIFICATION-IMPLEMENTATION-CONTRACT-2026-10-16.md) — source consent, exact repo/branch/asset verification, local bundle and runtime-only alternative with honest unknowns.
+- [E3/E4 Security and Telemetry ownership handoff](E3-E4-SEPARATE-SECURITY-TELEMETRY-OWNERSHIP-AND-E1-E2-HANDOFF-2026-10-16.md) — independent code-owner proposal and typed interfaces.
+- [17 subtask acceptance/owner matrix](E1-E2-IMPLEMENTATION-READY-SUBTASKS-AND-OWNER-GATES-2026-10-16.csv) — fine-grained file/domain reservations and readiness criteria.
+- **Planning complete, not implemented.** Do not treat a planning file or available route as completed customer acceptance. No external Kestrel tenant testing yet.
+
+
 ## Deliverables
 
 - `HAIEC-PRODUCT-CAPABILITY-WORKFLOW-MATRIX.md`: evidence-backed capability and user workflow matrix

@@ -32,6 +32,15 @@ Shared, version-controlled **planning, diagrams and developer handoff** for HAIE
 - E0 is **source reconciled, release gate still open**; R1 is **read-only research complete**. PR #2220 is still staged and not deployed. Dedicated Kestrel external acceptance stays deferred until E1–E7 enhancements.
 
 
+## Current E1/E2 implementation handoff — 2026-10-16
+
+- [E1: Goal availability and customer workflow composition](./haiec-product-capability-architecture/E1-CUSTOMER-GOAL-AVAILABILITY-AND-WORKFLOW-COMPOSITION-IMPLEMENTATION-CONTRACT-2026-10-16.md) — reuses 13 canonical MCP goals, 58 source definitions and existing system readiness; exact tenant eligibility is a read projection, not another engine.
+- [E2: Frictionless source onboarding and evidence qualification](./haiec-product-capability-architecture/E2-LOW-FRICTION-SOURCE-ONBOARDING-AND-EVIDENCE-QUALIFICATION-IMPLEMENTATION-CONTRACT-2026-10-16.md) — GitHub App, source/branch/consent, supported local bundle, runtime-only and declaration paths remain independently available.
+- [E3 security / E4 telemetry: separate owner boundaries](./haiec-product-capability-architecture/E3-E4-SEPARATE-SECURITY-TELEMETRY-OWNERSHIP-AND-E1-E2-HANDOFF-2026-10-16.md) — proposed exclusive file reservations and read-only cross-team interfaces.
+- [17-item E1/E2 delivery worklist](./haiec-product-capability-architecture/E1-E2-IMPLEMENTATION-READY-SUBTASKS-AND-OWNER-GATES-2026-10-16.csv) — implementable tasks with owners, dependencies and proof boundaries.
+- **Current status:** E1/E2 source-backed implementation **design complete; code not shipped**. E3/E4 interface ownership proposed, not assigned or deployed. Active Devin maintains the HAIEC source; this research session made no product code edits or tests.
+
+
 ## Active project handoffs
 
 ### [HAIEC Product Capability & Workflow Architecture](./haiec-product-capability-architecture/README.md)
