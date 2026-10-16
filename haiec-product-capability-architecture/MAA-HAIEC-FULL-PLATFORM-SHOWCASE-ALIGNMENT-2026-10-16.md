@@ -2,6 +2,19 @@
 
 **2026-10-16 — shared design/Devin guidance.** This is an **append-only design reconciliation**. It does not assert a product implementation, approve a PR, replace the 87-row audited capability register or change existing evaluation results.
 
+## Addendum — Accept Synthetic Human Governance and Execution Controls in HAIEC Demonstrations
+
+**Reviewed after Sprint 24, 2026-10-16.** The earlier PDF validation used an unnecessarily restrictive creative-use standard. HAIEC's manufacturing experience **already contains fictional scoped approval, rejection and pending requests; reviewer-role evidence; email/text previews; fixed-clock monitoring sources; and deterministic synchronized playback of held/allowed/blocked operations**. These should be proudly presented as an **operating-model demonstration of HAIEC**, not removed.
+
+- **Actual HAIEC engine on synthetic evidence:** Station 217's Oct 14 source input includes a previously recorded target-divergent transaction. The deterministic detection identifies it. No inference of factory impact or prevention.
+- **Fictional governance:** Station 217's subsequent expanded MES write request is PENDING with a Quality Director role assigned; lower-risk advisory work remains in declared scope.
+- **Simulation gateway demonstration:** A *later, separate* request to enlarge MES writes is rejected/held in the virtual playback. It is accurate to write "the demo held the attempted expansion" or "a simulated control prevents the subsequent demo write." It is inaccurate to assert that HAIEC stopped the *earlier already recorded* synthetic transaction or physically controlled a live factory.
+- **Fictional readiness gate:** "PASSED" values for fabricated org entitlement, system registration or reviewer eligibility are allowed as **source-authored demo states** only after a matching versioned fixture field exists. They cannot be represented as tested live product entitlements or authenticated employee signatures.
+- **Monitoring:** stale `torque-tool-event-log` and missing `mes-release-readback` in the Oct 15 fixed-clock scenario are compatible with a qualified target readback in the **different Oct 14 evaluated transaction**. Keep event and transaction identities separate.
+- **Product UX:** No repeated "synthetic" badges across each block. Put a small "Demo playback" marker by player controls and the full methodology on the last dedicated page. Showcase HAIEC's three pillars and six independently invocable user goals up front.
+
+Authoritative implementation guidance and page-by-page corrections live in [MAA product story](https://github.com/subodhkc/manufacturing-ai-assurance-haiec/tree/main/docs/product-story), particularly `SYNTHETIC-CONTROL-DEMO-ACCEPTANCE-AND-S25-STORYBOARD.md`. **No new engine/evaluation rerun is warranted to tell the full product story.**
+
 ## Product decision
 
 MAA is a **manufacturing reference implementation / demonstrator of HAIEC**, not an independently forked security product. All manufacturing dashboard work should lead with **HAIEC's enterprise USP** and demonstrate relevant capabilities throughout the product, using nine manufacturing AI systems as representative operating examples.
