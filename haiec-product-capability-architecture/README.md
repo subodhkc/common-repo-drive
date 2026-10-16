@@ -1,8 +1,16 @@
 # HAIEC Product Capability & Workflow Architecture
 
+
+## Start here — current work order and 52-file audit
+
+**[Current decisions and precedence](CURRENT-DECISIONS-AND-DOCUMENT-PRECEDENCE-2026-10-16.md)** is the current authority for future implementation priorities, superseding older Task-A-before-B plans **as overall sprint scheduling** while preserving PR #2220 as a P0 release/security gate. Consult the [full 52-file alignment audit](COMMON-REPO-FULL-52-FILE-ALIGNMENT-AUDIT-2026-10-16.md) and [20-item audit resolution register](COMMON-REPO-52-FILE-ALIGNMENT-FINDINGS-2026-10-16.csv). E1/E2 design is complete, **code is not shipped**; E3/E4 are separate lanes; Kestrel external MCP acceptance remains deferred.
+
+Checked heads (2026-10-16): HAIEC `66f52086`; manufacturing `44dbe7e4` (Sprint 27 merged on GitHub, Vercel production unverified). This planning repo is public; route-specific confidential weaknesses require restricted access.
+
+
 This folder is the shared source of planning and Devin handoff artifacts for HAIEC, LogSense and the manufacturing application. It is a **planning and provenance repository**, not executable product truth.
 
-## Current handoff — read this first (2026-10-16)
+## Foundational source-research handoff (2026-10-16)
 
 - [Pre-Devin Research Closure and Source Decisions](PRE-DEVIN-RESEARCH-CLOSURE-AND-SOURCE-DECISIONS-2026-10-16.md) — complete source-backed product/assurance/security decision packet and primary AWS/MCP/OTel references; **research, not implemented code**.
 - [Six customer journeys CSV](SIX-CUSTOMER-JOURNEYS-ACCEPTANCE-RESEARCH-2026-10-16.csv) — six bounded positive/negative acceptance paths. Existing 16-goal UI/MCP/API matrix and 87-row curated inventory remain separate.
