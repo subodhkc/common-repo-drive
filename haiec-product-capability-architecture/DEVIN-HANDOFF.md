@@ -18,6 +18,8 @@ Before pursuing KestrelVoice as a showcase test target, read [the complete secur
 **Public repo caution:** KestrelVoice source is private, common-repo-drive is public. Detailed vulnerability reproductions, affected customer information, exploit preconditions and secrets belong in restricted security tickets, not public architecture docs. Review earlier common repo discussions for sensitive disclosures; editing Git history is a distinct repo governance decision.
 
 
+**Full product scope:** The [37-capability Kestrel coverage crosswalk](KESTRELVOICE-37-CAPABILITY-SECURITY-HAIEC-COVERAGE-CROSSWALK-2026-10-16.csv) must be reconciled with target writer truth before promising full protection. Catalog entries do not prove implemented runtime controls. The Kestrel review assumes the separate active implementation owner; no tests are requested until its prioritized enhancements are ready.
+
 ## Required reading sequence
 
 1. `README.md` then `HAIEC-PRODUCT-CAPABILITY-WORKFLOW-MATRIX.md` and `CAPABILITY-MATRIX.csv`.
