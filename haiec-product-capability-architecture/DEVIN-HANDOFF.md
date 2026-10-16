@@ -76,3 +76,9 @@ Read `PRODUCT-TRUTH-RELEASE-GATE-STATUS.json` before PR #2220 release. Source-le
 ## Pre-Devin acceptance packet (supersedes older implementation ordering)
 
 Start with `PRE-DEVIN-EXECUTION-GATE-AND-LAYER-ALIGNMENT-2026-10-16.md` and `PRODUCT-TRUTH-RELEASE-GATE-STATUS.json`. Current Main includes Sprint 24 scenario playback; PR #2220 is based on an older Main and must be reconciled and tested before merge. One active safety workstream first, then source-to-workflow availability reconciliation, then a deliberately selected enterprise action pilot. **Do not initiate broad UI navigation rewrite, additional engine development, all-provider IAM/OTLP connector work, or mandatory manifests.** Preserve demo/prod evidence separation.
+
+## Latest CI finding on PR #2220 (2026-10-16)
+
+GitHub PR head `32e54c58`: **TypeScript typecheck passed**, but repo-wide ESLint **failed** and **ESLint New-Violations Gate failed**. The latter compared 7,546 baseline violation signatures with 7,550 current and surfaced **30 new unused-parameter occurrences** in five fail-closed compatibility modules: `aws-scanner.ts`, `azure-scanner.ts`, `gcp-scanner.ts`, `jira-confluence-scanner.ts`, and `multi-source-orchestrator.ts`. This is a PR-introduced regression, regardless of the unrelated historic baseline. See [job logs](https://github.com/subodhkc/haiec-website/actions/runs/38884791468/job/116920344246).
+
+**Task A amendment:** Correct these 30 diagnostics without changing exported signatures, enabling legacy scans, suppressing the rule, or inflating `.lint-baseline.json`. Re-run the new-violations gate and focused safety tests. Green TypeScript alone is not release acceptance. Vercel Preview Comments success does not verify an actual Vercel preview. Merge to Main and production verification remain blocked until required gates pass. Refer to `PRODUCT-TRUTH-RELEASE-GATE-STATUS.json` for current release state; earlier `SKIPPED` claims are superseded.
