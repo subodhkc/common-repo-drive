@@ -44,6 +44,11 @@ This folder is the shared source of planning and Devin handoff artifacts for HAI
 
 **Publication:** site draft PR #2217 still contains earlier pair of architecture SVGs; newer designs are committed here and require selection/visual review before the site PR changes.
 
+## Manufacturing showcase convergence (2026-10-16)
+
+- [MAA — HAIEC full-platform showcase alignment](MAA-HAIEC-FULL-PLATFORM-SHOWCASE-ALIGNMENT-2026-10-16.md): uses the manufacturing reference to demonstrate all appropriate HAIEC product capabilities, adopts a single end-of-dashboard source/methodology disclosure, reconciles the NotebookLM and Station 217 PDF draft content, and protects independent workflow selection and saved evaluations.
+- Supporting MAA source-qualified documents are indexed in [MAA product story](https://github.com/subodhkc/manufacturing-ai-assurance-haiec/tree/main/docs/product-story).
+
 ## Deep repository and market reconciliation (2026-10-16)
 
 - `DEEP-REPOSITORY-ORPHANS-AND-ENTERPRISE-COMPETITIVE-AUDIT-2026-10-16.md` — current source-confirmed audit, Accenture/Microsoft/IBM/AWS/Cisco benchmark, clear operational product and UX priorities
