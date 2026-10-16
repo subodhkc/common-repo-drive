@@ -61,3 +61,7 @@ case report + operating report + 12-page PDF); nothing uploads itself.
 
 - CODE_VERIFIED: all items above.
 - NOT_VERIFIED at doc-write time: PR merge, Vercel production redeploy.
+
+## Independent GitHub merge-status update (2026-10-16, later audit)
+
+The original `NOT_VERIFIED at doc-write time` statement remains correct for that snapshot. A later read-only GitHub check verified manufacturing `main` **`1fa4c6405808edea64540021df8b1d261cd43c3d`** at merged Sprint 28 PR #49. This verifies GitHub source merge only; **no production Vercel deployment, live MES/ERP/PLC/HAIEC target action, or tests rerun by the common-repo auditor** were established. The recorded tests are claims from the sprint implementation status, not fresh audit results. The earlier Sprint 27 PO partial-mutation defect and Sprint 28 correction are version-bound, not retrospectively repaired historic evidence. See [current precedence](CURRENT-DECISIONS-AND-DOCUMENT-PRECEDENCE-2026-10-16.md).
