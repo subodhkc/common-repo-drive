@@ -20,6 +20,11 @@ Before pursuing KestrelVoice as a showcase test target, read [the complete secur
 
 **Full product scope:** The [37-capability Kestrel coverage crosswalk](KESTRELVOICE-37-CAPABILITY-SECURITY-HAIEC-COVERAGE-CROSSWALK-2026-10-16.csv) must be reconciled with target writer truth before promising full protection. Catalog entries do not prove implemented runtime controls. The Kestrel review assumes the separate active implementation owner; no tests are requested until its prioritized enhancements are ready.
 
+## New primary order: enhancement-first (2026-10-16)
+
+Read [HAIEC enhancement-first roadmap](HAIEC-ENHANCEMENT-FIRST-RESEARCH-ROADMAP-AND-KESTREL-EXTERNAL-MCP-ACCEPTANCE-2026-10-16.md) with [22-item backlog](HAIEC-ENHANCEMENT-FIRST-DEFERRED-TEST-BACKLOG-2026-10-16.csv) before implementing new HAIEC UX/MCP work. It supersedes earlier pilot-first and test-first sequencing. Complete E0–E7 enhancements, then use a separate external workspace and authorized isolated Kestrel test tenant for remote HAIEC MCP acceptance. Record every material customer operation and numbered redacted screenshots, produce a final evidence-bound illustrated user journey. A separate Devin session already owns HAIEC implementation. Main observed 66f52086; PR #2220 remains unmerged at last check. No external tests requested now.
+
+
 ## Required reading sequence
 
 1. `README.md` then `HAIEC-PRODUCT-CAPABILITY-WORKFLOW-MATRIX.md` and `CAPABILITY-MATRIX.csv`.
