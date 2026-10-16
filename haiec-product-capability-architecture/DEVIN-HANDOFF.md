@@ -1,12 +1,18 @@
 # Devin Implementation Handoff — HAIEC Product Architecture Convergence
 
+
+## Mandatory read-first: current decisions and documentation audit
+
+**Before making any HAIEC/MAA/Kestrel code change, read [CURRENT-DECISIONS-AND-DOCUMENT-PRECEDENCE-2026-10-16.md](CURRENT-DECISIONS-AND-DOCUMENT-PRECEDENCE-2026-10-16.md) and [52-file alignment audit](COMMON-REPO-FULL-52-FILE-ALIGNMENT-AUDIT-2026-10-16.md); follow the [20-findings register](COMMON-REPO-52-FILE-ALIGNMENT-FINDINGS-2026-10-16.csv) for document/owner release gaps.** This heading supersedes the older “Current precedence” paragraph below as a **work-order pointer only** (historical research snapshots remain valid for their own commit). E1→E2 is the HAIEC goal/onboarding path, E3 handles separate PR #2220/privileged security, E4 owns telemetry; do not perform external Kestrel tenant MCP acceptance until E1–E7 enhancements and release gates are done. Current observed HAIEC Main `66f52086`, MFG Sprint 27 merged on GitHub at `44dbe7e4`; production deploy not verified. Do not duplicate live Devin work or write sensitive findings into the public common repository.
+
+
 **Owners:** HAIEC main application is `subodhkc/haiec-website` on `Main`; forensic investigation is `subodhkc/Enterprise-AI-Forensic-Log-Analyzer-` on `main`; independent fictional demo is `subodhkc/manufacturing-ai-assurance-haiec` on `main`. Planning and handoff home: `subodhkc/common-repo-drive/haiec-product-capability-architecture`.
 
-**Current precedence (2026-10-16):** For immediate work, `PRE-DEVIN-EXECUTION-GATE-AND-LAYER-ALIGNMENT-2026-10-16.md` and `PRODUCT-TRUTH-RELEASE-GATE-STATUS.json` supersede the older P0/P1 ordering below. Latest HAIEC source Main is `75ffb329`; PR #2220 is open and not deployed. Read the MAA accepted scenario storyboard for demonstration work; do not apply production integration proof requirements to clearly labeled simulation playback.
+**Prior research precedence (superseded for future work by the current decisions index):** For the older handoff, `PRE-DEVIN-EXECUTION-GATE-AND-LAYER-ALIGNMENT-2026-10-16.md` and `PRODUCT-TRUTH-RELEASE-GATE-STATUS.json` supersede the older P0/P1 ordering below. HAIEC Main at that earlier research snapshot was `75ffb329`; PR #2220 is open and not deployed. Read the MAA accepted scenario storyboard for demonstration work; do not apply production integration proof requirements to clearly labeled simulation playback.
 
 ## Current primary research packet and work ownership (2026-10-16)
 
-**START HERE:** [PRE-DEVIN-RESEARCH-CLOSURE-AND-SOURCE-DECISIONS-2026-10-16.md](PRE-DEVIN-RESEARCH-CLOSURE-AND-SOURCE-DECISIONS-2026-10-16.md) and [SIX-CUSTOMER-JOURNEYS-ACCEPTANCE-RESEARCH-2026-10-16.csv](SIX-CUSTOMER-JOURNEYS-ACCEPTANCE-RESEARCH-2026-10-16.csv). These reconcile the older UX/architecture plan, PR #2220 staged security state, Sprint 24 / MAA Sprint 25 demonstration acceptance, six customer journeys, AWS policy modes, MCP auth and OTel interoperability. **They are research/acceptance contracts, not code acceptance.**
+**FOUNDATIONAL RESEARCH:** [PRE-DEVIN-RESEARCH-CLOSURE-AND-SOURCE-DECISIONS-2026-10-16.md](PRE-DEVIN-RESEARCH-CLOSURE-AND-SOURCE-DECISIONS-2026-10-16.md) and [SIX-CUSTOMER-JOURNEYS-ACCEPTANCE-RESEARCH-2026-10-16.csv](SIX-CUSTOMER-JOURNEYS-ACCEPTANCE-RESEARCH-2026-10-16.csv). These reconcile the older UX/architecture plan, PR #2220 staged security state, Sprint 24 / MAA Sprint 25 demonstration acceptance, six customer journeys, AWS policy modes, MCP auth and OTel interoperability. **They are research/acceptance contracts, not code acceptance.**
 
 Another Devin session is working in HAIEC and/or manufacturing. This common-repo research session did **not edit either product repo**. Before implementation, the responsible Devin worker must confirm current branches/PR ownership and avoid overwriting active work. Read current code HEADs, not only old snapshot links. PR #2220 belongs to HAIEC (not this planning repository), remains unmerged at last inspection, and must not be claimed released. The separate MAA synthetic storyboard can proceed without PR #2220 production completion.
 
