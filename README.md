@@ -45,3 +45,9 @@ Shared, version-controlled **planning, diagrams and developer handoff** for HAIE
 - [Operational dependency flow diagram (SVG)](./haiec-product-capability-architecture/diagrams/haiec-operational-dependency-flow.svg)
 
 **Asset honesty:** Exact generated PNGs from the conversation are not binary-committed; editable, corrected SVG reconstructions are. Original six historical PNGs remain pending source-image import.
+
+### Deep repository and enterprise competitive audit
+
+- [Deep HAIEC repository, dormant-module and competitive review](./haiec-product-capability-architecture/DEEP-REPOSITORY-ORPHANS-AND-ENTERPRISE-COMPETITIVE-AUDIT-2026-10-16.md)
+- [18-item prioritized source finding register](./haiec-product-capability-architecture/DEEP-AUDIT-ISSUE-REGISTER.csv)
+
