@@ -1,13 +1,21 @@
 # HAIEC Common Repository Drive
 
+
+## Start here — current HAIEC / Kestrel decision authority
+
+**[Current decisions and document precedence](./haiec-product-capability-architecture/CURRENT-DECISIONS-AND-DOCUMENT-PRECEDENCE-2026-10-16.md)** governs **future work sequencing and status interpretation**. [52-file repository audit](./haiec-product-capability-architecture/COMMON-REPO-FULL-52-FILE-ALIGNMENT-AUDIT-2026-10-16.md) and [20-finding resolution register](./haiec-product-capability-architecture/COMMON-REPO-52-FILE-ALIGNMENT-FINDINGS-2026-10-16.csv) identify the remaining alignment/security/release concerns. Historical snapshot docs remain for source provenance.
+
+As of 2026-10-16: HAIEC Main `66f52086` (Sprint 25 merged), MFG main `44dbe7e4` (Sprint 27 GitHub merge observed; Vercel production not verified), HAIEC PR #2220 remains unmerged. E1/E2 implementation specifications are complete but **not shipped**; E3 P0 security/release and E4 evidence lanes require separate ownership. External Kestrel remote-MCP test, screenshots and illustrated report remain **deferred until enhancements**. This common repo is **PUBLIC**; do not post private exploitable findings or secrets without first restricting access and reviewing publication risk.
+
+
 Shared, version-controlled **planning, diagrams and developer handoff** for HAIEC projects. This is deliberately not the HAIEC execution repository, runtime evidence database, or a canonical assurance policy store. Product truth continues to live in its owning repositories and operational evidence systems.
 
-### Current research-only handoff packet (2026-10-16)
+### Foundational research packet (historical snapshots, 2026-10-16)
 
 - [pre-Devin source-backed research decisions](./haiec-product-capability-architecture/PRE-DEVIN-RESEARCH-CLOSURE-AND-SOURCE-DECISIONS-2026-10-16.md): consolidated source inspection, six customer acceptance journeys, security questions, AgentCore/MCP/OTel external specifications, and explicit own/reuse/integrate/defer decisions.
 - [Six-journey machine-readable acceptance research](./haiec-product-capability-architecture/SIX-CUSTOMER-JOURNEYS-ACCEPTANCE-RESEARCH-2026-10-16.csv): exact minimum sources, positive/negative cases, acceptance gates and design owners.
 - **Ownership freeze:** this packet was created by writing **only** to common-repo-drive. HAIEC and manufacturing repositories are owned by another active implementation session; product code, CI, merges and deployments remain external to this research handoff.
-- Current reference: HAIEC Main 75ffb329; PR #2220 remains in HAIEC, open/unmerged at 32e54c58 when checked. Refresh before implementation. MAA latest reviewed Main 3a88b1bb.
+- Historical reference from that packet: HAIEC Main 75ffb329; PR #2220 remains in HAIEC, open/unmerged at 32e54c58 when checked. Refresh before implementation. MAA latest reviewed Main 3a88b1bb.
 
 
 ## KestrelVoice security-first architecture study (2026-10-16)
