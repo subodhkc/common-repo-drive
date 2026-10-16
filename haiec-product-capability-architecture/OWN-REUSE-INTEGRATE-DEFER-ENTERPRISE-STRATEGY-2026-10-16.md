@@ -173,3 +173,25 @@ The arrows mean candidate fact flow or task-specific relationships, **not** all 
 - Sigstore verification: https://docs.sigstore.dev/cosign/verifying/verify/
 
 **Convergence decision:** **BUILD the meaning and proof of consequential AI authority. BUY/REUSE transport, observability, identity and enforcement engines. INTEGRATE one real provider at a time. IGNORE the temptation to own every enterprise control plane.**
+
+## 9. Focused integration candidate: independently verify enforcement configuration
+
+AWS publishes two distinct policy states: Gateway policy-engine mode (LOG_ONLY or ENFORCE) and individual policy-level mode (ACTIVE or LOG_ONLY). This distinction matters because observing a logged decision does not establish that an action was blocked. AWS also describes temporal policy sessions and account/region limits to session identity propagation.
+
+**HAIEC repository status:** The AgentCore Gateway preflight and existing AWS evidence contracts provide relevant foundations. A targeted source search did not locate a dedicated control-plane policy-mode state reader. This is a **qualification task**, not proof that all such functionality is absent.
+
+**Suggested narrow read-only integration:**
+- Obtain authorized Gateway identifier, policy attachment, current policy mode, version and scope; preserve collection freshness and explicit unknowns.
+- Compare current policy configuration to a **human-approved policy baseline**, without inventing the baseline.
+- Map separate logged evaluation, actual enforcement evidence and observed effects to exact policy and action identities.
+- Surface a meaningful **protection-posture change** to operations, with the approver and remediation owner.
+- If enforcement integration is not observable, display `ENFORCEMENT_NOT_VERIFIED` rather than green protection.
+- All changes to a customer's Gateway remain outside this read-only scope, requiring separate explicit operator approval.
+
+**Why valuable:** hyperscalers enforce inside their configured perimeter; HAIEC can independently attest *what policy was approved*, *what configuration was observed*, *what specific action was evaluated*, and *what consequence the evidence establishes*.
+
+**Acceptance:** An authorized configuration change results in a versioned evidence-backed posture delta; LOG_ONLY is never presented as applied blocking; missing observations remain unknown.
+
+Primary provider documents:
+- https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/policy-enforcement-modes.html
+- https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/policy-session-based-temporal.html
