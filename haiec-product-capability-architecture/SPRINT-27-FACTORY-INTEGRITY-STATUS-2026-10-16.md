@@ -71,3 +71,7 @@ qualified commit) → torque anomaly + signal loss (OBSERVED) → record export.
 
 - CODE_VERIFIED: all items above.
 - NOT_VERIFIED at doc-write time: PR merge, Vercel production redeploy.
+
+## Independent GitHub merge-status update (2026-10-16, later audit)
+
+The original status above was correct **at its document-writing snapshot**. A later read-only common-repository alignment audit verified manufacturing `main` at **`44dbe7e4bcc029448300a356835d559790a47ed2`**, a GitHub merge titled **“Sprint 27: Digital Factory integrity — cross-system gates, sessions, portable record (#48)”**. Thus the Sprint 27 changes were **MERGED ON GITHUB** at the later audit. This does **not** establish Vercel production deployment, a live MES/ERP/PLC integration, HAIEC-issued U6 enforcement receipts, or a customer end-to-end acceptance test. The original `NOT_VERIFIED at doc-write time` history is retained intentionally. See [common-repo decision precedence](CURRENT-DECISIONS-AND-DOCUMENT-PRECEDENCE-2026-10-16.md) and [full alignment audit](COMMON-REPO-FULL-52-FILE-ALIGNMENT-AUDIT-2026-10-16.md).
