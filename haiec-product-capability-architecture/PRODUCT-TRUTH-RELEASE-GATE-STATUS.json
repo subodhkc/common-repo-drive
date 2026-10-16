@@ -46,11 +46,12 @@
     "p0": "EXPANDED_OPERATIONAL_SECURITY",
     "p1": "DEFER_NEW_PROVIDERS_UNTIL_GATE"
   },
-  "latestReviewedMainSha": "75ffb329cb75b35280456884299bfd16a9e7a0e8",
+  "latestReviewedMainSha": "66f5208613c3b5cd7e38ca1a5d9fa1d0aa2d1ff1",
   "mainChangeSinceBranchBase": {
-    "newCommits": 3,
-    "summary": "Sprint 24 shared synthetic governance scenario playback and homepage presentation; PR #2220 originated from earlier Main",
-    "overlapAssessment": "No shared changed paths found in inspected previous-Main -> current-Main diff, but review PR against current Main and run tests"
+    "newCommits": 5,
+    "summary": "Main includes merged Sprint 24 PR #2219 and Sprint 25 PR #2221 since PR #2220 base b2c14897; 5 intervening commits, 9 changed path names",
+    "overlapAssessment": "Main base→66f52086 lists 9 changed file paths; none are in PR #2220 17 changed path names. Exact-file non-overlap only. Functional compatibility, CI/mergeability and production release still require owner validation.",
+    "comparedMainSha": "66f5208613c3b5cd7e38ca1a5d9fa1d0aa2d1ff1"
   },
   "operationalAlignment": "3 pillars / 6 independent capability families / 5 orthogonal evidence planes / separately-authorized human decisions and runtime protection",
   "releaseReadiness": "BLOCKED: PR #2220 not merged; 30 PR-induced unused-parameter diagnostics in new-violations gate; repo-wide lint fails; targeted Vitest and org-bound runtime smoke not confirmed; Vercel production unverified.",
@@ -70,5 +71,22 @@
     "newViolations": "FAIL",
     "rootCause": "Compatibility scanner parameters unused after fail-closed conversion. Fix wrappers without allowing synthetic affirmative controls or increasing lint baseline.",
     "checksNeedRerun": true
+  },
+  "e0r1SourceReconciliation": {
+    "atMainSha": "66f5208613c3b5cd7e38ca1a5d9fa1d0aa2d1ff1",
+    "status": "SOURCE_AND_CANONICAL_OWNERS_RECONCILED_RELEASE_GATE_OPEN",
+    "inspectedPriorityWorkflowRows": 16,
+    "uiPathsPresent": 16,
+    "apiRouteFamiliesAllPresent": 16,
+    "mcpDefinitionsInCurrentMain": 58,
+    "documentedMcpToolsDefined": true,
+    "canonicalOwnerPathsExistForAllPriorityRows": true,
+    "performedRuntimeTests": false,
+    "externalKestrelTenantTest": "DEFERRED",
+    "trackedDocuments": [
+      "E0-R1-READ-ONLY-SOURCE-PR-AND-OWNERSHIP-RECONCILIATION-2026-10-16.md",
+      "E0-R1-16-WORKFLOW-CANONICAL-OWNER-SOURCE-RECONCILIATION-2026-10-16.csv"
+    ],
+    "branchProtectionEnforcement": "UNVERIFIED_LIVE_API_FORBIDDEN_403"
   }
 }
