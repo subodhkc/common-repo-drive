@@ -55,6 +55,6 @@ Shared, version-controlled **planning, diagrams and developer handoff** for HAIE
 ### Own / Reuse / Integrate / Defer — enterprise strategy
 
 - [Evidence-qualified HAIEC build-vs-integrate decision and flagship enterprise proof](./haiec-product-capability-architecture/OWN-REUSE-INTEGRATE-DEFER-ENTERPRISE-STRATEGY-2026-10-16.md)
-- [23-item transport and integration investment decision register](./haiec-product-capability-architecture/INTEGRATION-AND-BUILD-DECISION-REGISTER.csv)
+- [24-item transport and integration investment decision register](./haiec-product-capability-architecture/INTEGRATION-AND-BUILD-DECISION-REGISTER.csv)
 
 HAIEC owns consequential-action assurance. Use external policy engines, agent identities, telemetry infrastructure, runtime enforcement and signing mechanisms through verified transports where valuable. **No broad feature additions while canonical workflow and enforcement evidence remain unqualified.**
