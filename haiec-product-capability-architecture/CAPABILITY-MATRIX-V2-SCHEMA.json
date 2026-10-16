@@ -1,0 +1,73 @@
+{
+  "schemaVersion": "haiec-capability-census-v2-proposed/1.0",
+  "status": "PROPOSED_FIELD_MODEL_NOT_MIGRATED",
+  "requiredFields": [
+    "capabilityId",
+    "userGoal",
+    "canonicalOwner",
+    "sourceRevision",
+    "platformReadiness",
+    "entryPoints",
+    "personaAccess",
+    "organizationEntitlement",
+    "applicability",
+    "localPrerequisites",
+    "sourceAndEvidenceRequirements",
+    "evidencePlaneCoverage",
+    "sideEffectClassification",
+    "humanDecisionRequirements",
+    "evaluationAndOutputs",
+    "limitations",
+    "testsOrValidation"
+  ],
+  "definitions": {
+    "platformReadiness": "IMPLEMENTED|PARTIAL|SPECIALIZED|PREVIEW|HELD|INTEGRATION_REQUIRED|DEMO_FIXTURE|PROPOSED|NOT_IMPLEMENTED, tied to actual code/release owner",
+    "entryPoints": "An array of objects, each with type UI|MCP|API|CLI|EXTERNAL and exact path/tool name and availability",
+    "personaAccess": "Actual roles and action scopes; distinguish view permission from mutate capability",
+    "organizationEntitlement": "Per-org and per-system feature access; pricing tier not an assurance verdict",
+    "applicability": "Regulatory/system/industry/region applicability and reason",
+    "localPrerequisites": "Only those needed for this user's goal (not global stage gating)",
+    "sourceAndEvidenceRequirements": "Accepted evidence types, connection and qualification gates, fallback manual input and freshness",
+    "evidencePlaneCoverage": "Requested, Policy Authorized, Effectively Granted, Code Capable, Observed may be independently unsupported/not-assessed",
+    "sideEffectClassification": "READ_ONLY|TENANT_WRITE|EXTERNAL_EFFECT|OPERATIONAL_CONTROL and explicit confirmation",
+    "humanDecisionRequirements": "Approver identity, scopes, expiry, revocation, SoD as applicable",
+    "evaluationAndOutputs": "Canonical persisted status, reports/passports/receipts/reconstruction output and exact source basis",
+    "limitations": "Evidence/feature unavailable reasons and user-visible next step",
+    "testsOrValidation": "Bounded tests, security/privacy checks, runtime evidence and deployed release identity"
+  },
+  "exampleOnly": {
+    "capabilityId": "H0XX",
+    "userGoal": "Check my AI app",
+    "canonicalOwner": "lib/mcp/capability-guide.ts",
+    "sourceRevision": "verify on target commit",
+    "platformReadiness": "PARTIAL",
+    "entryPoints": [
+      {
+        "type": "MCP",
+        "name": "existing haiec_preflight + haiec_run_assurance; check canonical registry"
+      }
+    ],
+    "personaAccess": "read and run scopes need checking",
+    "organizationEntitlement": "tenant scope + plan evaluation",
+    "applicability": "code evidence in requested system",
+    "localPrerequisites": [
+      "authorized source or eligible local evidence submission"
+    ],
+    "sourceAndEvidenceRequirements": [
+      "source provenance",
+      "admissible scanner output"
+    ],
+    "evidencePlaneCoverage": {
+      "REQUESTED": "maybe",
+      "POLICY_AUTHORIZED": "depends",
+      "EFFECTIVELY_GRANTED": "optional",
+      "CODE_CAPABLE": "analyzer-dependent",
+      "OBSERVED": "optional"
+    },
+    "sideEffectClassification": "TENANT_WRITE",
+    "humanDecisionRequirements": "confirmation for mutating ingress where relevant",
+    "evaluationAndOutputs": "scoped results, evidence coverage, resolution plan",
+    "limitations": "does not claim five-plane PASS from source-only inputs",
+    "testsOrValidation": "targeted MCP tool contract and tenant enforcement checks"
+  }
+}
