@@ -51,3 +51,11 @@ This folder is the shared source of planning and Devin handoff artifacts for HAI
 - Existing 87-row matrix is **curated but not exhaustive**. Do not declare parity or completeness without current route-to-tool-to-producer acceptance.
 - No production HAIEC code was modified by this audit; diagram PR #2217 remains review-only.
 
+
+## Own-vs-integrate strategy (2026-10-16)
+
+- `OWN-REUSE-INTEGRATE-DEFER-ENTERPRISE-STRATEGY-2026-10-16.md` — source-checked architecture, existing OTLP/MCP/DAI/guardrail/human-decision reuse, external provider/OSS comparison, one production-grade example, exact no-go claims.
+- `INTEGRATION-AND-BUILD-DECISION-REGISTER.csv` — 23 candidate investments with decision, source owner, enterprise leverage, release gate and priority.
+- A correction appendix in `DEEP-REPOSITORY-ORPHANS-AND-ENTERPRISE-COMPETITIVE-AUDIT-2026-10-16.md` reconciles existing OTLP receiver and guardrail persistence omitted from earlier blanket statements.
+- **Preferred first integrator:** AWS AgentCore Gateway policy-mode and applied-action evidence; provider read-only integration first, no new policy engine or guaranteed customer runtime kill.
+- Product development remains governed by **one user goal → exact prerequisites → qualified evidence → canonical decision/proof**, with independent operation paths and explicit unknowns.
