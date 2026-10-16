@@ -53,3 +53,11 @@
 ## Addendum — reviewed architecture and completeness (2026-10-16)
 
 Review `PRODUCT-UX-OPERATIONAL-REVIEW-AND-DECISION-2026-10-16.md` and `MATRIX-COMPLETENESS-AND-RECONCILIATION-PLAN.md` before coding. Product UX should show 3 pillars and 6 goal families, **not** mandatory stages. The original 87 entries are curated and not a full route/producer/tool enumeration. Run `scripts/generate-workflow-census.py` against current clones, reconcile every exact route, and promote the specialist candidates only with demonstrated availability and evidence binding. New corrected diagrams are in `diagrams/`; keep PR #2217 in draft until the selected diagrams pass layout/accessibility/build acceptance. No claim that uploaded PNG originals are in GitHub.
+
+## Deep repository and market reconciliation (2026-10-16)
+
+- `DEEP-REPOSITORY-ORPHANS-AND-ENTERPRISE-COMPETITIVE-AUDIT-2026-10-16.md` — current source-confirmed audit, Accenture/Microsoft/IBM/AWS/Cisco benchmark, clear operational product and UX priorities
+- `DEEP-AUDIT-ISSUE-REGISTER.csv` — 18 prioritized, source-anchored findings and candidate remediation owners
+- Existing 87-row matrix is **curated but not exhaustive**. Do not declare parity or completeness without current route-to-tool-to-producer acceptance.
+- No production HAIEC code was modified by this audit; diagram PR #2217 remains review-only.
+
