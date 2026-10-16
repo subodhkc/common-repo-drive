@@ -73,3 +73,7 @@ The **entry point** existence is source verified, but production entitlement and
 The Kill Switch dashboard still accepts a bearer key from JavaScript. The current correction stops its persistence, but a **server-side, session-authorized proxy with HttpOnly authentication and dedicated operational RBAC** is a stronger long-term design. Do not implement that as an unreviewed UI patch.
 
 **No verified live provider integrations, enforcement receipts, CI passing status, or production deployment is claimed in this document.**
+
+## Validation status — updated after pull request creation
+PR #2220 is **open and ready for review**, but **not merged/deployed**. GitHub TypeScript and lint checks reported SKIPPED; Vercel preview deployments for the branch reported BLOCKED. Fourteen source-level checks passed (file truth and critical call order), but the two added Vitest suites and a full build have **not** executed. Refer to `PRODUCT-TRUTH-RELEASE-GATE-STATUS.json` before merging.
+Additional claims have been corrected on the branch in product listing, pricing FAQ, SEO metadata and engine welcome copy; remaining public surfaces still require periodic audit. The separate `/compliance-twin` UI route was verified and corrected in the 16-goal CSV.
