@@ -43,3 +43,11 @@ This folder is the shared source of planning and Devin handoff artifacts for HAI
 - `scripts/generate-workflow-census.py` — a tracked-file source census; does **not** auto-claim semantic product completeness
 
 **Publication:** site draft PR #2217 still contains earlier pair of architecture SVGs; newer designs are committed here and require selection/visual review before the site PR changes.
+
+## Deep repository and market reconciliation (2026-10-16)
+
+- `DEEP-REPOSITORY-ORPHANS-AND-ENTERPRISE-COMPETITIVE-AUDIT-2026-10-16.md` — current source-confirmed audit, Accenture/Microsoft/IBM/AWS/Cisco benchmark, clear operational product and UX priorities
+- `DEEP-AUDIT-ISSUE-REGISTER.csv` — 18 prioritized, source-anchored findings and candidate remediation owners
+- Existing 87-row matrix is **curated but not exhaustive**. Do not declare parity or completeness without current route-to-tool-to-producer acceptance.
+- No production HAIEC code was modified by this audit; diagram PR #2217 remains review-only.
+
