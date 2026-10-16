@@ -43,5 +43,19 @@
     "workflowJobs": "UNCHANGED_SIX",
     "p0": "EXPANDED_OPERATIONAL_SECURITY",
     "p1": "DEFER_NEW_PROVIDERS_UNTIL_GATE"
+  },
+  "latestReviewedMainSha": "75ffb329cb75b35280456884299bfd16a9e7a0e8",
+  "mainChangeSinceBranchBase": {
+    "newCommits": 3,
+    "summary": "Sprint 24 shared synthetic governance scenario playback and homepage presentation; PR #2220 originated from earlier Main",
+    "overlapAssessment": "No shared changed paths found in inspected previous-Main -> current-Main diff, but review PR against current Main and run tests"
+  },
+  "operationalAlignment": "3 pillars / 6 independent capability families / 5 orthogonal evidence planes / separately-authorized human decisions and runtime protection",
+  "releaseReadiness": "NOT_READY: PR open, no verified targeted test result, lint/typecheck skipped, Vercel preview blocked",
+  "preDevinHandoff": "PRE-DEVIN-EXECUTION-GATE-AND-LAYER-ALIGNMENT-2026-10-16.md",
+  "sprint24Demo": {
+    "origin": "SIMULATED",
+    "scope": "Presentation playback only; does not write real decisions or execute operational controls",
+    "notAssurance": "Do not promote scenario monitoring/approval to customer evidence"
   }
 }
