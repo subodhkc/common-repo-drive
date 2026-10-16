@@ -2,6 +2,8 @@
 
 **Owners:** HAIEC main application is `subodhkc/haiec-website` on `Main`; forensic investigation is `subodhkc/Enterprise-AI-Forensic-Log-Analyzer-` on `main`; independent fictional demo is `subodhkc/manufacturing-ai-assurance-haiec` on `main`. Planning and handoff home: `subodhkc/common-repo-drive/haiec-product-capability-architecture`.
 
+**Current precedence (2026-10-16):** For immediate work, `PRE-DEVIN-EXECUTION-GATE-AND-LAYER-ALIGNMENT-2026-10-16.md` and `PRODUCT-TRUTH-RELEASE-GATE-STATUS.json` supersede the older P0/P1 ordering below. Latest HAIEC source Main is `75ffb329`; PR #2220 is open and not deployed. Read the MAA accepted scenario storyboard for demonstration work; do not apply production integration proof requirements to clearly labeled simulation playback.
+
 ## Required reading sequence
 
 1. `README.md` then `HAIEC-PRODUCT-CAPABILITY-WORKFLOW-MATRIX.md` and `CAPABILITY-MATRIX.csv`.
@@ -76,6 +78,10 @@ Read `PRODUCT-TRUTH-RELEASE-GATE-STATUS.json` before PR #2220 release. Source-le
 ## Pre-Devin acceptance packet (supersedes older implementation ordering)
 
 Start with `PRE-DEVIN-EXECUTION-GATE-AND-LAYER-ALIGNMENT-2026-10-16.md` and `PRODUCT-TRUTH-RELEASE-GATE-STATUS.json`. Current Main includes Sprint 24 scenario playback; PR #2220 is based on an older Main and must be reconciled and tested before merge. One active safety workstream first, then source-to-workflow availability reconciliation, then a deliberately selected enterprise action pilot. **Do not initiate broad UI navigation rewrite, additional engine development, all-provider IAM/OTLP connector work, or mandatory manifests.** Preserve demo/prod evidence separation.
+
+## Approved MAA demonstration boundaries (2026-10-16)
+
+The [accepted Sprint 25 storyboard](https://github.com/subodhkc/manufacturing-ai-assurance-haiec/blob/main/docs/product-story/SYNTHETIC-CONTROL-DEMO-ACCEPTANCE-AND-S25-STORYBOARD.md) permits visibly simulated reviewer approval, notifications, monitored source changes and later held/blocked operations. Use positive product storytelling with a small `Demo playback` marker and one end methodology disclosure, not repeated restrictive warning cards. Preserve **two actions**: Oct 14 prior recorded target-divergent synthetic transaction actually *detected by HAIEC engine* (`REVIEW`); Oct 15 separate *simulated later attempt held* in an illustrative dispatcher. Do not claim the earlier commit was physically prevented or notifications delivered. No new signed evaluation or 45-case rerun solely for the demo. Keep MAA Sprint 25 scoped to existing playback and saved evaluation outputs. Do not block MAA design work on the separate HAIEC security-release PR, but do not advertise its fixes as deployed.
 
 ## Latest CI finding on PR #2220 (2026-10-16)
 
