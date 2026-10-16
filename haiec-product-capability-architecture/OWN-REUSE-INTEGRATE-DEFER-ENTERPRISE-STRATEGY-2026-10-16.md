@@ -195,3 +195,17 @@ AWS publishes two distinct policy states: Gateway policy-engine mode (LOG_ONLY o
 Primary provider documents:
 - https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/policy-enforcement-modes.html
 - https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/policy-session-based-temporal.html
+
+## 10. Important developer distribution gap: MCP authentication transport
+
+**Current source truth:** `app/api/mcp/route.ts` explicitly requires a static Bearer HAIEC API key and says it is **not OAuth**. Its handlers enforce tenant and tool scopes through the canonical API key verifier and registered tools, which is valuable. The official MCP HTTP authorization specification defines an OAuth discovery flow for supported resource servers; this is a **client interoperability concern**, not a reason to replace existing HAIEC scope checks.
+
+**Recommendation:** add a **thin standards-compatible OAuth authorization transport** only if priority clients require it and delegated user authorization can be implemented correctly. Keep existing scoped API keys for CLI, CI, IDE and service-to-service usage. No customer credentials in prompt tool arguments or files.
+
+**Minimum acceptance:** Evaluate one IDE, one consumer ChatGPT MCP client path, and one API caller for metadata discovery where applicable, tools/list, scoped tools/call, tenant binding, explicit consent, token rotation/revocation, wrong-org refusal and actionable connection errors. All must delegate to the same HAIEC canonical scoped services without a second authorization database. Do not claim universal one-click compatibility before actual client testing.
+
+Relevant source:
+- https://github.com/subodhkc/haiec-website/blob/b2c1489773bd95b9e361714fbf7c808bbc866ffb/app/api/mcp/route.ts
+- https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/docs/specification/2025-11-25/basic/authorization.mdx
+
+**Strategic priority:** For developer acquisition, reducing connection friction may have more immediate value than additional detector rules. For enterprise assurance sales, the stronger POC remains exact action-to-authority-to-enforcement-to-effect proof. These are complementary tracks, with separate acceptance criteria.
