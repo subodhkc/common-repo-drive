@@ -99,3 +99,7 @@ GitHub PR head `32e54c58`: **TypeScript typecheck passed**, but repo-wide ESLint
 ## Current pilot target decision (research-only)
 
 Read [KESTREL-FIRST-PILOT-AUTH-AND-AWS-ALTERNATIVES-2026-10-16.md](KESTREL-FIRST-PILOT-AUTH-AND-AWS-ALTERNATIVES-2026-10-16.md) before making AgentCore a requirement. Preferred first real-action target is KestrelVoice sandbox demo_scheduling with test-calendar readback, denial and unknown; AWS provider validation is optional later. Privileged operator UI should use server session, tenant-scoped authorization and step-up for high-risk changes; no persistent browser admin key. Note the Kestrel source-level acknowledgement-vs-commit mismatch candidate. No HAIEC, KestrelVoice or manufacturing code was changed by this workstream.
+
+## KestrelVoice tenant-vs-platform assurance and adoption plan
+
+Review [KESTREL-SAAS-ACTION-TO-EFFECT-HAIEC-TRUST-INTEGRATION-PLAN-2026-10-16.md](KESTREL-SAAS-ACTION-TO-EFFECT-HAIEC-TRUST-INTEGRATION-PLAN-2026-10-16.md) before any Kestrel/HAIEC integration work. A single `action_dispatcher` hook does not cover direct Next booking, Python workflow workers, SMS, MCP configuration and other effect writers. Pilot one test-calendar action, preserve exact commit receipts and unknowns, then evaluate shared target-level enforcement. Kestrel baseline governance is platform-owned; customers opt into tenant-scoped HAIEC assurance at onboarding or later without migration, with optional Observe/Govern/Enforce modes (proposed only). Keep code changes with the separate Devin owner.
