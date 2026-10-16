@@ -49,12 +49,20 @@ Shared, version-controlled **planning, diagrams and developer handoff** for HAIE
 ### Deep repository and enterprise competitive audit
 
 - [Deep HAIEC repository, dormant-module and competitive review](./haiec-product-capability-architecture/DEEP-REPOSITORY-ORPHANS-AND-ENTERPRISE-COMPETITIVE-AUDIT-2026-10-16.md)
-- [18-item prioritized source finding register](./haiec-product-capability-architecture/DEEP-AUDIT-ISSUE-REGISTER.csv)
+- [21-item prioritized source finding register](./haiec-product-capability-architecture/DEEP-AUDIT-ISSUE-REGISTER.csv)
 
 
 ### Own / Reuse / Integrate / Defer — enterprise strategy
 
 - [Evidence-qualified HAIEC build-vs-integrate decision and flagship enterprise proof](./haiec-product-capability-architecture/OWN-REUSE-INTEGRATE-DEFER-ENTERPRISE-STRATEGY-2026-10-16.md)
-- [24-item transport and integration investment decision register](./haiec-product-capability-architecture/INTEGRATION-AND-BUILD-DECISION-REGISTER.csv)
+- [26-item transport and integration investment decision register](./haiec-product-capability-architecture/INTEGRATION-AND-BUILD-DECISION-REGISTER.csv)
 
 HAIEC owns consequential-action assurance. Use external policy engines, agent identities, telemetry infrastructure, runtime enforcement and signing mechanisms through verified transports where valuable. **No broad feature additions while canonical workflow and enforcement evidence remain unqualified.**
+
+## Operational product-truth audit — 2026-10-16
+
+- [Verified workflow reachability, P0 corrections and roadmap impact](./haiec-product-capability-architecture/PRODUCT-TRUTH-WORKFLOW-REACHABILITY-AND-P0-CORRECTIONS-2026-10-16.md)
+- [16-goal UI/MCP/API availability reconciliation](./haiec-product-capability-architecture/UI-MCP-API-WORKFLOW-AVAILABILITY-RECONCILIATION.csv)
+- [HAIEC PR #2220: legacy evidence quarantine + Kill Switch tenant safety + truthful marketing](https://github.com/subodhkc/haiec-website/pull/2220)
+
+The corrections are currently proposed on an HAIEC feature branch; not yet a Main/Vercel release. This discovery **adds P0 operational-control authorization and browser credential-handling gates** ahead of the enterprise POC. Three product pillars and six independently available workflows remain unchanged.
