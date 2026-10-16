@@ -1,0 +1,13 @@
+# Public planning repository — never store credentials or customer evidence
+.env
+.env.*
+!.env.example
+*.pem
+*.p12
+*.key
+.secrets/
+secrets/
+customer-data/
+private-evidence/
+__pycache__/
+.DS_Store
