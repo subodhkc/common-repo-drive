@@ -4,6 +4,13 @@
 
 **Current precedence (2026-10-16):** For immediate work, `PRE-DEVIN-EXECUTION-GATE-AND-LAYER-ALIGNMENT-2026-10-16.md` and `PRODUCT-TRUTH-RELEASE-GATE-STATUS.json` supersede the older P0/P1 ordering below. Latest HAIEC source Main is `75ffb329`; PR #2220 is open and not deployed. Read the MAA accepted scenario storyboard for demonstration work; do not apply production integration proof requirements to clearly labeled simulation playback.
 
+## Current primary research packet and work ownership (2026-10-16)
+
+**START HERE:** [PRE-DEVIN-RESEARCH-CLOSURE-AND-SOURCE-DECISIONS-2026-10-16.md](PRE-DEVIN-RESEARCH-CLOSURE-AND-SOURCE-DECISIONS-2026-10-16.md) and [SIX-CUSTOMER-JOURNEYS-ACCEPTANCE-RESEARCH-2026-10-16.csv](SIX-CUSTOMER-JOURNEYS-ACCEPTANCE-RESEARCH-2026-10-16.csv). These reconcile the older UX/architecture plan, PR #2220 staged security state, Sprint 24 / MAA Sprint 25 demonstration acceptance, six customer journeys, AWS policy modes, MCP auth and OTel interoperability. **They are research/acceptance contracts, not code acceptance.**
+
+Another Devin session is working in HAIEC and/or manufacturing. This common-repo research session did **not edit either product repo**. Before implementation, the responsible Devin worker must confirm current branches/PR ownership and avoid overwriting active work. Read current code HEADs, not only old snapshot links. PR #2220 belongs to HAIEC (not this planning repository), remains unmerged at last inspection, and must not be claimed released. The separate MAA synthetic storyboard can proceed without PR #2220 production completion.
+
+
 ## Required reading sequence
 
 1. `README.md` then `HAIEC-PRODUCT-CAPABILITY-WORKFLOW-MATRIX.md` and `CAPABILITY-MATRIX.csv`.
