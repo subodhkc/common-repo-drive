@@ -71,10 +71,10 @@ This folder is the shared source of planning and Devin handoff artifacts for HAI
 - `UI-MCP-API-WORKFLOW-AVAILABILITY-RECONCILIATION.csv` — 16 explicit user workflows, existing tool names, UI/API routes, auth and source-evidence limitations.
 - [HAIEC PR #2220](https://github.com/subodhkc/haiec-website/pull/2220) — code changes and focused tests, not yet deployed.
 - Updated product plans: `PRODUCT-UX-OPERATIONAL-REVIEW-AND-DECISION-2026-10-16.md`, `OWN-REUSE-INTEGRATE-DEFER-ENTERPRISE-STRATEGY-2026-10-16.md` and `DEEP-REPOSITORY-ORPHANS-AND-ENTERPRISE-COMPETITIVE-AUDIT-2026-10-16.md`.
-- Open build gate: lint/typecheck CI skipped; focused source tests and smoke verification pending. Do not describe this as production remediated.
+- Open build gate: TypeScript passed; repo-wide ESLint and new-violations gate failed (30 new unused-parameter occurrences). Focused Vitest and tenant smoke are unverified. Do not describe this as production remediated.
 
 ## Review status and deployment caveat
-`PRODUCT-TRUTH-RELEASE-GATE-STATUS.json` is the current machine-readable release gate for PR #2220. This work is staged; GitHub lint and typecheck skipped, Vercel branch previews blocked, and focused Vitest plus UI tests have not run. Three-pillars/six-capabilities remains the accepted design recommendation. **Before merge, confirm tests and deploy readiness without changing the existing Vercel Git identity.**
+`PRODUCT-TRUTH-RELEASE-GATE-STATUS.json` is the current machine-readable release gate for PR #2220. This work is staged; TypeScript passed, ESLint/new-violations gates failed, branch deployment/functional preview is unverified, and focused Vitest plus tenant/runtime UI smoke are not confirmed. Three-pillars/six-capabilities remains the accepted design recommendation. **Before merge, confirm tests and deploy readiness without changing the existing Vercel Git identity.**
 
 ## Pre-Devin alignment and readiness — current handoff
 
