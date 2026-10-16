@@ -55,3 +55,7 @@ Columns still needing evidence-based population or explicit unknown:
 **HAIEC** owns canonical assurance, evidence ingestion, policy authority, comparisons, reports, user grants, reviews and runtime contracts. **LogSense** owns deterministic offline forensic reconstruction. **Manufacturing** owns labeled synthetic estate and independently generated acceptance inputs. Neither auxiliary repo should duplicate HAIEC canonical evaluations or purport to control customer equipment.
 
 **Bottom line:** 87 rows are the *initial decision inventory*; 20 more are candidate families. Exhaustiveness remains an explicit audit deliverable, not a completed property.
+
+## Operational workflow reconciliation checkpoint
+
+The new `UI-MCP-API-WORKFLOW-AVAILABILITY-RECONCILIATION.csv` maps 16 high-priority user goals to observed UI, MCP, and API entry points and their independent prerequisites. This focused mapping is not an exhaustive every-route product census. Deployment decisions and runtime emergency actions retain independent human authorization. Before promoting product readiness, verify role/tenant access, source qualification, supported producer, exact evidence basis, and outcome evidence. HAIEC PR #2220 contains the first targeted corrections, pending validation and merge.
