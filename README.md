@@ -25,6 +25,13 @@ Shared, version-controlled **planning, diagrams and developer handoff** for HAIE
 - GitHub visibility is currently **public**; restricted findings should be placed here only once repository access is appropriately restricted.
 
 
+## E0/R1 read-only source reconciliation completed (2026-10-16)
+
+- [HAIEC Main / PR / canonical ownership reconciliation](./haiec-product-capability-architecture/E0-R1-READ-ONLY-SOURCE-PR-AND-OWNERSHIP-RECONCILIATION-2026-10-16.md) — source-checked 16 customer journeys and active/recent PR collisions at Main `66f52086`.
+- [16-workflow owner and source presence matrix](./haiec-product-capability-architecture/E0-R1-16-WORKFLOW-CANONICAL-OWNER-SOURCE-RECONCILIATION-2026-10-16.csv) — all 16 listed UI/API routes and actual MCP tool definitions present in source; runtime/tenant acceptance remains untested.
+- E0 is **source reconciled, release gate still open**; R1 is **read-only research complete**. PR #2220 is still staged and not deployed. Dedicated Kestrel external acceptance stays deferred until E1–E7 enhancements.
+
+
 ## Active project handoffs
 
 ### [HAIEC Product Capability & Workflow Architecture](./haiec-product-capability-architecture/README.md)
