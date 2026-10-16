@@ -7,6 +7,7 @@ Shared, version-controlled **planning, diagrams and developer handoff** for HAIE
 ### [HAIEC Product Capability & Workflow Architecture](./haiec-product-capability-architecture/README.md)
 
 - [87-entry source-anchored capability/workflow matrix](./haiec-product-capability-architecture/HAIEC-PRODUCT-CAPABILITY-WORKFLOW-MATRIX.md)
+- [Supplementary 20-module product discovery register](./haiec-product-capability-architecture/SPECIALIZED-PRODUCT-DISCOVERY.md)
 - [Machine-readable matrix CSV](./haiec-product-capability-architecture/CAPABILITY-MATRIX.csv)
 - [Validation of six owner-supplied historical diagrams](./haiec-product-capability-architecture/ARCHITECTURE-DIAGRAM-REVIEW.md)
 - [Corrected website diagrams and design contract](./haiec-product-capability-architecture/DIAGRAM-SPECIFICATIONS.md)
