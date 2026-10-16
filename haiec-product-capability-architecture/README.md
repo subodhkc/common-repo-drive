@@ -9,6 +9,14 @@ This folder is the shared source of planning and Devin handoff artifacts for HAI
 - **No parallel HAIEC work from this research session.** HAIEC/Maa source was only read. Devin's active implementation session owns product code. Do not duplicate its edits or treat proposed branch fixes as Main.
 
 
+## KestrelVoice security baseline and tenant-scoped HAIEC program — current (2026-10-16)
+
+- [Detailed secure SaaS remediation and assurance study](KESTRELVOICE-SECURE-SAAS-INFRASTRUCTURE-HAIEC-ASSURANCE-REMEDIATION-STUDY-2026-10-16.md) — the **current security-first architecture decision**: harden KestrelVoice itself, establish factual telemetry and controls, then expose tenant-specific HAIEC assurance. Supersedes any pilot-first ordering in earlier Kestrel planning documents.
+- [38 Kestrel security and HAIEC control requirements](KESTRELVOICE-SECURE-SAAS-CONTROLS-REMEDIATION-REGISTER-2026-10-16.csv) — implementation ownership, scope, prerequisite, expected evidence and public-claim limitations.
+- **No tests now:** this is research, not runtime acceptance. No KestrelVoice, HAIEC, manufacturing or infrastructure modification from this session.
+- **Access:** public common repo. Keep specific private vulnerabilities and exploit details in an access-controlled security backlog, not this repo.
+
+
 ## Deliverables
 
 - `HAIEC-PRODUCT-CAPABILITY-WORKFLOW-MATRIX.md`: evidence-backed capability and user workflow matrix
