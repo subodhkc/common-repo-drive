@@ -33,3 +33,15 @@ Shared, version-controlled **planning, diagrams and developer handoff** for HAIE
 6. For Devin, begin at the project's README and handoff document; reconcile all code anchors against the latest source head before coding.
 
 **Asset note:** the six uploaded original PNGs are not yet pushed to GitHub; they are available in a byte-exact ZIP from the original conversation for verified import. Do not present them as published repo files until import and GitHub inspection succeed.
+
+### Latest operational UX review and corrected diagrams (2026-10-16)
+
+- [Product UX, operational flow and 3-pillar decision plan](./haiec-product-capability-architecture/PRODUCT-UX-OPERATIONAL-REVIEW-AND-DECISION-2026-10-16.md)
+- [Capability matrix completeness audit and source-census gate](./haiec-product-capability-architecture/MATRIX-COMPLETENESS-AND-RECONCILIATION-PLAN.md)
+- [V3/new-generated image validation](./haiec-product-capability-architecture/V3-AND-GENERATED-DIAGRAM-VALIDATION.md)
+- [Rebuilt V3 product architecture (SVG)](./haiec-product-capability-architecture/diagrams/haiec-v3-architecture-corrected.svg)
+- [Three pillars / six capabilities (SVG)](./haiec-product-capability-architecture/diagrams/haiec-three-pillars-six-capabilities.svg)
+- [12-family capability/workflow diagram (SVG)](./haiec-product-capability-architecture/diagrams/haiec-workflow-families-matrix.svg)
+- [Operational dependency flow diagram (SVG)](./haiec-product-capability-architecture/diagrams/haiec-operational-dependency-flow.svg)
+
+**Asset honesty:** Exact generated PNGs from the conversation are not binary-committed; editable, corrected SVG reconstructions are. Original six historical PNGs remain pending source-image import.
