@@ -5,6 +5,7 @@ This folder is the shared source of planning and Devin handoff artifacts for HAI
 ## Deliverables
 
 - `HAIEC-PRODUCT-CAPABILITY-WORKFLOW-MATRIX.md`: evidence-backed capability and user workflow matrix
+- `SPECIALIZED-PRODUCT-DISCOVERY.md`: 20 adjacent code-present product families requiring further readiness qualification
 - `CAPABILITY-MATRIX.csv`: machine-readable inventory
 - `ARCHITECTURE-DIAGRAM-REVIEW.md`: detailed review of historical user-supplied designs and claim corrections
 - `DIAGRAM-SPECIFICATIONS.md`: corrected diagrams for future HAIEC website work
