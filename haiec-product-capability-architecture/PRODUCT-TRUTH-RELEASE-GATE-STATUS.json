@@ -1,0 +1,47 @@
+{
+  "asOf": "2026-10-16",
+  "sourceBranch": "fix/product-truth-workflow-audit-20261016",
+  "pullRequest": "https://github.com/subodhkc/haiec-website/pull/2220",
+  "state": "OPEN_READY_FOR_REVIEW_NOT_MERGED",
+  "mainDeployed": false,
+  "mainBaseSha": "b2c1489773bd95b9e361714fbf7c808bbc866ffb",
+  "branchHeadSha": "32e54c58d9622fb26c5b035fcf471b1886109964",
+  "sourceInspection": {
+    "targetedFiles": 14,
+    "assertionsPassed": 14,
+    "failed": 0,
+    "semantics": "static source checks only, no executing test runner"
+  },
+  "newTestSuites": [
+    "tests/unit/legacy-simulated-provider-quarantine.test.ts",
+    "tests/security/kill-switch-trigger-tenant-boundary.test.ts"
+  ],
+  "checks": {
+    "githubLint": "SKIPPED",
+    "githubTypecheck": "SKIPPED",
+    "vercelPreview": "BLOCKED",
+    "vitest": "NOT_RUN",
+    "productionSmoke": "NOT_RUN"
+  },
+  "changedSourceFamilies": [
+    "legacy provider scanner quarantine",
+    "kill switch cross-org tenant check",
+    "ephemeral privileged dashboard keys",
+    "kill switch and marketing evidence claims",
+    "monitoring evidence limitations"
+  ],
+  "criticalConditions": [
+    "Run targeted Vitest negative tests",
+    "TypeScript/Next build verification",
+    "Correct-org and foreign-org runtime control smoke",
+    "Browser old key purge and rotation guidance",
+    "Review remaining marketing surfaces",
+    "Approve PR then merge and verify Vercel deployment"
+  ],
+  "planImpact": {
+    "productPillars": "UNCHANGED_THREE",
+    "workflowJobs": "UNCHANGED_SIX",
+    "p0": "EXPANDED_OPERATIONAL_SECURITY",
+    "p1": "DEFER_NEW_PROVIDERS_UNTIL_GATE"
+  }
+}
