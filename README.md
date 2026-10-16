@@ -68,11 +68,11 @@ HAIEC owns consequential-action assurance. Use external policy engines, agent id
 The corrections are currently proposed on an HAIEC feature branch; not yet a Main/Vercel release. This discovery **adds P0 operational-control authorization and browser credential-handling gates** ahead of the enterprise POC. Three product pillars and six independently available workflows remain unchanged.
 
 ## Pending release gate — product-truth correction
-The [PR #2220 implementation](https://github.com/subodhkc/haiec-website/pull/2220) remains **unmerged**. The [release gate status](./haiec-product-capability-architecture/PRODUCT-TRUTH-RELEASE-GATE-STATUS.json) records source-level checks, skipped GitHub CI and blocked Vercel preview attempts. Do not treat staged branch edits as deployed production controls.
+The [PR #2220 implementation](https://github.com/subodhkc/haiec-website/pull/2220) remains **unmerged**. The [release gate status](./haiec-product-capability-architecture/PRODUCT-TRUTH-RELEASE-GATE-STATUS.json) supersedes older skipped-CI notes: TypeScript **passed**, repo-wide ESLint and the new-violations gate **failed** (30 new unused-parameter occurrences in five compatibility wrappers), focused Vitest and tenant runtime smoke are not verified, and Vercel production deployment is not established. Do not treat staged branch edits as deployed production controls.
 
 ### Pre-Devin HAIEC architecture sign-off and execution gate
 
 - [Layer alignment, optional workflows and bounded Devin execution packet](./haiec-product-capability-architecture/PRE-DEVIN-EXECUTION-GATE-AND-LAYER-ALIGNMENT-2026-10-16.md)
 - [Current product-truth release gate (updated Main/Sprint 24)](./haiec-product-capability-architecture/PRODUCT-TRUTH-RELEASE-GATE-STATUS.json)
 
-Architecture: Understand / Assure / Govern & Operate with six selectable workflows; Sprint 24 scenario playback remains explicitly synthetic; PR #2220 is still unmerged pending tests and deployment proof.
+Architecture: Understand / Assure / Govern & Operate with six selectable workflows. **Demonstration acceptance:** Sprint 24 playback can prominently show synthetic approvals, monitoring and subsequent simulated holds/blocks, as accepted in [MAA scenario storyboard](https://github.com/subodhkc/manufacturing-ai-assurance-haiec/blob/main/docs/product-story/SYNTHETIC-CONTROL-DEMO-ACCEPTANCE-AND-S25-STORYBOARD.md). Preserve the distinction between actual HAIEC evaluation of submitted synthetic evidence and the later simulated gateway action; one end-of-demo methodology disclosure is sufficient. PR #2220 remains unmerged pending gates.
