@@ -2,8 +2,8 @@
 
 Research-only; do not edit HAIEC, KestrelVoice, manufacturing or LogSense code. Code owners continue in their separate Devin sessions.
 
-## Decision
-Start with KestrelVoice in an isolated test tenant on its existing Vercel / Modal / Supabase stack. Do not require AWS for the first verified live action example. Reuse the TM Forum packs for forensic/delegation regressions and the manufacturing pack for full-platform synthetic demonstrations. AWS AgentCore becomes an optional second-provider interoperability proof.
+## Decision (pilot deferred after 2026-10-16 security review)
+Plan to use KestrelVoice in an isolated test tenant on its existing Vercel / Modal / Supabase stack. Do not require AWS for the first verified live action example. Reuse the TM Forum packs for forensic/delegation regressions and the manufacturing pack for full-platform synthetic demonstrations. AWS AgentCore becomes an optional second-provider interoperability proof.
 
 ## Source-supported KestrelVoice target
 Inspected `subodhkc/AI-Service-Call-Agent-` Main at `aafce1d15e6a3f9dbc69307c57c95eb03993eca7`.
