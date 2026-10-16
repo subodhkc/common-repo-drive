@@ -25,6 +25,11 @@ Before pursuing KestrelVoice as a showcase test target, read [the complete secur
 Read [HAIEC enhancement-first roadmap](HAIEC-ENHANCEMENT-FIRST-RESEARCH-ROADMAP-AND-KESTREL-EXTERNAL-MCP-ACCEPTANCE-2026-10-16.md) with [22-item backlog](HAIEC-ENHANCEMENT-FIRST-DEFERRED-TEST-BACKLOG-2026-10-16.csv) before implementing new HAIEC UX/MCP work. It supersedes earlier pilot-first and test-first sequencing. Complete E0–E7 enhancements, then use a separate external workspace and authorized isolated Kestrel test tenant for remote HAIEC MCP acceptance. Record every material customer operation and numbered redacted screenshots, produce a final evidence-bound illustrated user journey. A separate Devin session already owns HAIEC implementation. Main observed 66f52086; PR #2220 remains unmerged at last check. No external tests requested now.
 
 
+## E0/R1 research completed — implementation owner kickoff reference
+
+**Start with [E0/R1 source/PR ownership reconciliation](E0-R1-READ-ONLY-SOURCE-PR-AND-OWNERSHIP-RECONCILIATION-2026-10-16.md) and [16-workflow source-to-canonical-owner CSV](E0-R1-16-WORKFLOW-CANONICAL-OWNER-SOURCE-RECONCILIATION-2026-10-16.csv).** Verified at HAIEC Main `66f52086`: 16/16 UI and API route families present, all listed actual MCP tools in canonical 58-source-definition registry, all mapped canonical source owner paths present. Source registration does not establish per-tenant executability. Sprint 25 #2221 is merged; #2220 staged/unmerged (TS pass, ESLint/new-violations fail); #2217 draft conflicts at the homepage filename level with previously merged Sprint 24; #2141 callback hardening is staged. CODEOWNERS exists but live required-review enforcement could not be verified due to GitHub access 403. **E0 source research complete, release/engineer assignment outstanding; R1 source research complete.** Keep E1–E7 enhancement priority and defer external Kestrel remote MCP screenshots/acceptance until those enhancements ship.
+
+
 ## Required reading sequence
 
 1. `README.md` then `HAIEC-PRODUCT-CAPABILITY-WORKFLOW-MATRIX.md` and `CAPABILITY-MATRIX.csv`.
