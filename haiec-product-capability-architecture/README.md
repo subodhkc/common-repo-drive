@@ -27,3 +27,19 @@ This folder is the shared source of planning and Devin handoff artifacts for HAI
 - HAIEC `Main`: `64c615f59697e9698f64638ea978edcdb28da534`
 - LogSense `main`: `c7491ba9124e5df72d250f1b32a4b2c77ccc2993`
 - Manufacturing `main`: `5d2bcc9a732e4167ab15dac7bbbbf8615e4a472c`
+
+## October 16 operational UX convergence update
+
+**Recommended customer information architecture:** 3 pillars (Understand / Assure / Govern & Operate), with 6 independently selectable capabilities (Discover / Evaluate / Authorize / Monitor / Protect / Verify). No mandatory four-stage evaluation or setup sequence.
+
+- `PRODUCT-UX-OPERATIONAL-REVIEW-AND-DECISION-2026-10-16.md` — detailed review, role/org workflows, UI–MCP parity, controls, readiness, dependency and implementation gates
+- `MATRIX-COMPLETENESS-AND-RECONCILIATION-PLAN.md` — why the original 87-row register is not yet exhaustive; coverage audit method
+- `CAPABILITY-MATRIX-V2-SCHEMA.json` — proposed structured evidence columns for closure
+- `V3-AND-GENERATED-DIAGRAM-VALIDATION.md` — individual infographic claim checks and reconstructed diagram mapping
+- `diagrams/haiec-v3-architecture-corrected.svg` — full white product domains map
+- `diagrams/haiec-three-pillars-six-capabilities.svg` — dark three-pillar product overview
+- `diagrams/haiec-workflow-families-matrix.svg` — 12 workflow families covering primary users, minimum evidence, and outputs
+- `diagrams/haiec-operational-dependency-flow.svg` — branched workflow dependency architecture
+- `scripts/generate-workflow-census.py` — a tracked-file source census; does **not** auto-claim semantic product completeness
+
+**Publication:** site draft PR #2217 still contains earlier pair of architecture SVGs; newer designs are committed here and require selection/visual review before the site PR changes.
