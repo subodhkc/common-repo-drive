@@ -11,6 +11,13 @@
 Another Devin session is working in HAIEC and/or manufacturing. This common-repo research session did **not edit either product repo**. Before implementation, the responsible Devin worker must confirm current branches/PR ownership and avoid overwriting active work. Read current code HEADs, not only old snapshot links. PR #2220 belongs to HAIEC (not this planning repository), remains unmerged at last inspection, and must not be claimed released. The separate MAA synthetic storyboard can proceed without PR #2220 production completion.
 
 
+## KestrelVoice security FIRST — revised work priority, 2026-10-16
+
+Before pursuing KestrelVoice as a showcase test target, read [the complete secure-SaaS research study](KESTRELVOICE-SECURE-SAAS-INFRASTRUCTURE-HAIEC-ASSURANCE-REMEDIATION-STUDY-2026-10-16.md) and [38-control register](KESTRELVOICE-SECURE-SAAS-CONTROLS-REMEDIATION-REGISTER-2026-10-16.csv). Priority now is **actual product hardening, source-true telemetry and fixed platform safeguards for every tenant**, followed by optional HAIEC tenant-governance feature adoption and only later a safe controlled action pilot. The earlier Kestrel-first pilot plan is retained as a later integration reference, not approval to run tests now. Separate Devin implementation sessions own code; this is planning only.
+
+**Public repo caution:** KestrelVoice source is private, common-repo-drive is public. Detailed vulnerability reproductions, affected customer information, exploit preconditions and secrets belong in restricted security tickets, not public architecture docs. Review earlier common repo discussions for sensitive disclosures; editing Git history is a distinct repo governance decision.
+
+
 ## Required reading sequence
 
 1. `README.md` then `HAIEC-PRODUCT-CAPABILITY-WORKFLOW-MATRIX.md` and `CAPABILITY-MATRIX.csv`.
