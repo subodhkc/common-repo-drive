@@ -5,7 +5,7 @@
 Download the source-image handoff ZIP from this conversation; extract its `source-images/` directory. Then run:
 
 ```sh
-python scripts/import-source-images.py --source /path/to/extracted/source-images --repo /path/to/cloned/common-repo-drive
+python haiec-product-capability-architecture/scripts/import-source-images.py --source /path/to/extracted/source-images --repo /path/to/cloned/common-repo-drive
 cd /path/to/cloned/common-repo-drive
 git add haiec-product-capability-architecture/source-images/*.png
 git commit -m "Preserve original HAIEC architecture images for Devin"
