@@ -209,3 +209,11 @@ Relevant source:
 - https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/docs/specification/2025-11-25/basic/authorization.mdx
 
 **Strategic priority:** For developer acquisition, reducing connection friction may have more immediate value than additional detector rules. For enterprise assurance sales, the stronger POC remains exact action-to-authority-to-enforcement-to-effect proof. These are complementary tracks, with separate acceptance criteria.
+
+## Product-truth gate — priority adjustment (16 October 2026)
+**The own-vs-integrate thesis is unchanged**, but the critical path to the first AgentCore enterprise POC now begins with **operational-control tenant isolation and privileged-key handling**, not connector expansion:
+1. Validate and land HAIEC PR #2220: legacy simulation quarantine, early org-bound Kill Switch authorization, removal of persistent browser API-key storage, truthful protection/monitoring copy.
+2. Reconcile UI/API/MCP for each *user goal*; 16 customer workflows are source-mapped in `UI-MCP-API-WORKFLOW-AVAILABILITY-RECONCILIATION.csv`, not all required to run together. Do not add destructive MCP capabilities merely for feature parity.
+3. Prove existing typed source/intake/evaluation/decision/receipt owners before a new provider adapter. AgentCore policy-mode observation remains P1, subject to authorized safe target.
+4. Do not advertise automatic blocking, sub-second response, any particular regulatory certification, or continuous effect verification without customer integration evidence.
+See `PRODUCT-TRUTH-WORKFLOW-REACHABILITY-AND-P0-CORRECTIONS-2026-10-16.md`. Branch changes are not deployed. This addendum supersedes any prior assumption that all operational-control endpoints were proven tenant-bound.
