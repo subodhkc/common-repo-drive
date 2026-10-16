@@ -2,6 +2,13 @@
 
 This folder is the shared source of planning and Devin handoff artifacts for HAIEC, LogSense and the manufacturing application. It is a **planning and provenance repository**, not executable product truth.
 
+## Current handoff — read this first (2026-10-16)
+
+- [Pre-Devin Research Closure and Source Decisions](PRE-DEVIN-RESEARCH-CLOSURE-AND-SOURCE-DECISIONS-2026-10-16.md) — complete source-backed product/assurance/security decision packet and primary AWS/MCP/OTel references; **research, not implemented code**.
+- [Six customer journeys CSV](SIX-CUSTOMER-JOURNEYS-ACCEPTANCE-RESEARCH-2026-10-16.csv) — six bounded positive/negative acceptance paths. Existing 16-goal UI/MCP/API matrix and 87-row curated inventory remain separate.
+- **No parallel HAIEC work from this research session.** HAIEC/Maa source was only read. Devin's active implementation session owns product code. Do not duplicate its edits or treat proposed branch fixes as Main.
+
+
 ## Deliverables
 
 - `HAIEC-PRODUCT-CAPABILITY-WORKFLOW-MATRIX.md`: evidence-backed capability and user workflow matrix
