@@ -108,3 +108,13 @@ Resolve independently: product feature readiness; purchased entitlement; user id
 7. Tenant role and system permissions apply identically through UI and MCP; read-only work never grants mutating rights.
 8. Synthetic manufacturing/demo and LogSense forensics maintain separate exact evidence truth, even when shown in one dashboard.
 9. Every architecture diagram and public claim has a grounded source/readiness review before deployment.
+
+## Verified product-truth gate update (16 October 2026)
+Read `PRODUCT-TRUTH-WORKFLOW-REACHABILITY-AND-P0-CORRECTIONS-2026-10-16.md` and `UI-MCP-API-WORKFLOW-AVAILABILITY-RECONCILIATION.csv` before UX/Devin work. Current branch [HAIEC PR #2220](https://github.com/subodhkc/haiec-website/pull/2220) stages product-truth fixes; **not Main or deployed**.
+- **New hard P0:** Tenant ownership on Kill Switch triggers before any role/SoD check or side effect. The previous trigger route omitted that explicit check; code and negative test are staged.
+- **New hard P0:** No privileged Kill Switch API keys persisted to browser localStorage. Branch mitigation uses memory only; a server-side session-authorized operational channel is a subsequent enterprise gate.
+- **Legacy P0:** Four historical provider scanners plus aggregator now explicitly reject fabricated control-positive calls; real AWS adapters remain available under their own evidence contracts.
+- **UX P0:** Product/SEO/pricing/engine-welcome copy must qualify protection, latency, provider coverage and regulatory claims. Monitoring receipt/display refresh not continuous effect proof.
+- **No navigation/lifecycle change:** Three product pillars and six independent user jobs remain. No new universal stage. Human envelope approval, human deployment decision, assurance disposition and operational control are separately authorized.
+- **No automatic approval via MCP:** Guide/tool registry covers 13 platform customer goals; direct UI/API actions may remain absent from general MCP destructive tool paths. Do not force feature parity where authorization/perimeter requires separation.
+**Build gate:** PR checks presently skipped for lint/tsc; focused Vitest/TypeScript and smoke tests are not yet verified. Do not mark deployed until CI and review pass and Main/Vercel state is verified.
