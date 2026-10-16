@@ -61,3 +61,7 @@ Review `PRODUCT-UX-OPERATIONAL-REVIEW-AND-DECISION-2026-10-16.md` and `MATRIX-CO
 - Existing 87-row matrix is **curated but not exhaustive**. Do not declare parity or completeness without current route-to-tool-to-producer acceptance.
 - No production HAIEC code was modified by this audit; diagram PR #2217 remains review-only.
 
+
+## Integration strategy review
+
+Read `OWN-REUSE-INTEGRATE-DEFER-ENTERPRISE-STRATEGY-2026-10-16.md` and `INTEGRATION-AND-BUILD-DECISION-REGISTER.csv` before planning new HAIEC capabilities. Reuse the existing bounded telemetry receiver, evidence qualification, MCP guidance, human decision, guardrail persistence, LogSense adapter and established report owners. Focus on verified source coverage, user workflow accessibility, and one provider-specific proof of governance outcome. Keep the planning documents versioned here in common-repo-drive; customer data and secrets must not be committed. This instruction is a handoff convention, not scheduled background work.
