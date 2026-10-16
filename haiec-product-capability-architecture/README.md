@@ -75,3 +75,10 @@ This folder is the shared source of planning and Devin handoff artifacts for HAI
 
 ## Review status and deployment caveat
 `PRODUCT-TRUTH-RELEASE-GATE-STATUS.json` is the current machine-readable release gate for PR #2220. This work is staged; GitHub lint and typecheck skipped, Vercel branch previews blocked, and focused Vitest plus UI tests have not run. Three-pillars/six-capabilities remains the accepted design recommendation. **Before merge, confirm tests and deploy readiness without changing the existing Vercel Git identity.**
+
+## Pre-Devin alignment and readiness — current handoff
+
+- `PRE-DEVIN-EXECUTION-GATE-AND-LAYER-ALIGNMENT-2026-10-16.md` — layer-by-layer operational system alignment, optional scoped dependencies, Sprint 24 provenance, critical security release gates and constrained Devin implementation steps.
+- `PRODUCT-TRUTH-RELEASE-GATE-STATUS.json` — latest reviewed Main `75ffb329cb75b35280456884299bfd16a9e7a0e8`, PR #2220 branch status and pending validation.
+
+**Decision:** no change to three pillars or six selectable capabilities. Confirm operational-control authorization, no simulated results, no silent effect inference, and a verified release before broader UX or provider integrations.
