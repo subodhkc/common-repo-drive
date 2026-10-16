@@ -44,6 +44,19 @@ capability:
    Test counts corrected: 214/214 repo tests; Sprint 28 production checks
    (24/24) vs Sprint 29 judge-path smoke (21/21) distinguished.
 
+## Post-merge correction — narration overlap (same day)
+
+Review of the rendered MP4 found edge-tts clips longer than their scheduled
+windows: cue0→cue1 overlapped ~2s, cue1→cue2 ~3.3s, cue2→cue3 ~0.1s (the
+fixed `adelay` starts let the amix overlap speech).
+`render-judge-video.cjs` now probes each clip's real duration and schedules
+cues sequentially (≥0.6s gap, never earlier than the intended scene), and
+regenerates `judge-path-subtitles-v29.vtt` from the same schedule so burned
+captions track the actual audio. Re-rendered: `judge-path-final-v29.mp4`
+still **113.8s** (<120), every cue inside its scene, no overlap by
+construction. `NARRATION-V29.md` and `SUBMISSION.md` scene timings updated;
+copy-ready Devpost fields added to SUBMISSION.md.
+
 ## Verification
 
 | Claim | Status |
@@ -52,7 +65,7 @@ capability:
 | Record mirrors video scenario (both POs, both anomalies, denials) | TEST_VERIFIED — script assertions + sprint29 suite 5/5 |
 | Video < 120s, narration/caption sync, branding | TEST_VERIFIED — 113.8s probe + frame review |
 | 45 + 27 persisted evaluations unchanged | TEST_VERIFIED — no `data/` changes in the PR |
-| Final links | TEST_VERIFIED — all listed routes live on production |
+| Final links | LIVE_VERIFIED — all FINAL-PACKAGE URLs return 200; public receipt renders |
 
 ## Remaining human-owned steps (not claimed complete)
 
