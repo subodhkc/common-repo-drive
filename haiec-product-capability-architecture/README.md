@@ -18,6 +18,13 @@ This folder is the shared source of planning and Devin handoff artifacts for HAI
 - **Access:** public common repo. Keep specific private vulnerabilities and exploit details in an access-controlled security backlog, not this repo.
 
 
+## Current HAIEC sequence (2026-10-16)
+
+- [Enhancement-first research and external Kestrel MCP acceptance plan](HAIEC-ENHANCEMENT-FIRST-RESEARCH-ROADMAP-AND-KESTREL-EXTERNAL-MCP-ACCEPTANCE-2026-10-16.md): complete E0–E7 enhancements first, then independent remote-client Kestrel tenant acceptance and screenshot-backed user-flow documentation.
+- [22-item enhancement/research/deferred-test backlog](HAIEC-ENHANCEMENT-FIRST-DEFERRED-TEST-BACKLOG-2026-10-16.csv): E0–E7, R1–R10, T1A–T1D.
+- Public repository: security-sensitive private findings need restricted visibility before inclusion.
+
+
 ## Deliverables
 
 - `HAIEC-PRODUCT-CAPABILITY-WORKFLOW-MATRIX.md`: evidence-backed capability and user workflow matrix
