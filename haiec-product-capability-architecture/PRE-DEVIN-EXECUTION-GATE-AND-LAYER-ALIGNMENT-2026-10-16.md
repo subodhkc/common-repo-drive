@@ -108,3 +108,29 @@ Implement narrowly scoped read-only AWS AgentCore policy-mode and action evidenc
 - `DEVIN-HANDOFF.md`
 
 This document is a current alignment/acceptance decision, not a verified deployment or a replacement for the canonical capability matrix.
+
+## Pre-Devin decisions and inspection-only work — owner checklist (2026-10-16)
+
+**Priority distinction:** Product truth PR #2220 blocks production release claims, not the separately labeled MAA Sprint 25 storytelling work. The latest shared-repo MAA addendum and [accepted two-action storyboard](https://github.com/subodhkc/manufacturing-ai-assurance-haiec/blob/main/docs/product-story/SYNTHETIC-CONTROL-DEMO-ACCEPTANCE-AND-S25-STORYBOARD.md) explicitly permit synthetic reviewer decisions, notification previews, monitored data and held/blocked *later* operations. The Oct 14 committed wrong-target transaction was detected by the real HAIEC engine on synthetic source data; it was not prevented. Use one final methodology page, plus a small local Demo playback marker.
+
+### Complete now, without a code sprint
+1. **Freeze release truth:** PR #2220 head `32e54c58` is open and unmerged. GitHub TypeScript passed; repo-wide ESLint and *new-violations* failed. The new gate identifies **30 new unused-parameter occurrences** in five retired scanner/orchestrator modules (7,546 baseline signatures versus 7,550 current). Do not classify the historic baseline as a sufficient excuse or silently update it. Targeted Vitest, correct-org trigger/foreign-org rejection, UI credential purge, production Vercel deploy remain unverified.
+2. **Pick the first six acceptance journeys** from the 16-row source matrix below. Treat statuses as inspection scenarios, not proof every customer can invoke a route. Fix an identified contradiction by linking exact source, entitlement and actor, not by building another readiness database.
+3. **Set exact ownership:** HAIEC source is the customer product; MAA presents saved engine evidence and authored scenarios; common-repo-drive owns planning; LogSense supplies forensic measurements only. Freeze no-second-orchestrator, no new control catalog, no mandatory manifests, no universal policy or monitoring proof claims.
+4. **Record pilot prerequisites before implementation:** AWS AgentCore Gateway instance, safe test action, separate permitted/denied/unknown actions, applicable policy `ENFORCE` vs `LOG_ONLY`, identity & tenancy, source receipts and target-mediated refusal proof. No credentials in public docs, no pilot integration claim until safe environment exists.
+5. **Resolve operator control posture:** PR #2220 removing privileged key from `localStorage` is risk reduction, not proof of an HttpOnly/session-based control channel. Continue planning session-bound privileged operations as a separate scoped release decision, not hidden inside the lint fix.
+6. **Do not promote design assets prematurely:** draft diagram PR #2217 is a visual-review item and not a P0 dependency; source-original PNG import is likewise not a blocker for tenant-isolation fixes.
+
+### Six bounded journey acceptance prompts for Devin (no full-estate test sweep)
+
+| Persona / objective | First source and scope check | Expected customer-visible result | Negative / unknown test |
+|---|---|---|---|
+| Developer / source assurance | Authorized GitHub or supported local bundle, `scan:create` | Static source capability, qualified findings and next action | No repository access must not imply an empty safe assessment |
+| Governance reviewer / human decision | Same-org system, assigned reviewer, exact versioned request | Pending / approved / rejected human deployment decision, distinct from DAI | Wrong-role / cross-org denial; draft policy is not approval |
+| Operator / monitor | Tenant-bound configured source, authenticated telemetry & health | Event/freshness, alert and exact evidence boundary | Missing or stale telemetry does not mean no actions occurred |
+| Operator / protect | Same-org authorized operational principal, integrated target | Kill/recover status with exact requested vs confirmed enforcement scope | Wrong-org system 404, no side effects; state change alone not target halt |
+| Auditor / controls and verification | Applicable executable control + owned evaluation snapshot | Control evaluated/unknown basis, signed or hash-referenced output as actually supported | Register-only rule not evaluated; historical not current |
+| Executive / portfolio | Authorized organization/system set, owned decision/report sources | Consequence-first risk, review queue, evidence coverage and exact reports | Never aggregate foreign-tenant data or label synthetic dossier real |
+
+**Dev handoff release sequence:** (A) safely fix PR #2220 regressions and verify minimal CI/tenant tests before merging; (B) reconcile those six journeys plus 16-row scope table; (C) only then design availability display projections and the narrow AgentCore pilot. MAA Sprint 25 can proceed in its own labeled demo repo without modifying canonical HAIEC evaluations.
+
