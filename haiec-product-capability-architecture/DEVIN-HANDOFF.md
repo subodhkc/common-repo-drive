@@ -175,3 +175,9 @@ See [source-level code review and small remediation packet](E1-E2-POST-MERGE-COD
 **PR [#2223](https://github.com/subodhkc/haiec-website/pull/2223) → `Main` `18f845cee652772bfa6d774b1331175e6728e05d`; Vercel deployment `BJSPHs5UbwEDQxou9aGaQrdUsHHv` SUCCESS — `DEPLOYED_VERIFIED`.** All R1–R6 findings closed; per-finding evidence table lives in the review document. No new engine/registry/approval store/telemetry pipeline; PR #2220, `lib/control-test`, `lib/ucp`, manufacturing and E4 services untouched. Validation: 50/50 focused unit tests, `tsc --noEmit` clean, changed-file ESLint clean.
 
 **Next Devin task — E3 (recommended scope):** rebase/merge PR #2220 against current Main `18f845cee`; verify tenant/org/role/target boundaries and Kill Switch privileged-operation seams; repair any lint/new-violations gates; verify actual deployed control claims before any privileged security release language. E4 follows after E3 stabilizes (producer freshness/lag/health — the projection now honestly labels `SIGNAL_RECEIVED` as one intake receipt). Kestrel external acceptance remains `DEFERRED`.
+
+## E3 next implementation — verified E1/E2 PR #2223 handoff
+
+- [E3 security implementation and Devin-ready prompt](E3-SECURITY-IMPLEMENTATION-HANDOFF-AFTER-E1E2-PR2223-2026-10-16.md) — starts at HAIEC Main `18f845cee` / merged PR #2223; pending PR #2220 is **unmerged** with existing lint/new-violations failures. Reconcile source and actual tenant/role/reviewer and privileged target-effect claims before any E3 release. E4 telemetry remains separate; external Kestrel tenant MCP acceptance remains deferred.
+- Source-level residual presentation boundary: a non-viewer session is not necessarily the **assigned** deployment decision reviewer or authorized Kill Switch operator, and a muted `permitted=false` link remains clickable in E1/E2 panels. Route authorization remains the final enforcement point; do not call these proven access bypasses.
+
