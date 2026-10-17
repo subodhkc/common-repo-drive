@@ -1,5 +1,8 @@
 # HAIEC — Page-by-Page Enterprise UX Design & Validation Program
 
+> **2026-10-17 current UX-P03 status (supersedes earlier “P03 active” notes below):** UX-P03 [PR #2235](https://github.com/subodhkc/haiec-website/pull/2235) merged to `Main` `d62471f20`, exact-SHA production Vercel deployment independently `READY`. **Code shipped; authenticated production / viewer / multi-org acceptance not complete.** Independent [P03.1 follow-up review](UX-P03-INDEPENDENT-ACCEPTANCE-GAP-REVIEW-2026-10-17.md) records existing 100-system list/search ceiling (P1), lg-to-xl hidden Next Step (P1), mobile/desktop receipt asymmetry and historical-receipt KPI semantics (P2). Keep corrections minimal and separate from **UX-P04 System Assurance Case**, the next dedicated page-design session. Other dated “P03 running” references are historical.
+
+
 > **2026-10-17 NEW UX-P08/P09 decision and original-reference archive:** [Controls & Operations / My Work curation, browser defects, source/MCP alignment and additive adoption plan](UX-P08-P09-DEEPSEEK-CONTROLS-AND-MY-WORK-CURATION-REFERENCE-ARCHIVE-AND-MCP-ALIGNMENT-2026-10-17.md) · [Five preserved original HTML visual references](design-references/deepseek/README.md). **Two current mock bugs were browser-verified:** P08 scenario tabs throw on click, P09 filter state corrupts to array and shows wrong queue population. P08 facet counts mismatch (three scenarios) and 390px compass overflows. **DeepSeek remains a suggestion**, not HAIEC control maturity score, native guard receipt, reviewer auth, or new MCP approval tool. Use real Control Proof/operations and E6.2 My Work + human reviewer CAS/SoD; P03 remains active; implement P08 and P09 later, separately.
 
 
