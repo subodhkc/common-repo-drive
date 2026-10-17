@@ -136,3 +136,9 @@ This folder is the shared source of planning and Devin handoff artifacts for HAI
 **2026-10-16 pilot decision:** [Kestrel-first real-action pilot, operator authentication and optional AWS targets](KESTREL-FIRST-PILOT-AUTH-AND-AWS-ALTERNATIVES-2026-10-16.md). Research-only: exact Kestrel dispatch/effect concern, 10 prioritized research steps and decision to defer AWS dependency. No product repo edits.
 
 **KestrelVoice SaaS productization (2026-10-16):** [Full action-to-effect map, platform-admin vs tenant boundaries, onboarding/late opt-in, HAIEC trust positioning and pilot](KESTREL-SAAS-ACTION-TO-EFFECT-HAIEC-TRUST-INTEGRATION-PLAN-2026-10-16.md). Source-anchored architecture and security review; no code changes.
+
+## E3 next implementation — verified E1/E2 PR #2223 handoff
+
+- [E3 security implementation and Devin-ready prompt](E3-SECURITY-IMPLEMENTATION-HANDOFF-AFTER-E1E2-PR2223-2026-10-16.md) — starts at HAIEC Main `18f845cee` / merged PR #2223; pending PR #2220 is **unmerged** with existing lint/new-violations failures. Reconcile source and actual tenant/role/reviewer and privileged target-effect claims before any E3 release. E4 telemetry remains separate; external Kestrel tenant MCP acceptance remains deferred.
+- Source-level residual presentation boundary: a non-viewer session is not necessarily the **assigned** deployment decision reviewer or authorized Kill Switch operator, and a muted `permitted=false` link remains clickable in E1/E2 panels. Route authorization remains the final enforcement point; do not call these proven access bypasses.
+
