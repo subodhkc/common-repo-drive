@@ -121,3 +121,33 @@ Its source-resolution failure codes include:
 **Deferred external acceptance:** After E1–E7 actual implementation and controlled release, Devin creates a Kestrel test tenant, separate HAIEC test org/key and uses an isolated remote MCP workspace **outside HAIEC source** to record all actual operations/screenshots. Nothing in E2 planning runs that acceptance now.
 
 **No code changes or tests were conducted by the research activity that authored this contract.**
+
+---
+
+## 9. Implementation record — DEPLOYED_VERIFIED (2026-10-17)
+
+**Status: `DEPLOYED_VERIFIED`.** Same merge as E1: HAIEC commit `847df3d41f5112a273e7987b9a9be7994619a6ab`, PR [#2222](https://github.com/subodhkc/haiec-website/pull/2222), Vercel production deployment `7132729971` (2026-10-17T01:00:48Z).
+
+### New composition (the only new code)
+
+| File | Role |
+|---|---|
+| `lib/ai-inventory/source-onboarding.ts` | Pure read-only projection of the four source paths with canonical statuses, facts, next step and limitations. Served inside `GET /api/inventory/systems/[id]/capabilities`. |
+| `components/ai-inventory/SourceOnboardingGuide.tsx` | Sources-tab "What source do you have?" guide — expandable per-path facts/limitations; fails to a non-blocking notice. |
+
+### Four paths and their owners (all existing — presentation composition only)
+
+- **A. GitHub connected** — `evaluation-source-preflight.ts`, `github-app-source-access.ts`, `consent-enforcement.ts`, `haiec_github_preflight`/`haiec_list_github_repositories`/`haiec_bind_github_source`/`haiec_verify_source`. Exact per-source statuses (`READY`, `CONSENT_REQUIRED`, `CONSENT_TAMPERED`, `BRANCH_REQUIRED`, `SOURCE_NOT_VERIFIED`, `SOURCE_CONFLICTED`, `SOURCE_UNAVAILABLE`) pass through verbatim; a blocked source's reason drives the next action. No branch guessing, no consent auto-grant — those semantics were already canonical and are unchanged.
+- **B. Local scan bundle** — bounded submission guidance with `developer-integration-source-status.ts` truth: local CLI = `preview`, Action v2 = `not_released`, bundle = evidence input not an Assurance Evaluation.
+- **C. Runtime/telemetry** — `RUNTIME_ENDPOINT` assets + `telemetry-readiness.ts` three-state truth; `CONFIGURED != ENFORCED`, `SIGNAL_RECEIVED != EVALUATED`. No repository required.
+- **D. Documents & declarations** — `POLICY_SOURCE` assets + declared-artifact guidance; claims stay `DECLARED`/`DRAFT`, never promoted to `CODE_CAPABLE`/`EFFECTIVELY_GRANTED`/`OBSERVED`.
+
+### Source qualification safeguards retained
+
+Server-side tenant+ownership checks via `getSystemWorkspace`/`verifyAISystemOrgBinding`; consent read through the canonical `inspectRepositoryAccessConsent` twin of `requireConsent`; `evaluation-source-selection.ts` branch-reset semantics untouched; indistinguishable-404 for foreign systems; uploaded evidence never becomes a Connected Asset (it isn't a connection choice — unchanged).
+
+### Gaps / limitations
+
+- The guide is a read projection — the actual connect/upload/verify mutations still run through the existing routes (`?tab=assets`, GitHub App flow, `/monitoring/sources/onboard`, local-scan submission). No new mutation paths were added.
+- Declared-artifact intake UX beyond `POLICY_SOURCE` registration (e.g., rich document upload wizards) is a later UI increment, not added here.
+- E4-owned producer health/freshness depth is consumed only as the three-state `telemetryReadiness` projection.

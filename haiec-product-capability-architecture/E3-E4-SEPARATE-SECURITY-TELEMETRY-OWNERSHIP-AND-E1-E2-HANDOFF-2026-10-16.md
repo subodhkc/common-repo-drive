@@ -106,3 +106,22 @@ Never produce `SAFE`, `BLOCKED` or `PASS` from telemetry readiness alone.
 The common planning repository was **public** when verified. These interfaces and owner decisions are appropriate public-facing planning; do **not** put private vulnerability exploit details, customer secrets, provider tokens, source credential values, or unredacted test captures into it. If internal confidential research should be housed in this repo, GitHub visibility and authorized readers must first be adjusted and reverified. A private repo still is not a secret manager.
 
 **This document does not change the active Devin assignments. It proposes non-overlapping ownership lanes that the user and active Devin owners must confirm before changes to HAIEC Main.**
+
+---
+
+## E1/E2 consumption record + remaining E3/E4 dependencies (2026-10-17)
+
+E1/E2 shipped (PR #2222, Main `847df3d41`, deploy `7132729971`) consuming E3/E4 surfaces **read-only** as specified. What the shipped code reads:
+
+| E3/E4 surface | Consumed as | Owner still owns |
+|---|---|---|
+| `lib/org-context.ts` `requireOrganizationAccess` | Route auth + `membershipRole`/`userId`/`organizationId` | All authorization decisions |
+| `lib/api-auth.ts` `hasApiScope`/`ApiScope` | MCP caller scope checks (`scopeCheck` in projection) | Scope semantics |
+| `lib/evidence/telemetry-readiness.ts` `TelemetryReadinessProjection` | Three-state telemetry truth in goals + Path C | Producer health, freshness, qualification |
+| `lib/auth/tier-access.ts` (extracted from `useUserTier`) | Plan annotation only | No new entitlement engine |
+
+**Remaining E3/E4-owned gaps that E1/E2 intentionally display but cannot resolve:**
+
+1. `kill_switch` goal stays `ACTION_REQUIRED` (never READY) until E3 lands verified target-seam receipts; copy already states the unmerged security release path (PR #2220 was open at ship time).
+2. Producer freshness/coverage depth is shown only through `telemetryReadiness` + workspace `producerCoverage`; deeper signal-qualification display awaits E4.
+3. Entitlement annotation is plan-level only — any org-level scope/permission refinement belongs to E3's authorization surface, not this projection.

@@ -91,3 +91,11 @@ The two **security-first** and **enhancement-first** priorities apply to **diffe
 - No newly introduced capability, integration or control is customer-ready by virtue of appearing in this repository.
 
 **This index resolves reader priority. It does not modify historic documents' source snapshots or replace any deployed source truth.**
+
+---
+
+## Implementation status update (2026-10-17) — supersedes E1/E2 pending statuses
+
+**E1 + E2 are `DEPLOYED_VERIFIED`.** HAIEC `Main` @ `847df3d41f5112a273e7987b9a9be7994619a6ab`, PR #2222, Vercel production deployment `7132729971` (2026-10-17T01:00:48Z). The read-only tenant-aware goal availability projection (`lib/ai-inventory/goal-availability.ts` + `goal-availability-loader.ts` + `GET /api/inventory/systems/[id]/capabilities` + `haiec_capability_guide aiSystemId`) and the four-path source onboarding projection (`lib/ai-inventory/source-onboarding.ts` + workspace Sources-tab guide) are live. Composition only — no new engine/registry/evidence store/persisted state; canonical owners unchanged.
+
+Where any earlier document states E1/E2 as `SPEC_COMPLETE_CODE_PENDING` or `IMPLEMENTATION_SPEC_COMPLETE_CODE_NOT_SHIPPED`, this entry and the appended "Implementation record" sections in the E1/E2 contracts supersede it. E3 (PR #2220 merge + privileged security) and E4 (telemetry depth) remain separately owned and pending. External KestrelVoice MCP acceptance remains `DEFERRED` until E1–E7 + release gates.

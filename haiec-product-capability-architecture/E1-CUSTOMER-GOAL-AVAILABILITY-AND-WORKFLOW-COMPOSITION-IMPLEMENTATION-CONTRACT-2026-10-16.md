@@ -142,3 +142,42 @@ For the other 8 workflow rows, use [16-workflow CSV](E0-R1-16-WORKFLOW-CANONICAL
 **Later black-box T1** after E1–E7 and deployed gates: real remote MCP customer read/UI flow from outside HAIEC source using Kestrel tenant, redacted step logs and screenshots. Explicitly postponed; see [enhancement-first test plan](HAIEC-ENHANCEMENT-FIRST-RESEARCH-ROADMAP-AND-KESTREL-EXTERNAL-MCP-ACCEPTANCE-2026-10-16.md).
 
 **Deliverables:** one read-only availability projection; minimal relevant screen wiring; consistent contextual next-action copy; source-anchored capabilities/transport matrix updated; **no new engine**; versions and limits accurate.
+
+---
+
+## 9. Implementation record — DEPLOYED_VERIFIED (2026-10-17)
+
+**Status: `DEPLOYED_VERIFIED`.** HAIEC merge commit `847df3d41f5112a273e7987b9a9be7994619a6ab` on `Main`; PR [#2222](https://github.com/subodhkc/haiec-website/pull/2222); Vercel production deployment `7132729971` (completed 2026-10-17T01:00:48Z). Feature branch `feat/e1-e2-goal-availability-source-onboarding`, commit `21b22b166`. All code written at source revision `66f520861` + this change.
+
+### New composition (the only new code)
+
+| File | Role |
+|---|---|
+| `lib/ai-inventory/goal-availability.ts` | Pure read-only projection: six jobs → 13 canonical goals + 4 workflow-only rows (deployment_decision, kill_switch, guardrail_runtime, compliance_twin); per-goal `customerState` + one scope-correct `nextAction` + limitations. Closes audit finding CR-05. |
+| `lib/ai-inventory/goal-availability-loader.ts` | Server loader: reads `getSystemWorkspace`, `listEvaluationSources`, completed-evaluation count. No persistence. |
+| `app/api/inventory/systems/[id]/capabilities/route.ts` | `GET` — same `requireOrganizationAccess` pattern as the workspace route; foreign systems return indistinguishable 404. |
+| `lib/auth/tier-access.ts` | Shared entitlement annotation vocabulary extracted from `useUserTier` — one tier truth for client + server. |
+| `components/ai-inventory/GoalAvailabilityPanel.tsx` | Overview-tab "What do you want to accomplish?" panel; fails to a non-blocking notice. |
+
+### Reused (not rebuilt)
+
+`lib/mcp/capability-guide.ts` (13 goals, readiness, tool refs), `lib/mcp/tool-registry.ts`, `lib/ai-inventory/system-next-action.ts` (lifecycle CTA preserved verbatim), `next-action-access.ts` (annotation pattern), `evaluation-source-preflight.ts`, `telemetry-readiness.ts`, `system-workspace.ts`, `org-context.ts`, `api-auth.ts`, `role-contract.ts`, `developer-integration-source-status.ts`. `haiec_capability_guide` gained an optional `aiSystemId` argument returning the same projection (UI/MCP parity).
+
+### Truth semantics preserved
+
+`customerState` is presentation vocabulary only — never a stored enum, disposition, or sequential gate. Absent telemetry never blocks static source evaluation; no repository never blocks report review. Entitlement limits annotate the canonical destination (`/pricing`), never substitute a workflow. Viewer role and machine-scope truth can tighten a state, never relax it. `CONFIGURED != ENFORCED`; kill-switch copy states the separately-owned security release path (PR #2220 unmerged at implementation time).
+
+### Six jobs → goals map
+
+Discover: understand_haiec, discover_systems. Evaluate: analyze_source_security, runtime_testing, review_findings, check_controls. Authorize: governance_assessment, deployment_decision, examine_action_authority. Monitor: configure_telemetry, integrations_coverage, investigate_incident. Protect: kill_switch, guardrail_runtime. Verify: compare_evaluations, reports_receipts, compliance_twin.
+
+### Focused checks performed
+
+`tsc --noEmit` clean; eslint clean on all changed files; 35 new unit tests (`tests/unit/goal-availability.test.ts`, `tests/unit/source-onboarding.test.ts`) — all pass. CI: TypeScript PASS, ESLint New-Violations Gate PASS; repo-baseline ESLint failure and Vercel-preview block are pre-existing (identical on merged PR #2221). Vercel production deploy verified via deployment record + commit status, not CI inference.
+
+### Gaps / limitations
+
+- Entitlement annotation is plan-level (`useUserTier` feature vocabulary); no per-seat/usage sub-annotation yet.
+- `check_controls` remains platform `PARTIAL` per the canonical guide — the projection surfaces it honestly.
+- Kill-switch `customerState` stays `ACTION_REQUIRED` by design (integration + receipt required); it can only become READY when E3 lands verified-seam receipt data.
+- No dedicated route-level test for the new API endpoint (loader is exercised via the pure-projection tests; the route is a thin auth wrapper matching the workspace-route pattern).

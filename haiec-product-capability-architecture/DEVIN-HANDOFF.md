@@ -137,3 +137,31 @@ Read [KESTREL-FIRST-PILOT-AUTH-AND-AWS-ALTERNATIVES-2026-10-16.md](KESTREL-FIRST
 ## KestrelVoice tenant-vs-platform assurance and adoption plan
 
 Review [KESTREL-SAAS-ACTION-TO-EFFECT-HAIEC-TRUST-INTEGRATION-PLAN-2026-10-16.md](KESTREL-SAAS-ACTION-TO-EFFECT-HAIEC-TRUST-INTEGRATION-PLAN-2026-10-16.md) before any Kestrel/HAIEC integration work. A single `action_dispatcher` hook does not cover direct Next booking, Python workflow workers, SMS, MCP configuration and other effect writers. Pilot one test-calendar action, preserve exact commit receipts and unknowns, then evaluate shared target-level enforcement. Kestrel baseline governance is platform-owned; customers opt into tenant-scoped HAIEC assurance at onboarding or later without migration, with optional Observe/Govern/Enforce modes (proposed only). Keep code changes with the separate Devin owner.
+
+---
+
+## E1/E2 implementation completed — DEPLOYED_VERIFIED (2026-10-17)
+
+**HAIEC PR [#2222](https://github.com/subodhkc/haiec-website/pull/2222) merged to `Main` at `847df3d41f5112a273e7987b9a9be7994619a6ab`; Vercel production deployment `7132729971` completed 2026-10-17T01:00:48Z.** Branch `feat/e1-e2-goal-availability-source-onboarding` @ `21b22b166`. Base was `66f520861` (unchanged during work).
+
+### What shipped
+
+- **E1 — Goal availability:** `lib/ai-inventory/goal-availability.ts` (pure projection: six jobs → 13 canonical goals + 4 workflow-only rows; per-goal `customerState` + one next action + limitations), `lib/ai-inventory/goal-availability-loader.ts` (server loader over `getSystemWorkspace` + `listEvaluationSources` + eval count), `GET /api/inventory/systems/[id]/capabilities`, `GoalAvailabilityPanel` on the workspace Overview tab, optional `aiSystemId` on `haiec_capability_guide` for MCP parity, `lib/auth/tier-access.ts` (shared tier vocabulary extracted from `useUserTier`).
+- **E2 — Source onboarding:** `lib/ai-inventory/source-onboarding.ts` (four independent paths — GitHub connected, local bundle, runtime/telemetry, declared artifacts — canonical statuses verbatim) + `SourceOnboardingGuide` on the Sources tab.
+
+### Composition, not new infrastructure
+
+No new engine, registry, permission layer, evidence store, or persisted state. Reused: `capability-guide.ts`, `tool-registry.ts`, `system-next-action.ts`, `next-action-access.ts`, `evaluation-source-preflight.ts`, `evaluation-source-selection.ts`, `github-app-source-access.ts`, `consent-enforcement.ts`, `telemetry-readiness.ts`, `system-workspace.ts`, `org-context.ts`, `api-auth.ts`, `developer-integration-source-status.ts`, `connection-choices.ts`. Canonical lifecycle `nextAction`, consent enforcement, source verification, and all dispositions untouched. No overlap with PRs #2220, #2217, #2141.
+
+### Validation recorded
+
+`tsc --noEmit` clean; eslint clean on changed files; 35 unit tests pass (`tests/unit/goal-availability.test.ts`, `tests/unit/source-onboarding.test.ts`). CI on merge: TypeScript PASS, ESLint New-Violations Gate PASS; repo-baseline ESLint failure and Vercel preview block are pre-existing (identical profile on merged #2221). Deployment verified via Vercel deployment record + commit status — `DEPLOYED_VERIFIED`, not inferred.
+
+### Remaining backlog (prioritized for next implementation run)
+
+1. **E3 (P0, separate owner):** PR #2220 merge/deploy/scope-check; tenant-bound Kill Switch verified-seam receipts; privileged operator authn/z. Blocks `kill_switch` goal ever reaching READY truth.
+2. **E4 (P0, separate owner):** producer health/freshness beyond the three-state readiness projection; qualified action/effect receipts; monitoring read-model depth.
+3. **E5–E7 (P1):** remaining enhancement backlog per the roadmap; declared-artifact richer intake UX is an E2 follow-on increment.
+4. **T1 (after E1–E7 + gates):** external KestrelVoice black-box MCP acceptance — independent workspace, isolated test tenant, numbered redacted screenshots. NOT started; do not simulate.
+
+Full per-file details: appended "Implementation record" sections in the E1 and E2 contracts; 14 subtask rows in `E1-E2-IMPLEMENTATION-READY-SUBTASKS-AND-OWNER-GATES-2026-10-16.csv` moved to `DEPLOYED_VERIFIED`.
