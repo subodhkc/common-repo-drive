@@ -1,5 +1,8 @@
 # HAIEC Common Repository Drive
 
+> **2026-10-17 per-page UX work order:** [HAIEC Page-by-Page UX Design & Validation Program](haiec-product-capability-architecture/HAIEC-PAGE-BY-PAGE-UX-DESIGN-AND-VALIDATION-PROGRAM-2026-10-17.md). Starts with **UX-P01 Start Here/quick-start** only; each subsequent page receives a separate focused design, implementation, visual check and regression session. E6.2 is already merged; this is the NEXT design program, not an implementation claim.
+
+
 > **2026-10-17 actual detection and intake source map:** [All 176 detector-rule definitions, 31 families, 45 controls, 26 typed intake profiles, required evidence combinations and export workarounds](haiec-product-capability-architecture/DETECTION-CONTROL-INTAKE-AND-SOURCE-COMBINATION-MATRIX-2026-10-17.md). Source registrations are not blanket customer test availability; check binder/schema, producer, role and evidence qualification.
 
 > **Latest product-design addendum (2026-10-17):** [HAIEC E6 Enterprise UX, Role & Approval Journeys, Control Setup, Evidence & Middleware Dependency Review](./haiec-product-capability-architecture/E6-ENTERPRISE-UX-ROLE-OPERATIONS-CONTROL-EVIDENCE-DEPENDENCY-DESIGN-REVIEW-2026-10-17.md). Includes source-backed remaining UX gaps and regression-safe workflow dependencies across the known AI estate, systems, agents, U5/U6, E5.1 and UCP. Earlier implementation-status paragraphs below are dated history; this document is design review, not deployed functionality.
