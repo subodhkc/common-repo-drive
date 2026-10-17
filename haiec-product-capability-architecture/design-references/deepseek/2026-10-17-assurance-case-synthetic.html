@@ -1,0 +1,1773 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Assurance Case — Support Agent v2 · HAIEC</title>
+<style>
+:root {
+  --bg:#FAFBFC; --card:#FFFFFF; --card-soft:#F5F7FA;
+  --border:#E7E9EE; --border-hover:#D0D4DD; --border-strong:#B8BFCC;
+  --text:#0F1729; --text-secondary:#414A5E; --text-muted:#667085; --text-dim:#98A2B3;
+  --primary:#4338CA; --primary-hover:#3730A3; --primary-light:#EEF2FF; --primary-border:#C7D2FE; --primary-ring:rgba(67,56,202,0.12);
+  --success:#067647; --success-bg:#ECFDF3; --success-border:#ABEFC6;
+  --amber:#B54708; --amber-bg:#FFFAEB; --amber-border:#FEDF89;
+  --danger:#B42318; --danger-bg:#FEF3F2; --danger-border:#FECDCA;
+  --info:#175CD3; --info-bg:#EFF8FF; --info-border:#B2DDFF;
+  --r-xs:6px; --r-sm:8px; --r-md:12px; --r-lg:16px; --r-xl:20px;
+  --sh-1:0 1px 2px rgba(16,24,40,0.04);
+  --sh-2:0 2px 6px rgba(16,24,40,0.06),0 1px 2px rgba(16,24,40,0.04);
+  --sh-3:0 8px 24px rgba(16,24,40,0.08);
+  --sh-4:0 24px 56px rgba(16,24,40,0.18);
+  --sans:-apple-system,BlinkMacSystemFont,'Inter','Segoe UI',system-ui,sans-serif;
+  --mono:ui-monospace,'SF Mono','Cascadia Code','Roboto Mono',monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{height:100%;}
+body{font-family:var(--sans);font-size:14.5px;line-height:1.55;color:var(--text);background:var(--bg);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;overflow:hidden;}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit;}
+a{color:var(--primary);text-decoration:none;}
+a:hover{text-decoration:underline;text-underline-offset:2px;}
+code,.mono{font-family:var(--mono);font-size:0.92em;}
+::-webkit-scrollbar{width:10px;height:10px;}
+::-webkit-scrollbar-thumb{background:var(--border-hover);border-radius:5px;border:2px solid var(--bg);}
+::-webkit-scrollbar-thumb:hover{background:var(--border-strong);}
+
+/* SHELL */
+.app{display:grid;grid-template-columns:248px 1fr;grid-template-rows:56px 1fr;height:100vh;grid-template-areas:"topbar topbar" "sidebar main";}
+.topbar{grid-area:topbar;display:flex;align-items:center;gap:16px;padding:0 20px;background:var(--card);border-bottom:1px solid var(--border);z-index:30;}
+.topbar-org{display:flex;align-items:center;gap:8px;padding:5px 10px 5px 6px;border:1px solid var(--border);border-radius:var(--r-sm);font-size:13px;font-weight:500;background:var(--card);cursor:pointer;}
+.topbar-org:hover{background:var(--card-soft);}
+.org-mark{width:20px;height:20px;border-radius:5px;background:linear-gradient(135deg,#4338CA,#6366F1);color:white;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;letter-spacing:-0.02em;}
+.topbar-sep{width:1px;height:20px;background:var(--border);}
+.topbar-system{display:flex;align-items:center;gap:8px;padding:5px 10px 5px 8px;border:1px solid var(--border);border-radius:var(--r-sm);font-size:13px;background:var(--card);cursor:pointer;position:relative;}
+.topbar-system:hover{background:var(--card-soft);}
+.sys-name{font-weight:500;color:var(--text);}
+.sys-env{font-size:10px;padding:1px 6px;border-radius:4px;background:var(--success-bg);color:var(--success);border:1px solid var(--success-border);font-weight:600;letter-spacing:0.03em;text-transform:uppercase;}
+.topbar-right{margin-left:auto;display:flex;align-items:center;gap:10px;}
+.synthetic-chip{font-size:10.5px;font-weight:600;padding:3px 8px;border-radius:5px;background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-border);letter-spacing:0.02em;text-transform:uppercase;}
+.basis-control{display:flex;align-items:center;border:1px solid var(--border);border-radius:var(--r-sm);overflow:hidden;background:var(--card);}
+.basis-btn{padding:5px 12px;font-size:12px;font-weight:500;color:var(--text-muted);}
+.basis-btn.active{background:var(--text);color:white;}
+.basis-asof{padding:0 10px;font-size:11px;color:var(--text-muted);font-family:var(--mono);border-left:1px solid var(--border);background:var(--card);}
+.persona-select{padding:5px 10px;border:1px solid var(--border);border-radius:var(--r-sm);font-size:12px;background:var(--card);color:var(--text-secondary);cursor:pointer;}
+.topbar-search{width:200px;padding:5px 10px 5px 28px;border:1px solid var(--border);border-radius:var(--r-sm);font-size:12.5px;background:var(--card);color:var(--text);}
+.topbar-search:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px var(--primary-ring);}
+.search-wrap{position:relative;}
+.search-wrap::before{content:'⌕';position:absolute;left:9px;top:50%;transform:translateY(-50%);color:var(--text-dim);font-size:14px;pointer-events:none;}
+.dev-chip{padding:4px 10px;border:1px solid var(--border);border-radius:var(--r-sm);font-size:11.5px;font-family:var(--mono);color:var(--text-secondary);background:var(--card);font-weight:500;}
+.dev-chip:hover{background:var(--card-soft);}
+.avatar{width:28px;height:28px;border-radius:50%;background:var(--primary-light);color:var(--primary);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;cursor:pointer;}
+
+/* SIDEBAR */
+.sidebar{grid-area:sidebar;background:var(--card);border-right:1px solid var(--border);overflow-y:auto;padding:12px 8px 20px;}
+.nav-group{margin-bottom:16px;}
+.nav-group-title{padding:8px 12px 4px;font-size:10.5px;font-weight:600;letter-spacing:0.06em;color:var(--text-dim);text-transform:uppercase;}
+.nav-item{display:flex;align-items:center;gap:10px;padding:8px 12px;margin:1px 0;border-radius:var(--r-sm);font-size:13.5px;color:var(--text-secondary);cursor:pointer;transition:all 0.1s;text-decoration:none;}
+.nav-item:hover{background:var(--card-soft);color:var(--text);text-decoration:none;}
+.nav-item.active{background:var(--primary-light);color:var(--primary);font-weight:500;}
+.nav-icon{width:16px;text-align:center;font-size:13px;flex-shrink:0;opacity:0.75;}
+.nav-item.active .nav-icon{opacity:1;}
+.nav-badge{margin-left:auto;font-size:10.5px;padding:1px 6px;border-radius:8px;background:var(--amber-bg);color:var(--amber);font-weight:600;}
+
+/* MAIN */
+.main{grid-area:main;overflow-y:auto;background:var(--bg);position:relative;}
+.main-inner{max-width:1320px;margin:0 auto;padding:0 32px 100px;}
+
+/* SUB-NAV */
+.subnav{position:sticky;top:0;background:rgba(250,251,252,0.96);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid var(--border);padding:10px 0 12px;z-index:15;margin-bottom:24px;}
+.subnav-inner{display:flex;align-items:center;gap:4px;flex-wrap:wrap;}
+.subnav-label{font-size:10.5px;font-weight:600;letter-spacing:0.06em;color:var(--text-dim);text-transform:uppercase;margin-right:12px;}
+.subnav-link{padding:4px 10px;border-radius:var(--r-xs);font-size:12.5px;color:var(--text-muted);cursor:pointer;transition:all 0.1s;white-space:nowrap;}
+.subnav-link:hover{background:var(--card-soft);color:var(--text);}
+.subnav-link.active{background:var(--primary-light);color:var(--primary);font-weight:500;}
+
+/* TYPOGRAPHY */
+h1{font-size:22px;font-weight:600;letter-spacing:-0.02em;line-height:1.3;color:var(--text);margin-bottom:4px;}
+h2{font-size:16px;font-weight:600;letter-spacing:-0.01em;line-height:1.4;color:var(--text);margin-bottom:4px;}
+.eyebrow{font-size:11px;font-weight:600;letter-spacing:0.06em;color:var(--text-muted);text-transform:uppercase;margin-bottom:8px;}
+.lead{font-size:15.5px;line-height:1.6;color:var(--text-secondary);margin-bottom:4px;}
+.helper{font-size:13px;line-height:1.55;color:var(--text-muted);}
+
+/* GUIDE */
+.guide{background:var(--card-soft);border:1px solid var(--border);border-radius:var(--r-md);padding:14px 18px;margin-bottom:20px;display:flex;gap:14px;align-items:flex-start;}
+.guide-icon{width:24px;height:24px;border-radius:6px;background:var(--primary-light);color:var(--primary);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0;margin-top:1px;}
+.guide-body{flex:1;font-size:13px;line-height:1.6;color:var(--text-secondary);}
+.guide-body strong{color:var(--text);font-weight:600;}
+
+/* CARDS */
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--r-md);}
+.card-pad{padding:20px 22px;}
+.card-head{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;justify-content:space-between;gap:16px;}
+.card-title{font-size:13px;font-weight:600;letter-spacing:0.02em;text-transform:uppercase;color:var(--text-muted);}
+.card-sub{font-size:12.5px;color:var(--text-muted);margin-top:2px;text-transform:none;letter-spacing:0;font-weight:400;}
+.card-action{font-size:12.5px;color:var(--primary);font-weight:500;cursor:pointer;text-decoration:underline;text-underline-offset:2px;}
+
+/* BUTTONS */
+.btn{padding:8px 16px;border-radius:var(--r-sm);font-size:13.5px;font-weight:500;border:1px solid transparent;transition:all 0.12s;display:inline-flex;align-items:center;gap:6px;letter-spacing:-0.005em;}
+.btn-primary{background:var(--primary);color:white;box-shadow:var(--sh-1);}
+.btn-primary:hover{background:var(--primary-hover);box-shadow:var(--sh-2);}
+.btn-secondary{background:var(--card);color:var(--text);border-color:var(--border);}
+.btn-secondary:hover{background:var(--card-soft);border-color:var(--border-hover);}
+.btn-ghost{background:transparent;color:var(--text-muted);border-color:var(--border);}
+.btn-ghost:hover{background:var(--card-soft);color:var(--text);}
+.btn-sm{padding:5px 12px;font-size:12.5px;}
+.btn:disabled{opacity:0.4;cursor:not-allowed;}
+
+/* CHIPS */
+.chip{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;padding:2px 8px;border-radius:5px;letter-spacing:0.02em;white-space:nowrap;}
+.chip-success{background:var(--success-bg);color:var(--success);border:1px solid var(--success-border);}
+.chip-amber{background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-border);}
+.chip-danger{background:var(--danger-bg);color:var(--danger);border:1px solid var(--danger-border);}
+.chip-neutral{background:var(--card-soft);color:var(--text-muted);border:1px solid var(--border);}
+.chip-info{background:var(--info-bg);color:var(--info);border:1px solid var(--info-border);}
+.chip-mono{font-family:var(--mono);font-size:10.5px;letter-spacing:0;text-transform:none;}
+.chip-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
+.chip-success .chip-dot{background:var(--success);}
+.chip-amber .chip-dot{background:var(--amber);}
+.chip-danger .chip-dot{background:var(--danger);}
+.chip-neutral .chip-dot{background:var(--text-dim);}
+
+/* TABLES */
+.tbl{width:100%;border-collapse:collapse;font-size:13px;}
+.tbl th,.tbl td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:middle;}
+.tbl th{font-size:10.5px;font-weight:600;letter-spacing:0.06em;color:var(--text-dim);text-transform:uppercase;background:var(--card-soft);padding:8px 12px;}
+.tbl tbody tr:hover{background:var(--card-soft);}
+.tbl tr.clickable{cursor:pointer;}
+.tbl tbody tr:last-child td{border-bottom:none;}
+.tbl .mono-cell{font-family:var(--mono);font-size:11.5px;color:var(--text-muted);}
+
+/* LADDER */
+.ladder{display:inline-flex;gap:3px;align-items:center;}
+.ladder-dot{width:7px;height:7px;border-radius:50%;border:1.5px solid var(--border-hover);background:transparent;}
+.ladder-dot.filled{background:var(--primary);border-color:var(--primary);}
+.ladder-label{font-family:var(--mono);font-size:10.5px;color:var(--text-muted);margin-left:6px;}
+
+/* HERO */
+.hero-case{background:var(--card);border:1px solid var(--border);border-radius:var(--r-md);padding:32px 36px;margin-bottom:24px;position:relative;overflow:hidden;}
+.hero-case::before{content:'';position:absolute;top:0;left:0;width:4px;height:100%;background:var(--amber);opacity:0.4;}
+.hero-eyebrow-row{display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap;}
+.hero-eyebrow{font-size:11px;font-weight:600;letter-spacing:0.06em;color:var(--text-dim);text-transform:uppercase;}
+.hero-question{font-size:14px;font-weight:600;color:var(--text-muted);letter-spacing:-0.005em;margin-bottom:10px;}
+.hero-answer{font-size:24px;line-height:1.4;color:var(--text);letter-spacing:-0.02em;font-weight:500;margin-bottom:16px;max-width:880px;}
+.hero-answer strong{font-weight:600;}
+.hero-exposure{font-size:14.5px;line-height:1.65;color:var(--text-muted);margin-bottom:24px;max-width:880px;}
+.hero-exposure strong{color:var(--text);font-weight:500;}
+.hero-status-row{display:flex;align-items:center;gap:28px;flex-wrap:wrap;padding:20px 0;margin-bottom:20px;border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+.hero-stat{display:flex;flex-direction:column;gap:3px;}
+.hero-stat-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-dim);}
+.hero-stat-value{font-size:13.5px;font-weight:500;color:var(--text);}
+.hero-stat-value.mono{font-family:var(--mono);font-size:12.5px;}
+.hero-stat-sep{color:var(--text-dim);font-size:16px;}
+.hero-actions{display:flex;gap:8px;flex-wrap:wrap;}
+
+/* PLANES */
+.planes{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;}
+.plane{padding:14px 16px;border:1px solid var(--border);border-radius:var(--r-sm);background:var(--card-soft);cursor:pointer;transition:all 0.12s;text-align:left;display:flex;flex-direction:column;gap:6px;min-height:124px;position:relative;}
+.plane:hover{border-color:var(--primary);background:var(--primary-light);transform:translateY(-1px);box-shadow:var(--sh-2);}
+.plane-name{font-size:9.5px;font-weight:700;color:var(--text-muted);letter-spacing:0.06em;text-transform:uppercase;display:flex;align-items:center;gap:5px;}
+.plane-indicator{width:12px;height:12px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;}
+.plane-indicator.est{background:var(--success-bg);color:var(--success);border:1px solid var(--success-border);}
+.plane-indicator.part{background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-border);}
+.plane-indicator.na{background:var(--card);color:var(--text-dim);border:1px solid var(--border);}
+.plane-state{font-size:12px;font-weight:600;}
+.plane-state.est{color:var(--success);}
+.plane-state.part{color:var(--amber);}
+.plane-state.na{color:var(--text-dim);}
+.plane-source{font-size:11.5px;color:var(--text-muted);line-height:1.4;margin-top:auto;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.plane-fresh{font-size:10px;color:var(--text-dim);font-family:var(--mono);padding-top:6px;border-top:1px solid var(--border);display:flex;align-items:center;gap:4px;}
+
+/* CONSEQUENCE */
+.consequence{padding:16px 18px;border:1px solid var(--border);border-radius:var(--r-sm);display:flex;align-items:flex-start;gap:14px;cursor:pointer;transition:all 0.12s;background:var(--card);width:100%;text-align:left;margin-bottom:8px;}
+.consequence:hover{border-color:var(--primary);background:var(--primary-light);}
+.sev-badge{width:22px;height:22px;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;margin-top:1px;}
+.sev-high{background:var(--danger-bg);color:var(--danger);border:1px solid var(--danger-border);}
+.sev-med{background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-border);}
+.sev-low{background:var(--card-soft);color:var(--text-muted);border:1px solid var(--border);}
+.sev-res{background:var(--success-bg);color:var(--success);border:1px solid var(--success-border);}
+.consequence-body{flex:1;min-width:0;}
+.consequence-title{font-size:14px;font-weight:600;color:var(--text);margin-bottom:3px;}
+.consequence-detail{font-size:13px;color:var(--text-muted);line-height:1.55;margin-bottom:8px;}
+.consequence-meta{display:flex;gap:10px;font-size:11px;color:var(--text-dim);flex-wrap:wrap;align-items:center;}
+.consequence-meta .chip{font-size:10px;padding:1px 6px;}
+.consequence-arrow{color:var(--text-dim);font-size:16px;flex-shrink:0;margin-top:2px;transition:transform 0.15s;}
+.consequence:hover .consequence-arrow{color:var(--primary);transform:translateX(2px);}
+.consequence.resolved{opacity:0.85;}
+.consequence.resolved .consequence-title{color:var(--text-muted);}
+
+/* DELTA */
+.delta-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+.delta-stat{padding:16px 18px;background:var(--card-soft);border:1px solid var(--border);border-radius:var(--r-sm);display:flex;flex-direction:column;gap:4px;}
+.delta-stat-label{font-size:10.5px;font-weight:600;letter-spacing:0.06em;color:var(--text-dim);text-transform:uppercase;}
+.delta-stat-value{font-size:22px;font-weight:600;letter-spacing:-0.02em;}
+.delta-stat-value.added{color:var(--amber);}
+.delta-stat-value.resolved{color:var(--success);}
+.delta-stat-value.changed{color:var(--text);}
+.delta-stat-value.mono{font-family:var(--mono);font-size:14px;}
+.delta-stat-detail{font-size:11.5px;color:var(--text-muted);margin-top:2px;line-height:1.4;}
+
+/* CONTROLS */
+.controls-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px;}
+.control-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r-sm);padding:14px 16px;cursor:pointer;transition:all 0.12s;text-align:left;display:flex;flex-direction:column;gap:8px;}
+.control-card:hover{border-color:var(--primary);background:var(--primary-light);}
+.control-id-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.control-id{font-family:var(--mono);font-size:11px;font-weight:600;color:var(--text-muted);letter-spacing:0.02em;}
+.control-name{font-size:13px;font-weight:500;color:var(--text);line-height:1.4;}
+.control-facets-mini{display:grid;grid-template-columns:repeat(12,1fr);gap:2px;margin-top:2px;}
+.control-facet-dot{height:4px;border-radius:1px;background:var(--border-hover);}
+.control-facet-dot.success{background:var(--success);}
+.control-facet-dot.amber{background:var(--amber);}
+.control-facet-dot.danger{background:var(--danger);}
+.control-facet-dot.neutral{background:var(--text-dim);}
+
+/* RIGHT RAIL */
+.content-grid{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:28px;align-items:start;}
+.main-col{display:flex;flex-direction:column;gap:28px;min-width:0;}
+.sidebar-rail{display:flex;flex-direction:column;gap:16px;position:sticky;top:100px;}
+.side-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r-md);padding:18px 20px;}
+.side-card-title{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-dim);margin-bottom:12px;}
+.next-action{background:linear-gradient(135deg,var(--primary-light) 0%,var(--card) 100%);border:1px solid var(--primary-border);}
+.next-action-eyebrow{font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;color:var(--primary);margin-bottom:8px;}
+.next-action-title{font-size:14px;font-weight:600;color:var(--text);margin-bottom:6px;line-height:1.35;}
+.next-action-detail{font-size:12.5px;color:var(--text-secondary);line-height:1.55;margin-bottom:14px;}
+.next-action-btn{width:100%;padding:9px 12px;background:var(--primary);color:white;border-radius:8px;font-size:13px;font-weight:500;display:flex;align-items:center;justify-content:center;gap:6px;transition:all 0.15s;}
+.next-action-btn:hover{background:var(--primary-hover);}
+.jobs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;}
+.job-btn{padding:12px 8px;background:var(--card-soft);border:1px solid var(--border);border-radius:var(--r-sm);font-size:12px;font-weight:500;color:var(--text);transition:all 0.12s;display:flex;flex-direction:column;align-items:center;gap:5px;text-align:center;}
+.job-btn:hover{border-color:var(--primary);background:var(--primary-light);}
+.job-btn-icon{font-size:16px;}
+.job-btn-name{font-size:11px;color:var(--text-muted);}
+.usage-card{background:var(--card-soft);border:1px solid var(--border);border-radius:var(--r-sm);padding:14px 16px;cursor:pointer;transition:all 0.12s;text-align:left;width:100%;display:flex;flex-direction:column;gap:8px;}
+.usage-card:hover{border-color:var(--primary);background:var(--primary-light);}
+.usage-provider{font-size:11px;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-dim);font-weight:600;}
+.usage-stats{display:flex;justify-content:space-between;font-size:13px;color:var(--text);}
+.usage-stats strong{font-weight:600;}
+.usage-asof{font-size:11px;color:var(--text-muted);display:flex;justify-content:space-between;font-family:var(--mono);}
+
+/* SECTION HEADER */
+.section-header{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:14px;}
+.section-header-left{flex:1;}
+.section-title{font-size:16px;font-weight:600;color:var(--text);margin-bottom:3px;}
+.section-sub{font-size:13px;color:var(--text-muted);line-height:1.5;}
+
+/* FILTER BAR */
+.filter-bar{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-bottom:14px;}
+.filter-chip{padding:4px 10px;border-radius:var(--r-sm);font-size:12px;border:1px solid var(--border);background:var(--card);color:var(--text-muted);cursor:pointer;font-weight:500;}
+.filter-chip:hover{background:var(--card-soft);color:var(--text);}
+.filter-chip.active{background:var(--primary-light);color:var(--primary);border-color:var(--primary-border);}
+
+/* INSPECTOR */
+.inspector-backdrop{position:fixed;inset:0;background:rgba(15,23,41,0.42);opacity:0;pointer-events:none;transition:opacity 0.22s;z-index:40;}
+.inspector-backdrop.open{opacity:1;pointer-events:auto;}
+.inspector{position:fixed;top:0;right:0;bottom:0;width:min(760px,calc(100vw - 40px));background:var(--card);box-shadow:var(--sh-4);transform:translateX(100%);transition:transform 0.28s cubic-bezier(0.4,0,0.2,1);display:flex;flex-direction:column;z-index:50;}
+.inspector.open{transform:translateX(0);}
+.inspector-head{padding:20px 26px 16px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:flex-start;gap:16px;}
+.inspector-crumb{font-size:11.5px;color:var(--text-muted);display:flex;align-items:center;gap:6px;margin-bottom:6px;flex-wrap:wrap;}
+.inspector-crumb .sep{color:var(--text-dim);}
+.inspector-title{font-size:18px;font-weight:600;letter-spacing:-0.015em;line-height:1.35;margin-bottom:3px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.inspector-sub{font-size:12.5px;color:var(--text-muted);}
+.inspector-close{width:30px;height:30px;border-radius:6px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:16px;color:var(--text-muted);flex-shrink:0;transition:all 0.12s;}
+.inspector-close:hover{background:var(--card-soft);color:var(--text);}
+.inspector-body{flex:1;overflow-y:auto;padding:22px 26px;}
+.inspector-section{margin-bottom:24px;}
+.inspector-section:last-child{margin-bottom:0;}
+.inspector-section-title{font-size:10.5px;font-weight:600;letter-spacing:0.06em;color:var(--text-dim);text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:8px;}
+.inspector-section-title .badge{background:var(--card-soft);color:var(--text-muted);font-size:10px;padding:1px 6px;border-radius:8px;font-family:var(--mono);letter-spacing:0;text-transform:none;}
+.inspector-foot{padding:14px 26px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;gap:12px;background:var(--card);flex-wrap:wrap;}
+.inspector-foot-info{font-size:11.5px;color:var(--text-muted);}
+
+/* CALLOUT */
+.callout{padding:14px 18px;border-radius:var(--r-sm);font-size:13px;line-height:1.55;}
+.callout-info{background:var(--primary-light);border:1px solid var(--primary-border);color:var(--text);}
+.callout-info strong{color:var(--primary);font-weight:600;}
+.callout-warn{background:var(--amber-bg);border:1px solid var(--amber-border);color:var(--amber);}
+.callout-success{background:var(--success-bg);border:1px solid var(--success-border);color:var(--success);}
+.callout-danger{background:var(--danger-bg);border:1px solid var(--danger-border);color:var(--danger);}
+
+/* STATE BLOCK */
+.state-block{padding:12px 14px;border-radius:var(--r-sm);display:flex;flex-direction:column;gap:4px;border:1px solid var(--border);}
+.state-block.success{background:var(--success-bg);border-color:var(--success-border);}
+.state-block.amber{background:var(--amber-bg);border-color:var(--amber-border);}
+.state-block.danger{background:var(--danger-bg);border-color:var(--danger-border);}
+.state-block.neutral{background:var(--card-soft);}
+.state-block.info{background:var(--info-bg);border-color:var(--info-border);}
+.state-title{font-size:13px;font-weight:600;display:flex;align-items:center;gap:8px;}
+.state-block.success .state-title{color:var(--success);}
+.state-block.amber .state-title{color:var(--amber);}
+.state-block.danger .state-title{color:var(--danger);}
+.state-block.info .state-title{color:var(--info);}
+.state-block.neutral .state-title{color:var(--text);}
+.state-detail{font-size:12.5px;color:var(--text-muted);line-height:1.55;}
+
+/* DAI */
+.dai-chain{display:flex;flex-direction:column;}
+.hop{background:var(--card);border:1.5px solid var(--border);border-radius:var(--r-md);padding:16px 20px;position:relative;scroll-margin-top:20px;}
+.hop.pivot{border-color:var(--amber);box-shadow:0 0 0 3px rgba(181,71,8,0.08);}
+.hop.pivot.danger{border-color:var(--danger);box-shadow:0 0 0 3px rgba(180,35,24,0.08);}
+.hop.pulse{animation:hopPulse 1.2s ease;}
+@keyframes hopPulse{0%{box-shadow:0 0 0 0 rgba(67,56,202,0.4);}70%{box-shadow:0 0 0 12px rgba(67,56,202,0);}100%{box-shadow:0 0 0 0 rgba(67,56,202,0);}}
+.hop-head{display:flex;align-items:flex-start;gap:12px;margin-bottom:10px;}
+.hop-icon{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;background:var(--card-soft);border:1px solid var(--border);}
+.hop-meta{flex:1;min-width:0;}
+.hop-title{font-size:14px;font-weight:600;color:var(--text);margin-bottom:1px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.hop-sub{font-size:12px;color:var(--text-muted);}
+.hop-badges{display:flex;gap:6px;flex-wrap:wrap;}
+.hop-means{font-size:12.5px;color:var(--text);padding:9px 12px;background:var(--card-soft);border-radius:var(--r-xs);margin-bottom:10px;line-height:1.55;}
+.hop-means strong{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-muted);display:block;margin-bottom:3px;}
+.hop.pivot .hop-means{background:var(--amber-bg);}
+.hop.pivot.danger .hop-means{background:var(--danger-bg);}
+.hop-facts{display:grid;grid-template-columns:1fr 1fr;gap:6px 20px;margin-bottom:8px;}
+.hop-fact{display:flex;gap:8px;align-items:baseline;font-size:12px;}
+.hop-fact-label{color:var(--text-muted);min-width:90px;flex-shrink:0;}
+.hop-fact-value{color:var(--text);font-weight:500;word-break:break-word;}
+.hop-fact-value.mono{font-family:var(--mono);font-size:11px;}
+.hop-evidence-toggle{width:100%;padding:7px 12px;background:transparent;border:1px solid var(--border);border-radius:var(--r-xs);font-size:12px;color:var(--text-muted);cursor:pointer;display:flex;align-items:center;justify-content:space-between;transition:all 0.12s;}
+.hop-evidence-toggle:hover{background:var(--card-soft);color:var(--text);}
+.hop-evidence{margin-top:8px;padding:10px 12px;background:var(--card-soft);border:1px solid var(--border);border-radius:var(--r-xs);}
+.ev-item{display:flex;gap:10px;font-size:12px;align-items:flex-start;margin-bottom:6px;}
+.ev-item:last-child{margin-bottom:0;}
+.ev-ref{font-family:var(--mono);font-size:10.5px;color:var(--primary);background:var(--primary-light);padding:1px 6px;border-radius:3px;flex-shrink:0;}
+.ev-summary{color:var(--text-muted);line-height:1.5;}
+.connector{padding:4px 0 4px 44px;display:flex;align-items:center;gap:12px;position:relative;min-height:44px;font-size:12px;color:var(--text-muted);}
+.connector-line{position:absolute;left:21px;top:0;bottom:0;width:2px;}
+.connector-line.q{background:var(--success);}
+.connector-line.c{background:repeating-linear-gradient(to bottom,var(--amber) 0,var(--amber) 5px,transparent 5px,transparent 10px);}
+.connector-line.p{background:repeating-linear-gradient(to bottom,var(--text-dim) 0,var(--text-dim) 3px,transparent 3px,transparent 7px);}
+.connector-icon{position:absolute;left:15px;top:50%;transform:translateY(-50%);width:14px;height:14px;border-radius:50%;background:var(--card);border:2px solid var(--border-hover);display:flex;align-items:center;justify-content:center;font-size:7px;font-weight:700;z-index:1;}
+.connector:has(.q) .connector-icon{border-color:var(--success);color:var(--success);}
+.connector:has(.c) .connector-icon{border-color:var(--amber);color:var(--amber);}
+.connector:has(.p) .connector-icon{border-color:var(--text-dim);color:var(--text-dim);}
+.connector-text{flex:1;}
+.connector-main{font-weight:500;color:var(--text);}
+.connector-sub{font-size:11px;color:var(--text-muted);}
+.connector-dur{font-family:var(--mono);font-size:10.5px;color:var(--text-dim);padding:1px 6px;background:var(--card);border:1px solid var(--border);border-radius:3px;}
+
+/* DAI TABLE */
+.dai-table{background:var(--card);border:1px solid var(--border);border-radius:var(--r-md);overflow:hidden;}
+.dai-row{display:grid;grid-template-columns:130px 1fr 1fr 32px;gap:16px;padding:11px 16px;border-bottom:1px solid var(--border);align-items:center;font-size:13px;transition:background 0.1s;}
+.dai-row:last-child{border-bottom:none;}
+.dai-row.header{background:var(--card-soft);font-size:10.5px;font-weight:600;letter-spacing:0.06em;color:var(--text-dim);text-transform:uppercase;padding:8px 16px;}
+.dai-row.mismatch{background:var(--danger-bg);}
+.dai-row.mismatch.clickable:hover{background:#fde8e5;cursor:pointer;}
+.dai-dim{font-family:var(--mono);font-size:11px;font-weight:600;color:var(--text);}
+.dai-value{font-size:12.5px;color:var(--text-muted);}
+.dai-value.match{color:var(--success);}
+.dai-value.mismatch{color:var(--danger);font-weight:500;}
+.dai-icon{text-align:right;font-weight:700;font-size:13px;}
+.dai-icon.match{color:var(--success);}
+.dai-icon.mismatch{color:var(--danger);}
+
+/* FACETS */
+.facet{background:var(--card);border:1.5px solid var(--border);border-radius:var(--r-md);margin-bottom:8px;overflow:hidden;border-left:3px solid var(--border);}
+.facet.success{border-left-color:var(--success);}
+.facet.amber{border-left-color:var(--amber);}
+.facet.danger{border-left-color:var(--danger);}
+.facet.neutral{border-left-color:var(--text-dim);}
+.facet-head{width:100%;padding:12px 16px;text-align:left;display:flex;align-items:center;gap:12px;}
+.facet-head:hover{background:var(--card-soft);}
+.facet-num{font-family:var(--mono);font-size:10.5px;font-weight:600;color:var(--text-dim);width:18px;}
+.facet-icon{font-size:15px;}
+.facet-label{flex:1;font-size:13.5px;font-weight:500;color:var(--text);}
+.facet-state{font-size:11px;font-weight:600;padding:2px 8px;border-radius:4px;}
+.facet-state.success{background:var(--success-bg);color:var(--success);}
+.facet-state.amber{background:var(--amber-bg);color:var(--amber);}
+.facet-state.danger{background:var(--danger-bg);color:var(--danger);}
+.facet-state.neutral{background:var(--card-soft);color:var(--text-muted);}
+.facet-chev{color:var(--text-dim);transition:transform 0.15s;font-size:11px;}
+.facet.open .facet-chev{transform:rotate(180deg);}
+.facet-body{display:none;padding:0 16px 16px 46px;}
+.facet.open .facet-body{display:block;}
+.facet-summary{font-size:12.5px;color:var(--text-secondary);line-height:1.55;padding:10px 12px;background:var(--card-soft);border-radius:var(--r-xs);margin-bottom:12px;}
+.facet-facts{display:grid;grid-template-columns:1fr 1fr;gap:6px 20px;margin-bottom:12px;}
+.facet-fact{display:flex;gap:8px;font-size:12px;align-items:baseline;}
+.facet-fact-label{color:var(--text-muted);min-width:110px;flex-shrink:0;}
+.facet-fact-value{color:var(--text);font-weight:500;}
+.facet-fact-value.mono{font-family:var(--mono);font-size:11px;}
+.facet-next{margin-top:10px;padding:9px 12px;background:var(--primary-light);border:1px dashed var(--primary-border);border-radius:var(--r-xs);font-size:12px;color:var(--text);line-height:1.5;}
+.facet-next strong{color:var(--primary);}
+
+/* MODAL */
+.modal-backdrop{position:fixed;inset:0;background:rgba(15,23,41,0.5);opacity:0;pointer-events:none;transition:opacity 0.2s;z-index:60;display:flex;align-items:center;justify-content:center;padding:20px;}
+.modal-backdrop.open{opacity:1;pointer-events:auto;}
+.modal{background:var(--card);border-radius:var(--r-lg);max-width:540px;width:100%;box-shadow:var(--sh-4);transform:scale(0.96);transition:transform 0.2s;overflow:hidden;}
+.modal-backdrop.open .modal{transform:scale(1);}
+.modal-head{padding:22px 26px 14px;}
+.modal-title{font-size:17px;font-weight:600;margin-bottom:6px;}
+.modal-sub{font-size:13px;color:var(--text-muted);line-height:1.55;}
+.modal-body{padding:18px 26px;border-top:1px solid var(--border);border-bottom:1px solid var(--border);font-size:13px;line-height:1.6;}
+.modal-foot{padding:14px 26px;display:flex;gap:8px;justify-content:flex-end;}
+
+/* TOAST */
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(8px);background:var(--text);color:white;padding:11px 20px;border-radius:var(--r-sm);font-size:13px;z-index:100;box-shadow:var(--sh-3);opacity:0;pointer-events:none;transition:all 0.2s;max-width:520px;text-align:center;line-height:1.5;}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+/* EMPTY */
+.empty{padding:36px 24px;text-align:center;color:var(--text-muted);}
+.empty-icon{font-size:32px;margin-bottom:12px;opacity:0.5;}
+.empty-title{font-size:14px;font-weight:500;color:var(--text-secondary);margin-bottom:4px;}
+.empty-desc{font-size:12.5px;line-height:1.55;max-width:400px;margin:0 auto;}
+
+/* COVERAGE */
+.coverage-list{display:flex;flex-direction:column;gap:8px;}
+.coverage-item{padding:12px 14px;border-radius:var(--r-sm);border:1px solid var(--border);display:flex;align-items:flex-start;gap:12px;}
+.coverage-item.success{background:var(--success-bg);border-color:var(--success-border);}
+.coverage-item.amber{background:var(--amber-bg);border-color:var(--amber-border);}
+.coverage-item.neutral{background:var(--card-soft);}
+.coverage-icon{font-size:16px;flex-shrink:0;margin-top:1px;}
+.coverage-body{flex:1;}
+.coverage-title{font-size:13px;font-weight:600;color:var(--text);margin-bottom:2px;}
+.coverage-detail{font-size:12px;color:var(--text-muted);line-height:1.5;}
+.coverage-count{font-size:11px;color:var(--text-dim);font-family:var(--mono);}
+
+/* RECEIPT */
+.receipt-block{padding:14px 16px;border-radius:var(--r-sm);border:1px solid var(--border);margin-bottom:8px;}
+.receipt-block strong{font-weight:600;color:var(--text);font-size:13px;}
+.receipt-digest{font-family:var(--mono);font-size:11px;color:var(--text-muted);word-break:break-all;line-height:1.5;background:var(--card-soft);padding:8px 10px;border-radius:var(--r-xs);}
+
+/* RESPONSIVE */
+@media (max-width:1200px){.content-grid{grid-template-columns:minmax(0,1fr);}.sidebar-rail{position:static;display:grid;grid-template-columns:repeat(2,1fr);}}
+@media (max-width:1100px){
+  .app{grid-template-columns:64px 1fr;}
+  .nav-item span:not(.nav-icon){display:none;}
+  .nav-item{justify-content:center;}
+  .nav-group-title{display:none;}
+  .nav-badge{display:none;}
+  .topbar-search{width:120px;}
+  .planes{grid-template-columns:repeat(3,1fr);}
+}
+@media (max-width:900px){
+  .app{grid-template-columns:0 1fr;grid-template-areas:"topbar topbar" ". main";}
+  .sidebar{display:none;}
+  .main-inner{padding:0 16px 60px;}
+  .planes{grid-template-columns:repeat(2,1fr);}
+  .hero-case{padding:24px 20px;}
+  .hero-answer{font-size:20px;}
+  .hop-facts,.facet-facts{grid-template-columns:1fr;}
+  .dai-row{grid-template-columns:100px 1fr 1fr 28px;gap:8px;padding:8px 10px;font-size:12px;}
+  .inspector{width:100vw;}
+  .topbar-search,.dev-chip{display:none;}
+  .delta-grid{grid-template-columns:1fr 1fr;}
+  .sidebar-rail{grid-template-columns:1fr;}
+  .subnav{overflow-x:auto;white-space:nowrap;}
+  .subnav::-webkit-scrollbar{display:none;}
+}
+@media (max-width:600px){
+  .basis-control{display:none;}
+  .topbar-org span{display:none;}
+  .topbar{padding:0 12px;gap:8px;}
+  .hero-answer{font-size:18px;}
+  .delta-grid{grid-template-columns:1fr;}
+  .hero-status-row{gap:14px;}
+  .hero-stat-sep{display:none;}
+  .controls-grid{grid-template-columns:1fr;}
+}
+
+/* PRINT */
+@media print{
+  .topbar,.sidebar,.subnav,.hero-actions,.inspector-backdrop,.inspector,.modal-backdrop,.toast,.next-action-btn{display:none !important;}
+  body{overflow:visible;background:white;}
+  .app{display:block;height:auto;}
+  .main{overflow:visible;}
+  .main-inner{max-width:none;padding:0;}
+  .card,.hero-case{box-shadow:none;border-color:#ccc;page-break-inside:avoid;}
+  .consequence:hover,.plane:hover{background:initial;}
+}
+</style>
+</head>
+<body>
+
+<div class="app">
+
+  <!-- TOPBAR -->
+  <header class="topbar">
+    <button class="topbar-org" onclick="toast('Organization switcher — single org in this demo')"><div class="org-mark">A</div><span>Acme Corp</span></button>
+    <div class="topbar-sep"></div>
+    <button class="topbar-system" id="system-btn" onclick="cycleSystem()"><span class="sys-name" id="sys-name">Support Agent v2</span><span class="sys-env" id="sys-env">production</span></button>
+    <div class="topbar-right">
+      <span class="synthetic-chip" title="All data is synthetic">Synthetic demo</span>
+      <div class="basis-control">
+        <button class="basis-btn active" data-basis="current" onclick="setBasis('current')">Current</button>
+        <button class="basis-btn" data-basis="evaluation" onclick="setBasis('evaluation')">Evaluation</button>
+        <span class="basis-asof" id="basis-asof">14:22 UTC</span>
+      </div>
+      <select class="persona-select" id="persona-select" onchange="setPersona(this.value)">
+        <option value="executive">Executive</option>
+        <option value="admin">Org admin</option>
+        <option value="developer">AI developer</option>
+        <option value="operator">Security operator</option>
+        <option value="approver">Human approver</option>
+        <option value="auditor">Auditor</option>
+      </select>
+      <div class="search-wrap"><input class="topbar-search" placeholder="Search systems, agents, evidence…" onkeydown="if(event.key==='Enter')toast('Search — synthetic demo')"></div>
+      <button class="dev-chip" onclick="toast('Developer view — separate screen')">{ } Developer</button>
+      <div class="avatar" title="alice.chen@example.com">AC</div>
+    </div>
+  </header>
+
+  <!-- SIDEBAR -->
+  <nav class="sidebar">
+    <div class="nav-group"><a class="nav-item" onclick="toast('Start Here — separate screen')"><span class="nav-icon">✦</span><span>Start here</span></a></div>
+    <div class="nav-group">
+      <div class="nav-group-title">Understand</div>
+      <a class="nav-item" onclick="toast('Overview — separate screen')"><span class="nav-icon">◎</span><span>Overview</span></a>
+      <a class="nav-item" onclick="toast('AI Estate — separate screen')"><span class="nav-icon">▦</span><span>AI Estate</span></a>
+      <a class="nav-item active"><span class="nav-icon">▣</span><span>Assurance Case</span><span class="nav-badge" id="nav-badge">4</span></a>
+      <a class="nav-item" onclick="toast('Action Topology — separate screen')"><span class="nav-icon">❋</span><span>Action Topology</span></a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-title">Assure</div>
+      <a class="nav-item" onclick="toast('Evaluate — separate screen')"><span class="nav-icon">✓</span><span>Evaluate</span></a>
+      <a class="nav-item" onclick="toast('Sources — separate screen')"><span class="nav-icon">⬚</span><span>Sources</span></a>
+      <a class="nav-item" onclick="toast('Reports — separate screen')"><span class="nav-icon">◫</span><span>Reports</span></a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-title">Govern & Operate</div>
+      <a class="nav-item" onclick="toast('Controls — separate screen')"><span class="nav-icon">⌘</span><span>Controls</span></a>
+      <a class="nav-item" onclick="toast('Governance — separate screen')"><span class="nav-icon">⚖</span><span>Governance</span></a>
+      <a class="nav-item" onclick="toast('Monitoring — separate screen')"><span class="nav-icon">◉</span><span>Monitoring</span></a>
+      <a class="nav-item" onclick="toast('Usage & Cost — separate screen')"><span class="nav-icon">◈</span><span>Usage & Cost</span></a>
+    </div>
+  </nav>
+
+  <!-- MAIN -->
+  <main class="main" id="main">
+    <div class="main-inner" id="main-inner">
+      <!-- rendered by JS -->
+    </div>
+  </main>
+</div>
+
+<!-- INSPECTOR -->
+<div class="inspector-backdrop" id="inspector-backdrop" onclick="closeInspector()"></div>
+<aside class="inspector" id="inspector" role="dialog" aria-modal="true">
+  <div class="inspector-head">
+    <div>
+      <div class="inspector-crumb" id="inspector-crumb"></div>
+      <div class="inspector-title" id="inspector-title"></div>
+      <div class="inspector-sub" id="inspector-sub"></div>
+    </div>
+    <button class="inspector-close" onclick="closeInspector()" aria-label="Close">×</button>
+  </div>
+  <div class="inspector-body" id="inspector-body"></div>
+  <div class="inspector-foot" id="inspector-foot"></div>
+</aside>
+
+<!-- MODAL -->
+<div class="modal-backdrop" id="modal-backdrop" onclick="if(event.target===this)closeModal()">
+  <div class="modal">
+    <div class="modal-head"><div class="modal-title" id="modal-title"></div><div class="modal-sub" id="modal-sub"></div></div>
+    <div class="modal-body" id="modal-body"></div>
+    <div class="modal-foot" id="modal-foot"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ═══════════════════════════════════════════════
+   FIXTURES
+   ═══════════════════════════════════════════════ */
+
+const SYSTEMS = {
+  'support-v2': {
+    name:'Support Agent v2', env:'production', id:'sys-supp-2f4a', owner:'alice.chen@example.com',
+    ladder:5, ladderLabel:'ASSURANCE_EVALUATED',
+    lastEval:'eval-2f4a-9d3b', lastEvalAsOf:'2026-10-17 10:42 UTC',
+    consequence:'This system can issue customer refunds up to <strong>$500</strong> through a delegated chain from <strong>support-triage-v3</strong> to <strong>refund-agent-v2</strong>.',
+    exposure:'It reaches <strong>12 tool paths</strong>, of which 3 are undeclared. Its most recent delegated action widened DATA_CLASS at handoff — the operation completed, but authority did not cover it.',
+    attention:4,
+    planes:[
+      {name:'REQUESTED',state:'est',source:'Operating Envelope v12',fresh:'Fresh · 2h ago',analyzers:1},
+      {name:'POLICY_AUTHORIZED',state:'est',source:'Approved by alice.chen',fresh:'Fresh · 2h ago',analyzers:1},
+      {name:'EFFECTIVELY_GRANTED',state:'part',source:'AWS IAM observer',fresh:'Stale · 6h ago',analyzers:2},
+      {name:'CODE_CAPABLE',state:'est',source:'GitHub scan · 47 rules',fresh:'Fresh · 1h ago',analyzers:4},
+      {name:'OBSERVED',state:'est',source:'OTLP collector',fresh:'Fresh · 12m ago',analyzers:3}
+    ],
+    consequences:[
+      {sev:'high',title:'3 undeclared tool paths',detail:'Three tool paths reachable by agents that no MCP registry entry declares. Source-visible only — not observed at runtime.',source:'GitHub scan',age:'1h ago',evCount:4,drawer:'coverage'},
+      {sev:'med',title:'1 delegation drift observed',detail:'A delegated action widened DATA_CLASS from "standard" to "includes_pii" at handoff. Recorded as OBSERVED_OUTSIDE_SCOPE.',source:'OTLP + DAI',age:'3h ago',evCount:6,drawer:'dai',chain:'widened'},
+      {sev:'low',title:'2 dependencies drifted from SBOM',detail:'Two transitive dependencies gained new permissions since last approved SBOM.',source:'SBOM diff',age:'1h ago',evCount:2,drawer:'coverage'},
+      {sev:'res',title:'Prior IAM overreach resolved',detail:'The critical IAM overreach from eval-2f4a-8c1a was remediated on 2026-10-17 11:15 UTC.',source:'IAM observer',age:'3h ago',evCount:1}
+    ],
+    controls:[
+      {id:'A02',name:'Undeclared executable capability',state:'EXECUTED',tone:'success',facets:['success','success','success','success','success','amber','success','neutral']},
+      {id:'A03',name:'Delegated Action Integrity',state:'EXECUTED',tone:'success',facets:['success','success','success','success','success','success','success','success']},
+      {id:'A04',name:'Observed action outside policy',state:'CONFIGURED',tone:'amber',facets:['success','amber','amber','neutral','neutral','neutral','neutral','neutral']},
+      {id:'R03',name:'Runtime guardrail enforcement',state:'MIXED STATE',tone:'amber',facets:['success','success','success','danger','amber','amber','amber','amber']},
+      {id:'E01',name:'Evidence integrity & provenance',state:'EXECUTED',tone:'success',facets:['success','success','success','success','success','success','success','success']}
+    ],
+    chains:[
+      {id:'widened',route:'support-triage-v3 → refund-agent-v2',state:'SCOPE WIDENED',tone:'amber',asOf:'2026-10-17 10:42 UTC'},
+      {id:'verified',route:'support-triage-v3 → invoice-agent-v1',state:'VERIFIED',tone:'success',asOf:'2026-10-17 09:58 UTC'},
+      {id:'verified',route:'support-triage-v3 → refund-agent-v2',state:'VERIFIED',tone:'success',asOf:'2026-10-16 18:22 UTC'},
+      {id:'unverifiable',route:'escalation-agent-v4 → refund-agent-v2',state:'NO GRANT',tone:'danger',asOf:'2026-10-16 14:07 UTC'}
+    ],
+    evaluations:[
+      {id:'eval-2f4a-9d3b',asOf:'2026-10-17 10:42',disposition:'REVIEW',tone:'amber',scope:'full'},
+      {id:'eval-2f4a-8c1a',asOf:'2026-10-16 22:15',disposition:'ALLOW',tone:'success',scope:'full'},
+      {id:'eval-2f4a-7b09',asOf:'2026-10-16 14:30',disposition:'BLOCK',tone:'danger',scope:'full'},
+      {id:'eval-2f4a-6a8f',asOf:'2026-10-15 09:14',disposition:'ALLOW',tone:'success',scope:'full'}
+    ],
+    sourceHealth:[
+      {name:'GitHub App',state:'fresh',asOf:'1h ago'},
+      {name:'AWS IAM observer',state:'stale',asOf:'6h ago'},
+      {name:'OTLP collector',state:'fresh',asOf:'12m ago'},
+      {name:'SBOM source',state:'fresh',asOf:'1h ago'},
+      {name:'Operating Envelope',state:'fresh',asOf:'2h ago'}
+    ],
+    nextAction:{title:'Review the delegation drift on chain-7a9c-2b14',detail:'One delegated action widened DATA_CLASS on handoff. The operation completed but authority did not cover it.',cta:'Open the chain',drawer:'dai',chain:'widened'},
+    usage:{provider:'OpenAI',model:'gpt-4o',tokens:'1.24M',tokensKnown:true,cost:'$28.40',asOf:'2h ago',dataSource:'admin_api'}
+  },
+  'invoice-v1': {
+    name:'Invoice Agent v1', env:'production', id:'sys-inv-1b7c', owner:'bob.kumar@example.com',
+    ladder:5, ladderLabel:'ASSURANCE_EVALUATED',
+    lastEval:'eval-inv-2f4a-8c1a', lastEvalAsOf:'2026-10-17 09:58 UTC',
+    consequence:'This system can reconcile invoices up to <strong>$10,000</strong> and dispatch notifications to finance systems.',
+    exposure:'All five evidence planes are established at this evaluation. No unresolved consequences.',
+    attention:0,
+    planes:[
+      {name:'REQUESTED',state:'est',source:'Operating Envelope v8',fresh:'Fresh · 4h ago',analyzers:1},
+      {name:'POLICY_AUTHORIZED',state:'est',source:'Approved by bob.kumar',fresh:'Fresh · 4h ago',analyzers:1},
+      {name:'EFFECTIVELY_GRANTED',state:'est',source:'AWS IAM observer',fresh:'Fresh · 30m ago',analyzers:2},
+      {name:'CODE_CAPABLE',state:'est',source:'GitHub scan · 44 rules',fresh:'Fresh · 2h ago',analyzers:4},
+      {name:'OBSERVED',state:'est',source:'OTLP collector',fresh:'Fresh · 3m ago',analyzers:3}
+    ],
+    consequences:[],
+    controls:[
+      {id:'A02',name:'Undeclared executable capability',state:'EXECUTED',tone:'success',facets:['success','success','success','success','success','success','success','success']},
+      {id:'A03',name:'Delegated Action Integrity',state:'EXECUTED',tone:'success',facets:['success','success','success','success','success','success','success','success']},
+      {id:'E01',name:'Evidence integrity & provenance',state:'EXECUTED',tone:'success',facets:['success','success','success','success','success','success','success','success']}
+    ],
+    chains:[{id:'verified',route:'invoice-reconciler-v1 → notify-agent-v1',state:'VERIFIED',tone:'success',asOf:'2026-10-17 09:58 UTC'}],
+    evaluations:[{id:'eval-inv-2f4a-8c1a',asOf:'2026-10-17 09:58',disposition:'ALLOW',tone:'success',scope:'full'}],
+    sourceHealth:[
+      {name:'GitHub App',state:'fresh',asOf:'2h ago'},
+      {name:'AWS IAM observer',state:'fresh',asOf:'30m ago'},
+      {name:'OTLP collector',state:'fresh',asOf:'3m ago'}
+    ],
+    nextAction:null,
+    usage:{provider:'OpenAI',model:'gpt-4o',tokens:'842K',tokensKnown:true,cost:'$18.20',asOf:'2h ago',dataSource:'admin_api'}
+  },
+  'insights': {
+    name:'Customer Insights', env:'staging', id:'sys-ci-9f2e', owner:'alice.chen@example.com',
+    ladder:4, ladderLabel:'DETECTOR_EXECUTED',
+    lastEval:'eval-ci-2f4a-7b09', lastEvalAsOf:'2026-10-16 14:30 UTC',
+    consequence:'This system can query aggregated customer telemetry. Code-reachable paths are known; effective permission and observed behavior are not yet qualified.',
+    exposure:'<strong>2 evidence planes are not assessed.</strong> Add runtime traces and IAM to complete the picture.',
+    attention:2,
+    planes:[
+      {name:'REQUESTED',state:'est',source:'Operating Envelope v4 (draft)',fresh:'Draft · not approved',analyzers:0},
+      {name:'POLICY_AUTHORIZED',state:'na',source:'Not assessed',fresh:'—',analyzers:0},
+      {name:'EFFECTIVELY_GRANTED',state:'na',source:'No IAM source',fresh:'—',analyzers:0},
+      {name:'CODE_CAPABLE',state:'est',source:'GitHub scan · 38 rules',fresh:'Fresh · 5h ago',analyzers:3},
+      {name:'OBSERVED',state:'na',source:'No telemetry',fresh:'—',analyzers:0}
+    ],
+    consequences:[
+      {sev:'med',title:'Draft policy not yet approved',detail:'Operating Envelope v4 is drafted but no named human has approved it.',source:'Envelope',age:'3d ago',evCount:1,drawer:'coverage'},
+      {sev:'low',title:'2 dependencies drifted',detail:'Transitive dependencies changed since last SBOM.',source:'SBOM diff',age:'5h ago',evCount:2,drawer:'coverage'}
+    ],
+    controls:[{id:'A02',name:'Undeclared executable capability',state:'EXECUTED',tone:'success',facets:['success','success','success','success','success','neutral','neutral','neutral']}],
+    chains:[],
+    evaluations:[{id:'eval-ci-2f4a-7b09',asOf:'2026-10-16 14:30',disposition:'REVIEW',tone:'amber',scope:'partial'}],
+    sourceHealth:[
+      {name:'GitHub App',state:'fresh',asOf:'5h ago'},
+      {name:'AWS IAM observer',state:'unknown',asOf:'not connected'},
+      {name:'OTLP collector',state:'unknown',asOf:'not connected'}
+    ],
+    nextAction:{title:'Add runtime traces or IAM export',detail:'To complete this system\'s evidence, add OTLP traces (OBSERVED) or an IAM export (EFFECTIVELY_GRANTED).',cta:'Add evidence',drawer:'navigator'},
+    usage:{provider:'OpenAI',model:'gpt-4o-mini',tokens:'124K',tokensKnown:true,cost:'$3.40',asOf:'1h ago',dataSource:'admin_api'}
+  },
+  'datalake': {
+    name:'Data Lake Enrichment', env:'staging', id:'sys-dl-4a8b', owner:'unassigned',
+    ladder:0, ladderLabel:'FILE_STORED',
+    lastEval:null, lastEvalAsOf:null,
+    consequence:'This system is registered but no evidence has been supplied yet. HAIEC cannot establish what it can cause.',
+    exposure:'No evidence connected. Start by adding a source or a source package.',
+    attention:1,
+    planes:[
+      {name:'REQUESTED',state:'na',source:'Not assessed',fresh:'—',analyzers:0},
+      {name:'POLICY_AUTHORIZED',state:'na',source:'Not assessed',fresh:'—',analyzers:0},
+      {name:'EFFECTIVELY_GRANTED',state:'na',source:'Not assessed',fresh:'—',analyzers:0},
+      {name:'CODE_CAPABLE',state:'na',source:'Not assessed',fresh:'—',analyzers:0},
+      {name:'OBSERVED',state:'na',source:'Not assessed',fresh:'—',analyzers:0}
+    ],
+    consequences:[], controls:[], chains:[], evaluations:[],
+    sourceHealth:[],
+    nextAction:{title:'Add your first evidence source',detail:'Start with a source code repository or an SBOM to see the code-capable picture.',cta:'Add evidence',drawer:'navigator'},
+    usage:null
+  }
+};
+
+const DAI_SCENARIOS = {
+  verified:{
+    tone:'success',label:'Fully qualified',headline:'Every step qualified · independent readback confirms effect',
+    stateLabel:'AUTHORIZED_DELEGATION_ESTABLISHED · TARGET_EFFECT_VERIFIED',chainId:'chain-4e2b-8a11',
+    integrity:'Continuous',duration:'6.0s',pivot:null,
+    hops:[
+      {icon:'🤖',title:'support-triage-v3',sub:'Root principal · System A',state:'AUTHORIZED_DELEGATION_ESTABLISHED',tone:'success',means:'The delegating agent holds a valid, human-approved root grant.',facts:[{l:'Root grant',v:'G-2026-10-17-A1',m:true},{l:'Approved by',v:'alice.chen@example.com'},{l:'Expires',v:'2026-10-24 09:14 UTC',m:true},{l:'Policy digest',v:'sha256:8f2a…c4b1',m:true}],evidence:[{ref:'grant.signed',s:'Signed by alice.chen@example.com · KMS key hk-4a2e-17'},{ref:'envelope.v12',s:'Operating Envelope approved 2026-10-17 09:14 UTC'}]},
+      {icon:'🔀',title:'Agent handoff',sub:'support-triage-v3 → refund-agent-v2',state:'HANDOFF_OBSERVED',tone:'success',means:'The handoff was observed by a trusted collector with a valid signature.',facts:[{l:'Parent inv',v:'inv-8a4e-2f1c',m:true},{l:'Child inv',v:'inv-2f1c-b9a7',m:true},{l:'Trace',v:'trace-9d3b-7e21',m:true},{l:'Observed at',v:'2026-10-17 10:42:18 UTC',m:true}],evidence:[{ref:'otlp.handoff',s:'OTLP span with mcp.handoff.* from trusted collector'}]},
+      {icon:'🤖',title:'refund-agent-v2',sub:'Child principal · System B',state:'OBSERVED_WITHIN_SCOPE',tone:'success',means:'The child agent acted within the delegated scope; nine of nine dimensions match.',facts:[{l:'Principal',v:'svc-refund@billing-prod',m:true},{l:'Delegated scope',v:'refund.create ≤ $500 · US · prod',m:true},{l:'DAI comparison',v:'9/9 dimensions match'}],evidence:[{ref:'identity.verified',s:'Child identity verified against registry'},{ref:'scope.narrowing',s:'DAI: 9/9 dimensions match parent (no widening)'}]},
+      {icon:'🔧',title:'stripe-refund-tool',sub:'MCP tool · refund.create',state:'OBSERVED_WITHIN_SCOPE',tone:'success',means:'The tool call used an authorized operation and stayed within the approved amount.',facts:[{l:'Operation',v:'refund.create',m:true},{l:'Amount',v:'$247.50',m:true},{l:'Customer',v:'cus_Nk4x9pQ7rL',m:true},{l:'Server',v:'mcp://stripe-prod'}],evidence:[{ref:'mcp.tool_call',s:'Tool-call span with registered schema match'}]},
+      {icon:'📤',title:'Provider dispatch',sub:'Stripe · authenticated ack',state:'DISPATCH_ACCEPTED',tone:'success',means:'Stripe acknowledged the request with a valid signed webhook.',facts:[{l:'Transaction',v:'tx_3QfL8mR2aB',m:true},{l:'Ack at',v:'2026-10-17 10:42:20 UTC',m:true},{l:'Idempotency',v:'idem-2f1c-9d3b',m:true}],evidence:[{ref:'provider.ack',s:'Signed provider acknowledgement'}]},
+      {icon:'✅',title:'Target effect verified',sub:'Independent readback · Stripe balance',state:'TARGET_EFFECT_VERIFIED',tone:'success',means:'An independent balance readback confirmed the refund landed exactly as expected.',facts:[{l:'Balance delta',v:'−$247.50',m:true},{l:'Tx match',v:'tx_3QfL8mR2aB ✓',m:true},{l:'Verified at',v:'2026-10-17 10:42:24 UTC',m:true}],evidence:[{ref:'readback.stripe',s:'Independent Stripe balance readback with matching transaction id'}]}
+    ],
+    links:[{tone:'q',main:'Handoff witnessed',sub:'Signed parent→child boundary',dur:'+0.4s'},{tone:'q',main:'Identity verified',sub:'Child principal verified · registry match',dur:'+0.1s'},{tone:'q',main:'Tool within scope',sub:'Operation within delegated scope',dur:'+1.2s'},{tone:'q',main:'Dispatch accepted',sub:'Provider ack received',dur:'+0.8s'},{tone:'q',main:'Effect verified',sub:'Independent readback confirms delta',dur:'+3.5s'}],
+    dai:[{d:'OPERATION',p:'refund.create',c:'refund.create',match:true},{d:'TARGET',p:'stripe-prod',c:'stripe-prod',match:true},{d:'SCOPE',p:'customer, transaction',c:'customer, transaction',match:true},{d:'MAGNITUDE',p:'≤ $500.00',c:'$247.50',match:true},{d:'DURATION',p:'single op · ≤ 30s',c:'1.4s',match:true},{d:'APPROVAL',p:'human-approved · alice.chen',c:'human-approved · alice.chen',match:true},{d:'DATA_CLASS',p:'standard (no PII)',c:'standard (no PII)',match:true},{d:'ENVIRONMENT',p:'production',c:'production',match:true},{d:'GEOGRAPHY',p:'US',c:'US',match:true}],
+    unverified:[]
+  },
+  widened:{
+    tone:'amber',label:'Scope widened',headline:'One dimension widened · effect readback pending',
+    stateLabel:'OBSERVED_OUTSIDE_SCOPE · EFFECT_NOT_VERIFIED',chainId:'chain-7a9c-2b14',
+    integrity:'Continuous · pivot at hop 3',duration:'3.0s',pivot:2,
+    hops:[
+      {icon:'🤖',title:'support-triage-v3',sub:'Root principal · System A',state:'AUTHORIZED_DELEGATION_ESTABLISHED',tone:'success',means:'The delegating agent holds a valid, human-approved root grant.',facts:[{l:'Root grant',v:'G-2026-10-17-A1',m:true},{l:'Approved by',v:'alice.chen@example.com'},{l:'DATA_CLASS',v:'standard (no PII)'}],evidence:[{ref:'grant.signed',s:'Signed by alice.chen@example.com'},{ref:'envelope.v12',s:'Envelope approved 2026-10-17 09:14 UTC'}]},
+      {icon:'🔀',title:'Agent handoff',sub:'support-triage-v3 → refund-agent-v2',state:'HANDOFF_OBSERVED',tone:'success',means:'The handoff was observed with a valid signature.',facts:[{l:'Parent inv',v:'inv-8a4e-2f1c',m:true},{l:'Child inv',v:'inv-2f1c-b9a7',m:true},{l:'Observed',v:'2026-10-17 10:42:18 UTC',m:true}],evidence:[{ref:'otlp.handoff',s:'OTLP span from trusted collector'}]},
+      {icon:'🤖',title:'refund-agent-v2',sub:'Child principal · System B',state:'OBSERVED_OUTSIDE_SCOPE',tone:'amber',means:'The child agent acted outside the delegated scope: DATA_CLASS widened.',facts:[{l:'Principal',v:'svc-refund@billing-prod',m:true},{l:'Scope',v:'refund.create ≤ $500 · US · prod',m:true},{l:'DATA_CLASS',v:'includes_pii (widened)'},{l:'DAI comparison',v:'8 match · 1 widened'}],evidence:[{ref:'identity.verified',s:'Child identity verified'},{ref:'dai.comparison',s:'DATA_CLASS widened from standard to includes_pii'}]},
+      {icon:'🔧',title:'stripe-refund-tool',sub:'MCP tool · refund.create',state:'OBSERVED_OUTSIDE_SCOPE',tone:'amber',means:'The tool call proceeded with a payload carrying data outside the root grant.',facts:[{l:'Operation',v:'refund.create',m:true},{l:'Amount',v:'$247.50',m:true},{l:'Payload data_class',v:'includes_pii (customer email)'},{l:'Called at',v:'2026-10-17 10:42:19 UTC',m:true}],evidence:[{ref:'mcp.tool_call',s:'Tool-call span with registered schema match'}]},
+      {icon:'📤',title:'Provider dispatch',sub:'Stripe · authenticated ack',state:'DISPATCH_ACCEPTED',tone:'success',means:'Stripe acknowledged the request with a valid signed webhook.',facts:[{l:'Transaction',v:'tx_3QfL8mR2aB',m:true},{l:'Ack',v:'2026-10-17 10:42:20 UTC',m:true}],evidence:[{ref:'provider.ack',s:'Signed provider acknowledgement'}]},
+      {icon:'⏳',title:'Effect readback pending',sub:'Awaiting independent target readback',state:'EFFECT_NOT_VERIFIED',tone:'amber',means:'The provider accepted the request, but no independent readback has yet confirmed the effect.',facts:[{l:'Expected',v:'−$247.50 at Stripe balance'},{l:'Tx id',v:'tx_3QfL8mR2aB',m:true},{l:'Readback',v:'not yet qualified'}],evidence:[]}
+    ],
+    links:[{tone:'q',main:'Handoff witnessed',sub:'Signed parent→child boundary',dur:'+0.4s'},{tone:'c',main:'Scope widening on handoff',sub:'1 of 9 DAI dimensions widened · DATA_CLASS',dur:'+0.1s'},{tone:'q',main:'Tool within scope',sub:'Operation and amount within delegated scope',dur:'+1.2s'},{tone:'q',main:'Dispatch accepted',sub:'Provider ack received',dur:'+0.8s'},{tone:'p',main:'Readback pending',sub:'Awaiting independent target readback',dur:'+0.5s'}],
+    dai:[{d:'OPERATION',p:'refund.create',c:'refund.create',match:true},{d:'TARGET',p:'stripe-prod',c:'stripe-prod',match:true},{d:'SCOPE',p:'customer, transaction',c:'customer, transaction',match:true},{d:'MAGNITUDE',p:'≤ $500.00',c:'$247.50',match:true},{d:'DURATION',p:'single op · ≤ 30s',c:'1.4s',match:true},{d:'APPROVAL',p:'human-approved · alice.chen',c:'human-approved · alice.chen',match:true},{d:'DATA_CLASS',p:'standard (no PII)',c:'includes_pii (customer email)',match:false,hop:2},{d:'ENVIRONMENT',p:'production',c:'production',match:true},{d:'GEOGRAPHY',p:'US',c:'US',match:true}],
+    unverified:[
+      {title:'DATA_CLASS widened at handoff',detail:'Root grant authorized "standard". Child invocation carried "includes_pii". Recorded as OBSERVED_OUTSIDE_SCOPE.'},
+      {title:'Effect readback pending',detail:'Provider ack received, but no independent target readback confirms the balance delta. Recorded as EFFECT_NOT_VERIFIED.'}
+    ]
+  },
+  revoked:{
+    tone:'danger',label:'Revoked mid-chain',headline:'Authority revoked before tool call · effect still verified',
+    stateLabel:'OBSERVED_OUTSIDE_SCOPE · TARGET_EFFECT_VERIFIED',chainId:'chain-3d8e-1f5b',
+    integrity:'Continuous · authority expired at hop 3',duration:'6.0s',pivot:2,
+    hops:[
+      {icon:'🤖',title:'support-triage-v3',sub:'Root principal · System A',state:'AUTHORIZED_DELEGATION_ESTABLISHED',tone:'success',means:'At chain start, the delegating agent held a valid, human-approved root grant.',facts:[{l:'Root grant',v:'G-2026-10-17-A1',m:true},{l:'Status',v:'valid · expires 2026-10-24'}],evidence:[{ref:'grant.signed',s:'Signed by alice.chen@example.com'}]},
+      {icon:'🔀',title:'Agent handoff',sub:'support-triage-v3 → refund-agent-v2',state:'HANDOFF_OBSERVED',tone:'success',means:'The handoff was observed with a valid signature. The grant was still valid at this moment.',facts:[{l:'Observed',v:'2026-10-17 10:42:18 UTC',m:true},{l:'Grant status',v:'valid at handoff'}],evidence:[{ref:'otlp.handoff',s:'OTLP span from trusted collector'}]},
+      {icon:'🤖',title:'refund-agent-v2',sub:'Child principal · System B',state:'OBSERVED_OUTSIDE_SCOPE',tone:'danger',means:'The child agent acted after the grant was revoked. Authority no longer covered this action.',facts:[{l:'Revocation',v:'2026-10-17 10:42:20 UTC'},{l:'Action at',v:'2026-10-17 10:42:21 UTC',m:true}],evidence:[{ref:'grant.revoked',s:'Revocation event signed by alice.chen@example.com'}]},
+      {icon:'🔧',title:'stripe-refund-tool',sub:'MCP tool · refund.create',state:'OBSERVED_OUTSIDE_SCOPE',tone:'danger',means:'The tool call executed with revoked authority. It should not have been accepted.',facts:[{l:'Operation',v:'refund.create',m:true},{l:'Amount',v:'$247.50',m:true},{l:'Authority',v:'revoked at dispatch time'}],evidence:[{ref:'mcp.tool_call',s:'Tool-call span observed from trusted collector'}]},
+      {icon:'📤',title:'Provider dispatch',sub:'Stripe · authenticated ack',state:'DISPATCH_ACCEPTED',tone:'success',means:'Stripe accepted the dispatch. Provider acceptance is independent of authority.',facts:[{l:'Transaction',v:'tx_3QfL8mR2aB',m:true},{l:'Note',v:'provider acceptance ≠ authorized action'}],evidence:[{ref:'provider.ack',s:'Signed provider acknowledgement'}]},
+      {icon:'✅',title:'Effect verified',sub:'Independent readback · Stripe balance',state:'TARGET_EFFECT_VERIFIED',tone:'success',means:'The refund landed. We can prove what happened — but the action should not have been authorized.',facts:[{l:'Balance delta',v:'−$247.50',m:true},{l:'Tx match',v:'tx_3QfL8mR2aB ✓',m:true}],evidence:[{ref:'readback.stripe',s:'Independent Stripe balance readback'}]}
+    ],
+    links:[{tone:'q',main:'Handoff witnessed',sub:'Grant valid at handoff',dur:'+0.4s'},{tone:'c',main:'Authority revoked between hops',sub:'Revoked 2026-10-17 10:42:20',dur:'+0.1s'},{tone:'c',main:'Tool outside authority',sub:'Called with revoked grant',dur:'+1.2s'},{tone:'q',main:'Provider accepted dispatch',sub:'Provider acceptance is not authorization',dur:'+0.8s'},{tone:'q',main:'Effect independently verified',sub:'Readback confirms the refund landed',dur:'+3.5s'}],
+    dai:[{d:'OPERATION',p:'refund.create',c:'refund.create',match:true},{d:'TARGET',p:'stripe-prod',c:'stripe-prod',match:true},{d:'SCOPE',p:'customer, transaction',c:'customer, transaction',match:true},{d:'MAGNITUDE',p:'≤ $500.00',c:'$247.50',match:true},{d:'DURATION',p:'single op · ≤ 30s',c:'1.4s',match:true},{d:'APPROVAL',p:'human-approved · alice.chen',c:'revoked before action',match:false,hop:2},{d:'DATA_CLASS',p:'standard (no PII)',c:'standard (no PII)',match:true},{d:'ENVIRONMENT',p:'production',c:'production',match:true},{d:'GEOGRAPHY',p:'US',c:'US',match:true}],
+    unverified:[
+      {title:'Authority revoked before the action',detail:'The grant was revoked at 10:42:20. The tool call executed at 10:42:21. The action is recorded as OBSERVED_OUTSIDE_SCOPE.'},
+      {title:'Provider accepted an unauthorized action',detail:'Stripe accepted the dispatch because provider acceptance is independent of HAIEC-qualified authority. This is a control gap, not a HAIEC verdict failure.'},
+      {title:'The effect is still verified',detail:'The refund landed. This is orthogonal to authorization: we can prove the effect, and prove the action was unauthorized at the time it happened.'}
+    ]
+  },
+  unverifiable:{
+    tone:'danger',label:'Handoff without grant',headline:'Handoff observed · no matching delegation grant',
+    stateLabel:'DELEGATION_UNVERIFIED · HANDOFF_OBSERVED_ONLY',chainId:'chain-e1f2-9a3d',
+    integrity:'Broken at handoff',duration:'4.0s',pivot:1,
+    hops:[
+      {icon:'🤖',title:'escalation-agent-v4',sub:'Root principal · System A',state:'DECLARATION_ONLY',tone:'amber',means:'The root agent declared a scope, but the declaration does not include a delegation to refund-agent-v2.',facts:[{l:'Root grant',v:'G-2026-10-15-A4',m:true},{l:'Declared delegation',v:'refund-agent-v2 NOT present'}],evidence:[{ref:'grant.signed',s:'Signed by alice.chen@example.com'},{ref:'envelope.v9',s:'Envelope does NOT declare delegation to refund-agent-v2'}]},
+      {icon:'🔀',title:'Agent handoff',sub:'escalation-agent-v4 → refund-agent-v2',state:'HANDOFF_OBSERVED_ONLY',tone:'danger',means:'A handoff was observed. No matching delegation grant exists to authorize it.',facts:[{l:'Parent inv',v:'inv-9c2d-1e4f',m:true},{l:'Observed at',v:'2026-10-16 14:07:44 UTC',m:true},{l:'Matching grant',v:'not found in any source'}],evidence:[{ref:'otlp.handoff',s:'OTLP span observed from trusted collector'},{ref:'grant.lookup',s:'No matching grant in envelope, DAI documents, or runtime authority'}]},
+      {icon:'🤖',title:'refund-agent-v2',sub:'Child principal · System B',state:'DELEGATION_UNVERIFIED',tone:'danger',means:'The child agent acted without verifiable authority.',facts:[{l:'Principal',v:'svc-refund@billing-prod',m:true},{l:'Scope',v:'not established'},{l:'Authority',v:'unverified'}],evidence:[{ref:'identity.verified',s:'Child identity exists in registry (but no grant to act)'}]},
+      {icon:'🔧',title:'stripe-refund-tool',sub:'MCP tool · refund.create',state:'OBSERVED_OUTSIDE_SCOPE',tone:'danger',means:'The tool call proceeded with no matching grant, and the amount exceeded any prior delegation.',facts:[{l:'Operation',v:'refund.create',m:true},{l:'Amount',v:'$1,840.00',m:true},{l:'Note',v:'amount exceeds any prior delegation'}],evidence:[{ref:'mcp.tool_call',s:'Tool-call span observed from trusted collector'}]},
+      {icon:'📤',title:'Provider dispatch',sub:'Stripe · authenticated ack',state:'DISPATCH_ACCEPTED',tone:'success',means:'Stripe accepted the dispatch despite the missing authority chain.',facts:[{l:'Transaction',v:'tx_9bK3nV5pQ2',m:true},{l:'Note',v:'provider acceptance ≠ authorized action'}],evidence:[{ref:'provider.ack',s:'Signed provider acknowledgement'}]},
+      {icon:'⏳',title:'Effect readback pending',sub:'Awaiting independent target readback',state:'EFFECT_NOT_VERIFIED',tone:'amber',means:'No independent readback has yet confirmed the actual balance delta.',facts:[{l:'Expected',v:'−$1,840.00 at Stripe balance'},{l:'Tx id',v:'tx_9bK3nV5pQ2',m:true},{l:'Since',v:'2026-10-16 14:07:48 UTC',m:true}],evidence:[]}
+    ],
+    links:[{tone:'c',main:'No matching grant',sub:'Handoff observed but no delegation authority',dur:'+0.4s'},{tone:'c',main:'Identity present · no grant',sub:'Child exists but no authority to act',dur:'+0.1s'},{tone:'c',main:'Action outside any scope',sub:'Amount exceeds any prior delegation',dur:'+1.2s'},{tone:'q',main:'Dispatch accepted',sub:'Provider ack received (authority missing)',dur:'+1.0s'},{tone:'p',main:'Readback pending',sub:'Awaiting independent target readback',dur:'+1.3s'}],
+    dai:[{d:'OPERATION',p:'no grant for this hop',c:'refund.create',match:false,hop:1},{d:'TARGET',p:'no grant for this hop',c:'stripe-prod',match:false,hop:1},{d:'SCOPE',p:'no grant for this hop',c:'customer',match:false,hop:1},{d:'MAGNITUDE',p:'no grant for this hop',c:'$1,840.00',match:false,hop:1},{d:'DURATION',p:'no grant for this hop',c:'2.1s',match:false,hop:1},{d:'APPROVAL',p:'no grant for this hop',c:'not present',match:false,hop:1},{d:'DATA_CLASS',p:'no grant for this hop',c:'includes_pii',match:false,hop:1},{d:'ENVIRONMENT',p:'no grant for this hop',c:'production',match:false,hop:1},{d:'GEOGRAPHY',p:'no grant for this hop',c:'US',match:false,hop:1}],
+    unverified:[
+      {title:'No matching delegation grant',detail:'A handoff was observed, but no delegation grant exists in the Operating Envelope, DAI documents, or runtime authority. Recorded as DELEGATION_UNVERIFIED.'},
+      {title:'Provider dispatch succeeded without authority',detail:'Stripe accepted the refund despite the missing authority chain. Provider acceptance is a target-side outcome, independent of HAIEC qualification.'},
+      {title:'Effect readback pending',detail:'No independent readback confirms the actual balance delta. Recorded as EFFECT_NOT_VERIFIED.'}
+    ]
+  }
+};
+
+const CONTROL_SCENARIOS = {
+  executed:{id:'A03',title:'Delegated Action Integrity',family:'Assurance',tone:'success',verdictLabel:'8 of 8 facets qualified',qualified:8,attention:0,
+    facets:[
+      {id:'applicability',icon:'📋',label:'Applicability & catalog',state:'Applicable',tone:'success',summary:'Control applies to this system in production.',facts:[{l:'Catalog version',v:'v1.4',m:true},{l:'Family',v:'Assurance'},{l:'Decided',v:'2026-10-15 09:14 UTC'}],evidence:[{ref:'catalog.A03',s:'Control catalog entry v1.4'}],next:null},
+      {id:'configuration',icon:'⚙️',label:'Configuration',state:'Configured · v12',tone:'success',summary:'Operating Envelope v12 is active.',facts:[{l:'Version',v:'v12',m:true},{l:'Digest',v:'sha256:8f2a…c4b1',m:true},{l:'Scope',v:'refund.create ≤ $500 · US · prod'}],evidence:[{ref:'envelope.v12',s:'Frozen digest'}],next:null},
+      {id:'human-auth',icon:'👤',label:'Human authorization',state:'Approved · scoped',tone:'success',summary:'Policy and deployment decisions recorded by named humans with SoD.',facts:[{l:'Policy',v:'APPROVED · alice.chen'},{l:'Deployment',v:'APPROVED_SCOPED · bob.kumar'},{l:'Expires',v:'2026-10-24 09:14 UTC',m:true}],evidence:[{ref:'decision.dep-a03-001',s:'Scoped approval'},{ref:'signature.kms.hk-4a2e-17',s:'KMS-signed'}],next:null},
+      {id:'target-integration',icon:'🔌',label:'Deployed target integration',state:'Wired · PEP v2.1',tone:'success',summary:'Native PEP installed at target and bound to approved scope.',facts:[{l:'Integration',v:'Native PEP'},{l:'Adapter',v:'v2.1',m:true},{l:'Last ack',v:'2026-10-17 10:42:20 UTC',m:true}],evidence:[{ref:'pep.install',s:'PEP installation verified'}],next:null},
+      {id:'monitoring',icon:'👁️',label:'Monitoring & alerts',state:'Fresh · 12m ago',tone:'success',summary:'Telemetry flowing, baseline established, threshold configured, delivery instrumented.',facts:[{l:'Source',v:'OTLP collector'},{l:'Baseline',v:'7d · n=14,240'},{l:'Delivery',v:'DELIVERY_CONFIRMED'}],evidence:[{ref:'telemetry.baseline',s:'Baseline snapshot'}],next:null},
+      {id:'guard-decision',icon:'🛑',label:'Guard decision & effect',state:'3 allowed · 1 denied',tone:'success',summary:'Guard decisions recorded with target operation and independent readback.',facts:[{l:'Last',v:'ALLOW · $247.50'},{l:'Denials (24h)',v:'1'},{l:'Readback',v:'TARGET_EFFECT_VERIFIED'}],evidence:[{ref:'guard.decision.104219',s:'ALLOW · scope check passed'},{ref:'readback.stripe.104224',s:'Independent readback'}],next:null},
+      {id:'test',icon:'🧪',label:'Control test & evidence',state:'EXECUTED · verified',tone:'success',summary:'TestSpec executed with approval. Result NO_FINDING_OBSERVED. Replay confirmed.',facts:[{l:'TestSpec',v:'v3',m:true},{l:'Result',v:'NO_FINDING_OBSERVED'},{l:'Replay',v:'DIGEST_MATCH'}],evidence:[{ref:'testspec.a03.v3',s:'TestSpec v3 frozen'},{ref:'test.result.a03.1104',s:'NO_FINDING_OBSERVED'},{ref:'replay.a03.1104',s:'Replay confirmed'}],next:null},
+      {id:'change',icon:'🔄',label:'Change & revalidation',state:'Current',tone:'success',summary:'No material change since last evaluation.',facts:[{l:'Config',v:'v12 · current'},{l:'Evaluated',v:'v12'},{l:'Next due',v:'2027-01-17 11:04 UTC'}],evidence:[{ref:'change.none',s:'No change events'}],next:null}
+    ]},
+  mixed:{id:'R03',title:'Runtime guardrail enforcement evidence',family:'Runtime',tone:'amber',verdictLabel:'3 of 8 facets qualified · 5 need attention',qualified:3,attention:5,
+    facets:[
+      {id:'applicability',icon:'📋',label:'Applicability & catalog',state:'Applicable',tone:'success',summary:'Control applies to this system in production.',facts:[{l:'Catalog',v:'v1.4',m:true},{l:'Family',v:'Runtime'}],evidence:[{ref:'catalog.R03',s:'Control catalog entry v1.4'}],next:null},
+      {id:'configuration',icon:'⚙️',label:'Configuration',state:'Configured · v12',tone:'success',summary:'Operating Envelope v12 active with guardrail policy.',facts:[{l:'Version',v:'v12',m:true},{l:'Policy',v:'deny on scope widening'}],evidence:[{ref:'envelope.v12',s:'Frozen digest'}],next:null},
+      {id:'human-auth',icon:'👤',label:'Human authorization',state:'Approved · conditional',tone:'success',summary:'Conditional approval — target PEP wiring is a precondition.',facts:[{l:'Policy',v:'APPROVED · alice.chen'},{l:'Deployment',v:'APPROVED_CONDITIONAL · bob.kumar'},{l:'Condition',v:'Requires native PEP'}],evidence:[{ref:'decision.dep-r03-002',s:'Conditional approval'}],next:null},
+      {id:'target-integration',icon:'🔌',label:'Deployed target integration',state:'NOT_WIRED',tone:'danger',summary:'No native PEP installed at target. Guard decisions cannot be enforced at source.',facts:[{l:'State',v:'NOT_WIRED'},{l:'Last attempt',v:'2026-10-16 14:07 UTC'},{l:'Result',v:'Provider adapter unavailable'}],evidence:[{ref:'integration.attempt',s:'Installation failed'}],next:{text:'Request target adapter installation from provider, or open an alternate enforcement path.'}},
+      {id:'monitoring',icon:'👁️',label:'Monitoring & alerts',state:'STALE · 6h ago',tone:'amber',summary:'Telemetry source has not reported within cadence tolerance. No alerts will fire from a stale source.',facts:[{l:'Last event',v:'2026-10-17 08:14 UTC',m:true},{l:'Freshness',v:'STALE · 6h'},{l:'Baseline',v:'partial · n=8,120'}],evidence:[{ref:'telemetry.last',s:'Last receipt 6h ago'}],next:{text:'Investigate collector health or reconnect the OTLP source.'}},
+      {id:'guard-decision',icon:'🛑',label:'Guard decision & effect',state:'No decision recorded',tone:'amber',summary:'No guard decision recorded at target. Target not wired.',facts:[{l:'Last',v:'None'},{l:'Last attempt',v:'2026-10-16 14:07 UTC'},{l:'Readback',v:'EFFECT_NOT_VERIFIED'}],evidence:[{ref:'dispatch.1407',s:'Provider dispatch · no guard witness'}],next:{text:'Wire the target PEP so future actions can be decided at source.'}},
+      {id:'test',icon:'🧪',label:'Control test & evidence',state:'PENDING_ACTIVATION',tone:'amber',summary:'TestSpec ready, but durable store migration not complete. Execution blocked.',facts:[{l:'TestSpec',v:'v3 · ready',m:true},{l:'State',v:'PENDING_ACTIVATION'},{l:'Blocker',v:'Durable store migration'}],evidence:[{ref:'testspec.r03.v3',s:'TestSpec v3 approved'},{ref:'activation.pending',s:'Migration in progress'}],next:{text:'Complete durable store migration to enable test execution.'}},
+      {id:'change',icon:'🔄',label:'Change & revalidation',state:'Needs re-eval',tone:'amber',summary:'3 facets unqualified. Cannot revalidate until blockers resolve.',facts:[{l:'Config',v:'v12'},{l:'Evaluated',v:'v11 · last complete'},{l:'Blockers',v:'3 unqualified facets'}],evidence:[],next:{text:'Resolve target wiring, telemetry freshness, test activation, then re-evaluate.'}}
+    ]},
+  awaiting:{id:'A04',title:'Observed action outside approved policy',family:'Assurance',tone:'amber',verdictLabel:'2 of 8 facets qualified · 6 blocked',qualified:2,attention:6,
+    facets:[
+      {id:'applicability',icon:'📋',label:'Applicability & catalog',state:'Applicable',tone:'success',summary:'Control applies to this system in production.',facts:[{l:'Catalog',v:'v1.4',m:true}],evidence:[{ref:'catalog.A04',s:'Control catalog entry'}],next:null},
+      {id:'configuration',icon:'⚙️',label:'Configuration',state:'Drafted · v13-draft',tone:'amber',summary:'Configuration drafted but not approved.',facts:[{l:'Version',v:'v13-draft',m:true},{l:'Digest',v:'pending · not frozen'}],evidence:[{ref:'envelope.v13.draft',s:'Draft config'}],next:{text:'Submit draft for review. No digest is frozen until approval.'}},
+      {id:'human-auth',icon:'👤',label:'Human authorization',state:'PENDING · unassigned',tone:'amber',summary:'Review requested but no reviewer assigned.',facts:[{l:'Policy',v:'PENDING'},{l:'Reviewer',v:'Unassigned'},{l:'SLA',v:'3 business days'}],evidence:[{ref:'review.request',s:'Unassigned'}],next:{text:'Assign a reviewer. Reviewer ≠ requester (SoD).'}},
+      {id:'target-integration',icon:'🔌',label:'Deployed target integration',state:'N/A',tone:'neutral',summary:'A04 is observational — no target enforcement expected.',facts:[{l:'Integration',v:'Not applicable'},{l:'Rationale',v:'Observational control'}],evidence:[{ref:'control.a04.design',s:'Observational by design'}],next:null},
+      {id:'monitoring',icon:'👁️',label:'Monitoring & alerts',state:'Unknown',tone:'neutral',summary:'No qualified telemetry source bound yet.',facts:[{l:'Source',v:'Not bound'},{l:'Freshness',v:'UNKNOWN'}],evidence:[],next:{text:'Once approved, bind OTLP source and establish baseline.'}},
+      {id:'guard-decision',icon:'🛑',label:'Guard decision & effect',state:'N/A',tone:'neutral',summary:'A04 does not make guard decisions.',facts:[{l:'Type',v:'Not applicable'},{l:'Model',v:'Compare-only'}],evidence:[],next:null},
+      {id:'test',icon:'🧪',label:'Control test & evidence',state:'NOT_STARTED',tone:'neutral',summary:'Test execution blocked by pending approval.',facts:[{l:'TestSpec',v:'Not drafted'},{l:'State',v:'NOT_STARTED'},{l:'Blocker',v:'Pending approval'}],evidence:[],next:{text:'Test cannot proceed until configuration is approved.'}},
+      {id:'change',icon:'🔄',label:'Change & revalidation',state:'New configuration',tone:'neutral',summary:'New control for this system — no prior evaluation.',facts:[{l:'Config',v:'v13-draft'},{l:'Evaluated',v:'— · no prior'}],evidence:[],next:{text:'Complete approval → configuration → test → first evaluation.'}}
+    ]},
+  failed:{id:'S02',title:'Multi-tenant isolation',family:'Security',tone:'danger',verdictLabel:'6 of 8 facets qualified · 2 need attention',qualified:6,attention:2,
+    facets:[
+      {id:'applicability',icon:'📋',label:'Applicability & catalog',state:'Applicable',tone:'success',summary:'Control applies — multi-tenant data and cross-tenant paths exist.',facts:[{l:'Catalog',v:'v1.4',m:true}],evidence:[{ref:'catalog.S02',s:'Control catalog entry'}],next:null},
+      {id:'configuration',icon:'⚙️',label:'Configuration',state:'Configured · v11',tone:'success',summary:'Operating Envelope v11 active with multi-tenant isolation policy.',facts:[{l:'Version',v:'v11',m:true},{l:'Policy',v:'deny cross-tenant reads/writes'}],evidence:[{ref:'envelope.v11',s:'Frozen digest'}],next:null},
+      {id:'human-auth',icon:'👤',label:'Human authorization',state:'Approved · scoped',tone:'success',summary:'Approved by named humans with SoD.',facts:[{l:'Policy',v:'APPROVED · alice.chen'},{l:'Deployment',v:'APPROVED_SCOPED · bob.kumar'}],evidence:[{ref:'decision.dep-s02-003',s:'Scoped approval'}],next:null},
+      {id:'target-integration',icon:'🔌',label:'Deployed target integration',state:'Wired · PEP v1.3',tone:'success',summary:'Native tenant-isolation PEP installed at data layer.',facts:[{l:'Integration',v:'Native PEP · data layer'},{l:'Adapter',v:'v1.3',m:true}],evidence:[{ref:'pep.install',s:'PEP verified'}],next:null},
+      {id:'monitoring',icon:'👁️',label:'Monitoring & alerts',state:'Fresh · 8m ago',tone:'success',summary:'Telemetry fresh, baseline established, alerts configured.',facts:[{l:'Source',v:'OTLP collector'},{l:'Last alert',v:'2026-10-17 10:42 UTC'}],evidence:[{ref:'alert.delivery.1042',s:'Delivered · webhook ack'}],next:null},
+      {id:'guard-decision',icon:'🛑',label:'Guard decision & effect',state:'1 denied · response open',tone:'danger',summary:'Denial recorded for cross-tenant read. Response workflow is open.',facts:[{l:'Last',v:'DENY · cross-tenant read'},{l:'Denials (24h)',v:'2'},{l:'Response',v:'OPEN · bob.kumar'}],evidence:[{ref:'guard.deny.1042',s:'Denial recorded'},{ref:'readback.db.104200',s:'No data left tenant boundary'}],next:{text:'Complete the response workflow: acknowledge, investigate root cause, remediate and retest.'}},
+      {id:'test',icon:'🧪',label:'Control test & evidence',state:'EXECUTED · DETECTED_FINDING',tone:'danger',summary:'TestSpec executed. Result DETECTED_FINDING. Replay confirmed.',facts:[{l:'TestSpec',v:'v2',m:true},{l:'Result',v:'DETECTED_FINDING'},{l:'Replay',v:'DIGEST_MATCH'}],evidence:[{ref:'testspec.s02.v2',s:'TestSpec v2'},{ref:'test.result.s02.0932',s:'DETECTED_FINDING'},{ref:'replay.s02.0932',s:'Replay confirmed'}],next:{text:'Response workflow must reach RETEST_VERIFIED before revalidation.'}},
+      {id:'change',icon:'🔄',label:'Change & revalidation',state:'Blocked · finding open',tone:'amber',summary:'Test detected a finding. Revalidation blocked until remediation and retest.',facts:[{l:'Config',v:'v11'},{l:'TestSpec',v:'v2 · finding'},{l:'Blocked by',v:'Open finding'}],evidence:[{ref:'change.s02.finding',s:'Finding raised'}],next:{text:'Complete remediation and retest. Only RETEST_VERIFIED clears the block.'}}
+    ]}
+};
+
+const COVERAGE_FACETS = [
+  {icon:'📦',name:'Code / AppSec',state:'success',detail:'Full remote executor · 47 rules · 6 findings',count:'4/4 analyzers ran'},
+  {icon:'💬',name:'Prompt / RAG',state:'amber',detail:'R1 and R4 static rules ran · observed prompt events not present',count:'2/3 analyzers ran'},
+  {icon:'🔧',name:'Tool / MCP',state:'success',detail:'Tool-call sinks + MCP registry · 3 findings',count:'3/3 analyzers ran'},
+  {icon:'🪪',name:'Identity & Access',state:'amber',detail:'IAM observer ran · effective per-action not resolved',count:'2/4 analyzers ran'},
+  {icon:'📁',name:'Supply chain',state:'success',detail:'SBOM diff + lockfile + registry · 2 findings',count:'3/3 analyzers ran'},
+  {icon:'🧪',name:'Runtime test',state:'neutral',detail:'Not run in this evaluation · requires authorized endpoint',count:'0/3 analyzers ran'},
+  {icon:'📊',name:'Telemetry',state:'success',detail:'OTLP + logs + gateway events · sampling 1:100 for prompts',count:'3/3 analyzers ran'},
+  {icon:'📜',name:'Governance',state:'success',detail:'Envelope v12 approved · control test executed',count:'3/3 analyzers ran'}
+];
+
+const RECEIPTS = [
+  {id:'rcpt-2f4a-9d3b',system:'Support Agent v2',asOf:'2026-10-17 10:42 UTC',disposition:'REVIEW',tone:'amber',digest:'sha256:4c8b2e1f9a3d7b6c5e4a2f8d1c9b7a6e5d4c3b2a1f9e8d7c6b5a4f3e2d1c0b9a',issuedTo:'auditor@acme.example',
+    sources:[{name:'GitHub App',scope:'main branch · full'},{name:'AWS IAM observer',scope:'principal svc-triage'},{name:'OTLP collector',scope:'24h window'},{name:'SBOM',scope:'CycloneDX 1.5'}],
+    missing:[{name:'Runtime empirical test',reason:'Not part of this evaluation'}],
+    attestations:[{by:'alice.chen@example.com',at:'2026-10-17 11:02 UTC',attests:'Reviewed the evidence basis and scope'},{by:'bob.kumar@example.com',at:'2026-10-17 11:15 UTC',attests:'Acknowledged the delegation drift finding'}],
+    frameworks:[{name:'OWASP LLM/Agentic',ref:'LLM06, AAI-04',note:'Mapped — not a certification'},{name:'NIST AI RMF',ref:'MEASURE 2.6',note:'Mapped — context only'}]},
+  {id:'rcpt-2f4a-8c1a',system:'Support Agent v2',asOf:'2026-10-16 22:15 UTC',disposition:'ALLOW',tone:'success',digest:'sha256:3a2b1c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b',issuedTo:'auditor@acme.example',
+    sources:[{name:'GitHub App',scope:'main branch · full'},{name:'AWS IAM observer',scope:'principal svc-triage'},{name:'OTLP collector',scope:'24h window'}],
+    missing:[],
+    attestations:[{by:'bob.kumar@example.com',at:'2026-10-16 22:30 UTC',attests:'Reviewed and approved'}],
+    frameworks:[{name:'OWASP LLM/Agentic',ref:'LLM06',note:'Mapped — context only'}]}
+];
+
+const PERSONAS = {
+  executive:{emphasis:['case','overview'],landing:'case'},
+  admin:{emphasis:['case','estate'],landing:'case'},
+  developer:{emphasis:['case','evaluate'],landing:'case'},
+  operator:{emphasis:['case','controls'],landing:'case'},
+  approver:{emphasis:['case','governance'],landing:'case'},
+  auditor:{emphasis:['case','reports'],landing:'case'}
+};
+
+const PROVIDERS = {
+  openai:{name:'OpenAI',model:'gpt-4o',project:'support-prod',tokens:'1.24M',tokensKnown:true,cost:'$28.40',asOf:'2h ago',sync:'Synced 2h ago · next in 4h',attribution:'High confidence (project → system binding)',dataSource:'admin_api'},
+  anthropic:{name:'Anthropic',model:'claude-3.5-sonnet',project:'billing-prod',tokens:'unknown',tokensKnown:false,cost:'$14.20',asOf:'3h ago',sync:'Synced 3h ago · next in 5h',attribution:'Medium confidence (no per-request log)',dataSource:'admin_api'}
+};
+
+/* ═══════════════════════════════════════════════
+   STATE
+   ═══════════════════════════════════════════════ */
+
+const state = {
+  systemId:'support-v2',
+  basis:'current',
+  persona:'executive',
+  consequencesFilter:'all',
+  chainsFilter:'all',
+  openFacets:new Set(),
+  openHops:new Set(),
+  daiScenario:'widened',
+  activeReceipt:'rcpt-2f4a-9d3b'
+};
+
+function currentSystem(){return SYSTEMS[state.systemId];}
+
+/* ═══════════════════════════════════════════════
+   UTILITIES
+   ═══════════════════════════════════════════════ */
+
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function ladder(count,max=7){let h='<span class="ladder" aria-hidden="true">';for(let i=0;i<max;i++)h+=`<span class="ladder-dot ${i<=count?'filled':''}"></span>`;return h+'</span>';}
+function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),3200);}
+
+function setBasis(b){
+  state.basis=b;
+  document.querySelectorAll('.basis-btn').forEach(btn=>btn.classList.toggle('active',btn.dataset.basis===b));
+  document.getElementById('basis-asof').textContent=b==='current'?'14:22 UTC':'10:42 UTC';
+  updateHash();
+  render();
+}
+
+function setPersona(p){
+  state.persona=p;
+  updateHash();
+  render();
+}
+
+function cycleSystem(){
+  const ids=Object.keys(SYSTEMS);
+  const i=ids.indexOf(state.systemId);
+  state.systemId=ids[(i+1)%ids.length];
+  updateHash();
+  render();
+}
+
+function selectSystem(id){
+  state.systemId=id;
+  updateHash();
+  render();
+  document.getElementById('main').scrollTop=0;
+}
+
+function updateHash(){
+  const params=new URLSearchParams();
+  params.set('sys',state.systemId);
+  params.set('basis',state.basis);
+  params.set('persona',state.persona);
+  location.hash=params.toString();
+}
+
+function readHash(){
+  const hash=location.hash.replace('#','');
+  if(!hash)return;
+  const p=new URLSearchParams(hash);
+  if(p.get('sys')&&SYSTEMS[p.get('sys')])state.systemId=p.get('sys');
+  if(p.get('basis')==='current'||p.get('basis')==='evaluation')state.basis=p.get('basis');
+  if(p.get('persona')&&PERSONAS[p.get('persona')])state.persona=p.get('persona');
+}
+
+/* ═══════════════════════════════════════════════
+   RENDER
+   ═══════════════════════════════════════════════ */
+
+function render(){
+  const el=document.getElementById('main-inner');
+  el.innerHTML=renderScreen();
+  document.getElementById('sys-name').textContent=currentSystem().name;
+  document.getElementById('sys-env').textContent=currentSystem().env;
+  document.getElementById('nav-badge').textContent=currentSystem().attention;
+  document.getElementById('persona-select').value=state.persona;
+  document.querySelectorAll('.basis-btn').forEach(btn=>btn.classList.toggle('active',btn.dataset.basis===state.basis));
+  document.getElementById('basis-asof').textContent=state.basis==='current'?'14:22 UTC':'10:42 UTC';
+  bindEvents();
+}
+
+function bindEvents(){
+  document.querySelectorAll('[data-facet]').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      const id=btn.dataset.facet;
+      if(state.openFacets.has(id))state.openFacets.delete(id);else state.openFacets.add(id);
+      render();
+    });
+  });
+  document.querySelectorAll('[data-hop]').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      const id=btn.dataset.hop;
+      if(state.openHops.has(id))state.openHops.delete(id);else state.openHops.add(id);
+      renderInspector();
+    });
+  });
+}
+
+function renderScreen(){
+  const sys=currentSystem();
+  const isCurrent=state.basis==='current';
+  const filteredConsequences=sys.consequences.filter(c=>state.consequencesFilter==='all'||c.sev===state.consequencesFilter);
+  const filteredChains=sys.chains.filter(c=>state.chainsFilter==='all'||c.id===state.chainsFilter||c.tone===state.chainsFilter);
+  return `
+    <div class="subnav">
+      <div class="subnav-inner">
+        <span class="subnav-label">Jump to</span>
+        <a class="subnav-link" onclick="scrollToSection('planes')">Planes</a>
+        <a class="subnav-link" onclick="scrollToSection('consequences')">Consequences</a>
+        <a class="subnav-link" onclick="scrollToSection('changes')">Changes</a>
+        <a class="subnav-link" onclick="scrollToSection('controls')">Controls</a>
+        <a class="subnav-link" onclick="scrollToSection('delegations')">Delegations</a>
+        <a class="subnav-link" onclick="scrollToSection('evaluations')">Evaluations</a>
+        <a class="subnav-link" onclick="scrollToSection('sources')">Sources</a>
+      </div>
+    </div>
+
+    <div class="eyebrow">${esc(sys.name)} · ${esc(sys.env)} · ${esc(sys.id)}</div>
+
+    <div class="hero-case">
+      <div class="hero-eyebrow-row">
+        <span class="hero-eyebrow">${isCurrent?'Current state':'Frozen evaluation'} · as-of ${isCurrent?'2026-10-17 14:22 UTC':esc(sys.lastEvalAsOf||'—')}</span>
+        ${sys.attention>0?`<span class="chip chip-amber">${sys.attention} ${sys.attention===1?'item needs':'items need'} attention</span>`:`<span class="chip chip-success">No unresolved items</span>`}
+      </div>
+      <div class="hero-question">What can this system cause?</div>
+      <div class="hero-answer">${sys.consequence}</div>
+      <div class="hero-exposure">${sys.exposure}</div>
+      <div class="hero-status-row">
+        <div class="hero-stat">
+          <div class="hero-stat-label">Ladder reached</div>
+          <div class="hero-stat-value mono">${ladder(sys.ladder)} <span style="margin-left:6px;">${esc(sys.ladderLabel)}</span></div>
+        </div>
+        <span class="hero-stat-sep">·</span>
+        <div class="hero-stat">
+          <div class="hero-stat-label">Evidence planes</div>
+          <div class="hero-stat-value">${sys.planes.filter(p=>p.state==='est').length} of 5 established${sys.planes.filter(p=>p.state==='part').length?` · ${sys.planes.filter(p=>p.state==='part').length} partial`:''}</div>
+        </div>
+        <span class="hero-stat-sep">·</span>
+        <div class="hero-stat">
+          <div class="hero-stat-label">Attention</div>
+          <div class="hero-stat-value">${sys.attention} ${sys.attention===1?'item':'items'}</div>
+        </div>
+        <span class="hero-stat-sep">·</span>
+        <div class="hero-stat">
+          <div class="hero-stat-label">Last evaluated</div>
+          <div class="hero-stat-value mono">${sys.lastEval?esc(sys.lastEval):'never'}</div>
+        </div>
+      </div>
+      <div class="hero-actions">
+        <button class="btn btn-primary" onclick="openInspector('navigator')">+ Add evidence</button>
+        <button class="btn btn-secondary" onclick="previewReevaluation()">Re-evaluate</button>
+        <button class="btn btn-ghost" onclick="openReceiptInspector()">Open receipt</button>
+        <button class="btn btn-ghost" onclick="toast('Action Topology — separate screen')">Open topology →</button>
+      </div>
+    </div>
+
+    <div class="guide">
+      <div class="guide-icon">i</div>
+      <div class="guide-body">
+        <strong>How to read this case.</strong> The statement above is what HAIEC has <em>established</em> about this system, not what it assumes. Below: the five evidence planes (each qualified separately), consequential facts derived from them, controls that should be operating, delegated chains that were observed, and what changed since the last evaluation. Click any item for its exact evidence basis.
+      </div>
+    </div>
+
+    <div class="content-grid">
+      <div class="main-col">
+
+        <!-- PLANES -->
+        <section id="section-planes">
+          <div class="section-header">
+            <div class="section-header-left">
+              <div class="section-title">Five evidence planes</div>
+              <div class="section-sub">Independent dimensions, each qualified by a different source. Click any plane to see which analyzers ran.</div>
+            </div>
+          </div>
+          <div class="planes">
+            ${sys.planes.map(p=>`
+              <button class="plane" onclick="openCoverageInspector('${p.name}')">
+                <div class="plane-name">
+                  <span class="plane-indicator ${p.state==='est'?'est':p.state==='part'?'part':'na'}">${p.state==='est'?'✓':p.state==='part'?'◐':'·'}</span>
+                  ${p.name}
+                </div>
+                <div class="plane-state ${p.state}">${p.state==='est'?'Established':p.state==='part'?'Partial':'Not assessed'}</div>
+                <div class="plane-source">${esc(p.source)}</div>
+                <div class="plane-fresh">${esc(p.fresh)}</div>
+              </button>
+            `).join('')}
+          </div>
+        </section>
+
+        <!-- CONSEQUENCES -->
+        ${sys.consequences.length?`
+        <section id="section-consequences">
+          <div class="section-header">
+            <div class="section-header-left">
+              <div class="section-title">Consequential facts</div>
+              <div class="section-sub">What this system can reach, and where authority doesn't match.</div>
+            </div>
+            <span class="chip chip-neutral">${sys.consequences.length} total</span>
+          </div>
+          <div class="filter-bar">
+            <span class="filter-chip ${state.consequencesFilter==='all'?'active':''}" onclick="state.consequencesFilter='all';render()">All</span>
+            <span class="filter-chip ${state.consequencesFilter==='high'?'active':''}" onclick="state.consequencesFilter='high';render()">High</span>
+            <span class="filter-chip ${state.consequencesFilter==='med'?'active':''}" onclick="state.consequencesFilter='med';render()">Medium</span>
+            <span class="filter-chip ${state.consequencesFilter==='low'?'active':''}" onclick="state.consequencesFilter='low';render()">Low</span>
+            <span class="filter-chip ${state.consequencesFilter==='res'?'active':''}" onclick="state.consequencesFilter='res';render()">Resolved</span>
+          </div>
+          ${filteredConsequences.length?filteredConsequences.map(c=>`
+            <button class="consequence ${c.sev==='res'?'resolved':''}" onclick="${c.drawer==='dai'?`openDaiInspector('${c.chain}')`:`openCoverageInspector()`}">
+              <div class="sev-badge sev-${c.sev}">${c.sev==='high'?'!':c.sev==='med'?'!':c.sev==='low'?'·':'✓'}</div>
+              <div class="consequence-body">
+                <div class="consequence-title">${esc(c.title)}</div>
+                <div class="consequence-detail">${esc(c.detail)}</div>
+                <div class="consequence-meta">
+                  <span class="chip">${esc(c.source)}</span>
+                  <span>${esc(c.age)}</span>
+                  <span>·</span>
+                  <span>${c.evCount} evidence reference${c.evCount===1?'':'s'}</span>
+                </div>
+              </div>
+              <div class="consequence-arrow">→</div>
+            </button>
+          `).join(''):'<div class="card"><div class="empty"><div class="empty-icon">✓</div><div class="empty-title">No findings at this filter</div><div class="empty-desc">Try a different filter or view all.</div></div></div>'}
+        </section>`:`
+        <section id="section-consequences">
+          <div class="section-header"><div class="section-header-left"><div class="section-title">Consequential facts</div></div></div>
+          <div class="card"><div class="empty"><div class="empty-icon">✓</div><div class="empty-title">No consequential findings at this evaluation</div><div class="empty-desc">All reachable paths are either authorized or not established as consequences.</div></div></div>
+        </section>`}
+
+        <!-- CHANGES -->
+        ${sys.evaluations.length>1?`
+        <section id="section-changes">
+          <div class="section-header">
+            <div class="section-header-left">
+              <div class="section-title">What changed since last evaluation</div>
+              <div class="section-sub">Comparison of the two most recent frozen snapshots.</div>
+            </div>
+          </div>
+          <div class="delta-grid">
+            <div class="delta-stat">
+              <div class="delta-stat-label">Added</div>
+              <div class="delta-stat-value added">+2</div>
+              <div class="delta-stat-detail">1 delegation drift, 1 dependency drift</div>
+            </div>
+            <div class="delta-stat">
+              <div class="delta-stat-label">Resolved</div>
+              <div class="delta-stat-value resolved">−3</div>
+              <div class="delta-stat-detail">2 secrets, 1 IAM finding</div>
+            </div>
+            <div class="delta-stat">
+              <div class="delta-stat-label">Changed</div>
+              <div class="delta-stat-value changed">~1</div>
+              <div class="delta-stat-detail">R03 guard state (stale)</div>
+            </div>
+            <div class="delta-stat">
+              <div class="delta-stat-label">Comparison</div>
+              <div class="delta-stat-value mono">${esc(sys.evaluations[1].id.slice(0,12))} →</div>
+              <div class="delta-stat-detail">${esc(sys.evaluations[1].asOf)}</div>
+            </div>
+          </div>
+        </section>`:''}
+
+        <!-- CONTROLS -->
+        ${sys.controls.length?`
+        <section id="section-controls">
+          <div class="section-header">
+            <div class="section-header-left">
+              <div class="section-title">Applicable controls</div>
+              <div class="section-sub">Each control is configured, deployed and tested independently. Click any control to see all facets.</div>
+            </div>
+            <span class="chip chip-neutral">${sys.controls.length} controls</span>
+          </div>
+          <div class="controls-grid">
+            ${sys.controls.map(c=>{
+              const scenario=c.id==='R03'?'mixed':c.id==='S02'?'failed':c.id==='A04'?'awaiting':'executed';
+              return `
+                <button class="control-card" onclick="openControlInspector('${scenario}')">
+                  <div class="control-id-row">
+                    <span class="control-id">${esc(c.id)}</span>
+                    <span class="chip chip-${c.tone}">${esc(c.state)}</span>
+                  </div>
+                  <div class="control-name">${esc(c.name)}</div>
+                  <div class="control-facets-mini" title="12 operational facets">
+                    ${c.facets.map(f=>`<span class="control-facet-dot ${f}"></span>`).join('')}
+                  </div>
+                </button>`;
+            }).join('')}
+          </div>
+        </section>`:''}
+
+        <!-- DELEGATIONS -->
+        ${sys.chains.length?`
+        <section id="section-delegations">
+          <div class="section-header">
+            <div class="section-header-left">
+              <div class="section-title">Delegated actions</div>
+              <div class="section-sub">Cross-agent chains in the last 24 hours. Click a chain to see the full delegation lifecycle and DAI comparison.</div>
+            </div>
+            <span class="chip chip-neutral">${sys.chains.length} chains</span>
+          </div>
+          <div class="filter-bar">
+            <span class="filter-chip ${state.chainsFilter==='all'?'active':''}" onclick="state.chainsFilter='all';render()">All</span>
+            <span class="filter-chip ${state.chainsFilter==='success'?'active':''}" onclick="state.chainsFilter='success';render()">Verified</span>
+            <span class="filter-chip ${state.chainsFilter==='amber'?'active':''}" onclick="state.chainsFilter='amber';render()">Widened</span>
+            <span class="filter-chip ${state.chainsFilter==='danger'?'active':''}" onclick="state.chainsFilter='danger';render()">Unverifiable</span>
+          </div>
+          <div class="card">
+            <table class="tbl">
+              <thead><tr><th>Chain</th><th>Route</th><th>State</th><th>As-of</th><th></th></tr></thead>
+              <tbody>
+                ${filteredChains.map(c=>`
+                  <tr class="clickable" onclick="openDaiInspector('${c.id}')">
+                    <td class="mono-cell">chain-${c.id}</td>
+                    <td><strong>${esc(c.route)}</strong></td>
+                    <td><span class="chip chip-${c.tone}">${esc(c.state)}</span></td>
+                    <td class="mono-cell">${esc(c.asOf)}</td>
+                    <td style="text-align:right;color:var(--text-dim);">→</td>
+                  </tr>
+                `).join('')}
+              </tbody>
+            </table>
+          </div>
+        </section>`:''}
+
+        <!-- EVALUATIONS -->
+        ${sys.evaluations.length?`
+        <section id="section-evaluations">
+          <div class="section-header">
+            <div class="section-header-left">
+              <div class="section-title">Recent evaluations</div>
+              <div class="section-sub">Frozen snapshots. Click a row to switch the basis toggle to that evaluation.</div>
+            </div>
+          </div>
+          <div class="card">
+            <table class="tbl">
+              <thead><tr><th>Evaluation</th><th>As-of</th><th>Disposition</th><th>Scope</th><th></th></tr></thead>
+              <tbody>
+                ${sys.evaluations.map(e=>`
+                  <tr class="clickable" onclick="setBasis('evaluation')">
+                    <td class="mono-cell">${esc(e.id)}${state.basis==='evaluation'&&e.id===sys.lastEval?' <span class="chip chip-info" style="font-size:9px;">viewing</span>':''}</td>
+                    <td class="mono-cell">${esc(e.asOf)}</td>
+                    <td><span class="chip chip-${e.tone}">${esc(e.disposition)}</span></td>
+                    <td>${esc(e.scope)}</td>
+                    <td style="text-align:right;color:var(--text-dim);">→</td>
+                  </tr>
+                `).join('')}
+              </tbody>
+            </table>
+          </div>
+        </section>`:''}
+
+        <!-- SOURCES -->
+        <section id="section-sources">
+          <div class="section-header">
+            <div class="section-header-left">
+              <div class="section-title">Source health</div>
+              <div class="section-sub">Each connected source, its freshness, and the last qualified event.</div>
+            </div>
+            <button class="btn btn-ghost btn-sm" onclick="openInspector('navigator')">+ Add source</button>
+          </div>
+          ${sys.sourceHealth.length?`
+            <div class="card">
+              ${sys.sourceHealth.map(s=>`
+                <div style="display:flex;align-items:center;gap:12px;padding:12px 18px;border-bottom:1px solid var(--border);cursor:pointer;" onclick="openCoverageInspector()">
+                  <span style="width:8px;height:8px;border-radius:50%;background:var(--${s.state==='fresh'?'success':s.state==='stale'?'amber':'text-dim'});flex-shrink:0;"></span>
+                  <div style="flex:1;font-size:13px;font-weight:500;color:var(--text);">${esc(s.name)}</div>
+                  <span class="chip chip-${s.state==='fresh'?'success':s.state==='stale'?'amber':'neutral'}">${esc(s.state)} · ${esc(s.asOf)}</span>
+                  <span style="color:var(--text-dim);">→</span>
+                </div>
+              `).join('')}
+            </div>
+          `:`<div class="card"><div class="empty"><div class="empty-icon">⬚</div><div class="empty-title">No sources connected yet</div><div class="empty-desc">Start by adding a source code repository, an SBOM, or an OTLP collector.</div><div style="margin-top:16px;"><button class="btn btn-primary btn-sm" onclick="openInspector('navigator')">Add your first source</button></div></div></div>`}
+        </section>
+
+      </div>
+
+      <aside class="sidebar-rail">
+        ${sys.nextAction?`
+          <div class="side-card next-action">
+            <div class="next-action-eyebrow">Next best action</div>
+            <div class="next-action-title">${esc(sys.nextAction.title)}</div>
+            <div class="next-action-detail">${esc(sys.nextAction.detail)}</div>
+            <button class="next-action-btn" onclick="${sys.nextAction.drawer==='dai'?`openDaiInspector('${sys.nextAction.chain}')`:`openInspector('navigator')`}">${esc(sys.nextAction.cta)} →</button>
+          </div>
+        `:`
+          <div class="side-card next-action" style="background:linear-gradient(135deg,var(--success-bg) 0%,var(--card) 100%);border-color:var(--success-border);">
+            <div class="next-action-eyebrow" style="color:var(--success);">No action required</div>
+            <div class="next-action-title">This system is fully qualified</div>
+            <div class="next-action-detail">All five planes established, no unresolved consequences. Continue monitoring or open the latest receipt.</div>
+            <button class="next-action-btn" style="background:var(--success);" onclick="openReceiptInspector()">Open receipt →</button>
+          </div>
+        `}
+
+        <div class="side-card">
+          <div class="side-card-title">Six jobs</div>
+          <div class="jobs-grid">
+            <button class="job-btn" onclick="scrollToSection('consequences')"><span class="job-btn-icon">🔍</span><span class="job-btn-name">Discover</span></button>
+            <button class="job-btn" onclick="scrollToSection('consequences')"><span class="job-btn-icon">🛡️</span><span class="job-btn-name">Evaluate</span></button>
+            <button class="job-btn" onclick="scrollToSection('controls')"><span class="job-btn-icon">✅</span><span class="job-btn-name">Authorize</span></button>
+            <button class="job-btn" onclick="scrollToSection('sources')"><span class="job-btn-icon">👁️</span><span class="job-btn-name">Monitor</span></button>
+            <button class="job-btn" onclick="scrollToSection('controls')"><span class="job-btn-icon">🛑</span><span class="job-btn-name">Protect</span></button>
+            <button class="job-btn" onclick="scrollToSection('evaluations')"><span class="job-btn-icon">📋</span><span class="job-btn-name">Verify</span></button>
+          </div>
+        </div>
+
+        ${sys.usage?`
+          <div class="side-card">
+            <div class="side-card-title">Provider usage & cost</div>
+            <button class="usage-card" onclick="openInspector('usage')">
+              <div class="usage-provider">${esc(sys.usage.provider)} · ${esc(sys.usage.model)}</div>
+              <div class="usage-stats">
+                <span>${sys.usage.tokensKnown?esc(sys.usage.tokens)+' tokens':'<span style="color:var(--amber);font-style:italic;">Tokens unavailable</span>'}</span>
+                <strong>${esc(sys.usage.cost)}</strong>
+              </div>
+              <div class="usage-asof"><span>${esc(sys.usage.asOf)}</span><span>${esc(sys.usage.dataSource)}</span></div>
+            </button>
+          </div>
+        `:''}
+      </aside>
+    </div>
+  `;
+}
+
+function scrollToSection(id){
+  const el=document.getElementById('section-'+id);
+  if(el)el.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+/* ═══════════════════════════════════════════════
+   INSPECTORS
+   ═══════════════════════════════════════════════ */
+
+let currentInspectorState=null;
+
+function openInspector(kind,opts={}){
+  currentInspectorState={kind,opts};
+  renderInspector();
+  document.getElementById('inspector').classList.add('open');
+  document.getElementById('inspector-backdrop').classList.add('open');
+}
+
+function openDaiInspector(scenario){
+  state.daiScenario=scenario||'widened';
+  openInspector('dai',{scenario:state.daiScenario});
+}
+
+function openControlInspector(scenario){
+  openInspector('control',{scenario:scenario||'mixed'});
+}
+
+function openCoverageInspector(plane){
+  openInspector('coverage',{plane:plane||null});
+}
+
+function openReceiptInspector(){
+  const lastEval=currentSystem().lastEval;
+  const receipt=RECEIPTS.find(r=>r.system===currentSystem().name)||RECEIPTS[0];
+  state.activeReceipt=receipt.id;
+  openInspector('receipt',{receiptId:receipt.id});
+}
+
+function closeInspector(){
+  document.getElementById('inspector').classList.remove('open');
+  document.getElementById('inspector-backdrop').classList.remove('open');
+  currentInspectorState=null;
+}
+
+function renderInspector(){
+  if(!currentInspectorState)return;
+  const {kind,opts}=currentInspectorState;
+  const result=({
+    dai:renderInspectorDai,
+    control:renderInspectorControl,
+    coverage:renderInspectorCoverage,
+    navigator:renderInspectorNavigator,
+    usage:renderInspectorUsage,
+    receipt:renderInspectorReceipt
+  }[kind]||renderInspectorFallback)(opts);
+  document.getElementById('inspector-crumb').innerHTML=result.crumb;
+  document.getElementById('inspector-title').innerHTML=result.title;
+  document.getElementById('inspector-sub').textContent=result.sub;
+  document.getElementById('inspector-body').innerHTML=result.body;
+  document.getElementById('inspector-foot').innerHTML=result.foot||'';
+  bindInspectorEvents();
+}
+
+function bindInspectorEvents(){
+  document.querySelectorAll('[data-hop]').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      const id=btn.dataset.hop;
+      if(state.openHops.has(id))state.openHops.delete(id);else state.openHops.add(id);
+      renderInspector();
+    });
+  });
+}
+
+function renderInspectorFallback(){
+  return {crumb:'Preview',title:'Preview only',sub:'',body:'<p>This drilldown ships in a later stage.</p>',foot:''};
+}
+
+function renderInspectorDai(opts){
+  const sc=DAI_SCENARIOS[opts.scenario||'widened'];
+  const chainHtml=sc.hops.map((hop,i)=>{
+    const isPivot=sc.pivot===i;
+    const hopId='dai-hop-'+i;
+    const open=state.openHops.has(hopId);
+    return `
+      <div class="hop ${isPivot?'pivot':''} ${sc.tone==='danger'?'danger':''}" id="${hopId}">
+        <div class="hop-head">
+          <div class="hop-icon">${hop.icon}</div>
+          <div class="hop-meta">
+            <div class="hop-title">${esc(hop.title)} ${isPivot?'<span class="chip chip-amber" style="font-size:9px;">PIVOT</span>':''}</div>
+            <div class="hop-sub">${esc(hop.sub)}</div>
+          </div>
+          <div class="hop-badges"><span class="chip chip-${hop.tone} chip-mono">${esc(hop.state)}</span></div>
+        </div>
+        <div class="hop-means"><strong>What this means</strong>${esc(hop.means)}</div>
+        <div class="hop-facts">
+          ${hop.facts.map(f=>`<div class="hop-fact"><span class="hop-fact-label">${esc(f.l)}</span><span class="hop-fact-value ${f.m?'mono':''}">${esc(f.v)}</span></div>`).join('')}
+        </div>
+        ${hop.evidence.length?`
+          <button class="hop-evidence-toggle" data-hop="${hopId}">
+            <span>${hop.evidence.length} evidence reference${hop.evidence.length===1?'':'s'}</span>
+            <span>${open?'▲':'▼'}</span>
+          </button>
+          ${open?`<div class="hop-evidence">${hop.evidence.map(ev=>`<div class="ev-item"><span class="ev-ref">${esc(ev.ref)}</span><span class="ev-summary">${esc(ev.s)}</span></div>`).join('')}</div>`:''}
+        `:`<div style="padding:10px 12px;border:1px dashed var(--border);border-radius:var(--r-xs);font-size:11.5px;color:var(--text-muted);font-style:italic;">Awaiting readback — evidence will attach once the next scheduled pull completes.</div>`}
+      </div>
+      ${i<sc.hops.length-1?`
+        <div class="connector">
+          <div class="connector-line ${sc.links[i].tone}"></div>
+          <div class="connector-icon">${sc.links[i].tone==='q'?'✓':sc.links[i].tone==='c'?'◇':'⋯'}</div>
+          <div class="connector-text">
+            <div class="connector-main">${esc(sc.links[i].main)}</div>
+            <div class="connector-sub">${esc(sc.links[i].sub)}</div>
+          </div>
+          <div class="connector-dur">${esc(sc.links[i].dur)}</div>
+        </div>
+      `:''}
+    `;
+  }).join('');
+
+  const daiHtml=`
+    <div class="dai-table">
+      <div class="dai-row header"><div>Dimension</div><div>Parent scope</div><div>Child scope</div><div></div></div>
+      ${sc.dai.map(d=>`
+        <div class="dai-row ${d.match?'':'mismatch'} ${!d.match&&d.hop!==undefined?'clickable':''}" ${!d.match&&d.hop!==undefined?`onclick="document.getElementById('dai-hop-${d.hop}').scrollIntoView({behavior:'smooth',block:'center'});document.getElementById('dai-hop-${d.hop}').classList.add('pulse');setTimeout(()=>document.getElementById('dai-hop-${d.hop}').classList.remove('pulse'),1300)"`:''}>
+          <div class="dai-dim">${d.d}</div>
+          <div class="dai-value ${d.match?'match':'mismatch'}">${esc(d.p)}</div>
+          <div class="dai-value ${d.match?'match':'mismatch'}">${esc(d.c)}</div>
+          <div class="dai-icon ${d.match?'match':'mismatch'}">${d.match?'✓':'⚠'}</div>
+        </div>
+      `).join('')}
+    </div>
+  `;
+
+  const unverifiedHtml=sc.unverified.length?`
+    <div class="inspector-section">
+      <div class="inspector-section-title">What is unverified <span class="badge">${sc.unverified.length}</span></div>
+      ${sc.unverified.map(u=>`
+        <div class="state-block ${sc.tone==='danger'?'danger':'amber'}" style="margin-bottom:8px;">
+          <div class="state-title"><span>!</span>${esc(u.title)}</div>
+          <div class="state-detail">${esc(u.detail)}</div>
+        </div>
+      `).join('')}
+    </div>
+  `:`
+    <div class="inspector-section">
+      <div class="inspector-section-title">What is unverified</div>
+      <div class="state-block success">
+        <div class="state-title"><span>✓</span>All steps qualified</div>
+        <div class="state-detail">No unverified steps in this chain. The evidence basis is complete and frozen.</div>
+      </div>
+    </div>
+  `;
+
+  const scenarioSwitcher=`
+    <div class="inspector-section">
+      <div class="inspector-section-title">Switch scenario (synthetic)</div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;">
+        ${Object.entries(DAI_SCENARIOS).map(([id,s])=>`<button class="filter-chip ${state.daiScenario===id?'active':''}" onclick="state.daiScenario='${id}';currentInspectorState={kind:'dai',opts:{scenario:'${id}'}};renderInspector()">${esc(s.label)}</button>`).join('')}
+      </div>
+    </div>
+  `;
+
+  return {
+    crumb:`Support Agent v2 <span class="sep">›</span> Agent / Action <span class="sep">›</span> Delegated actions`,
+    title:`Delegated action chain · ${sc.label}`,
+    sub:`${sc.chainId} · ${sc.integrity} · ${sc.duration}`,
+    body:`
+      <div class="callout callout-${sc.tone==='success'?'success':sc.tone==='danger'?'danger':'info'}" style="margin-bottom:18px;">
+        <strong>${sc.tone==='success'?'✓':'⚠'} ${esc(sc.headline)}</strong>
+        <div class="mono" style="margin-top:6px;font-size:11px;">${esc(sc.stateLabel)}</div>
+      </div>
+      ${scenarioSwitcher}
+      <div class="inspector-section">
+        <div class="inspector-section-title">Chain</div>
+        <div class="dai-chain">${chainHtml}</div>
+      </div>
+      <div class="inspector-section">
+        <div class="inspector-section-title">DAI nine-dimension comparison <span class="badge">${sc.dai.filter(d=>d.match).length}/9 match</span></div>
+        ${daiHtml}
+      </div>
+      ${unverifiedHtml}
+    `,
+    foot:`<div class="inspector-foot-info">Synthetic fixture · not a live HAIEC assessment</div>
+      <div style="display:flex;gap:8px;">
+        <button class="btn btn-ghost btn-sm" onclick="toast('Receipt export — would produce a frozen PDF in production')">Export receipt</button>
+        <button class="btn btn-primary btn-sm" onclick="closeInspector()">Done</button>
+      </div>`
+  };
+}
+
+function renderInspectorControl(opts){
+  const sc=CONTROL_SCENARIOS[opts.scenario||'mixed'];
+  return {
+    crumb:`Support Agent v2 <span class="sep">›</span> Controls <span class="sep">›</span> ${sc.id}`,
+    title:`${sc.id} · ${sc.title}`,
+    sub:sc.verdictLabel,
+    body:`
+      <div class="callout callout-info" style="margin-bottom:18px;">
+        <strong>Each facet is qualified independently.</strong> A control with ${sc.qualified}/${sc.facets.length} facets qualified is not "${Math.round(sc.qualified/sc.facets.length*100)}% passed" — it is in a specific operational state that depends on which facets.
+      </div>
+      ${sc.facets.map((f,i)=>`
+        <div class="facet ${f.tone} open" style="margin-bottom:8px;">
+          <div class="facet-head">
+            <span class="facet-num">${String(i+1).padStart(2,'0')}</span>
+            <span class="facet-icon">${f.icon}</span>
+            <span class="facet-label">${esc(f.label)}</span>
+            <span class="facet-state ${f.tone}">${esc(f.state)}</span>
+          </div>
+          <div class="facet-body">
+            <div class="facet-summary">${esc(f.summary)}</div>
+            <div class="facet-facts">${f.facts.map(x=>`<div class="facet-fact"><span class="facet-fact-label">${esc(x.l)}</span><span class="facet-fact-value ${x.m?'mono':''}">${esc(x.v)}</span></div>`).join('')}</div>
+            ${f.evidence&&f.evidence.length?`<div style="margin-top:10px;padding-top:10px;border-top:1px solid var(--border);">${f.evidence.map(ev=>`<div class="ev-item"><span class="ev-ref">${esc(ev.ref)}</span><span class="ev-summary">${esc(ev.s)}</span></div>`).join('')}</div>`:''}
+            ${f.next?`<div class="facet-next"><strong>Next step:</strong> ${esc(f.next.text)}</div>`:''}
+          </div>
+        </div>
+      `).join('')}
+    `,
+    foot:`<div class="inspector-foot-info">${sc.qualified}/${sc.facets.length} facets qualified</div>
+      <div style="display:flex;gap:8px;">
+        <button class="btn btn-ghost btn-sm" onclick="toast('Open config — requires authenticated write')">Open config</button>
+        <button class="btn btn-primary btn-sm" onclick="closeInspector()">Done</button>
+      </div>`
+  };
+}
+
+function renderInspectorCoverage(opts){
+  return {
+    crumb:`Support Agent v2 <span class="sep">›</span> Assurance Case <span class="sep">›</span> Detection coverage`,
+    title:`Detection coverage${opts.plane?' · '+opts.plane:''}`,
+    sub:'What was analyzed in eval-2f4a-9d3b, per analyzer',
+    body:`
+      <div class="callout callout-info" style="margin-bottom:18px;">
+        <strong>Coverage differs by source mode.</strong> A static rule existing in another analyzer does not prove this path exercises it. Missing source category ≠ clean result.
+      </div>
+      <div class="inspector-section">
+        <div class="inspector-section-title">Facets in this evaluation</div>
+        <div class="coverage-list">
+          ${COVERAGE_FACETS.map(f=>`
+            <div class="coverage-item ${f.state}">
+              <div class="coverage-icon">${f.icon}</div>
+              <div class="coverage-body">
+                <div class="coverage-title">${esc(f.name)}</div>
+                <div class="coverage-detail">${esc(f.detail)}</div>
+              </div>
+              <div class="coverage-count">${esc(f.count)}</div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+      <div class="inspector-section">
+        <div class="inspector-section-title">What this does not establish</div>
+        <div class="state-block amber">
+          <div class="state-title"><span>!</span>Runtime empirical results</div>
+          <div class="state-detail">Runtime attack simulation did not run in this evaluation. It is opt-in and requires authorized endpoint access.</div>
+        </div>
+      </div>
+    `,
+    foot:`<div class="inspector-foot-info">Per-scan coverage · 14/16 analyzers ran</div>
+      <div style="display:flex;gap:8px;">
+        <button class="btn btn-ghost btn-sm" onclick="closeInspector();openInspector('navigator')">+ Add source</button>
+        <button class="btn btn-primary btn-sm" onclick="closeInspector()">Done</button>
+      </div>`
+  };
+}
+
+function renderInspectorNavigator(opts){
+  const sys=currentSystem();
+  const sources=[
+    {icon:'📊',name:'Runtime traces',detail:'OTLP or typed JSONL · strengthens OBSERVED'},
+    {icon:'🔑',name:'AWS IAM export',detail:'Live observer or JSON · strengthens EFFECTIVELY_GRANTED'},
+    {icon:'📁',name:'CycloneDX SBOM',detail:'JSON 1.4–1.6 · adds supply-chain context'},
+    {icon:'🧪',name:'Runtime endpoint test',detail:'Authorized endpoint · BETA'}
+  ];
+  return {
+    crumb:`Support Agent v2 <span class="sep">›</span> Evidence`,
+    title:'Add evidence to strengthen this assessment',
+    sub:`Currently at ${sys.ladderLabel} · ${sys.planes.filter(p=>p.state==='est').length}/5 planes established`,
+    body:`
+      <div class="callout callout-info" style="margin-bottom:18px;">
+        <strong>Every source qualifies differently.</strong> Pick the sources you have. HAIEC will show the exact ladder climb before you commit — no source is required.
+      </div>
+      <div class="inspector-section">
+        <div class="inspector-section-title">Recommended for this system</div>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          ${sources.map(s=>`
+            <div style="padding:12px 14px;border:1px solid var(--border);border-radius:var(--r-sm);display:flex;align-items:center;gap:12px;">
+              <span style="font-size:20px;">${s.icon}</span>
+              <div style="flex:1;">
+                <div style="font-size:13px;font-weight:500;color:var(--text);">${esc(s.name)}</div>
+                <div style="font-size:11.5px;color:var(--text-muted);margin-top:2px;">${esc(s.detail)}</div>
+              </div>
+              <button class="btn btn-secondary btn-sm" onclick="toast('Connect ${esc(s.name)} — preview only. Real connection requires authenticated exchange.')">Add</button>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+      <div class="inspector-section">
+        <div class="inspector-section-title">Source packages</div>
+        <div style="display:flex;flex-direction:column;gap:6px;">
+          ${[
+            {name:'Static starter',desc:'Source code + SBOM · reaches ASSURANCE_EVALUATED'},
+            {name:'Runtime first',desc:'OTLP traces + logs · completes OBSERVED'},
+            {name:'Authority first',desc:'Policy + IAM + Delegation · completes POLICY_AUTHORIZED and EFFECTIVELY_GRANTED'}
+          ].map(p=>`
+            <button class="filter-chip" style="text-align:left;padding:10px 12px;" onclick="toast('Package preview — would pre-select ${esc(p.name)} sources')">
+              <div style="font-weight:600;color:var(--text);margin-bottom:2px;">${esc(p.name)}</div>
+              <div style="font-size:11.5px;color:var(--text-muted);font-weight:400;">${esc(p.desc)}</div>
+            </button>
+          `).join('')}
+        </div>
+      </div>
+    `,
+    foot:`<div class="inspector-foot-info">Synthetic preview · no source is actually connected</div>
+      <div style="display:flex;gap:8px;">
+        <button class="btn btn-ghost btn-sm" onclick="closeInspector()">Cancel</button>
+        <button class="btn btn-primary btn-sm" onclick="closeInspector();toast('Preview only — no assessment executed')">Preview assessment</button>
+      </div>`
+  };
+}
+
+function renderInspectorUsage(opts){
+  return {
+    crumb:`Support Agent v2 <span class="sep">›</span> Usage & Cost`,
+    title:'Provider usage & cost',
+    sub:'An independent input class — separate from IAM, telemetry or evaluation verdicts',
+    body:`
+      <div class="callout callout-info" style="margin-bottom:18px;">
+        <strong>What usage is and isn't.</strong> Provider usage establishes cost and (sometimes) token consumption. It does not establish IAM authority, individual agent behavior, or target effect.
+      </div>
+      ${Object.values(PROVIDERS).map(p=>`
+        <div class="inspector-section">
+          <div class="inspector-section-title">${esc(p.name)} · ${esc(p.model)}</div>
+          <div class="state-block ${p.tokensKnown?'info':'amber'}">
+            <div class="state-title"><span>${p.tokensKnown?'◈':'◐'}</span>${p.tokensKnown?`${esc(p.tokens)} tokens`:'Token count unavailable'}</div>
+            <div class="state-detail">${p.tokensKnown?`Cost: ${esc(p.cost)} · ${esc(p.asOf)}`:`Cost: ${esc(p.cost)} · ${esc(p.asOf)}. The provider admin API did not return token counts for this window. This is not zero — it is unknown.`}</div>
+          </div>
+          <div style="margin-top:10px;font-size:12px;color:var(--text-muted);line-height:1.55;">
+            <div><strong style="color:var(--text);">Sync:</strong> ${esc(p.sync)}</div>
+            <div style="margin-top:4px;"><strong style="color:var(--text);">Attribution:</strong> ${esc(p.attribution)}</div>
+            <div style="margin-top:4px;"><strong style="color:var(--text);">Data source:</strong> <span class="mono">${esc(p.dataSource)}</span></div>
+          </div>
+        </div>
+      `).join('')}
+      <div class="inspector-section">
+        <div class="inspector-section-title">What this does not establish</div>
+        <div class="state-block neutral">
+          <div class="state-detail">Provider usage does not establish IAM authority, individual agent behavior, delegated authority, target effect for any action, or any security verdict.</div>
+        </div>
+      </div>
+    `,
+    foot:`<div class="inspector-foot-info">Independent input class · not a security verdict</div>
+      <div style="display:flex;gap:8px;">
+        <button class="btn btn-ghost btn-sm" onclick="toast('Sync preview — real sync requires authenticated admin API call')">Preview sync</button>
+        <button class="btn btn-primary btn-sm" onclick="closeInspector()">Done</button>
+      </div>`
+  };
+}
+
+function renderInspectorReceipt(opts){
+  const r=RECEIPTS.find(x=>x.id===opts.receiptId)||RECEIPTS[0];
+  return {
+    crumb:`Reports <span class="sep">›</span> ${r.id}`,
+    title:`Assurance Receipt · ${r.id}`,
+    sub:`${r.system} · ${r.asOf} · ${r.disposition}`,
+    body:`
+      <div class="callout callout-info" style="margin-bottom:18px;">
+        <strong>This is a frozen receipt.</strong> The digest below identifies the exact evidence basis that was evaluated. Changing any byte of the underlying evidence would invalidate this digest.
+      </div>
+      <div class="inspector-section">
+        <div class="inspector-section-title">Receipt identity</div>
+        <div class="facet-facts">
+          <div class="facet-fact"><span class="facet-fact-label">Receipt</span><span class="facet-fact-value mono">${esc(r.id)}</span></div>
+          <div class="facet-fact"><span class="facet-fact-label">Issued to</span><span class="facet-fact-value mono">${esc(r.issuedTo)}</span></div>
+        </div>
+        <div style="margin-top:10px;">
+          <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-dim);margin-bottom:4px;">Digest</div>
+          <div class="receipt-digest">${esc(r.digest)}</div>
+        </div>
+      </div>
+      <div class="inspector-section">
+        <div class="inspector-section-title">Evidence sources <span class="badge">${r.sources.length}</span></div>
+        ${r.sources.map(s=>`<div class="state-block success" style="margin-bottom:6px;"><div class="state-title"><span>✓</span>${esc(s.name)}</div><div class="state-detail">${esc(s.scope)}</div></div>`).join('')}
+      </div>
+      ${r.missing.length?`
+        <div class="inspector-section">
+          <div class="inspector-section-title">Missing evidence <span class="badge">${r.missing.length}</span></div>
+          ${r.missing.map(m=>`<div class="state-block amber" style="margin-bottom:6px;"><div class="state-title"><span>◐</span>${esc(m.name)}</div><div class="state-detail">${esc(m.reason)}</div></div>`).join('')}
+        </div>
+      `:''}
+      <div class="inspector-section">
+        <div class="inspector-section-title">Human review attestations</div>
+        ${r.attestations.map(a=>`<div class="state-block info" style="margin-bottom:6px;"><div class="state-title"><span>✍</span>${esc(a.by)}</div><div class="state-detail">${esc(a.attests)} · ${esc(a.at)}</div></div>`).join('')}
+        <div class="callout callout-warn" style="margin-top:10px;font-size:12px;">
+          <strong>Review ≠ verification.</strong> These signatures attest to review of the evidence basis. They are not a technical verification of the systems evaluated.
+        </div>
+      </div>
+      <div class="inspector-section">
+        <div class="inspector-section-title">Framework mappings <span class="badge">context only</span></div>
+        ${r.frameworks.map(f=>`
+          <div class="receipt-block">
+            <strong>${esc(f.name)}</strong>
+            <div style="font-family:var(--mono);font-size:11px;color:var(--text-muted);margin-top:2px;">${esc(f.ref)}</div>
+            <div style="font-size:11.5px;color:var(--text-dim);font-style:italic;margin-top:3px;">${esc(f.note)}</div>
+          </div>
+        `).join('')}
+      </div>
+    `,
+    foot:`
+      <div class="inspector-foot-info">Frozen · ${esc(r.asOf)}</div>
+      <div style="display:flex;gap:8px;">
+        <button class="btn btn-ghost btn-sm" onclick="toast('Verify — would recompute digest in production')">Verify digest</button>
+        <button class="btn btn-ghost btn-sm" onclick="toast('Export PDF — would produce a signed receipt in production')">Export PDF</button>
+        <button class="btn btn-primary btn-sm" onclick="closeInspector()">Done</button>
+      </div>`
+  };
+}
+
+/* ═══════════════════════════════════════════════
+   MODAL
+   ═══════════════════════════════════════════════ */
+
+function previewReevaluation(){
+  openModal({
+    title:'Re-evaluate this system?',
+    sub:'This is a preview. In production, re-evaluation would run the HAIEC Assurance Engine against currently qualified sources and produce a new frozen snapshot.',
+    body:`
+      <div style="font-size:13px;">
+        <strong>Sources that would be evaluated:</strong>
+        <ul style="padding-left:18px;line-height:1.6;margin-top:6px;">
+          <li>GitHub App · main branch (2h ago)</li>
+          <li>AWS IAM observer (6h ago — stale)</li>
+          <li>OTLP collector (12m ago)</li>
+          <li>SBOM source (1h ago)</li>
+        </ul>
+        <div style="padding-top:10px;border-top:1px solid var(--border);color:var(--text-muted);font-size:12px;margin-top:10px;">
+          <strong>Note:</strong> A stale IAM source would limit EFFECTIVELY_GRANTED qualification. Re-evaluation is not a fix — it's a fresh read of what's already connected.
+        </div>
+      </div>
+    `,
+    buttons:[
+      {label:'Cancel',style:'ghost',action:closeModal},
+      {label:'Preview only — not executed',style:'primary',disabled:true}
+    ]
+  });
+}
+
+function openModal({title,sub,body,buttons}){
+  document.getElementById('modal-title').textContent=title;
+  document.getElementById('modal-sub').textContent=sub;
+  document.getElementById('modal-body').innerHTML=body;
+  document.getElementById('modal-foot').innerHTML=buttons.map(b=>`<button class="btn btn-${b.style==='primary'?'primary':b.style==='ghost'?'ghost':'secondary'}" ${b.disabled?'disabled style="opacity:0.5;cursor:not-allowed;"':''} onclick="${b.disabled?'':(b.action===closeModal?'closeModal()':b.action)}">${esc(b.label)}</button>`).join('');
+  document.getElementById('modal-backdrop').classList.add('open');
+}
+
+function closeModal(){
+  document.getElementById('modal-backdrop').classList.remove('open');
+}
+
+/* ═══════════════════════════════════════════════
+   KEYBOARD
+   ═══════════════════════════════════════════════ */
+
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){
+    if(document.getElementById('inspector').classList.contains('open'))closeInspector();
+    else if(document.getElementById('modal-backdrop').classList.contains('open'))closeModal();
+  }
+});
+
+/* ═══════════════════════════════════════════════
+   INIT
+   ═══════════════════════════════════════════════ */
+
+(function init(){
+  readHash();
+  document.getElementById('persona-select').value=state.persona;
+  render();
+})();
+</script>
+</body>
+</html>
