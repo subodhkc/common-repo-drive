@@ -76,4 +76,31 @@ Focused security/contract checks to merge fixes are **not** the deferred externa
 - E2 contract: [E2](E2-LOW-FRICTION-SOURCE-ONBOARDING-AND-EVIDENCE-QUALIFICATION-IMPLEMENTATION-CONTRACT-2026-10-16.md)
 - E3/E4 owner contract: [E3/E4](E3-E4-SEPARATE-SECURITY-TELEMETRY-OWNERSHIP-AND-E1-E2-HANDOFF-2026-10-16.md)
 
-**Status:** `DEPLOYED_VERIFIED_CODE_PR2222`; `SOURCE_CONTRACT_REMEDIATION_OPEN`; `FULL_CUSTOMER_EXECUTION_NOT_VERIFIED`. No product repo changes or tests were performed to write this report.
+**Status (at review time):** `DEPLOYED_VERIFIED_CODE_PR2222`; `SOURCE_CONTRACT_REMEDIATION_OPEN`; `FULL_CUSTOMER_EXECUTION_NOT_VERIFIED`. No product repo changes or tests were performed to write this report.
+
+---
+
+## Remediation record — PR #2223 (2026-10-17)
+
+**Implemented by the authorized Devin owner. One small isolated patch — no edits to PR #2220, `lib/control-test`, `lib/ucp`, manufacturing, or E4 collector/producer services. No new engine, registry, approval store, or telemetry pipeline.**
+
+| Finding | Correction implemented | Evidence |
+|---|---|---|
+| **R1 — evaluation disposition as human approval** | `operatingTruth.approvalStatus` is now sourced ONLY from the canonical human-decision owner `lib/assurance/deployment-decision-persistence.ts` (`listDecisionsForSystem` → latest non-superseded record status: PENDING / APPROVED_SCOPED / APPROVED_CONDITIONAL / REJECTED / REVOKED), or `null` when no decision exists. U5 disposition moved to a distinct `evaluationTruth.latestDisposition` field; `evaluationTruth.latestReceiptState` added. No new approval store. | `lib/ai-inventory/goal-availability-loader.ts`, `goal-availability.ts` (snapshot fields + `evaluationTruth`); unit tests: ALLOW+no-decision → approval `null`, ALLOW+PENDING, BLOCK+REJECTED, REVIEW+APPROVED_SCOPED. |
+| **R2 — write-gate coverage incomplete** | New `GOAL_WRITE_STEP` map: each goal's ONE canonical mutating operation bound to its exact `ApiScope` (`scan:create`, `system:create`, `evidence:ingest`) or `humanOnly` (deployment decision, kill switch — never permitted for an API key). Every write-directed next step in `READY_TO_OPEN`, `ACTION_REQUIRED`, and `NOT_CONNECTED` now carries `permitted` + `permissionReason`; read-only navigation stays available. | `resolveWritePermission()` in `goal-availability.ts`; tests cover viewer on NOT_CONNECTED, machine key without scope on ACTION_REQUIRED, all-scope key denied human-only steps. |
+| **R3 — E2 writer eligibility** | `isWriteAuthorized` boolean replaced by per-action `SourceWritePermissions` resolved server-side: `connectSource`/`registerDeclared` → `source:create`, `submitLocalScan` → `scan:submit`, `configureTelemetry` → `evidence:ingest`, `runEvaluation` → `scan:create`. Machine callers resolve each permission through their exact scopes — a scopeCheck function's existence never implies authorization. | `goal-availability-loader.ts` `resolveSourceWritePermissions`; `source-onboarding.ts` `perm()` helper on all 8 nextActions; tests: read-only key blocked on all paths, `scan:submit`-only key may submit bundles but not bind sources, READY source still requires `scan:create`. |
+| **R4 — comparison/receipt overclaim** | `compare_evaluations` next action states the workspace is available and canonical comparability (source, analyzer, scope/perimeter) is "established when the delta loads, not assumed here"; limitation `COMPLETED_EVALUATIONS != COMPARABLE_PAIR`. `reports_receipts` now reads `latestReceiptState` and qualifies NO_RECEIPT / PRIVATE_RECEIPT / PUBLIC_RECEIPT / REVOKED_RECEIPT verbatim. | `goal-availability.ts` derivation branches; tests for NO_RECEIPT, REVOKED_RECEIPT, PRIVATE_RECEIPT wording. |
+| **R5 — registry drift / source auto-select** | `registeredMcpTools` for canonical guide goals derives verbatim from `CAPABILITY_GOALS[].tools` — no second copy of tool ids. Workflow-only rows keep documented read metadata only. GitHub READY next action explicitly states "Select the exact repository and branch at the run step — never auto-selected." | `goal-availability.ts` transport projection; `source-onboarding.ts` GitHub path reason. |
+| **R6 — telemetry receipt wording** | `SIGNAL_RECEIVED` copy corrected to "one intake receipt only — freshness and current coverage are not established (E4)". `SIGNAL_RECEIVED != EVALUATED != ENFORCED` limitations preserved. | `source-onboarding.ts` runtime path; `goal-availability.ts` `configure_telemetry` branch. |
+
+**Validation (all `CODE_VERIFIED`/`TEST_VERIFIED`, recorded 2026-10-17):**
+- `vitest run tests/unit/goal-availability.test.ts tests/unit/source-onboarding.test.ts` — **50/50 pass** (33 + 17; new coverage for every finding above).
+- `tsc --noEmit` — clean.
+- ESLint on all 7 changed files — clean.
+- CI: TypeScript Type Check **pass**; ESLint New-Violations Gate **pass**; repo-baseline ESLint fail and Vercel preview block are the same pre-existing conditions recorded for merged PRs #2221/#2222.
+
+**Merge/deploy evidence:** PR [#2223](https://github.com/subodhkc/haiec-website/pull/2223) merged 2026-10-17T01:38:15Z → HAIEC Main `18f845cee652772bfa6d774b1331175e6728e05d`; Vercel production deployment `BJSPHs5UbwEDQxou9aGaQrdUsHHv` commit status **SUCCESS** — `DEPLOYED_VERIFIED`.
+
+**Remaining limitations (unchanged):** production authenticated customer UI behavior still not independently executed; the four onboarding paths remain guidance paths, not automated integrations; local CLI remains preview; producer freshness/lag/health remains E4-owned; Kill Switch deployed-effect claims remain E3-owned pending PR #2220.
+
+**Status:** `DEPLOYED_VERIFIED_CODE_PR2222` + `DEPLOYED_VERIFIED_CORRECTNESS_PATCH_PR2223`; `SOURCE_CONTRACT_REMEDIATION_CLOSED`; `FULL_CUSTOMER_EXECUTION_NOT_VERIFIED`.

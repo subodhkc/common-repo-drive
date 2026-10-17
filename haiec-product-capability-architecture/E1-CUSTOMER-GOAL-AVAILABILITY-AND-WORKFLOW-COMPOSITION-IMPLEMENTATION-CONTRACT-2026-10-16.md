@@ -181,3 +181,7 @@ Discover: understand_haiec, discover_systems. Evaluate: analyze_source_security,
 - `check_controls` remains platform `PARTIAL` per the canonical guide — the projection surfaces it honestly.
 - Kill-switch `customerState` stays `ACTION_REQUIRED` by design (integration + receipt required); it can only become READY when E3 lands verified-seam receipt data.
 - No dedicated route-level test for the new API endpoint (loader is exercised via the pure-projection tests; the route is a thin auth wrapper matching the workspace-route pattern).
+
+### Post-merge correctness patch (2026-10-17)
+
+PR [#2223](https://github.com/subodhkc/haiec-website/pull/2223) → `Main` `18f845cee`, Vercel `BJSPHs5UbwEDQxou9aGaQrdUsHHv` — `DEPLOYED_VERIFIED`. Corrected: `operatingTruth.approvalStatus` now reads the canonical human-decision owner (`deployment-decision-persistence`) or stays `null` — U5 disposition separately identified as `evaluationTruth.latestDisposition`; per-goal exact write-scope gating (`GOAL_WRITE_STEP`) covers `ACTION_REQUIRED`/`NOT_CONNECTED` steps via `permitted`/`permissionReason`; `registeredMcpTools` derives verbatim from `CAPABILITY_GOALS[].tools`; comparison/receipt readiness qualified (`COMPLETED_EVALUATIONS != COMPARABLE_PAIR`, receipt states verbatim). Details: [review remediation record](E1-E2-POST-MERGE-CODE-REVIEW-AND-REMEDIATION-2026-10-16.md).

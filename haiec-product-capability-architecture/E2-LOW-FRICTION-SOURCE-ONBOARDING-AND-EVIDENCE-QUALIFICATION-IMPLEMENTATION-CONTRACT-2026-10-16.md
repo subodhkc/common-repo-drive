@@ -151,3 +151,7 @@ Server-side tenant+ownership checks via `getSystemWorkspace`/`verifyAISystemOrgB
 - The guide is a read projection — the actual connect/upload/verify mutations still run through the existing routes (`?tab=assets`, GitHub App flow, `/monitoring/sources/onboard`, local-scan submission). No new mutation paths were added.
 - Declared-artifact intake UX beyond `POLICY_SOURCE` registration (e.g., rich document upload wizards) is a later UI increment, not added here.
 - E4-owned producer health/freshness depth is consumed only as the three-state `telemetryReadiness` projection.
+
+### Post-merge correctness patch (2026-10-17)
+
+PR [#2223](https://github.com/subodhkc/haiec-website/pull/2223) → `Main` `18f845cee`, Vercel `BJSPHs5UbwEDQxou9aGaQrdUsHHv` — `DEPLOYED_VERIFIED`. Writer eligibility is now per-action (`SourceWritePermissions`: `source:create`, `scan:submit`, `evidence:ingest`, `scan:create`) — a machine key's scope-check function no longer implies authorization; every blocked/not-connected step carries `permitted` + `permissionReason` and renders muted in the UI. GitHub READY wording makes explicit that exact repository/branch selection happens at the run step — never auto-selected. `SIGNAL_RECEIVED` copy now states freshness/current coverage are not established (E4). Details: [review remediation record](E1-E2-POST-MERGE-CODE-REVIEW-AND-REMEDIATION-2026-10-16.md).
