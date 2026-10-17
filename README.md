@@ -1,5 +1,8 @@
 # HAIEC Common Repository Drive
 
+> **2026-10-17 DAI + AI Assurance reference design review:** [Independent validation and additive, non-regression adoption map](./haiec-product-capability-architecture/HAIEC-DEEPSEEK-DAI-AND-ASSURANCE-UX-REFERENCES-VALIDATION-AND-ADDITIVE-DESIGN-2026-10-17.md). DeepSeek HTML examples are design references only; preserve HAIEC pages and canonical evidence owners. DAI/Assurance adaptations are assigned to separate later UX sessions, after Start Here.
+
+
 > **2026-10-17 per-page UX work order:** [HAIEC Page-by-Page UX Design & Validation Program](haiec-product-capability-architecture/HAIEC-PAGE-BY-PAGE-UX-DESIGN-AND-VALIDATION-PROGRAM-2026-10-17.md). Starts with **UX-P01 Start Here/quick-start** only; each subsequent page receives a separate focused design, implementation, visual check and regression session. E6.2 is already merged; this is the NEXT design program, not an implementation claim.
 
 
