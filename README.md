@@ -1,4 +1,6 @@
 # HAIEC Common Repository Drive
+> **Unified DeepSeek UX atlas partial-output validation:** [Additive UX review and correct page-sequencing handoff](haiec-product-capability-architecture/HAIEC-DEEPSEEK-UNIFIED-ATLAS-PARTIAL-OUTPUT-REVIEW-AND-ADDITIVE-UX-PLAN-2026-10-17.md). Original partial HTML is not shippable; per-page UX changes continue independently.
+
 > **Detection Coverage UX reference (2026-10-17):** [DeepSeek drawer validation, exact-run execution contract and page-sequencing corrections](haiec-product-capability-architecture/UX-P07-DETECTION-COVERAGE-DRAWER-REFERENCE-VALIDATION-AND-UX-P01-REVIEW-2026-10-17.md). Detection inspector is **UX-P07** scope, distinct from existing five evidence planes; Dashboard Overview **UX-P02** is next.
 
 
