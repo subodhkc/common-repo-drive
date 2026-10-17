@@ -1,3 +1,5 @@
+> **2026-10-17 Evaluate UI–MCP parity:** [Independent DeepSeek prototype validation, preservation-first UX-P07 adoption and canonical MCP/API flow](UX-P07-DEEPSEEK-STANDALONE-EVALUATE-MOCK-REVIEW-AND-UI-MCP-ASSURANCE-FLOW-ALIGNMENT-2026-10-17.md). Non-authoritative visual suggestion only; preserve old HAIEC functionality and active UX-P03 ownership. 
+
 > **Focused Assurance Case mock + dashboard truth audit (2026-10-17):** [Validated additive UX-P04 patterns and P1/P2 correctness backlog](UX-P04-DEEPSEEK-FOCUSED-ASSURANCE-CASE-REVIEW-AND-DASHBOARD-DATA-TRUTH-GAPS-2026-10-17.md). P03 remains underway; no overlapping code work. 
 
 > **Completed DeepSeek unified atlas review (2026-10-17):** [14-route runtime validation and additive UX-P03 design contract](HAIEC-DEEPSEEK-COMPLETED-UX-ATLAS-REVIEW-AND-UXP03-ALIGNMENT-2026-10-17.md). Supersedes the earlier partial-output status for the *new completed upload*; references remain synthetic, not production truth.
