@@ -1,0 +1,1803 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Support Agent v2 — AI System Assurance Case · HAIEC</title>
+<style>
+:root {
+  --bg: #fafbfc; --card: #ffffff; --border: #e7e9ee; --border-hover: #d0d4dd;
+  --text: #101828; --text-muted: #667085; --text-dim: #98a2b3;
+  --primary: #4f46e5; --primary-hover: #4338ca; --primary-light: #f0f1ff; --primary-border: #c7d2fe;
+  --success: #067647; --success-bg: #ecfdf3; --success-border: #abefc6;
+  --amber: #b54708; --amber-bg: #fffaeb; --amber-border: #fedf89;
+  --danger: #b42318; --danger-bg: #fef3f2; --danger-border: #fecdca;
+  --gray-bg: #f2f4f7;
+  --radius-sm: 8px; --radius-md: 12px; --radius-lg: 16px;
+  --shadow-sm: 0 1px 2px rgba(16,24,40,0.04);
+  --shadow-md: 0 4px 12px rgba(16,24,40,0.07);
+  --shadow-lg: 0 24px 56px rgba(16,24,40,0.2);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  font-size: 14.5px; line-height: 1.55; color: var(--text); background: var(--bg);
+  -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+}
+button { font-family: inherit; cursor: pointer; }
+code, .mono { font-family: ui-monospace, 'SF Mono', Monaco, monospace; }
+a { color: inherit; }
+
+/* ─── Topbar ─── */
+.topbar {
+  position: sticky; top: 0; z-index: 20;
+  background: var(--card); border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; gap: 20px;
+  padding: 0 28px; height: 60px;
+}
+.topbar-org {
+  display: flex; align-items: center; gap: 8px;
+  padding: 6px 10px; border: 1px solid var(--border); border-radius: 8px;
+  font-size: 13px; font-weight: 500; background: var(--bg);
+}
+.topbar-org-logo {
+  width: 20px; height: 20px; border-radius: 5px;
+  background: linear-gradient(135deg, #4f46e5, #6366f1); color: white;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10px; font-weight: 700;
+}
+.topbar-system { display: flex; align-items: baseline; gap: 10px; min-width: 0; }
+.topbar-system-name { font-weight: 600; font-size: 15px; letter-spacing: -0.01em; white-space: nowrap; }
+.topbar-env {
+  font-size: 10.5px; padding: 2px 8px; border-radius: 4px;
+  background: var(--success-bg); color: var(--success);
+  border: 1px solid var(--success-border); font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.04em;
+}
+.topbar-sysid {
+  font-family: ui-monospace, monospace; font-size: 11px; color: var(--text-dim);
+  padding: 2px 6px; background: var(--gray-bg); border-radius: 4px;
+}
+.topbar-right { margin-left: auto; display: flex; align-items: center; gap: 10px; }
+.basis-control {
+  display: flex; align-items: center; gap: 0;
+  border: 1px solid var(--border); border-radius: 8px; overflow: hidden;
+  background: var(--bg);
+}
+.basis-btn {
+  padding: 6px 12px; font-size: 12px; font-weight: 500; border: none;
+  background: transparent; color: var(--text-muted); transition: all 0.15s;
+}
+.basis-btn.active { background: var(--text); color: white; }
+.basis-asof {
+  font-family: ui-monospace, monospace; font-size: 11px;
+  color: var(--text-muted); padding: 0 10px;
+  border-left: 1px solid var(--border);
+}
+.topbar-search {
+  padding: 6px 12px; border: 1px solid var(--border); border-radius: 8px;
+  background: var(--bg); font-size: 12.5px; color: var(--text-muted); width: 180px;
+}
+.topbar-avatar {
+  width: 30px; height: 30px; border-radius: 50%;
+  background: var(--primary-light); color: var(--primary);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 600;
+}
+
+/* ─── Main content ─── */
+.main-wrap { max-width: 1400px; margin: 0 auto; padding: 24px 28px 64px; }
+
+/* ─── Hero ─── */
+.hero {
+  background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-md);
+  padding: 28px 32px; margin-bottom: 24px;
+}
+.hero-eyebrow {
+  font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em;
+  color: var(--text-dim); font-weight: 600; margin-bottom: 10px;
+}
+.hero-question {
+  font-size: 26px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.2;
+  margin-bottom: 16px; color: var(--text);
+}
+.hero-answer {
+  font-size: 16px; line-height: 1.65; color: var(--text);
+  margin-bottom: 8px; max-width: 900px;
+}
+.hero-answer strong { font-weight: 600; }
+.hero-exposure {
+  font-size: 14px; line-height: 1.6; color: var(--text-muted);
+  margin-bottom: 20px; max-width: 900px;
+}
+.hero-exposure .attn-count {
+  display: inline-block; font-size: 11px; font-weight: 600;
+  padding: 2px 8px; border-radius: 4px; background: var(--amber-bg);
+  color: var(--amber); border: 1px solid var(--amber-border);
+  margin-right: 6px; vertical-align: middle;
+}
+.hero-exposure .attn-count.clean {
+  background: var(--success-bg); color: var(--success); border-color: var(--success-border);
+}
+.hero-status {
+  display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
+  padding-top: 20px; border-top: 1px solid var(--border);
+  margin-bottom: 20px;
+}
+.ladder-wrap { display: flex; align-items: center; gap: 10px; }
+.ladder-dots { display: flex; gap: 4px; }
+.ladder-dot {
+  width: 9px; height: 9px; border-radius: 50%;
+  border: 1.5px solid var(--border-hover); background: transparent;
+}
+.ladder-dot.filled { background: var(--primary); border-color: var(--primary); }
+.ladder-label {
+  font-family: ui-monospace, monospace; font-size: 11px; color: var(--text-muted);
+  letter-spacing: 0.03em;
+}
+.hero-status-sep { color: var(--text-dim); }
+.hero-status-stat {
+  display: flex; flex-direction: column; gap: 0;
+}
+.hero-status-label {
+  font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.05em;
+  color: var(--text-dim); font-weight: 600;
+}
+.hero-status-value {
+  font-size: 13px; color: var(--text); font-weight: 500;
+}
+.hero-status-value.mono { font-family: ui-monospace, monospace; font-size: 12px; }
+
+.hero-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+
+.btn {
+  padding: 9px 16px; border-radius: 8px; font-size: 13.5px; font-weight: 500;
+  border: 1px solid transparent; transition: all 0.15s;
+  display: inline-flex; align-items: center; gap: 6px; letter-spacing: -0.005em;
+}
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.btn-primary { background: var(--primary); color: white; }
+.btn-primary:hover:not(:disabled) { background: var(--primary-hover); }
+.btn-ghost { background: transparent; color: var(--text-muted); border-color: var(--border); }
+.btn-ghost:hover { background: var(--gray-bg); color: var(--text); }
+
+/* ─── Layout grid ─── */
+.content-grid {
+  display: grid; grid-template-columns: minmax(0, 1fr) 320px;
+  gap: 24px; align-items: start;
+}
+.main-col { display: flex; flex-direction: column; gap: 24px; min-width: 0; }
+.sidebar { display: flex; flex-direction: column; gap: 16px; position: sticky; top: 84px; }
+
+/* ─── Section ─── */
+.section {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius-md); padding: 22px 24px;
+}
+.section-header {
+  display: flex; align-items: baseline; justify-content: space-between;
+  gap: 12px; margin-bottom: 16px; flex-wrap: wrap;
+}
+.section-title {
+  font-size: 13px; font-weight: 600; text-transform: uppercase;
+  letter-spacing: 0.05em; color: var(--text-muted);
+}
+.section-subtitle { font-size: 12.5px; color: var(--text-muted); margin-top: 2px; }
+.section-action {
+  font-size: 12.5px; color: var(--primary); text-decoration: underline;
+  text-underline-offset: 2px; background: transparent; border: none;
+  font-weight: 500; padding: 0;
+}
+
+/* ─── Five evidence planes ─── */
+.planes {
+  display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px;
+}
+.plane {
+  background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-sm);
+  padding: 12px 14px; cursor: pointer; transition: all 0.15s;
+  display: flex; flex-direction: column; gap: 6px; text-align: left;
+  font: inherit; color: inherit; min-height: 108px;
+}
+.plane:hover { border-color: var(--primary); background: var(--primary-light); }
+.plane-name {
+  font-size: 10px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.05em; color: var(--text-muted);
+  display: flex; align-items: center; gap: 4px;
+}
+.plane-state-icon {
+  width: 14px; height: 14px; border-radius: 50%; display: flex;
+  align-items: center; justify-content: center; font-size: 9px; font-weight: 700;
+  flex-shrink: 0;
+}
+.plane-state-icon.established { background: var(--success-bg); color: var(--success); border: 1px solid var(--success-border); }
+.plane-state-icon.partial { background: var(--amber-bg); color: var(--amber); border: 1px solid var(--amber-border); }
+.plane-state-icon.not-assessed { background: var(--gray-bg); color: var(--text-dim); border: 1px solid var(--border); }
+.plane-state-text { font-size: 11px; font-weight: 500; color: var(--text); }
+.plane-state-text.partial { color: var(--amber); }
+.plane-state-text.not-assessed { color: var(--text-dim); }
+.plane-source {
+  font-size: 11px; color: var(--text-muted); line-height: 1.35;
+  flex: 1; overflow: hidden; display: -webkit-box;
+  -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+}
+.freshness {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-size: 10px; font-weight: 600; padding: 2px 6px;
+  border-radius: 4px; white-space: nowrap; align-self: flex-start;
+}
+.freshness.fresh { background: var(--success-bg); color: var(--success); border: 1px solid var(--success-border); }
+.freshness.stale { background: var(--amber-bg); color: var(--amber); border: 1px solid var(--amber-border); }
+.freshness.unknown { background: var(--gray-bg); color: var(--text-muted); border: 1px solid var(--border); }
+
+/* ─── Consequences ─── */
+.consequences { display: flex; flex-direction: column; gap: 8px; }
+.consequence {
+  background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-sm);
+  padding: 14px 16px; cursor: pointer; transition: all 0.15s;
+  display: flex; gap: 14px; align-items: flex-start;
+  text-align: left; font: inherit; color: inherit; width: 100%;
+}
+.consequence:hover { border-color: var(--primary); background: var(--primary-light); }
+.severity {
+  width: 22px; height: 22px; border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 700; flex-shrink: 0; margin-top: 1px;
+}
+.severity.high { background: var(--danger-bg); color: var(--danger); border: 1px solid var(--danger-border); }
+.severity.medium { background: var(--amber-bg); color: var(--amber); border: 1px solid var(--amber-border); }
+.severity.low { background: var(--gray-bg); color: var(--text-muted); border: 1px solid var(--border); }
+.severity.resolved { background: var(--success-bg); color: var(--success); border: 1px solid var(--success-border); }
+.consequence-body { flex: 1; min-width: 0; }
+.consequence-title {
+  font-weight: 600; font-size: 14px; margin-bottom: 3px; color: var(--text);
+}
+.consequence-detail {
+  font-size: 12.5px; color: var(--text-muted); line-height: 1.5; margin-bottom: 6px;
+}
+.consequence-basis {
+  font-size: 11px; color: var(--text-dim);
+  display: flex; gap: 8px; flex-wrap: wrap; align-items: center;
+}
+.consequence-basis .chip {
+  font-size: 10px; padding: 1px 6px; border-radius: 3px;
+  background: var(--gray-bg); color: var(--text-muted);
+}
+.consequence-arrow {
+  color: var(--text-dim); font-size: 14px; flex-shrink: 0; margin-top: 2px;
+}
+.consequence:hover .consequence-arrow { color: var(--primary); }
+
+/* ─── Delta ─── */
+.delta-row {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;
+}
+.delta-stat {
+  padding: 14px 16px; background: var(--bg); border: 1px solid var(--border);
+  border-radius: var(--radius-sm); display: flex; flex-direction: column; gap: 4px;
+}
+.delta-stat-label {
+  font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em;
+  color: var(--text-dim); font-weight: 600;
+}
+.delta-stat-value {
+  font-size: 22px; font-weight: 600; letter-spacing: -0.02em;
+}
+.delta-stat-value.added { color: var(--amber); }
+.delta-stat-value.resolved { color: var(--success); }
+.delta-stat-value.changed { color: var(--text); }
+.delta-stat-detail {
+  font-size: 11.5px; color: var(--text-muted); margin-top: 2px;
+}
+
+/* ─── Controls ─── */
+.controls-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 10px; }
+.control-card {
+  background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-sm);
+  padding: 14px; cursor: pointer; transition: all 0.15s;
+  display: flex; flex-direction: column; gap: 6px;
+  text-align: left; font: inherit; color: inherit;
+}
+.control-card:hover { border-color: var(--primary); background: var(--primary-light); }
+.control-id {
+  font-family: ui-monospace, monospace; font-size: 11px; font-weight: 600;
+  color: var(--text-muted); letter-spacing: 0.02em;
+}
+.control-name {
+  font-size: 12.5px; font-weight: 500; color: var(--text); line-height: 1.4;
+  flex: 1;
+}
+.control-state {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-size: 10px; font-weight: 600; padding: 2px 6px;
+  border-radius: 4px; white-space: nowrap; align-self: flex-start;
+}
+.control-state.executed { background: var(--success-bg); color: var(--success); border: 1px solid var(--success-border); }
+.control-state.configured { background: var(--amber-bg); color: var(--amber); border: 1px solid var(--amber-border); }
+.control-state.not-wired { background: var(--danger-bg); color: var(--danger); border: 1px solid var(--danger-border); }
+.control-state.cataloged { background: var(--gray-bg); color: var(--text-muted); border: 1px solid var(--border); }
+
+/* ─── Delegated actions table ─── */
+.mini-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.mini-table th, .mini-table td {
+  padding: 10px 8px; text-align: left; border-bottom: 1px solid var(--border);
+}
+.mini-table th {
+  font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.05em;
+  color: var(--text-dim); font-weight: 600; padding-bottom: 8px;
+}
+.mini-table tr:last-child td { border-bottom: none; }
+.mini-table tr.clickable { cursor: pointer; }
+.mini-table tr.clickable:hover td { background: var(--bg); }
+.chain-id {
+  font-family: ui-monospace, monospace; font-size: 11px; color: var(--text-muted);
+}
+.chain-route { font-weight: 500; color: var(--text); }
+.chain-state { font-family: ui-monospace, monospace; font-size: 10.5px; padding: 2px 8px; border-radius: 4px; font-weight: 600; white-space: nowrap; }
+.chain-state.verified { background: var(--success-bg); color: var(--success); }
+.chain-state.pending { background: var(--amber-bg); color: var(--amber); }
+.chain-state.unverified { background: var(--danger-bg); color: var(--danger); }
+
+/* ─── Evaluations table ─── */
+.eval-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.eval-table th, .eval-table td {
+  padding: 10px 8px; text-align: left; border-bottom: 1px solid var(--border);
+}
+.eval-table th {
+  font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.05em;
+  color: var(--text-dim); font-weight: 600; padding-bottom: 8px;
+}
+.eval-table tr:last-child td { border-bottom: none; }
+.eval-table tr.clickable { cursor: pointer; }
+.eval-table tr.clickable:hover td { background: var(--bg); }
+.disposition {
+  font-family: ui-monospace, monospace; font-size: 11px; padding: 2px 8px;
+  border-radius: 4px; font-weight: 600;
+}
+.disposition.allow { background: var(--success-bg); color: var(--success); }
+.disposition.review { background: var(--amber-bg); color: var(--amber); }
+.disposition.block { background: var(--danger-bg); color: var(--danger); }
+
+/* ─── Sidebar cards ─── */
+.side-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius-md); padding: 18px;
+}
+.side-card-title {
+  font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em;
+  color: var(--text-dim); font-weight: 600; margin-bottom: 12px;
+}
+.next-action {
+  background: linear-gradient(135deg, var(--primary-light), var(--card));
+  border: 1px solid var(--primary-border);
+}
+.next-action-title {
+  font-weight: 600; font-size: 14px; margin-bottom: 6px; letter-spacing: -0.01em;
+}
+.next-action-detail {
+  font-size: 12.5px; color: var(--text-muted); line-height: 1.5; margin-bottom: 12px;
+}
+.next-action-btn {
+  width: 100%; padding: 9px 12px; background: var(--primary); color: white;
+  border: none; border-radius: 8px; font-size: 13px; font-weight: 500;
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+  transition: all 0.15s;
+}
+.next-action-btn:hover { background: var(--primary-hover); }
+
+.jobs-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px;
+}
+.job-btn {
+  padding: 10px 8px; background: var(--bg); border: 1px solid var(--border);
+  border-radius: var(--radius-sm); font-size: 12px; font-weight: 500;
+  color: var(--text); transition: all 0.15s; display: flex;
+  flex-direction: column; align-items: center; gap: 4px; text-align: center;
+}
+.job-btn:hover { border-color: var(--primary); background: var(--primary-light); }
+.job-btn-icon { font-size: 16px; }
+.job-btn-name { font-size: 11px; color: var(--text-muted); }
+
+.source-health { display: flex; flex-direction: column; gap: 8px; }
+.source-health-row {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 10px; padding: 6px 0; font-size: 12.5px;
+  border-bottom: 1px solid var(--border);
+}
+.source-health-row:last-child { border-bottom: none; }
+.source-health-name {
+  color: var(--text); font-weight: 500;
+  display: flex; align-items: center; gap: 6px;
+}
+.source-health-dot {
+  width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0;
+}
+.source-health-dot.fresh { background: var(--success); }
+.source-health-dot.stale { background: var(--amber); }
+.source-health-dot.unknown { background: var(--text-dim); }
+
+.usage-card {
+  background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-sm);
+  padding: 12px 14px; cursor: pointer; transition: all 0.15s;
+  text-align: left; font: inherit; color: inherit; width: 100%;
+}
+.usage-card:hover { border-color: var(--primary); background: var(--primary-light); }
+.usage-provider {
+  font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em;
+  color: var(--text-dim); font-weight: 600; margin-bottom: 4px;
+}
+.usage-stats {
+  display: flex; gap: 12px; align-items: baseline;
+  font-size: 12.5px; color: var(--text); margin-bottom: 4px;
+}
+.usage-stats strong { font-weight: 600; }
+.usage-asof {
+  font-size: 11px; color: var(--text-muted);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.usage-source {
+  font-family: ui-monospace, monospace; font-size: 10px;
+  background: var(--gray-bg); padding: 1px 5px; border-radius: 3px;
+}
+
+/* ─── Drawer ─── */
+.drawer-backdrop {
+  position: fixed; inset: 0; background: rgba(16,24,40,0.42);
+  opacity: 0; pointer-events: none; transition: opacity 0.28s ease; z-index: 40;
+}
+.drawer-backdrop.open { opacity: 1; pointer-events: auto; }
+.drawer {
+  position: fixed; top: 0; right: 0; bottom: 0; width: min(920px, calc(100vw - 40px));
+  background: var(--card); box-shadow: var(--shadow-lg);
+  transform: translateX(100%); transition: transform 0.34s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex; flex-direction: column; z-index: 50;
+}
+.drawer.open { transform: translateX(0); }
+.drawer-header {
+  padding: 18px 28px 14px; border-bottom: 1px solid var(--border);
+  display: flex; justify-content: space-between; align-items: flex-start;
+  gap: 20px; flex-shrink: 0; background: var(--card);
+}
+.drawer-header-left { flex: 1; min-width: 0; }
+.drawer-crumb {
+  font-size: 12px; color: var(--text-muted);
+  display: flex; align-items: center; gap: 6px; margin-bottom: 6px; flex-wrap: wrap;
+}
+.drawer-crumb .sep { color: var(--text-dim); }
+.drawer-title {
+  font-size: 19px; font-weight: 600; letter-spacing: -0.015em;
+  margin-bottom: 4px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+}
+.drawer-sub { font-size: 13px; color: var(--text-muted); }
+.drawer-close {
+  width: 32px; height: 32px; border-radius: 8px; border: 1px solid var(--border);
+  background: transparent; display: flex; align-items: center;
+  justify-content: center; color: var(--text-muted); font-size: 18px;
+  flex-shrink: 0;
+}
+.drawer-close:hover { background: var(--gray-bg); color: var(--text); }
+.drawer-body {
+  flex: 1; overflow-y: auto; padding: 24px 28px 28px;
+  background: var(--bg);
+}
+.drawer-body::-webkit-scrollbar { width: 8px; }
+.drawer-body::-webkit-scrollbar-thumb { background: var(--border-hover); border-radius: 4px; }
+.drawer-footer {
+  padding: 16px 28px; border-top: 1px solid var(--border);
+  display: flex; justify-content: space-between; align-items: center;
+  gap: 12px; flex-shrink: 0; background: var(--card);
+}
+.footer-info { font-size: 12px; color: var(--text-muted); }
+.footer-actions { display: flex; gap: 8px; }
+
+/* ─── Drawer content — shared ─── */
+.drawer-section {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius-md); padding: 18px 20px; margin-bottom: 14px;
+}
+.drawer-section-title {
+  font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em;
+  color: var(--text-dim); font-weight: 600; margin-bottom: 12px;
+  display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+}
+.drawer-section-title .badge {
+  background: var(--gray-bg); color: var(--text-muted);
+  font-size: 10.5px; padding: 1px 7px; border-radius: 10px;
+  font-weight: 600; font-family: ui-monospace, monospace;
+  text-transform: none; letter-spacing: 0;
+}
+.drawer-card-list { display: flex; flex-direction: column; gap: 10px; }
+.fact-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px 24px;
+}
+.fact-row { font-size: 13px; display: flex; gap: 10px; align-items: baseline; }
+.fact-label { color: var(--text-muted); min-width: 120px; flex-shrink: 0; font-size: 12.5px; }
+.fact-value { color: var(--text); font-weight: 500; word-break: break-word; }
+.fact-value.mono { font-family: ui-monospace, monospace; font-size: 12px; }
+
+.state-block {
+  padding: 12px 14px; border-radius: var(--radius-sm);
+  display: flex; flex-direction: column; gap: 4px;
+}
+.state-block.success { background: var(--success-bg); border: 1px solid var(--success-border); }
+.state-block.amber { background: var(--amber-bg); border: 1px solid var(--amber-border); }
+.state-block.danger { background: var(--danger-bg); border: 1px solid var(--danger-border); }
+.state-block.neutral { background: var(--gray-bg); border: 1px solid var(--border); }
+.state-block-title {
+  font-weight: 600; font-size: 13px; display: flex; align-items: center; gap: 8px;
+}
+.state-block.success .state-block-title { color: var(--success); }
+.state-block.amber .state-block-title { color: var(--amber); }
+.state-block.danger .state-block-title { color: var(--danger); }
+.state-block.neutral .state-block-title { color: var(--text); }
+.state-block-detail { font-size: 12.5px; color: var(--text-muted); line-height: 1.5; }
+
+/* ─── Navigator drawer specific ─── */
+.nav-job-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;
+}
+.nav-job-btn {
+  padding: 14px; border: 1.5px solid var(--border); border-radius: var(--radius-sm);
+  background: var(--bg); text-align: left; transition: all 0.15s;
+  display: flex; flex-direction: column; gap: 4px;
+}
+.nav-job-btn:hover { border-color: var(--primary); background: var(--primary-light); }
+.nav-job-btn.selected { border-color: var(--primary); background: var(--primary-light); }
+.nav-job-icon { font-size: 18px; }
+.nav-job-name { font-weight: 600; font-size: 13px; }
+.nav-job-desc { font-size: 11.5px; color: var(--text-muted); line-height: 1.4; }
+
+.nav-source-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
+}
+.nav-source-btn {
+  padding: 12px; border: 1.5px solid var(--border); border-radius: var(--radius-sm);
+  background: var(--bg); text-align: left; transition: all 0.15s;
+  display: flex; flex-direction: column; gap: 4px; position: relative;
+}
+.nav-source-btn:hover { border-color: var(--primary); }
+.nav-source-btn.selected { border-color: var(--primary); background: var(--primary-light); }
+.nav-source-btn.selected::after {
+  content: '✓'; position: absolute; top: 10px; right: 10px;
+  width: 18px; height: 18px; border-radius: 50%;
+  background: var(--primary); color: white;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10px; font-weight: 700;
+}
+.nav-source-name { font-weight: 600; font-size: 12.5px; }
+.nav-source-sub { font-size: 11px; color: var(--text-muted); }
+
+/* ─── Responsive ─── */
+@media (max-width: 1100px) {
+  .content-grid { grid-template-columns: 1fr; }
+  .sidebar { position: static; display: grid; grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 900px) {
+  .topbar { padding: 0 16px; gap: 12px; }
+  .topbar-system-name { font-size: 14px; }
+  .topbar-search { width: 100px; }
+  .topbar-sysid { display: none; }
+  .main-wrap { padding: 16px 16px 48px; }
+  .hero { padding: 20px; }
+  .hero-question { font-size: 22px; }
+  .planes { grid-template-columns: repeat(2, 1fr); }
+  .drawer { width: 100vw; }
+  .drawer-header, .drawer-body, .drawer-footer { padding-left: 18px; padding-right: 18px; }
+  .delta-row { grid-template-columns: 1fr; }
+  .fact-grid { grid-template-columns: 1fr; }
+  .nav-job-grid { grid-template-columns: 1fr 1fr; }
+  .nav-source-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 600px) {
+  .topbar-system { display: none; }
+  .sidebar { grid-template-columns: 1fr; }
+  .planes { grid-template-columns: 1fr; }
+  .controls-grid { grid-template-columns: 1fr; }
+  .mini-table { font-size: 12px; }
+  .mini-table th:nth-child(2), .mini-table td:nth-child(2) { display: none; }
+  .eval-table th:nth-child(4), .eval-table td:nth-child(4) { display: none; }
+  .jobs-grid { grid-template-columns: repeat(3, 1fr); }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════ TOPBAR ═══════════════════ -->
+<header class="topbar">
+  <div class="topbar-org">
+    <div class="topbar-org-logo">A</div>
+    <span>Acme Corp</span>
+  </div>
+  <div class="topbar-system">
+    <span class="topbar-system-name">Support Agent v2</span>
+    <span class="topbar-env" id="env-badge">production</span>
+    <span class="topbar-sysid">sys-supp-2f4a</span>
+  </div>
+  <div class="topbar-right">
+    <div class="basis-control">
+      <button class="basis-btn active" data-basis="current">Current</button>
+      <button class="basis-btn" data-basis="evaluation">Evaluation</button>
+      <span class="basis-asof" id="basis-asof">as-of 14:22 UTC</span>
+    </div>
+    <input class="topbar-search" placeholder="Search…" aria-label="Search">
+    <div class="topbar-avatar">AC</div>
+  </div>
+</header>
+
+<!-- ═══════════════════ MAIN ═══════════════════ -->
+<main class="main-wrap">
+
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <!-- rendered by JS -->
+  </section>
+
+  <!-- CONTENT GRID -->
+  <div class="content-grid">
+    <div class="main-col">
+      <section class="section" id="planes-section">
+        <div class="section-header">
+          <div>
+            <div class="section-title">Five evidence planes</div>
+            <div class="section-subtitle">Independent dimensions — each qualified separately</div>
+          </div>
+        </div>
+        <div class="planes" id="planes-grid"></div>
+      </section>
+
+      <section class="section">
+        <div class="section-header">
+          <div>
+            <div class="section-title">What this system can cause</div>
+            <div class="section-subtitle">Top consequential facts across capability, delegation, data and identity</div>
+          </div>
+        </div>
+        <div class="consequences" id="consequences-list"></div>
+      </section>
+
+      <section class="section" id="delta-section">
+        <div class="section-header">
+          <div>
+            <div class="section-title">What changed since last evaluation</div>
+            <div class="section-subtitle">Comparison against eval-2f4a-9d3b · 2026-10-17 10:42 UTC</div>
+          </div>
+        </div>
+        <div class="delta-row" id="delta-row"></div>
+      </section>
+
+      <section class="section">
+        <div class="section-header">
+          <div>
+            <div class="section-title">Applicable controls</div>
+            <div class="section-subtitle">Each control is independently configured, deployed, and tested</div>
+          </div>
+          <button class="section-action" data-open-drawer="controls" data-control-id="A03">See all →</button>
+        </div>
+        <div class="controls-grid" id="controls-grid"></div>
+      </section>
+
+      <section class="section">
+        <div class="section-header">
+          <div>
+            <div class="section-title">Delegated actions</div>
+            <div class="section-subtitle">Cross-agent chains in the last 24 hours</div>
+          </div>
+        </div>
+        <table class="mini-table" id="delegated-table">
+          <thead>
+            <tr>
+              <th>Chain</th>
+              <th>Route</th>
+              <th>State</th>
+              <th>As-of</th>
+            </tr>
+          </thead>
+          <tbody id="delegated-body"></tbody>
+        </table>
+      </section>
+
+      <section class="section">
+        <div class="section-header">
+          <div>
+            <div class="section-title">Recent evaluations</div>
+            <div class="section-subtitle">Frozen snapshots — click to switch basis</div>
+          </div>
+        </div>
+        <table class="eval-table" id="eval-table">
+          <thead>
+            <tr>
+              <th>Evaluation</th>
+              <th>As-of</th>
+              <th>Disposition</th>
+              <th>Scope</th>
+              <th>Basis</th>
+            </tr>
+          </thead>
+          <tbody id="eval-body"></tbody>
+        </table>
+      </section>
+    </div>
+
+    <aside class="sidebar">
+      <div class="side-card next-action" id="next-action-card"></div>
+
+      <div class="side-card">
+        <div class="side-card-title">Six jobs</div>
+        <div class="jobs-grid" id="jobs-grid"></div>
+      </div>
+
+      <div class="side-card">
+        <div class="side-card-title">Source health</div>
+        <div class="source-health" id="source-health"></div>
+      </div>
+
+      <div class="side-card">
+        <div class="side-card-title">Provider usage & cost</div>
+        <button class="usage-card" id="usage-card"></button>
+      </div>
+    </aside>
+  </div>
+</main>
+
+<!-- ═══════════════════ DRAWER ═══════════════════ -->
+<div class="drawer-backdrop" id="drawer-backdrop"></div>
+<aside class="drawer" id="drawer" role="dialog" aria-modal="true">
+  <header class="drawer-header">
+    <div class="drawer-header-left">
+      <div class="drawer-crumb" id="drawer-crumb"></div>
+      <h1 class="drawer-title" id="drawer-title"></h1>
+      <div class="drawer-sub" id="drawer-sub"></div>
+    </div>
+    <button class="drawer-close" id="drawer-close" aria-label="Close">×</button>
+  </header>
+  <div class="drawer-body" id="drawer-body"></div>
+  <footer class="drawer-footer" id="drawer-footer"></footer>
+</aside>
+
+<script>
+/* ═══════════════════════════════════════════════════════════════
+   DATA
+   ═══════════════════════════════════════════════════════════════ */
+
+const SYSTEM = {
+  name: 'Support Agent v2',
+  environment: 'production',
+  aiSystemId: 'sys-supp-2f4a',
+  org: 'Acme Corp',
+  lastEvalId: 'eval-2f4a-9d3b',
+  lastEvalAsOf: '2026-10-17 10:42 UTC',
+  currentAsOf: '2026-10-17 14:22 UTC'
+};
+
+const SYSTEM_DATA = {
+  current: {
+    asOf: '2026-10-17 14:22 UTC',
+    ladder: 5,
+    consequence: 'Support Agent v2 can issue customer refunds up to <strong>$500</strong> through a delegated tool call from <strong>support-triage-v3</strong> to <strong>refund-agent-v2</strong>.',
+    exposure: 'It reaches <strong>12 tool paths</strong>, of which 3 are undeclared. Its most recent delegated action completed with a <strong>scope widening</strong> on the DATA_CLASS dimension.',
+    attentionCount: 4,
+    attentionClean: false,
+    planes: [
+      { id: 'requested', name: 'REQUESTED', state: 'established', source: 'Operating Envelope v12', freshness: 'fresh', asOf: '2h ago' },
+      { id: 'policy', name: 'POLICY_AUTHORIZED', state: 'established', source: 'Approved by alice.chen', freshness: 'fresh', asOf: '2h ago' },
+      { id: 'granted', name: 'EFFECTIVELY_GRANTED', state: 'partial', source: 'AWS IAM observer', freshness: 'stale', asOf: '6h ago' },
+      { id: 'code', name: 'CODE_CAPABLE', state: 'established', source: 'GitHub scan · 47 rules', freshness: 'fresh', asOf: '1h ago' },
+      { id: 'observed', name: 'OBSERVED', state: 'established', source: 'OTLP collector', freshness: 'fresh', asOf: '12m ago' }
+    ],
+    consequences: [
+      { id: 'c1', severity: 'high', title: '3 undeclared tool paths', detail: 'Source analysis found 3 tool paths reachable by agents that no MCP registry entry declares.', basis: 'GitHub scan', basisAge: '1h ago', drawer: 'coverage' },
+      { id: 'c2', severity: 'medium', title: '1 delegation drift observed', detail: 'A delegated action widened DATA_CLASS from "standard" to "includes_pii" at handoff.', basis: 'OTLP + DAI', basisAge: '3h ago', drawer: 'delegated', chainId: 'widened' },
+      { id: 'c3', severity: 'low', title: '2 dependencies drifted from SBOM', detail: 'Two transitive dependencies gained new permissions since the last approved SBOM.', basis: 'SBOM diff', basisAge: '1h ago', drawer: 'coverage' },
+      { id: 'c4', severity: 'resolved', title: '1 prior finding resolved', detail: 'The critical IAM overreach from eval-2f4a-8c1a was remediated on 2026-10-17 11:15 UTC.', basis: 'IAM observer', basisAge: '3h ago', drawer: null }
+    ],
+    delta: { added: 2, resolved: 3, changed: 1, detail: 'Added: 1 delegation drift, 1 dependency drift · Resolved: 2 secrets, 1 IAM finding · Changed: R03 guard state' },
+    controls: [
+      { id: 'A02', name: 'Undeclared executable capability', state: 'executed', stateLabel: 'EXECUTED' },
+      { id: 'A03', name: 'Delegated Action Integrity', state: 'executed', stateLabel: 'EXECUTED' },
+      { id: 'A04', name: 'Observed action outside approved policy', state: 'configured', stateLabel: 'CONFIGURED' },
+      { id: 'R03', name: 'Runtime guardrail enforcement evidence', state: 'configured', stateLabel: 'MONITORING STALE' },
+      { id: 'E01', name: 'Evidence integrity and provenance', state: 'executed', stateLabel: 'EXECUTED' }
+    ],
+    delegated: [
+      { chainId: 'widened', route: 'support-triage-v3 → refund-agent-v2', state: 'pending', stateLabel: 'SCOPE WIDENED', asOf: '2026-10-17 10:42 UTC' },
+      { chainId: 'verified', route: 'support-triage-v3 → invoice-agent-v1', state: 'verified', stateLabel: 'VERIFIED', asOf: '2026-10-17 09:58 UTC' },
+      { chainId: 'verified', route: 'support-triage-v3 → refund-agent-v2', state: 'verified', stateLabel: 'VERIFIED', asOf: '2026-10-16 18:22 UTC' },
+      { chainId: 'unverifiable', route: 'escalation-agent-v4 → refund-agent-v2', state: 'unverified', stateLabel: 'NO GRANT', asOf: '2026-10-16 14:07 UTC' }
+    ],
+    evaluations: [
+      { id: 'eval-2f4a-9d3b', asOf: '2026-10-17 10:42', disposition: 'review', scope: 'full', basis: 'current' },
+      { id: 'eval-2f4a-8c1a', asOf: '2026-10-16 22:15', disposition: 'allow', scope: 'full', basis: 'historic' },
+      { id: 'eval-2f4a-7b09', asOf: '2026-10-16 14:30', disposition: 'block', scope: 'full', basis: 'historic' },
+      { id: 'eval-2f4a-6a8f', asOf: '2026-10-15 09:14', disposition: 'allow', scope: 'full', basis: 'historic' }
+    ],
+    nextAction: {
+      title: 'Review the delegation drift on chain-7a9c-2b14',
+      detail: 'One delegated action widened DATA_CLASS on handoff. The operation completed but authority did not cover it.',
+      cta: 'Open chain',
+      drawer: 'delegated',
+      chainId: 'widened'
+    },
+    sourceHealth: [
+      { name: 'GitHub App', state: 'fresh', asOf: '1h ago' },
+      { name: 'AWS IAM observer', state: 'stale', asOf: '6h ago' },
+      { name: 'OTLP collector', state: 'fresh', asOf: '12m ago' },
+      { name: 'SBOM source', state: 'fresh', asOf: '1h ago' },
+      { name: 'Operating Envelope', state: 'fresh', asOf: '2h ago' }
+    ],
+    usage: {
+      provider: 'OpenAI',
+      model: 'gpt-4o',
+      tokens: '1.24M',
+      cost: '$28.40',
+      asOf: '2h ago',
+      dataSource: 'admin_api',
+      tokensKnown: true
+    }
+  },
+
+  evaluation: {
+    asOf: '2026-10-17 10:42 UTC',
+    ladder: 5,
+    consequence: 'At the time of this evaluation, Support Agent v2 could issue customer refunds up to <strong>$500</strong> through the delegated chain <strong>support-triage-v3 → refund-agent-v2</strong>.',
+    exposure: 'The evaluation found <strong>2 unresolved consequences</strong> and <strong>1 plane was partial</strong> at the moment of assessment. All sources were frozen at 10:42 UTC.',
+    attentionCount: 2,
+    attentionClean: false,
+    planes: [
+      { id: 'requested', name: 'REQUESTED', state: 'established', source: 'Operating Envelope v12', freshness: 'fresh', asOf: 'frozen' },
+      { id: 'policy', name: 'POLICY_AUTHORIZED', state: 'established', source: 'Approved by alice.chen', freshness: 'fresh', asOf: 'frozen' },
+      { id: 'granted', name: 'EFFECTIVELY_GRANTED', state: 'partial', source: 'AWS IAM observer (partial)', freshness: 'fresh', asOf: 'frozen' },
+      { id: 'code', name: 'CODE_CAPABLE', state: 'established', source: 'GitHub scan · 47 rules', freshness: 'fresh', asOf: 'frozen' },
+      { id: 'observed', name: 'OBSERVED', state: 'established', source: 'OTLP collector', freshness: 'fresh', asOf: 'frozen' }
+    ],
+    consequences: [
+      { id: 'c1e', severity: 'high', title: '3 undeclared tool paths', detail: 'At evaluation time, 3 tool paths were reachable by agents that no registry entry declared.', basis: 'GitHub scan', basisAge: 'frozen', drawer: 'coverage' },
+      { id: 'c2e', severity: 'medium', title: '1 delegation drift observed', detail: 'The delegated chain support-triage-v3 → refund-agent-v2 widened DATA_CLASS on handoff.', basis: 'OTLP + DAI', basisAge: 'frozen', drawer: 'delegated', chainId: 'widened' }
+    ],
+    delta: null,
+    controls: [
+      { id: 'A02', name: 'Undeclared executable capability', state: 'executed', stateLabel: 'EXECUTED' },
+      { id: 'A03', name: 'Delegated Action Integrity', state: 'executed', stateLabel: 'EXECUTED' },
+      { id: 'A04', name: 'Observed action outside approved policy', state: 'configured', stateLabel: 'CONFIGURED' },
+      { id: 'R03', name: 'Runtime guardrail enforcement evidence', state: 'not-wired', stateLabel: 'NOT WIRED' },
+      { id: 'E01', name: 'Evidence integrity and provenance', state: 'executed', stateLabel: 'EXECUTED' }
+    ],
+    delegated: [
+      { chainId: 'widened', route: 'support-triage-v3 → refund-agent-v2', state: 'pending', stateLabel: 'SCOPE WIDENED', asOf: '2026-10-17 10:42 UTC' },
+      { chainId: 'verified', route: 'support-triage-v3 → invoice-agent-v1', state: 'verified', stateLabel: 'VERIFIED', asOf: '2026-10-17 09:58 UTC' }
+    ],
+    evaluations: [
+      { id: 'eval-2f4a-9d3b', asOf: '2026-10-17 10:42', disposition: 'review', scope: 'full', basis: 'current' },
+      { id: 'eval-2f4a-8c1a', asOf: '2026-10-16 22:15', disposition: 'allow', scope: 'full', basis: 'historic' },
+      { id: 'eval-2f4a-7b09', asOf: '2026-10-16 14:30', disposition: 'block', scope: 'full', basis: 'historic' },
+      { id: 'eval-2f4a-6a8f', asOf: '2026-10-15 09:14', disposition: 'allow', scope: 'full', basis: 'historic' }
+    ],
+    nextAction: {
+      title: 'Review the frozen receipt for this evaluation',
+      detail: 'This snapshot is immutable. Open the receipt to see the exact evidence basis, source hashes and scope.',
+      cta: 'View receipt',
+      drawer: null
+    },
+    sourceHealth: [
+      { name: 'GitHub App', state: 'fresh', asOf: 'frozen' },
+      { name: 'AWS IAM observer', state: 'fresh', asOf: 'frozen' },
+      { name: 'OTLP collector', state: 'fresh', asOf: 'frozen' },
+      { name: 'SBOM source', state: 'fresh', asOf: 'frozen' },
+      { name: 'Operating Envelope', state: 'fresh', asOf: 'frozen' }
+    ],
+    usage: {
+      provider: 'OpenAI',
+      model: 'gpt-4o',
+      tokens: '1.18M',
+      cost: '$26.90',
+      asOf: 'frozen',
+      dataSource: 'admin_api',
+      tokensKnown: true
+    }
+  }
+};
+
+const LADDER_LABELS = ['FILE_STORED','HUMAN_ATTESTED','TYPED_MAPPING_CONFIRMED','PRODUCER_AUTHENTICATED','DETECTOR_EXECUTED','ASSURANCE_EVALUATED','REPORT_HUMAN_REVIEWED'];
+const JOBS = [
+  { id: 'discover', icon: '🔍', name: 'Discover', desc: 'Map your AI estate and capabilities', targetSection: 'consequences-list' },
+  { id: 'evaluate', icon: '🛡️', name: 'Evaluate', desc: 'Find risks in code, runtime or telemetry', targetSection: 'consequences-list' },
+  { id: 'authorize', icon: '✅', name: 'Authorize', desc: 'Approve or scope agent authority', targetSection: 'controls-grid' },
+  { id: 'monitor', icon: '👁️', name: 'Monitor', desc: 'Watch for drift and anomalies', targetSection: 'source-health' },
+  { id: 'protect', icon: '🛑', name: 'Protect', desc: 'Contain or guard consequential actions', drawer: 'controls', controlId: 'R03' },
+  { id: 'verify', icon: '📋', name: 'Verify', desc: 'Prove what was assessed with a frozen receipt', targetSection: 'eval-table' }
+];
+
+/* ═══════════════════════════════════════════════════════════════
+   STATE
+   ═══════════════════════════════════════════════════════════════ */
+const state = {
+  basis: 'current',
+  activeDrawer: null,
+  activeControlId: 'A03',
+  activeChainId: 'widened',
+  activeCoverageConsequence: null,
+  navJob: 'evaluate',
+  navSources: []
+};
+
+function data() { return SYSTEM_DATA[state.basis]; }
+
+/* ═══════════════════════════════════════════════════════════════
+   RENDER — HOST SCREEN
+   ═══════════════════════════════════════════════════════════════ */
+
+function renderHero() {
+  const d = data();
+  const hero = document.getElementById('hero');
+  const basisLabel = state.basis === 'current' ? 'Live state' : 'Frozen evaluation';
+  const basisDetail = state.basis === 'current'
+    ? `as-of ${SYSTEM.currentAsOf} · last evaluated ${SYSTEM.lastEvalAsOf}`
+    : `pinned to ${SYSTEM.lastEvalId} · ${SYSTEM.lastEvalAsOf}`;
+
+  const ladderDots = LADDER_LABELS.map((_, i) =>
+    `<span class="ladder-dot ${i <= d.ladder ? 'filled' : ''}"></span>`
+  ).join('');
+
+  hero.innerHTML = `
+    <div class="hero-eyebrow">${basisLabel} · ${basisDetail}</div>
+    <h1 class="hero-question">What can this system cause?</h1>
+    <p class="hero-answer">${d.consequence}</p>
+    <p class="hero-exposure">
+      ${d.attentionClean
+        ? '<span class="attn-count clean">✓ All observations qualified</span>'
+        : `<span class="attn-count">${d.attentionCount} need attention</span>`
+      }
+      ${d.exposure}
+    </p>
+    <div class="hero-status">
+      <div class="ladder-wrap">
+        <div class="ladder-dots">${ladderDots}</div>
+        <span class="ladder-label">${LADDER_LABELS[d.ladder]}</span>
+      </div>
+      <span class="hero-status-sep">·</span>
+      <div class="hero-status-stat">
+        <span class="hero-status-label">Planes</span>
+        <span class="hero-status-value">${d.planes.filter(p => p.state === 'established').length}/5 established</span>
+      </div>
+      <span class="hero-status-sep">·</span>
+      <div class="hero-status-stat">
+        <span class="hero-status-label">Attention</span>
+        <span class="hero-status-value">${d.attentionCount} ${d.attentionCount === 1 ? 'item' : 'items'}</span>
+      </div>
+      <span class="hero-status-sep">·</span>
+      <div class="hero-status-stat">
+        <span class="hero-status-label">Last evaluated</span>
+        <span class="hero-status-value mono">${SYSTEM.lastEvalId}</span>
+      </div>
+    </div>
+    <div class="hero-actions">
+      <button class="btn btn-primary" data-open-drawer="navigator">+ Add evidence</button>
+      <button class="btn btn-ghost" data-open-drawer="navigator">Re-evaluate</button>
+      <button class="btn btn-ghost" data-action="open-receipt">Open receipt</button>
+    </div>
+  `;
+}
+
+function renderPlanes() {
+  const d = data();
+  const grid = document.getElementById('planes-grid');
+  grid.innerHTML = d.planes.map(p => {
+    const stateIcon = p.state === 'established' ? '✓' : p.state === 'partial' ? '◐' : '·';
+    const stateClass = p.state;
+    const freshnessClass = p.freshness;
+    return `
+      <button class="plane" data-open-drawer="coverage" data-plane="${p.id}">
+        <div class="plane-name">
+          <span class="plane-state-icon ${stateClass}">${stateIcon}</span>
+          ${p.name}
+        </div>
+        <div class="plane-state-text ${stateClass}">${p.state === 'established' ? 'Established' : p.state === 'partial' ? 'Partial' : 'Not assessed'}</div>
+        <div class="plane-source">${p.source}</div>
+        <span class="freshness ${freshnessClass}">${p.freshness === 'fresh' ? '● Fresh' : p.freshness === 'stale' ? '● Stale' : '● Unknown'} · ${p.asOf}</span>
+      </button>
+    `;
+  }).join('');
+}
+
+function renderConsequences() {
+  const d = data();
+  const list = document.getElementById('consequences-list');
+  list.innerHTML = d.consequences.map(c => `
+    <button class="consequence" ${c.drawer ? `data-open-drawer="${c.drawer}" data-chain-id="${c.chainId || ''}"` : 'data-resolved="true"'}>
+      <div class="severity ${c.severity}">${c.severity === 'high' ? '!' : c.severity === 'medium' ? '!' : c.severity === 'low' ? '·' : '✓'}</div>
+      <div class="consequence-body">
+        <div class="consequence-title">${c.title}</div>
+        <div class="consequence-detail">${c.detail}</div>
+        <div class="consequence-basis">
+          <span class="chip">${c.basis}</span>
+          <span>${c.basisAge}</span>
+        </div>
+      </div>
+      <div class="consequence-arrow">${c.drawer ? '→' : ''}</div>
+    </button>
+  `).join('');
+}
+
+function renderDelta() {
+  const d = data();
+  const row = document.getElementById('delta-row');
+  const section = document.getElementById('delta-section');
+  if (!d.delta) {
+    section.style.display = 'none';
+    return;
+  }
+  section.style.display = '';
+  row.innerHTML = `
+    <div class="delta-stat">
+      <span class="delta-stat-label">Added</span>
+      <span class="delta-stat-value added">+${d.delta.added}</span>
+    </div>
+    <div class="delta-stat">
+      <span class="delta-stat-label">Resolved</span>
+      <span class="delta-stat-value resolved">−${d.delta.resolved}</span>
+    </div>
+    <div class="delta-stat">
+      <span class="delta-stat-label">Changed</span>
+      <span class="delta-stat-value changed">~${d.delta.changed}</span>
+    </div>
+  `;
+}
+
+function renderControls() {
+  const d = data();
+  const grid = document.getElementById('controls-grid');
+  grid.innerHTML = d.controls.map(c => `
+    <button class="control-card" data-open-drawer="controls" data-control-id="${c.id}">
+      <span class="control-id">${c.id}</span>
+      <span class="control-name">${c.name}</span>
+      <span class="control-state ${c.state}">${c.stateLabel}</span>
+    </button>
+  `).join('');
+}
+
+function renderDelegated() {
+  const d = data();
+  const body = document.getElementById('delegated-body');
+  body.innerHTML = d.delegated.map(c => `
+    <tr class="clickable" data-open-drawer="delegated" data-chain-id="${c.chainId}">
+      <td><span class="chain-id">${c.chainId}</span></td>
+      <td><span class="chain-route">${c.route}</span></td>
+      <td><span class="chain-state ${c.state}">${c.stateLabel}</span></td>
+      <td>${c.asOf}</td>
+    </tr>
+  `).join('');
+}
+
+function renderEvaluations() {
+  const d = data();
+  const body = document.getElementById('eval-body');
+  body.innerHTML = d.evaluations.map(e => `
+    <tr class="clickable" data-eval-id="${e.id}" data-basis-switch="${e.basis}">
+      <td><span class="chain-id">${e.id}</span>${e.basis === 'current' && state.basis === 'evaluation' ? ' <span style="color:var(--primary);font-weight:600;">(viewing)</span>' : ''}</td>
+      <td>${e.asOf}</td>
+      <td><span class="disposition ${e.disposition}">${e.disposition.toUpperCase()}</span></td>
+      <td>${e.scope}</td>
+      <td>${e.basis === 'current' ? 'Latest' : 'Historic'}</td>
+    </tr>
+  `).join('');
+}
+
+function renderNextAction() {
+  const d = data();
+  const card = document.getElementById('next-action-card');
+  card.innerHTML = `
+    <div class="side-card-title" style="color:var(--primary);">Next best action</div>
+    <div class="next-action-title">${d.nextAction.title}</div>
+    <div class="next-action-detail">${d.nextAction.detail}</div>
+    <button class="next-action-btn" ${d.nextAction.drawer ? `data-open-drawer="${d.nextAction.drawer}" data-chain-id="${d.nextAction.chainId || ''}"` : 'data-action="open-receipt"'}>
+      ${d.nextAction.cta} →
+    </button>
+  `;
+}
+
+function renderJobs() {
+  const grid = document.getElementById('jobs-grid');
+  grid.innerHTML = JOBS.map(j => `
+    <button class="job-btn" data-job-id="${j.id}">
+      <span class="job-btn-icon">${j.icon}</span>
+      <span class="job-btn-name">${j.name}</span>
+    </button>
+  `).join('');
+}
+
+function renderSourceHealth() {
+  const d = data();
+  const el = document.getElementById('source-health');
+  el.innerHTML = d.sourceHealth.map(s => `
+    <div class="source-health-row">
+      <span class="source-health-name">
+        <span class="source-health-dot ${s.state}"></span>
+        ${s.name}
+      </span>
+      <span class="freshness ${s.state === 'fresh' ? 'fresh' : s.state === 'stale' ? 'stale' : 'unknown'}" style="font-size:10px;">
+        ${s.asOf}
+      </span>
+    </div>
+  `).join('');
+}
+
+function renderUsageCard() {
+  const d = data();
+  const card = document.getElementById('usage-card');
+  card.innerHTML = `
+    <div class="usage-provider">${d.usage.provider} · ${d.usage.model}</div>
+    <div class="usage-stats">
+      <strong>${d.usage.tokensKnown ? d.usage.tokens + ' tokens' : 'Token count unknown'}</strong>
+      <strong>${d.usage.cost}</strong>
+    </div>
+    <div class="usage-asof">
+      <span>${d.usage.asOf}</span>
+      <span class="usage-source">${d.usage.dataSource}</span>
+    </div>
+  `;
+}
+
+function renderTopbar() {
+  document.querySelectorAll('.basis-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.basis === state.basis);
+  });
+  const d = data();
+  document.getElementById('basis-asof').textContent = `as-of ${d.asOf.replace('2026-10-17 ', '')}`;
+}
+
+function renderAll() {
+  renderTopbar();
+  renderHero();
+  renderPlanes();
+  renderConsequences();
+  renderDelta();
+  renderControls();
+  renderDelegated();
+  renderEvaluations();
+  renderNextAction();
+  renderJobs();
+  renderSourceHealth();
+  renderUsageCard();
+  bindHostEvents();
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   BINDINGS
+   ═══════════════════════════════════════════════════════════════ */
+function bindHostEvents() {
+  document.querySelectorAll('[data-open-drawer]').forEach(el => {
+    el.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const drawerId = el.dataset.openDrawer;
+      const chainId = el.dataset.chainId;
+      const controlId = el.dataset.controlId;
+      const planeId = el.dataset.plane;
+      openDrawer(drawerId, { chainId, controlId, planeId });
+    });
+  });
+
+  document.querySelectorAll('[data-basis-switch]').forEach(el => {
+    el.addEventListener('click', () => {
+      const targetBasis = el.dataset.basisSwitch;
+      if (targetBasis === 'current') {
+        setBasis('current');
+      } else {
+        setBasis('evaluation');
+      }
+    });
+  });
+
+  document.querySelectorAll('[data-job-id]').forEach(el => {
+    el.addEventListener('click', () => {
+      const job = JOBS.find(j => j.id === el.dataset.jobId);
+      if (!job) return;
+      if (job.drawer) {
+        openDrawer(job.drawer, { controlId: job.controlId });
+      } else if (job.targetSection) {
+        const target = document.getElementById(job.targetSection);
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    });
+  });
+
+  document.querySelectorAll('[data-action="open-receipt"]').forEach(el => {
+    el.addEventListener('click', () => {
+      showToast('Receipt view opening…');
+    });
+  });
+}
+
+function setBasis(basis) {
+  state.basis = basis;
+  renderAll();
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   DRAWERS
+   ═══════════════════════════════════════════════════════════════ */
+
+const DRAWER_META = {
+  navigator: { crumb: 'Support Agent v2 › Evidence', title: 'Add evidence', subtitle: 'Add more sources to strengthen this assessment', breadcrumb: 'Navigator' },
+  delegated: { crumb: 'Support Agent v2 › Agent / Action › Delegated actions', title: 'Delegated action chain', subtitle: '', breadcrumb: 'Delegated chain' },
+  controls: { crumb: 'Support Agent v2 › Controls', title: 'Control Operations & Effectiveness', subtitle: '', breadcrumb: 'Controls' },
+  coverage: { crumb: 'Support Agent v2 › Detection coverage', title: 'Detection coverage', subtitle: 'What was analyzed in this evaluation', breadcrumb: 'Coverage' },
+  usage: { crumb: 'Support Agent v2 › Usage & cost', title: 'Provider usage & cost', subtitle: 'Independent input class — separate from IAM or telemetry', breadcrumb: 'Usage' }
+};
+
+function openDrawer(drawerId, opts = {}) {
+  state.activeDrawer = drawerId;
+  if (opts.chainId) state.activeChainId = opts.chainId;
+  if (opts.controlId) state.activeControlId = opts.controlId;
+  if (opts.planeId) state.activeCoverageConsequence = null;
+
+  const meta = DRAWER_META[drawerId];
+  if (!meta) return;
+
+  document.getElementById('drawer-crumb').innerHTML =
+    meta.crumb.split(' › ').map((part, i, arr) =>
+      i === arr.length - 1 ? `<span>${part}</span>` : `<span>${part}</span><span class="sep">›</span>`
+    ).join('');
+
+  const renderer = DRAWER_RENDERERS[drawerId];
+  const result = renderer(opts);
+
+  document.getElementById('drawer-title').textContent = result.title || meta.title;
+  document.getElementById('drawer-sub').textContent = result.subtitle || meta.subtitle;
+  document.getElementById('drawer-body').innerHTML = result.body;
+  document.getElementById('drawer-footer').innerHTML = result.footer || '';
+
+  document.getElementById('drawer').classList.add('open');
+  document.getElementById('drawer-backdrop').classList.add('open');
+
+  bindDrawerEvents(drawerId, result);
+}
+
+function closeDrawer() {
+  document.getElementById('drawer').classList.remove('open');
+  document.getElementById('drawer-backdrop').classList.remove('open');
+  state.activeDrawer = null;
+}
+
+function bindDrawerEvents(drawerId, result) {
+  if (result.actions) {
+    Object.entries(result.actions).forEach(([key, fn]) => {
+      const el = document.querySelector(`[data-drawer-action="${key}"]`);
+      if (el) el.addEventListener('click', fn);
+    });
+  }
+}
+
+/* ─── Drawer: Navigator (simplified) ─── */
+function renderDrawerNavigator(opts) {
+  const d = data();
+  const jobs = JOBS;
+  const currentJob = state.navJob;
+  const sources = [
+    { id: 'runtime-traces', icon: '📊', name: 'Runtime traces', sublabel: 'OTLP or typed export', target: 'OBSERVED' },
+    { id: 'iam-policy', icon: '🔑', name: 'Live AWS IAM', sublabel: 'Observer or JSON export', target: 'EFFECTIVELY_GRANTED' },
+    { id: 'sbom', icon: '📁', name: 'SBOM', sublabel: 'CycloneDX JSON 1.4–1.6', target: 'CODE_CAPABLE (supply chain)' },
+    { id: 'logs', icon: '📓', name: 'Logs', sublabel: 'JSONL or raw', target: 'OBSERVED (access patterns)' },
+    { id: 'attestation', icon: '✍️', name: 'Attestation', sublabel: 'PDF / Office / TXT', target: 'HUMAN_ATTESTED' },
+    { id: 'runtime-test', icon: '🧪', name: 'Runtime test', sublabel: 'Authorized endpoint', target: 'DETECTOR_EXECUTED (empirical)' }
+  ];
+
+  let body = `
+    <div class="drawer-section">
+      <div class="drawer-section-title">Choose a job</div>
+      <div class="nav-job-grid">
+        ${jobs.map(j => `
+          <button class="nav-job-btn ${j.id === currentJob ? 'selected' : ''}" data-nav-job="${j.id}">
+            <span class="nav-job-icon">${j.icon}</span>
+            <span class="nav-job-name">${j.name}</span>
+            <span class="nav-job-desc">${j.desc}</span>
+          </button>
+        `).join('')}
+      </div>
+    </div>
+
+    <div class="drawer-section">
+      <div class="drawer-section-title">Add sources <span class="badge">${state.navSources.length} selected</span></div>
+      <div class="nav-source-grid">
+        ${sources.map(s => `
+          <button class="nav-source-btn ${state.navSources.includes(s.id) ? 'selected' : ''}" data-nav-source="${s.id}">
+            <span class="nav-source-name">${s.icon} ${s.name}</span>
+            <span class="nav-source-sub">${s.sublabel}</span>
+            <span class="nav-source-sub" style="color:var(--primary);margin-top:4px;">Adds ${s.target}</span>
+          </button>
+        `).join('')}
+      </div>
+    </div>
+
+    <div class="drawer-section">
+      <div class="drawer-section-title">What this would establish</div>
+      <div class="state-block ${state.navSources.length ? 'success' : 'neutral'}">
+        <div class="state-block-title">${state.navSources.length ? `✓ ${state.navSources.length} source${state.navSources.length === 1 ? '' : 's'} queued` : '○ Nothing queued yet'}</div>
+        <div class="state-block-detail">
+          ${state.navSources.length
+            ? `Adding these sources would strengthen the ${currentJob} assessment. Preflight preview will show the exact ladder climb before you commit.`
+            : 'Pick a source above to see what it would strengthen.'}
+        </div>
+      </div>
+    </div>
+  `;
+
+  const footer = `
+    <div class="footer-info">Current ladder: ${LADDER_LABELS[d.ladder]}</div>
+    <div class="footer-actions">
+      <button class="btn btn-ghost" data-drawer-action="cancel">Cancel</button>
+      <button class="btn btn-primary" data-drawer-action="start" ${state.navSources.length ? '' : 'disabled'}>
+        Start assessment →
+      </button>
+    </div>
+  `;
+
+  const actions = {
+    cancel: closeDrawer,
+    start: () => {
+      showToast(`Assessment queued for ${state.navSources.length} source${state.navSources.length === 1 ? '' : 's'}`);
+      closeDrawer();
+    }
+  };
+
+  // Bind interactions inside drawer (job/source buttons)
+  setTimeout(() => {
+    document.querySelectorAll('[data-nav-job]').forEach(el => {
+      el.addEventListener('click', () => {
+        state.navJob = el.dataset.navJob;
+        openDrawer('navigator', opts);
+      });
+    });
+    document.querySelectorAll('[data-nav-source]').forEach(el => {
+      el.addEventListener('click', () => {
+        const id = el.dataset.navSource;
+        const i = state.navSources.indexOf(id);
+        if (i >= 0) state.navSources.splice(i, 1);
+        else state.navSources.push(id);
+        openDrawer('navigator', opts);
+      });
+    });
+  }, 0);
+
+  return {
+    title: 'Add evidence to strengthen this assessment',
+    subtitle: `Currently at ${LADDER_LABELS[d.ladder]} · ${d.planes.filter(p => p.state === 'established').length}/5 planes established`,
+    body,
+    footer,
+    actions
+  };
+}
+
+/* ─── Drawer: Controls (new) ─── */
+function renderDrawerControls(opts) {
+  const d = data();
+  const controlId = opts.controlId || state.activeControlId;
+  const control = d.controls.find(c => c.id === controlId) || d.controls[0];
+  if (!control) return { title: 'Control not found', body: '<p>This control is not applicable to the current evaluation.</p>' };
+
+  const facets = [
+    { label: 'Applicability', value: 'Applicable', tone: 'success', detail: 'Control applies to this system in production.' },
+    { label: 'Current state', value: control.stateLabel, tone: control.state === 'executed' ? 'success' : control.state === 'configured' ? 'amber' : 'danger', detail: 'This is the highest state achieved, not a compliance verdict.' },
+    { label: 'Policy configuration', value: 'Envelope v12', tone: 'success', detail: 'Approved 2026-10-17 09:14 UTC by alice.chen@example.com.' },
+    { label: 'Human decision', value: 'Approved · scoped', tone: 'success', detail: 'Requested 2026-10-17 08:52 UTC · decided 2026-10-17 09:14 UTC.' },
+    { label: 'Target enforcement', value: 'Not wired', tone: 'danger', detail: 'No native PEP is installed for this control. Provider acceptance is not enforcement.' },
+    { label: 'Monitoring', value: 'Stale · 6h ago', tone: 'amber', detail: 'Source has not reported within cadence tolerance. No alerts will fire from a stale source.' },
+    { label: 'Threshold / alert', value: 'Configured', tone: 'success', detail: 'Threshold set. Last alert 2026-10-16 14:07 UTC (never delivered — see delivery history).' },
+    { label: 'Guard decision witness', value: 'Not present', tone: 'neutral', detail: 'No denial or acceptance witness recorded at the target.' },
+    { label: 'Test execution', value: control.state === 'executed' ? 'EXECUTED' : 'Not executed', tone: control.state === 'executed' ? 'success' : 'neutral', detail: 'TestSpec v3 · approval · receipt stored.' },
+    { label: 'Response workflow', value: 'Closed', tone: 'success', detail: 'Acknowledged 2026-10-17 10:55 UTC · remediated 2026-10-17 11:15 UTC.' }
+  ];
+
+  let body = `
+    <div class="drawer-section">
+      <div class="drawer-section-title">Control <span class="badge">${control.id}</span></div>
+      <div class="fact-grid">
+        <div class="fact-row"><span class="fact-label">ID</span><span class="fact-value mono">${control.id}</span></div>
+        <div class="fact-row"><span class="fact-label">Objective</span><span class="fact-value">${control.name}</span></div>
+        <div class="fact-row"><span class="fact-label">Family</span><span class="fact-value">Assurance</span></div>
+        <div class="fact-row"><span class="fact-label">System</span><span class="fact-value">${SYSTEM.name}</span></div>
+      </div>
+    </div>
+
+    <div class="drawer-section">
+      <div class="drawer-section-title">Operational facets <span class="badge">${facets.filter(f => f.tone === 'success').length}/${facets.length} qualified</span></div>
+      <div class="drawer-card-list">
+        ${facets.map(f => `
+          <div class="state-block ${f.tone}">
+            <div class="state-block-title">
+              <span>${f.tone === 'success' ? '✓' : f.tone === 'amber' ? '◐' : f.tone === 'danger' ? '!' : '·'}</span>
+              ${f.label}: ${f.value}
+            </div>
+            <div class="state-block-detail">${f.detail}</div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+
+    <div class="drawer-section">
+      <div class="drawer-section-title">Change history</div>
+      <table class="mini-table">
+        <thead><tr><th>When</th><th>What changed</th><th>By</th></tr></thead>
+        <tbody>
+          <tr><td>2026-10-17 11:15</td><td>Response closed · remediated</td><td>alice.chen</td></tr>
+          <tr><td>2026-10-17 10:55</td><td>Finding acknowledged</td><td>bob.kumar</td></tr>
+          <tr><td>2026-10-17 09:14</td><td>Operating Envelope v12 approved</td><td>alice.chen</td></tr>
+          <tr><td>2026-10-17 08:52</td><td>Envelope change requested</td><td>bob.kumar</td></tr>
+        </tbody>
+      </table>
+    </div>
+  `;
+
+  const footer = `
+    <div class="footer-info">${control.id} · ${facets.filter(f => f.tone === 'success').length} of ${facets.length} facets qualified</div>
+    <div class="footer-actions">
+      <button class="btn btn-ghost" data-drawer-action="configure">Configure</button>
+      <button class="btn btn-ghost" data-drawer-action="test" ${control.state === 'executed' ? '' : 'disabled'}>Run test</button>
+      <button class="btn btn-primary" data-drawer-action="close">Done</button>
+    </div>
+  `;
+
+  return {
+    title: `${control.id} · ${control.name}`,
+    subtitle: 'Each facet is qualified independently — never compressed into a single pass/fail',
+    body,
+    footer,
+    actions: {
+      configure: () => showToast('Opening policy editor…'),
+      test: () => showToast('Control test starting…'),
+      close: closeDrawer
+    }
+  };
+}
+
+/* ─── Drawer: Coverage (new) ─── */
+function renderDrawerCoverage(opts) {
+  const d = data();
+  const facets = [
+    { id: 'code', icon: '📦', label: 'Code / AppSec', state: 'executed', tone: 'success',
+      ran: 'GitHub scan on main branch · 47 rules across 4 families',
+      established: 'Reachable tool/API paths, secret locations, dependency manifest, tenant-isolation boundaries',
+      missing: 'RAG poisoning and unsafe MCP tool detections are partial in this PR policy pack' },
+    { id: 'prompt', icon: '💬', label: 'Prompt / RAG', state: 'partial', tone: 'amber',
+      ran: 'Static rules R1 (prompt injection) and R4 (RAG boundary) definitions present, but PR path does not execute full set',
+      established: 'Static prompt-injection exposure rules',
+      missing: 'Observed prompt content and RAG retrieval events require OTLP runtime traces' },
+    { id: 'tool', icon: '🔧', label: 'Tool / MCP', state: 'executed', tone: 'success',
+      ran: 'Tool-call analysis · MCP registry comparison',
+      established: 'Undeclared tool paths (3), MCP server registry mismatches, tool schema version drift',
+      missing: 'Nothing on this run' },
+    { id: 'identity', icon: '🪪', label: 'Identity & Access', state: 'partial', tone: 'amber',
+      ran: 'AWS IAM observer',
+      established: 'Declared grants, candidate dangerous permissions',
+      missing: 'SCP, resource policies, session boundaries not fully resolved — effective per-action truth not emitted' },
+    { id: 'supply', icon: '📁', label: 'Supply chain', state: 'executed', tone: 'success',
+      ran: 'SBOM diff · lockfile comparison',
+      established: '2 transitive dependencies drifted, 1 unapproved registry hit',
+      missing: 'VEX / CSAF not consumed via this path' },
+    { id: 'runtime', icon: '🧪', label: 'Runtime test', state: 'not-assessed', tone: 'neutral',
+      ran: 'Not run in this evaluation',
+      established: 'Nothing — requires authorized endpoint and operator approval',
+      missing: 'Empirical attack simulation (prompt injection, tool forcing) not part of this run' },
+    { id: 'telemetry', icon: '📊', label: 'Telemetry', state: 'executed', tone: 'success',
+      ran: 'OTLP collector · gen_ai.*, mcp.*, haiec.* attributes',
+      established: 'Observed tool calls, handoffs, memory access, retrieval events',
+      missing: 'Sample rate 1:1 for tool calls, 1:100 for prompt events' },
+    { id: 'governance', icon: '📜', label: 'Governance', state: 'executed', tone: 'success',
+      ran: 'Envelope approval workflow',
+      established: 'Human-approved scope (alice.chen), versioned digest, expiry',
+      missing: 'Target PEP wiring not present for this system' }
+  ];
+
+  let body = `
+    <div class="drawer-section">
+      <div class="drawer-section-title">Coverage summary</div>
+      <div class="fact-grid">
+        <div class="fact-row"><span class="fact-label">Evaluation</span><span class="fact-value mono">${SYSTEM.lastEvalId}</span></div>
+        <div class="fact-row"><span class="fact-label">As-of</span><span class="fact-value">${SYSTEM.lastEvalAsOf}</span></div>
+        <div class="fact-row"><span class="fact-label">Facets qualified</span><span class="fact-value">${facets.filter(f => f.state === 'executed').length} / ${facets.length}</span></div>
+        <div class="fact-row"><span class="fact-label">Scope</span><span class="fact-value">Full system scan + IAM + telemetry</span></div>
+      </div>
+    </div>
+
+    <div class="drawer-section">
+      <div class="drawer-section-title">Coverage by facet</div>
+      <div class="drawer-card-list">
+        ${facets.map(f => `
+          <div class="state-block ${f.tone}">
+            <div class="state-block-title">
+              <span>${f.icon}</span>
+              ${f.label} — ${f.state === 'executed' ? 'Executed' : f.state === 'partial' ? 'Partial' : 'Not assessed'}
+            </div>
+            <div class="state-block-detail">
+              <div style="margin-bottom:6px;"><strong style="color:var(--text);">Ran:</strong> ${f.ran}</div>
+              <div style="margin-bottom:6px;"><strong style="color:var(--text);">Established:</strong> ${f.established}</div>
+              <div><strong style="color:var(--text);">Missing:</strong> ${f.missing}</div>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `;
+
+  const footer = `
+    <div class="footer-info">Per-scan coverage · analyzed sources and engines</div>
+    <div class="footer-actions">
+      <button class="btn btn-ghost" data-drawer-action="add-source">+ Add source</button>
+      <button class="btn btn-primary" data-drawer-action="close">Done</button>
+    </div>
+  `;
+
+  return {
+    title: 'Detection coverage',
+    subtitle: `What was analyzed in ${SYSTEM.lastEvalId}`,
+    body,
+    footer,
+    actions: {
+      'add-source': () => openDrawer('navigator'),
+      close: closeDrawer
+    }
+  };
+}
+
+/* ─── Drawer: Delegated chain (simplified reuse) ─── */
+function renderDrawerDelegated(opts) {
+  const chainId = opts.chainId || state.activeChainId;
+
+  const CHAINS = {
+    verified: {
+      label: 'Fully qualified',
+      tone: 'success',
+      headline: 'Every step qualified · independent readback confirms effect',
+      state: 'AUTHORIZED_DELEGATION_ESTABLISHED · TARGET_EFFECT_VERIFIED',
+      chainIdLabel: 'chain-4e2b-8a11',
+      chain: [
+        { icon: '🤖', title: 'support-triage-v3', sub: 'Root principal · System A', state: 'AUTHORIZED_DELEGATION_ESTABLISHED', tone: 'success', fact: 'Approved by alice.chen · expires 2026-10-24' },
+        { icon: '🔀', title: 'Agent handoff', sub: 'support-triage-v3 → refund-agent-v2', state: 'HANDOFF_OBSERVED', tone: 'success', fact: 'OTLP span · trusted collector' },
+        { icon: '🤖', title: 'refund-agent-v2', sub: 'Child principal · System B', state: 'OBSERVED_WITHIN_SCOPE', tone: 'success', fact: '9/9 DAI dimensions match' },
+        { icon: '🔧', title: 'stripe-refund-tool', sub: 'MCP tool · refund.create', state: 'OBSERVED_WITHIN_SCOPE', tone: 'success', fact: 'Amount $247.50 · within $500 limit' },
+        { icon: '📤', title: 'Provider dispatch', sub: 'Stripe · authenticated ack', state: 'DISPATCH_ACCEPTED', tone: 'success', fact: 'Transaction tx_3QfL8mR2aB' },
+        { icon: '✅', title: 'Target effect verified', sub: 'Stripe balance · independent readback', state: 'TARGET_EFFECT_VERIFIED', tone: 'success', fact: 'Balance delta −$247.50 confirmed' }
+      ],
+      unverified: []
+    },
+    widened: {
+      label: 'Scope widened',
+      tone: 'amber',
+      headline: 'One dimension widened · effect readback pending',
+      state: 'OBSERVED_OUTSIDE_SCOPE · EFFECT_NOT_VERIFIED',
+      chainIdLabel: 'chain-7a9c-2b14',
+      chain: [
+        { icon: '🤖', title: 'support-triage-v3', sub: 'Root principal · System A', state: 'AUTHORIZED_DELEGATION_ESTABLISHED', tone: 'success', fact: 'DATA_CLASS: standard (no PII)' },
+        { icon: '🔀', title: 'Agent handoff', sub: 'support-triage-v3 → refund-agent-v2', state: 'HANDOFF_OBSERVED', tone: 'success', fact: 'OTLP span · trusted collector' },
+        { icon: '🤖', title: 'refund-agent-v2', sub: 'Child principal · System B', state: 'OBSERVED_OUTSIDE_SCOPE', tone: 'amber', fact: 'DATA_CLASS widened to "includes_pii"' },
+        { icon: '🔧', title: 'stripe-refund-tool', sub: 'MCP tool · refund.create', state: 'OBSERVED_OUTSIDE_SCOPE', tone: 'amber', fact: 'Payload carries includes_pii' },
+        { icon: '📤', title: 'Provider dispatch', sub: 'Stripe · authenticated ack', state: 'DISPATCH_ACCEPTED', tone: 'success', fact: 'Transaction tx_3QfL8mR2aB' },
+        { icon: '⏳', title: 'Effect readback pending', sub: 'Awaiting independent target readback', state: 'EFFECT_NOT_VERIFIED', tone: 'amber', fact: 'No readback yet' }
+      ],
+      unverified: [
+        { title: 'DATA_CLASS widened at handoff', detail: 'Root grant authorized "standard". Child invocation carried "includes_pii". Recorded as OBSERVED_OUTSIDE_SCOPE.' },
+        { title: 'Effect readback pending', detail: 'Provider ack received, but no independent target readback confirms the balance delta. Recorded as EFFECT_NOT_VERIFIED.' }
+      ]
+    },
+    unverifiable: {
+      label: 'Handoff without grant',
+      tone: 'danger',
+      headline: 'Handoff observed · no matching delegation grant',
+      state: 'DELEGATION_UNVERIFIED · HANDOFF_OBSERVED_ONLY',
+      chainIdLabel: 'chain-e1f2-9a3d',
+      chain: [
+        { icon: '🤖', title: 'escalation-agent-v4', sub: 'Root principal · System A', state: 'DECLARATION_ONLY', tone: 'amber', fact: 'No delegation to refund-agent in envelope' },
+        { icon: '🔀', title: 'Agent handoff', sub: 'escalation-agent-v4 → refund-agent-v2', state: 'HANDOFF_OBSERVED_ONLY', tone: 'danger', fact: 'No matching grant found' },
+        { icon: '🤖', title: 'refund-agent-v2', sub: 'Child principal · System B', state: 'DELEGATION_UNVERIFIED', tone: 'danger', fact: 'No verifiable authority' },
+        { icon: '🔧', title: 'stripe-refund-tool', sub: 'MCP tool · refund.create', state: 'OBSERVED_OUTSIDE_SCOPE', tone: 'danger', fact: 'Amount $1,840 · exceeds any prior delegation' },
+        { icon: '📤', title: 'Provider dispatch', sub: 'Stripe · authenticated ack', state: 'DISPATCH_ACCEPTED', tone: 'success', fact: 'Provider acceptance ≠ authorization' },
+        { icon: '⏳', title: 'Effect readback pending', sub: 'Awaiting independent target readback', state: 'EFFECT_NOT_VERIFIED', tone: 'amber', fact: 'No readback yet' }
+      ],
+      unverified: [
+        { title: 'No matching delegation grant', detail: 'Handoff observed but no grant in envelope, DAI documents, or runtime authority.' },
+        { title: 'Provider dispatch succeeded without authority', detail: 'Stripe accepted the refund despite missing authority. Provider acceptance is target-side, not authorization.' },
+        { title: 'Effect readback pending', detail: 'No independent readback confirms the actual delta.' }
+      ]
+    }
+  };
+
+  const c = CHAINS[chainId] || CHAINS.widened;
+
+  let body = `
+    <div class="state-block ${c.tone}" style="margin-bottom:16px;">
+      <div class="state-block-title">${c.tone === 'success' ? '✓' : '⚠'} ${c.headline}</div>
+      <div class="state-block-detail mono" style="font-size:11px;">${c.state}</div>
+    </div>
+
+    <div class="drawer-section">
+      <div class="drawer-section-title">Chain <span class="badge">${c.chainIdLabel}</span></div>
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        ${c.chain.map((hop, i) => `
+          <div class="state-block ${hop.tone}" style="background:var(--bg);border-color:var(--border);">
+            <div class="state-block-title" style="color:var(--text);font-size:13px;">
+              <span>${hop.icon}</span> ${hop.title}
+              <span class="chain-state ${hop.tone === 'success' ? 'verified' : hop.tone === 'amber' ? 'pending' : 'unverified'}" style="margin-left:auto;">${hop.state}</span>
+            </div>
+            <div class="state-block-detail">${hop.sub} · ${hop.fact}</div>
+          </div>
+          ${i < c.chain.length - 1 ? '<div style="text-align:center;color:var(--text-dim);font-size:11px;">↓</div>' : ''}
+        `).join('')}
+      </div>
+    </div>
+
+    ${c.unverified.length ? `
+      <div class="drawer-section">
+        <div class="drawer-section-title">What is unverified <span class="badge">${c.unverified.length}</span></div>
+        <div class="drawer-card-list">
+          ${c.unverified.map(u => `
+            <div class="state-block ${c.tone}">
+              <div class="state-block-title"><span>!</span> ${u.title}</div>
+              <div class="state-block-detail">${u.detail}</div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    ` : ''}
+
+    <div class="drawer-section">
+      <div class="drawer-section-title">Switch scenario (demo)</div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;">
+        <button class="btn btn-ghost" data-chain-switch="verified" style="font-size:12px;">Fully qualified</button>
+        <button class="btn btn-ghost" data-chain-switch="widened" style="font-size:12px;">Scope widened</button>
+        <button class="btn btn-ghost" data-chain-switch="unverifiable" style="font-size:12px;">Handoff without grant</button>
+      </div>
+    </div>
+  `;
+
+  const footer = `
+    <div class="footer-info">Chain ${c.chainIdLabel} · ${c.chain.length} hops</div>
+    <div class="footer-actions">
+      <button class="btn btn-ghost" data-drawer-action="export">Export receipt</button>
+      <button class="btn btn-primary" data-drawer-action="close">Done</button>
+    </div>
+  `;
+
+  setTimeout(() => {
+    document.querySelectorAll('[data-chain-switch]').forEach(el => {
+      el.addEventListener('click', () => {
+        state.activeChainId = el.dataset.chainSwitch;
+        openDrawer('delegated', { chainId: el.dataset.chainSwitch });
+      });
+    });
+  }, 0);
+
+  return {
+    title: 'Delegated action chain',
+    subtitle: `${c.label} · ${c.chainIdLabel}`,
+    body,
+    footer,
+    actions: {
+      export: () => showToast('Receipt exported'),
+      close: closeDrawer
+    }
+  };
+}
+
+/* ─── Drawer: Usage (new) ─── */
+function renderDrawerUsage(opts) {
+  const d = data();
+  const u = d.usage;
+
+  const body = `
+    <div class="drawer-section">
+      <div class="drawer-section-title">Provider <span class="badge">${u.dataSource}</span></div>
+      <div class="fact-grid">
+        <div class="fact-row"><span class="fact-label">Provider</span><span class="fact-value">${u.provider}</span></div>
+        <div class="fact-row"><span class="fact-label">Model</span><span class="fact-value">${u.model}</span></div>
+        <div class="fact-row"><span class="fact-label">Project</span><span class="fact-value mono">support-prod</span></div>
+        <div class="fact-row"><span class="fact-label">As-of</span><span class="fact-value">${u.asOf}</span></div>
+      </div>
+    </div>
+
+    <div class="drawer-section">
+      <div class="drawer-section-title">Usage snapshot</div>
+      <div class="fact-grid">
+        <div class="fact-row"><span class="fact-label">Tokens</span><span class="fact-value ${u.tokensKnown ? '' : 'mono'}" style="${!u.tokensKnown ? 'color:var(--amber);' : ''}">${u.tokensKnown ? u.tokens : 'Not available'}</span></div>
+        <div class="fact-row"><span class="fact-label">Cost</span><span class="fact-value">${u.cost}</span></div>
+      </div>
+      ${!u.tokensKnown ? `
+        <div class="state-block amber" style="margin-top:12px;">
+          <div class="state-block-title">◐ Token count unavailable</div>
+          <div class="state-block-detail">The provider admin API did not return token counts for this window. Cost is available. This is NOT zero tokens — it is unknown.</div>
+        </div>
+      ` : ''}
+    </div>
+
+    <div class="drawer-section">
+      <div class="drawer-section-title">What this does not establish</div>
+      <div class="drawer-card-list">
+        <div class="state-block neutral">
+          <div class="state-block-title">Not IAM authority</div>
+          <div class="state-block-detail">Provider usage is a separate input class from IAM grants or telemetry. It does not establish what agents are permitted to do.</div>
+        </div>
+        <div class="state-block neutral">
+          <div class="state-block-title">Not target effect</div>
+          <div class="state-block-detail">Cost and token counts do not prove individual target actions. They are aggregate billing signals, not per-action causal effects.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="drawer-section">
+      <div class="drawer-section-title">Sync status</div>
+      <div class="fact-grid">
+        <div class="fact-row"><span class="fact-label">Last sync</span><span class="fact-value">2h ago</span></div>
+        <div class="fact-row"><span class="fact-label">Next sync</span><span class="fact-value">in 4h</span></div>
+        <div class="fact-row"><span class="fact-label">Attribution</span><span class="fact-value">Provider project → system binding</span></div>
+        <div class="fact-row"><span class="fact-label">Credential</span><span class="fact-value mono">admin-key · least-privilege</span></div>
+      </div>
+    </div>
+  `;
+
+  const footer = `
+    <div class="footer-info">Independent input class · not a security verdict</div>
+    <div class="footer-actions">
+      <button class="btn btn-ghost" data-drawer-action="sync">Sync now</button>
+      <button class="btn btn-primary" data-drawer-action="close">Done</button>
+    </div>
+  `;
+
+  return {
+    title: 'Provider usage & cost',
+    subtitle: `${u.provider} · ${u.model} · ${u.dataSource}`,
+    body,
+    footer,
+    actions: {
+      sync: () => showToast('Sync queued · results in ~30s'),
+      close: closeDrawer
+    }
+  };
+}
+
+const DRAWER_RENDERERS = {
+  navigator: renderDrawerNavigator,
+  controls: renderDrawerControls,
+  coverage: renderDrawerCoverage,
+  delegated: renderDrawerDelegated,
+  usage: renderDrawerUsage
+};
+
+/* ═══════════════════════════════════════════════════════════════
+   CHROME BINDINGS
+   ═══════════════════════════════════════════════════════════════ */
+
+document.getElementById('drawer-close').addEventListener('click', closeDrawer);
+document.getElementById('drawer-backdrop').addEventListener('click', closeDrawer);
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && state.activeDrawer) closeDrawer();
+});
+
+document.querySelectorAll('.basis-btn').forEach(btn => {
+  btn.addEventListener('click', () => setBasis(btn.dataset.basis));
+});
+
+document.getElementById('usage-card').addEventListener('click', () => openDrawer('usage'));
+
+/* Toast */
+function showToast(msg) {
+  let toast = document.getElementById('toast');
+  if (!toast) {
+    toast = document.createElement('div');
+    toast.id = 'toast';
+    toast.style.cssText = `position:fixed;bottom:24px;left:50%;transform:translateX(-50%);
+      background:var(--text);color:white;padding:10px 18px;border-radius:8px;
+      font-size:13px;font-weight:500;z-index:100;box-shadow:var(--shadow-md);
+      opacity:0;transition:opacity 0.2s;pointer-events:none;`;
+    document.body.appendChild(toast);
+  }
+  toast.textContent = msg;
+  toast.style.opacity = '1';
+  clearTimeout(toast._t);
+  toast._t = setTimeout(() => { toast.style.opacity = '0'; }, 2200);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   INIT
+   ═══════════════════════════════════════════════════════════════ */
+renderAll();
+</script>
+</body>
+</html>
