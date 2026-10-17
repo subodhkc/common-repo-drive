@@ -147,3 +147,28 @@ Stop E4 expansion and report a narrow blocker instead of inventing data when:
 ## 9. Devin execution instruction (copy this whole document or direct Devin to read it)
 
 **Start E4 implementation now.** Read this document, refresh HAIEC Main from `c3de967e`, inventory existing OTLP/collector/readiness/correlator/continuity/monitoring and their UI/MCP/API read paths. Implement only missing deterministic source freshness/health and safe correlated effect-proof *projections*; no duplicate instrumentation, no source schema explosion, no new SIEM/alert model. Preserve E3 boundaries and E1/E2 backward compatibility. Use focused code and negative truth tests, create one owner-approved coherent PR, merge into Main when applicable gates pass, verify Vercel deployment, update Common Repo Drive including the E4 register and E5 handoff. Do not start external Kestrel test or edit KestrelVoice. Finish with evidence-bound status and remaining UNKNOWNs.
+
+---
+
+## Implementation record — E4 deployed (2026-10-17)
+
+**Status: `DEPLOYED_VERIFIED`.** HAIEC PR [#2224](https://github.com/subodhkc/haiec-website/pull/2224) merged to `Main` at squash commit `d56db173e` (`d56db173ef8b5a839b8d124ad66ffc15f76890d9`); branch `feat/e4-telemetry-source-health-correlation-20261017` @ `a03563ef0`. Vercel production deployment `7WPcj6iNmiTSwi8ZwNMcnjsY2Duy`.
+
+### Delivered per §8 acceptance
+
+- **One canonical freshness-qualified source-health view**: `computeSourceHealth` + `summarizeSourceFreshness` on the existing owner `lib/evidence/telemetry-readiness.ts`. `SourceHealthView` separates binder configured / historical signal / latest server ingestion (`lastIngestedAt`) / latest producer event time (`lastSourceEventAt`) / declared-cadence freshness (`FRESH`/`STALE`/`UNKNOWN`/`NOT_CONFIGURED`) / continuity + quarantine counts / next action. Exposed on `TelemetryStatusProjection.sourceHealth`.
+- **Three-state contract preserved**: `NOT_CONFIGURED` / `CONFIGURED_NO_SIGNAL` / `SIGNAL_RECEIVED` unchanged in `TelemetryReadinessProjection`; freshness is a parallel independent qualification.
+- **Historical vs current source visible everywhere**: monitoring read model + projection (`SourceHealth.qualification`, event `correlationBasis`/`attribution`), source-health table + telemetry panel + source detail page, system workspace card, E1/E2 goal-availability + onboarding wording, and `haiec_get_telemetry_status` MCP description — all read the same canonical projection.
+- **Bounded effect proof**: event refs carry `correlationBasis` (exact `actionCorrelationId` → strong IDs → bounded actor+resource window → singleton) and `attribution` (`V1_IDENTITY` vs `V2_PAYLOAD_BOUND` from already-persisted `sourceAuthority.upstreamProducer`); `SourceHealth.effectWitness` = `VERIFIED_SCOPED` / `DECLARED_ONLY` / `NOT_VERIFIED`. Self-declared effect never upgrades. No second witness engine — reuses `multi-source-correlator` join precedence and conservative `ActionWitnessPhase` caps.
+- **Declared cadence, never an SLA**: optional `expectedSignalIntervalSec` / `signalExpectationNote` on the existing binder `contract` JSON. No valid expectation → freshness `UNKNOWN`; no invented heartbeat.
+
+### Validation
+
+`vitest run` focused cone: **109/109** (`telemetry-source-health` 21 new + `engine-batch-y2` 13 + `source-onboarding` 17 + `goal-availability` 37 + existing correlator/continuity coverage). `tsc --noEmit` clean. Changed-file ESLint clean; repo-wide ESLint fail and Vercel preview block remain the documented pre-existing baseline. CI: TypeScript + New-Violations Gate + U6 + px0-product-truth **PASS**.
+
+### Remaining limitations (explicit non-claims)
+
+- `FRESH`/`STALE` require a source-declared expectation; all sources without one read `UNKNOWN`.
+- `VERIFIED_SCOPED` requires `V2_PAYLOAD_BOUND` attestation plus wired target-side authority — most sources read `DECLARED_ONLY`/`NOT_VERIFIED`.
+- Kill Switch target enforcement remains `NOT_WIRED`/`NOT_VERIFIED` (E5 owns the policy→enforcement path).
+- `MCP_TO_SAAS_EVIDENCE_INGESTION_HOLD` preserved; telemetry presence never mutates a frozen U5 evaluation.
