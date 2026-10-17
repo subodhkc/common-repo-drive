@@ -31,3 +31,6 @@
 - The **D01/D02/D03 Dashboard KPI denominator/cap correctness** findings remain separate P1 data-contract ownership; do not mix their fixes into P03.1 or P04.
 - Future **narrated KestrelVoice via HAIEC MCP** operational recording remains deferred to approved least-privilege external-client acceptance, with one canonical system/evaluation across the human UI and MCP views, and clear coverage/effect/unknown distinction. No recording or external MCP test occurred in this review.
 
+## Addendum — 2026-10-17 later DeepSeek reference negative testing
+
+The fresh Overview & AI Estate synthetic HTML (reviewed independently in [P02/P03 DeepSeek curation](UX-P02-P03-DEEPSEEK-OVERVIEW-ESTATE-REFRESH-REVIEW-2026-10-17.md)) passed JS syntax but **failed search typing** at 1440/1024/768/390: direct `oninput` rerender destroyed input focus and only the first character remained. **P03-G01 search acceptance MUST include continuous multi-character typing, focus retention, debounce or explicit submit, out-of-order response rejection, organization switching, and no client-only search over first-100 results.** Its fixed-position topology and mobile-hidden table columns are *mock defects*, not a reason to rework shipped P03 cards or merge P05 graph features into P03.1. My Work upload is exactly the already reviewed P09 archived HTML; no P09 scope additions.
