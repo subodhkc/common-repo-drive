@@ -1,5 +1,8 @@
 # HAIEC — Page-by-Page Enterprise UX Design & Validation Program
 
+> **2026-10-17 NEW Overview/Estate reference post-ship:** [Latest DeepSeek mock validated against shipped UX-P02/P03 and exact duplicate My Work](UX-P02-P03-DEEPSEEK-OVERVIEW-ESTATE-REFRESH-REVIEW-2026-10-17.md). No page reopening or raw HTML archive expansion: existing unified atlas covers useful visuals. New mock fails multi-character search by rerendering input, hides 5/7 topology nodes at 390px and hides mobile columns. Preserve original HAIEC full mobile facts; P03.1 first (server-backed >100 search/pagination + 1024–1279px next-action visibility), then separate P04; P05/P09/P10/P12 concepts remain owned in their page sessions.
+
+
 > **2026-10-17 current UX-P03 status (supersedes earlier “P03 active” notes below):** UX-P03 [PR #2235](https://github.com/subodhkc/haiec-website/pull/2235) merged to `Main` `d62471f20`, exact-SHA production Vercel deployment independently `READY`. **Code shipped; authenticated production / viewer / multi-org acceptance not complete.** Independent [P03.1 follow-up review](UX-P03-INDEPENDENT-ACCEPTANCE-GAP-REVIEW-2026-10-17.md) records existing 100-system list/search ceiling (P1), lg-to-xl hidden Next Step (P1), mobile/desktop receipt asymmetry and historical-receipt KPI semantics (P2). Keep corrections minimal and separate from **UX-P04 System Assurance Case**, the next dedicated page-design session. Other dated “P03 running” references are historical.
 
 
