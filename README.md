@@ -1,4 +1,6 @@
 # HAIEC Common Repository Drive
+> **Detection Coverage UX reference (2026-10-17):** [DeepSeek drawer validation, exact-run execution contract and page-sequencing corrections](haiec-product-capability-architecture/UX-P07-DETECTION-COVERAGE-DRAWER-REFERENCE-VALIDATION-AND-UX-P01-REVIEW-2026-10-17.md). Detection inspector is **UX-P07** scope, distinct from existing five evidence planes; Dashboard Overview **UX-P02** is next.
+
 
 > **2026-10-17 DAI + AI Assurance reference design review:** [Independent validation and additive, non-regression adoption map](./haiec-product-capability-architecture/HAIEC-DEEPSEEK-DAI-AND-ASSURANCE-UX-REFERENCES-VALIDATION-AND-ADDITIVE-DESIGN-2026-10-17.md). DeepSeek HTML examples are design references only; preserve HAIEC pages and canonical evidence owners. DAI/Assurance adaptations are assigned to separate later UX sessions, after Start Here.
 
