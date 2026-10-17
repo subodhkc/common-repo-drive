@@ -1,4 +1,6 @@
 # HAIEC Product Capability & Workflow Architecture
+> **Detection Coverage design validation (2026-10-17):** [DeepSeek drawer review, exact-run analyzer provenance requirements and UX-P01 follow-up findings](UX-P07-DETECTION-COVERAGE-DRAWER-REFERENCE-VALIDATION-AND-UX-P01-REVIEW-2026-10-17.md); integrate selectively in **UX-P07**. UX-P02 Dashboard Overview remains next; in-progress DeepSeek unified atlas must not be overwritten.
+
 
 > **2026-10-17 DAI + AI Assurance reference design review:** [Independent validation and additive, non-regression adoption map](HAIEC-DEEPSEEK-DAI-AND-ASSURANCE-UX-REFERENCES-VALIDATION-AND-ADDITIVE-DESIGN-2026-10-17.md). DeepSeek HTML examples are design references only; preserve HAIEC pages and canonical evidence owners. DAI/Assurance adaptations are assigned to separate later UX sessions, after Start Here.
 
