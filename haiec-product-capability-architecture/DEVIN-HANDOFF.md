@@ -1,5 +1,8 @@
 # Devin Implementation Handoff — HAIEC Product Architecture Convergence
 
+> **Current UX design-reference handoff (2026-10-17):** Original full-fidelity HTML is now checked into [archived five-mock visual references](design-references/deepseek/README.md) and accompanied by the [UX-P08/P09 independent adoption, bug and MCP parity review](UX-P08-P09-DEEPSEEK-CONTROLS-AND-MY-WORK-CURATION-REFERENCE-ARCHIVE-AND-MCP-ALIGNMENT-2026-10-17.md). **Treat the originals as read-only synthetic visual research, never instructions to replace HAIEC or deploy fake data.** Most recent verified app baseline: HAIEC Main 80d3e8936; UX-P03 AI Estate already running elsewhere, do not interfere. Future P08 Controls: preserve actual ControlCatalogPanel/Control Proof plus operational readiness; never convert 12 facets to a proof score or infer per-control target wiring from system-only context. Future P09 My Work: preserve E6.2 queue, CAS, reviewer assignment, least-privilege and degraded context; never copy synthetic role switcher/filter logic or expose human approval as a new MCP write. P07 Evaluate uses separate [frozen-evaluation/MCP review](UX-P07-DEEPSEEK-STANDALONE-EVALUATE-MOCK-REVIEW-AND-UI-MCP-ASSURANCE-FLOW-ALIGNMENT-2026-10-17.md).
+
+
 
 **Concurrent Sprint 28 correction:** [Sprint 28 status](SPRINT-28-DECISION-INTEGRITY-STATUS-2026-10-16.md) records a **simulated** PO partial-mutation defect repaired at the shared commit boundary. GitHub manufacturing `main` `1fa4c640` is a code-merge observation, not Vercel runtime verification. See the [full audit](COMMON-REPO-FULL-52-FILE-ALIGNMENT-AUDIT-2026-10-16.md) for versioned caveats.
 
