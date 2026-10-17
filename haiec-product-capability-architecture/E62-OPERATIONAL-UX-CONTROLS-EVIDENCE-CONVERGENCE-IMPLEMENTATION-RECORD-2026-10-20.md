@@ -1,9 +1,10 @@
 # E6.2 — Enterprise Operational UX, Controls & Evidence Convergence — Implementation Record (2026-10-20)
 
-Status: `TEST_VERIFIED` locally; deployment recorded below once confirmed on the merge SHA.
-HAIEC branch: `feat/e62-operational-ux`
+Status: `DEPLOYED_VERIFIED` — Vercel production deployment
+`HLWBDU6QHgHbY5YRZieueydSuVfd` SUCCESS on merge SHA `41cc24314`.
+HAIEC branch: `feat/e62-operational-ux` @ `49658e9c8`
 Base: `Main` @ `8880e17f7` (E6.1, PR #2229)
-PR: #2230 — https://github.com/subodhkc/haiec-website/pull/2230
+PR: #2230 — https://github.com/subodhkc/haiec-website/pull/2230 → `Main` `41cc24314`
 
 ## Scope delivered
 
