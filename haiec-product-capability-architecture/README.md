@@ -1,5 +1,7 @@
 # HAIEC Product Capability & Workflow Architecture
 
+> **2026-10-17 actual detection and intake source map:** [All 176 detector-rule definitions, 31 families, 45 controls, 26 typed intake profiles, required evidence combinations and export workarounds](DETECTION-CONTROL-INTAKE-AND-SOURCE-COMBINATION-MATRIX-2026-10-17.md). Source registrations are not blanket customer test availability; check binder/schema, producer, role and evidence qualification.
+
 > **2026-10-17 E6 UX / roles / control dependency update:** [Enterprise UX and operational dependency design review](E6-ENTERPRISE-UX-ROLE-OPERATIONS-CONTROL-EVIDENCE-DEPENDENCY-DESIGN-REVIEW-2026-10-17.md) is the latest source-checked design addendum. It maps organization → system → agent/action, role-specific approvals and reviewer assignment, per-control setup/proof stages, independent evidence planes, middleware/tenant safety, risk-ranked gaps and focused regression gates against the 87-row curated capability matrix and 45-control catalog. HAIEC E1–E5.1 are now merged; E6 estate/Assurance Case source exists at reviewed HAIEC `Main` `14b6b191`. Earlier pending-status paragraphs below are historical snapshots, not current release claims. **This is a planning addendum, not a product merge/deploy claim.**
 
 
