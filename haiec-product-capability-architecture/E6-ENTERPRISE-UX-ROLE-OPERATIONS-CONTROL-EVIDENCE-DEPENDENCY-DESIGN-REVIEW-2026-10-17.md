@@ -7,6 +7,74 @@
 
 **Scope:** Reassess the enterprise UX audit against the prior HAIEC layer approach, the **87 curated capability rows** (HAIEC 62 / LogSense 14 / manufacturing 11), the separate **20-module discovery register**, the canonical **45-control catalog**, E1/E2/E3/E4/E5.1/E6 interfaces, UCP Control Proof and response workflows, policy/human approval, framework mappings and MCP/API parity. This is a **delta and dependency contract**, not a replacement for canonical code, a new product owner, or a certified exhaustive inventory.
 
+
+## 2026-10-17 product design convergence addendum — keep everything, reveal more
+
+**Companion source of truth:** [Updated Detection, Control, Intake & Source Combination Matrix](DETECTION-CONTROL-INTAKE-AND-SOURCE-COMBINATION-MATRIX-2026-10-17.md#2026-10-17-correction-and-expansion--evidence-intake-assurance-operational-controls-ci-admin-usage-runtime-and-delegation). This addendum supplements, **does not supersede or regress**, the enterprise AI Estate, AI System Assurance Case, Control Proof, Monitoring, governance, CI, uploads or independent six jobs already implemented.
+
+### Updated product-first architecture and recommendations
+
+**Strongly prefer** `AI System / estate → consequence → chosen customer objective → qualifying source availability → findings/operational actions/proof` over making "What evidence do you have?" the app's universal landing page. A "Start with a file" and "Connect CI" alternate path is useful for developer/auditor, not the product's defining question. Six independent jobs remain discoverable without forcing one to finish another. Sourced next-step dependency checks are local to objective and actor.
+
+**Presentation only changes:** maintain global left navigation, existing right/advanced tab contract and all deep links. Add **progressive disclosure** via a **Control Operations & Effectiveness side panel**, **Detection Coverage drawer**, **Provider Usage & Cost card**, **Evidence Intake/Attestation modal** and **Delegated Action Chain drawer/tab**. Do **not** remove existing tabs, Control Proof, native report sections, source paths or report IDs. No new overall score or blanket green “protected.”
+
+### Control Operations & Effectiveness slide-out — not only test/replay
+
+For each **applicable** control, show independent facets with exact source, time basis and owner:
+
+| Control facet | Established through | Status to show (from existing owner only) | UI target |
+|---|---|---|---|
+| Applicability + catalog | 45-profile catalog, version and correct scope | Cataloged vs applicable/unknown | Current Controls |
+| Configuration | Operating Envelope draft/config; guard/threshold, alert-rule or canary config, according to control type | configured/unconfigured/unknown, exact version | New read-only slide-out linking existing editor |
+| Human authorization | Envelope approval or independent deployment decision, conditions, expiry and SoD | distinct per-request decision and policy approval | Govern & Operate / My Work |
+| Deployed target integration | Actual native PEP installation and binding, scope and digest; conditional kill-switch SDK guard | wired / NOT_WIRED / unknown; no fixture production promotion | Slide-out “Deployment & Protection” |
+| Monitoring/threshold/alerts | Source health, qualified events, valid baseline, threshold comparison, notification history | fresh/stale/unknown; breach not attack; delivery not ACK | Monitor/Controls |
+| Guard decision/effect | Exact operation, target and separately correlated guard/dispatch/provider/readback evidence | decision/probe vs accepted vs applied vs independent effect | Action Path / Proof Frontier |
+| Control test & evidence | Control Visibility, activated UCP TestSpec/native result/replay and response | catalog ≠ testable ≠ executed ≠ supported; ACK ≠ RETEST_VERIFIED | **Existing Control Proof kept intact** |
+| Change and revalidation | Scope/policy/guard/producer versions, expiry, release baseline | historic / changed / needs re-evaluation | Change history |
+
+*Example control card:* “Refund guardrail” may show **Policy approved / Target not wired / Telemetry stale / Control Test pending activation / Human review awaiting assignment** simultaneously; these are not contradictory. Treat a human signature as attestation of submission/review, not technical effectiveness.
+
+**Live controls UX gap is a verification item, not a zero-baseline claim:** source check found `ControlCatalogPanel.tsx` already includes intended control, canonical evidence, accountable response and Control Proof links, plus Operating Envelopes, monitoring sources and runtime testing links. `AssuranceCasePanel.tsx` already shows eight independent policy/authority/native/dispatch/effect facts. What remains unclear and must be validated in actual rendered UI is **per-control binding to operational policy, target PEP, threshold, alert and kill-switch source**; only build an incremental slide-out where canonical per-control join exists. Do not create fictitious source mappings to fill gaps.
+
+### Expose capability without adding sidebar destinations
+
+- **AI Estate / AI System:** Source methods pane includes **GitHub App**, **CI Action**, **local source/ZIP**, **SARIF/import**, **admin provider usage**, **IAM/policy export**, **runtime test**, **OTLP/telemetry**, and **human evidence upload**; display each as a choice with real activation/permission state, not a required checklist.
+- **Assurance Case:** brief “Analyzed capabilities” row with expandable facets for **Code/AppSec**, **Prompt/RAG**, **Tool/MCP/RAG paths**, **multi-agent/DAI**, **IAM**, **Runtime Empirical Testing**, **Telemetry/usage**, **Control Governance**. Every facet derives scan engine participation, accepted source/profile and findings; registered rule does not imply current run executed it.
+- **Usage via provider admin API key:** contextual “Provider usage & cost” card grouped by provider/project/model with as-of + sync success + data source. **Admin cost snapshot with unavailable tokens is UNKNOWN, not zero tokens** and never proof of individual agent behavior. No separate mandatory top-level menu; retain existing Admin API page.
+- **Runtime scan:** existing authorized live endpoint attack simulation is **not** passive continuous monitoring; show “Run permitted test” only after current endpoint authorization and mode requirements, and separately show telemetry health. Highlight prompt injection, RAG and tool misuse as supported *detection categories with assessed coverage*, not validated successful attacks absent empirical evidence.
+- **CI experience:** GitHub App PR path and standalone Action are different products/activation states; existing public standalone Action README warns v1 PAT guidance is legacy even where `@v1` is listed as recommended. No prefilled legacy PAT workflow. Source-specific quick-start card, version/hold and proven artifact/run links.
+
+### Human-attested uploads: verify existing flows, enhance missing bridge
+
+Do **not** build another generic upload backend: existing file upload, control evidence, manual attestation and DAI advisory-parse-then-confirm already exist. Audit evidence upload source to owner to report, verify full tenant/user/hash/signature details. Connect via scoped **Add evidence** chooser, attested origin/scope statement and accepted-mapping preview, and show “stored, awaiting qualification” when no typed producer can consume it. Distinguish application-authenticated human acknowledgment, cryptographic/e-signature attestation (only when genuinely verified), and independently authenticated machine producer. **`components/wizard-v2/EvidenceUpload.tsx` has a `simulateUpload` path; do not present that success as persisted evidence.** The complete report-review signature is a separate exact frozen-report feature, not an automatic side effect of uploading.
+
+### Deterministic cross-system agent delegation: build as an enhancement behind new evidence gates
+
+**Need:** one established AI System A agent delegates an action to agent B in AI System B; compare issuer-authorized delegation root and narrowing through exact action, then match provider target effect. Current bounded `ucp/delegation-witness.ts` *intentionally* rejects different `aiSystemId` or `runId`; retain that logic and add a **new versioned cross-system qualified witness/composition**, never relax it by stripping identity checks.
+
+**Canonical proposed joins and checkpoints:**
+1. `Identity`: org, system A/B, provider-issued principal and agent runtime identities, environment, issuer/audience and registered upstream producers.
+2. `Authority`: signed/issuer-qualified root delegation (grant ID, policy digest, scoped actions/resources/data/magnitude/geography/time, depth/expiry/revocation); human approval if applicable.
+3. `Handoff`: exact parent/child invocation ID, handoff ID, attested agent identities, shared bounded distributed trace, authenticated source lineage. Timestamp/tool name only are **not** proof.
+4. `Narrowing`: deterministic DAI nine-dimension comparison at each transition, reject widening/self-delegation/expired/replayed/cross-org/cross-environment/cross-policy, preserve partial chain frontier.
+5. `Execution/effect`: distinguish dispatch request, target ack, guard/deny/apply, authenticated provider actuals and independent before/after target-state readback; a token usage witness is not generic ERP-effect proof.
+6. `Provenance`: exact input artifact digests and producer attestation; same lineage cannot act as independent witness.
+
+**Product UI:** Estate Map uses qualified link vs dashed candidate; System → Agent/Action tab includes “Delegated actions” bounded flow (`A → grant → B → tool → target → effect`); open slide-out “Why this join exists / what is unverified” with evidence refs, signer, identity, operation, scope narrowing, timestamp, producer lineage and as-of. Show explicit `HANDOFF_OBSERVED_ONLY` / `DECLARATION_ONLY` / `AUTHORIZED_DELEGATION_ESTABLISHED` / `OBSERVED_WITHIN_SCOPE` / `OBSERVED_OUTSIDE_SCOPE` / `TARGET_EFFECT_VERIFIED` only where those exact semantic facts are supported; these are **candidate UI concepts, not new persisted enum definitions**.
+
+**Build/release order:** research source attestation and realistic 2-system sandbox first → compose existing qualified evidence/DAI → implement versioned cross-system join gates and negative tests → observe provider target effect → integrate into MCP/API/report/UI projections → publish narrow POC results; do not imply universal graph or provider protection. Keep `MCP_TO_SAAS_EVIDENCE_INGESTION_HOLD` and separate E7/T1 acceptance gates.
+
+### Developer-doc documentation plan, release gates and regression
+
+Enhance (after verified code) website developer ingestion guide, Agent Integration/MCP guide, CI/PR GitHub App and Action setup, source-category and scan-result documentation, admin provider cost/usage guide, runtime authorized test guide, delegation/DAI examples, and controls operational status guide. Prioritize a **decision matrix showing minimum inputs → exact detector/control applicability → run path → qualification → output identity → limitation → alternate CSV/JSON/log export**. Use real tested request examples only, no invented synthetic response declared production. Use label **HAIEC Assurance Engine**; internal `U5` remains a compatibility alias.
+
+**Minimum regression gates:** UI/source/permission parity, authenticated role/tenant and cross-system deny, legacy route links, exact approved policy and decision CAS, scan selected-producer truth, CI vs GitHub App activation, admin cost tokens unknown handling, runtime probe vs passive telemetry, upload blob hash and manual-review signature distinction, unqualified file never promoted to detector, source-attested != producer-authenticated, TestSpec and control proof preserved, no regression to same-system witness, cross-system false correlation never upgraded, effect requires independent readback, unchanged historic evaluation and U6 receipt. Use focused tests rather than broad redundant end-to-end campaigns.
+
+**No changes authorized to the HAIEC app by this design addendum.** Current E6.1 branch/file owner and release state must be rechecked; no silent overwrite, additional parallel case store, or unreviewed production merge.
+
+---
+
 ## 0. Executive design decision
 
 The core problem is discoverability and decision continuity, not insufficient dashboard count. Build a trustworthy customer experience at **Organization AI Estate → AI System Assurance Case → Agent / Action / Control / Decision** depth, with contextual, evidence-bound access to underlying source facts. Make the product feel calm, decisive and navigable without hiding unknowns. **One system context, one explanation of its authority and consequence, one best eligible next action, many independently selectable goals.**
