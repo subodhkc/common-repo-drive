@@ -151,3 +151,33 @@ E4 is merged and deployed at HAIEC `Main` `d56db173ef8b5a839b8d124ad66ffc15f7689
 **E5.1 is `DEPLOYED_VERIFIED`.** PR [#2226](https://github.com/subodhkc/haiec-website/pull/2226) → `Main` `638d135ba`; Vercel `7adJUwfMMP429K1Z82H1DbQDHTSc` SUCCESS. The E5 read model can no longer promote authority/eligibility/acceptance/application/effect beyond evidence-bound facts — per-fact fields (`policy`/`authority`/`targetSeam`/`dispatch`/`guardrailEvidence`/`applied`/`effect`) are the contract, not `highestEstablished` alone.
 
 **E6 is `DEPLOYED_VERIFIED` (with recorded gaps).** PR [#2227](https://github.com/subodhkc/haiec-website/pull/2227) → `Main` `14b6b1912`; Vercel `DYAJKChUaoWFW9GMrSdckufeY6Cr` SUCCESS. Delivered as composition only: `assembleEstateSummary` org projection (denominator counts, no composite score); `GET /api/inventory/estate-summary` + `GET /api/v1/estate`; EstateSummaryBand + Command Center attention strip; `AssuranceCasePanel` rendering the eight E5.1 operating facts independently; three report reader perspectives over the same immutable projection; `haiec_get_estate_summary` MCP parity. Narrow E5.1 fixes in the same PR: unknown outcome never defaults to APPLIED; adapter capability decoupled from dispatch eligibility (exact policy binding required); mediated-operation check no longer bypassable. **Recorded gaps:** org-wide combined topology graph not built (constellation is scan-bound; no grounded cross-system join source — backlog, no fabricated edges); `EFFECT_VERIFIED`/`LIVE_PROVIDER_NOT_WIRED`/`MCP_TO_SAAS_EVIDENCE_INGESTION_HOLD` unchanged. Full record: [E6 implementation record](E6-UNIFIED-ENTERPRISE-ESTATE-AND-ASSURANCE-CASE-IMPLEMENTATION-RECORD-2026-10-20.md). **Next lane: E7** remote MCP interoperability evaluation; Kestrel external acceptance `DEFERRED` until release gates + dual-video contract.
+
+## Permanent product-naming rule — E6.2 (2026-10-20)
+
+Legacy internal numeric engine identifiers must NOT appear in new customer-facing
+UI copy, product documentation, report headings, explanations or prompts. Use the
+canonical product names:
+
+- **HAIEC Assurance Engine** — deterministic assurance assessment
+- **Assurance Decision Engine** — only when explaining internal architecture
+- **DAI** — Delegated Action Integrity
+- **Assurance Receipts**, **Evidence Verification**, **Controls & Operations**,
+  **Human Governance**, **AI Estate**, **System Assurance Case**
+
+Existing serialized identifiers, API routes, database fields and historical files
+retain their compatibility names. No mechanical repository-wide replacement;
+audit only customer-visible copy in files a task actually touches.
+
+## E6.2 operational UX / approval-truth follow-up — October 20, 2026
+
+**PR [#2230](https://github.com/subodhkc/haiec-website/pull/2230); branch
+`feat/e62-operational-ux` @ `49658e9c8`.** Indeterminate effective-approval reads
+where comparison context is missing; inbox reloads canonical projection after
+assign/decide; least-privilege viewer display; system-level operations context in
+the Controls section; per-action authority-plane coverage; intake-options
+disclosure; simulated-upload trap neutralized; CI-App-vs-Action doc honesty.
+Record: [E6.2 implementation record](E62-OPERATIONAL-UX-CONTROLS-EVIDENCE-CONVERGENCE-IMPLEMENTATION-RECORD-2026-10-20.md).
+Next gated engineering build: [cross-system DAI delegation contract](E62-CROSS-SYSTEM-DAI-DELEGATION-ENGINEERING-CONTRACT-2026-10-20.md) —
+five named dependencies must be qualified before any cross-system delegated
+effect may render as proven. Provider usage/cost card and org-wide topology
+graph remain honest backlog items.
