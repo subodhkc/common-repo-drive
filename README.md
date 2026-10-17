@@ -7,6 +7,8 @@
 
 > **2026-10-17 product-entry UX decision:** [HAIEC consequence-first promise, three entry choices, six job cards and contextual inspector design](./haiec-product-capability-architecture/HAIEC-PRODUCT-ENTRY-CONSEQUENCE-ONTOLOGY-JOBS-AND-INSPECTOR-UX-DECISION-2026-10-17.md). Keeps exact technical consequence ontology; people may start from a system, a goal or evidence without being required to know the consequence. This is a source-checked design decision, **not shipped UX**.
 
+> **HAIEC lightweight entry UX reference:** [Updated HTML design mock](./haiec-product-capability-architecture/sample-light%20entry%20additional) · [DeepSeek mock independent review and implementation plan](./haiec-product-capability-architecture/HAIEC-LIGHT-ENTRY-DEEPSEEK-MOCK-REVIEW-AND-V2-IMPLEMENTATION-CONTRACT-2026-10-17.md). Three peer choices; no compulsory funnel or simulated assessment. Changes are to shared design documents only.
+
 **Concurrent Sprint 28 correction:** [Sprint 28 status](./haiec-product-capability-architecture/SPRINT-28-DECISION-INTEGRITY-STATUS-2026-10-16.md) records a **simulated** PO partial-mutation defect repaired at the shared commit boundary. GitHub manufacturing `main` `1fa4c640` is a code-merge observation, not Vercel runtime verification. See the [full audit](./haiec-product-capability-architecture/COMMON-REPO-FULL-52-FILE-ALIGNMENT-AUDIT-2026-10-16.md) for versioned caveats.
 
 ## Start here — current HAIEC / Kestrel decision authority
