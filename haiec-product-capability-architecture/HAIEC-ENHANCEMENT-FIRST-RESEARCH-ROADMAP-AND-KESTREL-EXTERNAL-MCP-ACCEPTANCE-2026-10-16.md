@@ -150,6 +150,8 @@ The final result should be a customer-visible HAIEC workflow with truthful actio
 ### T1D — Capture requirements and final evidence deliverables
 - Record **every material user step**, including alternate decisions, validation messages, missing-evidence next actions and error states, not only attractive dashboard screenshots.
 - Capture **screen shots** at each major boundary (setup, OAuth/session consent, remote MCP tool discovery, source preflight, evaluation, authority, monitoring, optional protection, controls, verification, cleanup). Use timestamped numbered filenames `001-tenant-setup.png` etc. Store original and **redacted public-safe** copies separately. No snapshots with tokens, secret headers, real personal information, recordings/transcripts, billing details or privileged Kestrel internals.
+- **MANDATORY FULL SESSION VIDEO RECORDING (user requirement, 2026-10-16):** Before the first non-sensitive test step, start an authorized screen recording of the independent, external HAIEC MCP customer-testing workspace and the Kestrel/HAIEC browser journey. Capture **the complete meaningful sequence**, including tool discovery, actual MCP requests/results (redacted), source consent, evaluation, decision/authority, monitoring, protection-readiness, report/verification, failures, and final cleanup. Use one continuous capture when feasible or numbered seamless segments with explicit break markers. Preserve a time-synchronized `step_id`/UTC timestamp index to the video, machine-readable operation journal and numbered screenshots. **The video is a mandatory deliverable, not optional illustration.**
+- **Video privacy and evidence controls:** Obtain test-owner authorization and any required recording/participant consent; use isolated synthetic identities/data. Never record typing secrets, bearer tokens, OAuth codes, personal information, real voice/call content, billing data or private customer records. Pause/mask *before* sensitive content appears; log any pause/capture gap and reason without secret values. Do not silently edit away failed steps. Save encrypted/restricted original only in approved private artifact storage; produce separately reviewed and redacted/shareable video (e.g. MP4), with visible redaction markers if material evidence is obscured. Include file names, hashes, start/end UTC, duration, segmentation, privacy review outcome, any gaps, and retained-location reference in `recording-manifest.json`. **No raw recording in public Common Repo Drive.** A screen video proves visual sequence, not independently that HAIEC verified a remote effect.
 - Record tool operations as redacted structured events: `step_id`, `actor_class`, `tenant_ref`, `haiec_org_ref`, `tool_name`, `request_digest`, `response_digest`, `result_code`, `started_at`, `completed_at`, `source_sha`, `deployment_id`, `evaluation_id`, `evidence_ref`, `screenshot_ids`, `qualification`, `redactions`. **Never retain API keys or full confidential request/response bodies.**
 - Artifact structure suggested:
   ```text
@@ -158,6 +160,9 @@ The final result should be a customer-visible HAIEC workflow with truthful actio
     tools-discovered.redacted.json
     steps.redacted.jsonl
     source-and-deployment-manifest.json
+    recordings/restricted-originals/ (separate private artifact storage; not public Git)
+    recordings/shareable-redacted/session-001.mp4
+    recording-manifest.json (hashes, timestamps, consent, pauses, step/video offsets)
     screenshots/redacted/001-...png
     screenshots/private-originals/ (restricted separately; no public Git)
     evidence-map.csv
@@ -167,7 +172,7 @@ The final result should be a customer-visible HAIEC workflow with truthful actio
 - The **external workspace** owns raw operation traces/screenshot originals and is access controlled. Common-repo-drive receives only approved, sanitized planning and summary assets unless its GitHub visibility and allowed-reader policy are deliberately changed and verified first.
 - Use a deterministic step/evidence ID and replay order; screenshots provide a user story, not engine proof; bind each material UI claim to qualified MCP tool response/evaluation/effect receipt where available.
 - Later, Devin can use browser automation for full-page screenshots and explicit step capture as supported by their environment, while avoiding authenticated session/state leakage.
-- Release gate for T1: E0–E7 relevant changes merged/deployed and owner-approved, safe Kestrel tenant and separately scoped HAIEC credentials, independent workspace, consented source, privacy plan and trusted artifact destination. No automatic test if any mandatory gate is missing.
+- Release gate for T1: E0–E7 relevant changes merged/deployed and owner-approved, safe Kestrel tenant and separately scoped HAIEC credentials, independent workspace, consented source, privacy plan, **approved screen-recording and step-to-video capture method**, and trusted private artifact destination. No automatic test if any mandatory gate is missing.
 
 ## 4. Customer-facing outcome and trust positioning
 
