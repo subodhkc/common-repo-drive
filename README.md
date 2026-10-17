@@ -129,3 +129,9 @@ Architecture: Understand / Assure / Govern & Operate with six selectable workflo
 ## Post-merge E1/E2 source review — October 16–17, 2026
 
 See [source-level code review and small remediation packet](./haiec-product-capability-architecture/E1-E2-POST-MERGE-CODE-REVIEW-AND-REMEDIATION-2026-10-16.md). PR #2222 is merged and its Vercel deployment returned success. **Do not equate this with real per-tenant execution proof.** The review found one P0 product-truth contract defect (U5 assurance disposition projected into `approvalStatus`) and P1 next-action eligibility/consent-scope and comparison/receipt wording concerns. These are *presentation/projection issues requiring owner review*, not confirmed server authorization bypasses. Recommended next step is a bounded E1/E2 correctness patch, coordinated with separately owned E3 PR #2220 and E4 telemetry, before claiming per-user availability accurate across all privileged actions. Kestrel external MCP acceptance is still deferred.
+
+## E3 next implementation — verified E1/E2 PR #2223 handoff
+
+- [E3 security implementation and Devin-ready prompt](./haiec-product-capability-architecture/E3-SECURITY-IMPLEMENTATION-HANDOFF-AFTER-E1E2-PR2223-2026-10-16.md) — starts at HAIEC Main `18f845cee` / merged PR #2223; pending PR #2220 is **unmerged** with existing lint/new-violations failures. Reconcile source and actual tenant/role/reviewer and privileged target-effect claims before any E3 release. E4 telemetry remains separate; external Kestrel tenant MCP acceptance remains deferred.
+- Source-level residual presentation boundary: a non-viewer session is not necessarily the **assigned** deployment decision reviewer or authorized Kill Switch operator, and a muted `permitted=false` link remains clickable in E1/E2 panels. Route authorization remains the final enforcement point; do not call these proven access bypasses.
+
