@@ -2,7 +2,7 @@
 
 **Prepared:** 2026-10-17 · **Status:** Source-checked product/engineering reference, NOT production-per-customer acceptance.  
 **HAIEC source revision:** [14b6b1912405fd3c03ebbb9b52df1b351f350c8d](https://github.com/subodhkc/haiec-website/commit/14b6b1912405fd3c03ebbb9b52df1b351f350c8d) · **Shared matrix:** [87 curated capability rows](HAIEC-PRODUCT-CAPABILITY-WORKFLOW-MATRIX.md) (not exhaustive) · [E6 UX dependency review](E6-ENTERPRISE-UX-ROLE-OPERATIONS-CONTROL-EVIDENCE-DEPENDENCY-DESIGN-REVIEW-2026-10-17.md).  
-**Registry extraction:** 176 catalog rules / 31 families (157 registered EXECUTABLE, 19 REGISTER_ONLY); 45 control catalog entries (11 listed in visibility projection); 23 registered typed intake profiles, including `log`. Counts are code-registration facts, **not** universal customer availability, independent detections or proof of executed tests.
+**Registry extraction:** 176 catalog rules / 31 families (157 registered EXECUTABLE, 19 REGISTER_ONLY); 45 control catalog entries (11 listed in visibility projection); 26 registered typed intake profiles, including `log`. Counts are code-registration facts, **not** universal customer availability, independent detections or proof of executed tests.
 
 ## 1. Customer answer
 
@@ -346,6 +346,9 @@ These are **format/transport adapters** and preserve declared profile semantics;
 | alarm | `/api/ingest/alarm` | `'alarm_event'` | Alarm JSON or CSV |
 | kpi | `/api/ingest/kpi` | `'kpi_snapshot'` | KPI JSON or CSV |
 | policy | `/api/ingest/o1` | `'o1_record'` | Policy/IAM text or JSON document |
+| oran_wg11 | `/api/ingest/oran-wg11` | `oran_wg11_threat_feed` | O-RAN WG11 typed JSON or supported CSV with column mapping |
+| a1_policy | `/api/ingest/a1-policy` | `a1_policy_event` | A1 policy event JSON |
+| o1 | `/api/ingest/o1` | `o1_record` | O1 configuration/performance/fault event JSON with subtype |
 | ran_handover | `/api/ingest/ran-handover` | `'ran_handover'` | RAN handover JSON or CSV |
 | slice_flow | `/api/ingest/slice-flow` | `'slice_flow'` | Network slice JSON |
 | sbi_transaction | `/api/ingest/sbi-transaction` | `'sbi_transaction'` | 5G SBI transaction JSON |
