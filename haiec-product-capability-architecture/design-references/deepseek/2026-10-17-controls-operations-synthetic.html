@@ -1,0 +1,1427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Controls & Operations — HAIEC</title>
+<style>
+:root{
+  --bg:#FAFBFC; --card:#FFFFFF; --card-soft:#F5F7FA;
+  --border:#E7E9EE; --border-hover:#D0D4DD; --border-strong:#B8BFCC;
+  --text:#0F1729; --text-secondary:#414A5E; --text-muted:#667085; --text-dim:#98A2B3;
+  --primary:#4338CA; --primary-hover:#3730A3; --primary-light:#EEF2FF; --primary-border:#C7D2FE; --primary-ring:rgba(67,56,202,0.12);
+  --success:#067647; --success-bg:#ECFDF3; --success-border:#ABEFC6;
+  --amber:#B54708; --amber-bg:#FFFAEB; --amber-border:#FEDF89;
+  --danger:#B42318; --danger-bg:#FEF3F2; --danger-border:#FECDCA;
+  --info:#175CD3; --info-bg:#EFF8FF; --info-border:#B2DDFF;
+  --r-xs:6px; --r-sm:8px; --r-md:12px; --r-lg:16px; --r-xl:20px;
+  --sh-1:0 1px 2px rgba(16,24,40,0.04);
+  --sh-2:0 2px 6px rgba(16,24,40,0.06),0 1px 2px rgba(16,24,40,0.04);
+  --sh-3:0 8px 24px rgba(16,24,40,0.08);
+  --sh-4:0 24px 56px rgba(16,24,40,0.18);
+  --sans:-apple-system,BlinkMacSystemFont,'Inter','Segoe UI',system-ui,sans-serif;
+  --mono:ui-monospace,'SF Mono','Cascadia Code','Roboto Mono',monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{height:100%;}
+body{font-family:var(--sans);font-size:14.5px;line-height:1.55;color:var(--text);background:var(--bg);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit;}
+a{color:var(--primary);text-decoration:none;}
+a:hover{text-decoration:underline;text-underline-offset:2px;}
+code,.mono{font-family:var(--mono);font-size:0.92em;}
+::-webkit-scrollbar{width:10px;height:10px;}
+::-webkit-scrollbar-thumb{background:var(--border-hover);border-radius:5px;border:2px solid var(--bg);}
+::-webkit-scrollbar-thumb:hover{background:var(--border-strong);}
+
+.page{max-width:1400px;margin:0 auto;padding:24px 32px 80px;}
+
+/* HEADER */
+.page-header{display:flex;align-items:center;gap:16px;padding-bottom:20px;border-bottom:1px solid var(--border);margin-bottom:24px;flex-wrap:wrap;}
+.crumb{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text-muted);flex-wrap:wrap;}
+.crumb .org{font-weight:500;color:var(--text);}
+.crumb .sep{color:var(--text-dim);}
+.crumb .current{font-weight:600;color:var(--text);}
+.crumb .env{font-size:10px;padding:1px 6px;border-radius:4px;background:var(--success-bg);color:var(--success);border:1px solid var(--success-border);font-weight:600;letter-spacing:0.03em;text-transform:uppercase;}
+.header-right{margin-left:auto;display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.synthetic-chip{font-size:10.5px;font-weight:600;padding:3px 8px;border-radius:5px;background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-border);letter-spacing:0.02em;text-transform:uppercase;}
+
+/* TYPO */
+h1{font-size:24px;font-weight:600;letter-spacing:-0.02em;line-height:1.3;color:var(--text);margin-bottom:6px;}
+h2{font-size:16px;font-weight:600;letter-spacing:-0.01em;line-height:1.4;color:var(--text);margin-bottom:4px;}
+.eyebrow{font-size:11px;font-weight:600;letter-spacing:0.06em;color:var(--text-muted);text-transform:uppercase;margin-bottom:8px;}
+.lead{font-size:15.5px;line-height:1.6;color:var(--text-secondary);margin-bottom:4px;}
+.helper{font-size:13px;line-height:1.55;color:var(--text-muted);}
+
+/* BUTTONS */
+.btn{padding:8px 16px;border-radius:var(--r-sm);font-size:13.5px;font-weight:500;border:1px solid transparent;transition:all 0.12s;display:inline-flex;align-items:center;gap:6px;letter-spacing:-0.005em;}
+.btn-primary{background:var(--primary);color:white;box-shadow:var(--sh-1);}
+.btn-primary:hover{background:var(--primary-hover);box-shadow:var(--sh-2);}
+.btn-secondary{background:var(--card);color:var(--text);border-color:var(--border);}
+.btn-secondary:hover{background:var(--card-soft);border-color:var(--border-hover);}
+.btn-ghost{background:transparent;color:var(--text-muted);border-color:var(--border);}
+.btn-ghost:hover{background:var(--card-soft);color:var(--text);}
+.btn-sm{padding:5px 12px;font-size:12.5px;}
+.btn:disabled{opacity:0.4;cursor:not-allowed;}
+
+/* CHIPS */
+.chip{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;padding:2px 8px;border-radius:5px;letter-spacing:0.02em;white-space:nowrap;}
+.chip-success{background:var(--success-bg);color:var(--success);border:1px solid var(--success-border);}
+.chip-amber{background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-border);}
+.chip-danger{background:var(--danger-bg);color:var(--danger);border:1px solid var(--danger-border);}
+.chip-neutral{background:var(--card-soft);color:var(--text-muted);border:1px solid var(--border);}
+.chip-info{background:var(--info-bg);color:var(--info);border:1px solid var(--info-border);}
+.chip-mono{font-family:var(--mono);font-size:10.5px;letter-spacing:0;text-transform:none;}
+
+/* SCENARIO TABS */
+.scenario-tabs{display:flex;gap:6px;margin-bottom:20px;flex-wrap:wrap;}
+.scenario-tab{padding:8px 14px;border-radius:8px;border:1px solid var(--border);background:var(--card);font-size:13px;font-weight:500;color:var(--text-muted);transition:all 0.15s;display:inline-flex;align-items:center;gap:8px;white-space:nowrap;}
+.scenario-tab:hover{border-color:var(--border-hover);color:var(--text);}
+.scenario-tab.active{background:var(--primary);color:white;border-color:var(--primary);}
+.scenario-tab .tab-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
+.scenario-tab .tab-dot.success{background:var(--success);}
+.scenario-tab .tab-dot.amber{background:var(--amber);}
+.scenario-tab .tab-dot.danger{background:var(--danger);}
+.scenario-tab.active .tab-dot{background:white;}
+
+/* CONTROL SUMMARY */
+.control-summary{background:var(--card);border:1px solid var(--border);border-radius:var(--r-md);padding:24px 28px;margin-bottom:20px;border-left:4px solid var(--border);}
+.control-summary.success{border-left-color:var(--success);}
+.control-summary.amber{border-left-color:var(--amber);}
+.control-summary.danger{border-left-color:var(--danger);}
+.control-summary-top{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;margin-bottom:16px;flex-wrap:wrap;}
+.control-summary-left{flex:1;min-width:280px;}
+.control-id-label{font-family:var(--mono);font-size:12px;color:var(--text-muted);font-weight:600;letter-spacing:0.03em;margin-bottom:3px;}
+.control-title{font-size:18px;font-weight:600;letter-spacing:-0.015em;line-height:1.35;color:var(--text);margin-bottom:4px;}
+.control-summary-desc{font-size:13.5px;color:var(--text-muted);line-height:1.55;max-width:800px;}
+.control-verdict-badge{font-size:13px;font-weight:600;padding:6px 14px;border-radius:6px;white-space:nowrap;align-self:flex-start;}
+.control-verdict-badge.success{background:var(--success-bg);color:var(--success);border:1px solid var(--success-border);}
+.control-verdict-badge.amber{background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-border);}
+.control-verdict-badge.danger{background:var(--danger-bg);color:var(--danger);border:1px solid var(--danger-border);}
+
+.control-summary-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;padding-top:16px;border-top:1px solid var(--border);}
+.summary-stat{display:flex;flex-direction:column;gap:3px;}
+.summary-stat-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-dim);}
+.summary-stat-value{font-size:14px;font-weight:500;color:var(--text);}
+.summary-stat-value.mono{font-family:var(--mono);font-size:12.5px;}
+.summary-stat-value.qualified{color:var(--success);}
+.summary-stat-value.attention{color:var(--amber);}
+.summary-stat-value.blocked{color:var(--danger);}
+
+/* COMPASS — 12-facet quick nav */
+.compass-wrap{background:var(--card);border:1px solid var(--border);border-radius:var(--r-md);padding:18px 20px;margin-bottom:20px;}
+.compass-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:14px;flex-wrap:wrap;}
+.compass-title{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-muted);}
+.compass-legend{display:flex;gap:12px;font-size:11px;color:var(--text-muted);flex-wrap:wrap;}
+.legend-item{display:inline-flex;align-items:center;gap:5px;}
+.legend-swatch{width:9px;height:9px;border-radius:2px;}
+.legend-swatch.success{background:var(--success);}
+.legend-swatch.amber{background:var(--amber);}
+.legend-swatch.danger{background:var(--danger);}
+.legend-swatch.neutral{background:var(--text-dim);}
+.compass{display:grid;grid-template-columns:repeat(12,1fr);gap:4px;}
+.compass-cell{background:var(--card-soft);border:1px solid var(--border);border-radius:var(--r-xs);padding:8px 6px;cursor:pointer;text-align:left;transition:all 0.12s;border-left:3px solid var(--border);display:flex;flex-direction:column;gap:2px;min-height:72px;}
+.compass-cell:hover{background:var(--primary-light);border-color:var(--primary-border);border-left-color:var(--primary);}
+.compass-cell.success{border-left-color:var(--success);}
+.compass-cell.amber{border-left-color:var(--amber);}
+.compass-cell.danger{border-left-color:var(--danger);}
+.compass-cell.neutral{border-left-color:var(--text-dim);}
+.compass-num{font-family:var(--mono);font-size:9px;font-weight:600;color:var(--text-dim);}
+.compass-icon{font-size:13px;}
+.compass-label{font-size:10px;font-weight:500;color:var(--text);line-height:1.25;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;}
+.compass-state{font-size:9px;font-weight:600;color:var(--text-dim);margin-top:auto;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.compass-cell.success .compass-state{color:var(--success);}
+.compass-cell.amber .compass-state{color:var(--amber);}
+.compass-cell.danger .compass-state{color:var(--danger);}
+
+/* FILTER BAR */
+.filter-bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:16px;}
+.filter-chip{padding:5px 12px;border-radius:var(--r-sm);font-size:12.5px;border:1px solid var(--border);background:var(--card);color:var(--text-muted);cursor:pointer;font-weight:500;transition:all 0.12s;}
+.filter-chip:hover{background:var(--card-soft);color:var(--text);}
+.filter-chip.active{background:var(--primary-light);color:var(--primary);border-color:var(--primary-border);}
+.filter-count{margin-left:auto;font-size:11.5px;color:var(--text-dim);font-family:var(--mono);}
+.expand-actions{margin-left:auto;display:flex;gap:6px;}
+
+/* GRID */
+.grid-2col{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:24px;align-items:start;}
+.main-col{display:flex;flex-direction:column;gap:20px;min-width:0;}
+.side-col{display:flex;flex-direction:column;gap:16px;position:sticky;top:24px;}
+
+/* FACETS */
+.facets-section{background:var(--card);border:1px solid var(--border);border-radius:var(--r-md);overflow:hidden;}
+.facets-section-head{padding:16px 20px;border-bottom:1px solid var(--border);}
+.facets-section-title{font-size:13px;font-weight:600;letter-spacing:0.02em;text-transform:uppercase;color:var(--text-muted);}
+.facets-section-sub{font-size:12.5px;color:var(--text-muted);margin-top:3px;line-height:1.5;}
+.facets-list{padding:8px 12px 12px;display:flex;flex-direction:column;gap:6px;}
+.facet{background:var(--card);border:1.5px solid var(--border);border-radius:var(--r-md);overflow:hidden;border-left:3px solid var(--border);transition:all 0.15s;scroll-margin-top:20px;}
+.facet.success{border-left-color:var(--success);}
+.facet.amber{border-left-color:var(--amber);}
+.facet.danger{border-left-color:var(--danger);}
+.facet.neutral{border-left-color:var(--text-dim);}
+.facet.pulse{animation:facetPulse 1.2s ease;}
+@keyframes facetPulse{0%{box-shadow:0 0 0 0 rgba(67,56,202,0.4);}70%{box-shadow:0 0 0 12px rgba(67,56,202,0);}100%{box-shadow:0 0 0 0 rgba(67,56,202,0);}}
+.facet-head{width:100%;padding:13px 16px;text-align:left;display:flex;align-items:center;gap:12px;background:transparent;transition:background 0.1s;}
+.facet-head:hover{background:var(--card-soft);}
+.facet-num{font-family:var(--mono);font-size:10.5px;font-weight:600;color:var(--text-dim);width:22px;flex-shrink:0;}
+.facet-icon{font-size:15px;flex-shrink:0;}
+.facet-label{flex:1;font-size:13.5px;font-weight:500;color:var(--text);min-width:0;line-height:1.35;}
+.facet-state{font-size:11px;font-weight:600;padding:2px 8px;border-radius:4px;flex-shrink:0;max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.facet-state.success{background:var(--success-bg);color:var(--success);border:1px solid var(--success-border);}
+.facet-state.amber{background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-border);}
+.facet-state.danger{background:var(--danger-bg);color:var(--danger);border:1px solid var(--danger-border);}
+.facet-state.neutral{background:var(--card-soft);color:var(--text-muted);border:1px solid var(--border);}
+.facet-chev{color:var(--text-dim);transition:transform 0.15s;font-size:11px;flex-shrink:0;}
+.facet.open .facet-chev{transform:rotate(180deg);}
+.facet-body{display:none;padding:0 16px 16px 50px;}
+.facet.open .facet-body{display:block;}
+.facet-summary{font-size:12.5px;color:var(--text-secondary);line-height:1.55;padding:10px 12px;background:var(--card-soft);border-radius:var(--r-xs);margin-bottom:12px;border:1px solid var(--border);}
+.facet-facts{display:grid;grid-template-columns:1fr 1fr;gap:6px 24px;margin-bottom:12px;}
+.facet-fact{display:flex;gap:8px;font-size:12px;align-items:baseline;}
+.facet-fact-label{color:var(--text-muted);min-width:120px;flex-shrink:0;}
+.facet-fact-value{color:var(--text);font-weight:500;word-break:break-word;}
+.facet-fact-value.mono{font-family:var(--mono);font-size:11px;}
+.facet-evidence{margin-top:10px;padding-top:12px;border-top:1px solid var(--border);}
+.facet-evidence-title{font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-dim);margin-bottom:8px;}
+.ev-item{display:flex;gap:10px;font-size:12px;align-items:flex-start;margin-bottom:6px;}
+.ev-item:last-child{margin-bottom:0;}
+.ev-ref{font-family:var(--mono);font-size:10.5px;color:var(--primary);background:var(--primary-light);padding:1px 6px;border-radius:3px;flex-shrink:0;margin-top:1px;}
+.ev-summary{color:var(--text-muted);line-height:1.5;}
+.facet-next{margin-top:12px;padding:10px 14px;background:var(--primary-light);border:1px dashed var(--primary-border);border-radius:var(--r-xs);font-size:12.5px;color:var(--text);line-height:1.55;display:flex;gap:10px;align-items:flex-start;}
+.facet-next strong{color:var(--primary);font-weight:600;flex-shrink:0;}
+.facet.danger .facet-next{background:var(--danger-bg);border-color:var(--danger-border);}
+.facet.danger .facet-next strong{color:var(--danger);}
+
+/* SECTIONS */
+.section{background:var(--card);border:1px solid var(--border);border-radius:var(--r-md);}
+.section-head{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+.section-title{font-size:13px;font-weight:600;letter-spacing:0.02em;text-transform:uppercase;color:var(--text-muted);}
+.section-sub{font-size:12.5px;color:var(--text-muted);margin-top:3px;line-height:1.5;}
+.section-pad{padding:20px 22px;}
+
+/* TESTSPEC */
+.testspec-card{background:var(--card-soft);border:1px solid var(--border);border-radius:var(--r-sm);padding:16px;margin-bottom:14px;}
+.testspec-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:14px;flex-wrap:wrap;}
+.testspec-version{font-family:var(--mono);font-size:13px;font-weight:600;color:var(--text);}
+.testspec-digest{font-family:var(--mono);font-size:11px;color:var(--text-muted);margin-top:3px;word-break:break-all;}
+.testspec-status{font-size:11px;font-weight:600;padding:3px 10px;border-radius:5px;white-space:nowrap;}
+.testspec-status.success{background:var(--success-bg);color:var(--success);border:1px solid var(--success-border);}
+.testspec-status.amber{background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-border);}
+.testspec-status.danger{background:var(--danger-bg);color:var(--danger);border:1px solid var(--danger-border);}
+.testspec-status.neutral{background:var(--card-soft);color:var(--text-muted);border:1px solid var(--border);}
+
+.approval-chain{display:flex;flex-direction:column;gap:0;padding:8px 0 4px;}
+.approval-step{display:flex;align-items:flex-start;gap:12px;padding:8px 0;position:relative;}
+.approval-step:not(:last-child)::before{content:'';position:absolute;left:9px;top:26px;bottom:-8px;width:2px;background:var(--border);z-index:0;}
+.approval-step.done:not(:last-child)::before{background:var(--success);}
+.approval-icon{width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;z-index:1;position:relative;}
+.approval-icon.done{background:var(--success);color:white;border:1px solid var(--success);}
+.approval-icon.active{background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-border);animation:approvalPulse 1.5s ease-in-out infinite;}
+@keyframes approvalPulse{0%,100%{box-shadow:0 0 0 0 rgba(181,71,8,0.3);}50%{box-shadow:0 0 0 6px rgba(181,71,8,0);}}
+.approval-icon.pending{background:var(--card);color:var(--text-dim);border:1px solid var(--border);}
+.approval-icon.blocked{background:var(--danger-bg);color:var(--danger);border:1px solid var(--danger-border);}
+.approval-body{flex:1;min-width:0;padding-top:1px;}
+.approval-title{font-size:12.5px;font-weight:500;color:var(--text);margin-bottom:2px;}
+.approval-step.pending .approval-title{color:var(--text-dim);}
+.approval-step.blocked .approval-title{color:var(--danger);}
+.approval-meta{font-size:11px;color:var(--text-muted);font-family:var(--mono);}
+
+.result-block{padding:14px 16px;border-radius:var(--r-sm);border:1px solid var(--border);}
+.result-block.success{background:var(--success-bg);border-color:var(--success-border);}
+.result-block.amber{background:var(--amber-bg);border-color:var(--amber-border);}
+.result-block.danger{background:var(--danger-bg);border-color:var(--danger-border);}
+.result-block.neutral{background:var(--card-soft);}
+.result-title{font-weight:600;font-size:13.5px;margin-bottom:5px;display:flex;align-items:center;gap:8px;}
+.result-block.success .result-title{color:var(--success);}
+.result-block.amber .result-title{color:var(--amber);}
+.result-block.danger .result-title{color:var(--danger);}
+.result-block.neutral .result-title{color:var(--text);}
+.result-detail{font-size:12.5px;color:var(--text-muted);line-height:1.55;}
+
+/* RESPONSE TIMELINE */
+.response-timeline{position:relative;padding-left:26px;}
+.response-timeline::before{content:'';position:absolute;left:7px;top:6px;bottom:6px;width:2px;background:var(--border);}
+.response-step{position:relative;padding:10px 0 14px;}
+.response-step:last-child{padding-bottom:0;}
+.response-step::before{content:'';position:absolute;left:-26px;top:14px;width:14px;height:14px;border-radius:50%;background:var(--card);border:2px solid var(--border-hover);}
+.response-step.done::before{background:var(--success);border-color:var(--success);}
+.response-step.active::before{background:var(--amber-bg);border-color:var(--amber);animation:approvalPulse 1.5s ease-in-out infinite;}
+.response-step.pending::before{background:var(--card);border-color:var(--border);}
+.response-step-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:2px;flex-wrap:wrap;}
+.response-step-title{font-weight:500;font-size:13px;color:var(--text);}
+.response-step.done .response-step-title{color:var(--success);}
+.response-step.active .response-step-title{color:var(--amber);font-weight:600;}
+.response-step.pending .response-step-title{color:var(--text-dim);}
+.response-step-time{font-family:var(--mono);font-size:11px;color:var(--text-muted);}
+.response-step-detail{font-size:12px;color:var(--text-muted);line-height:1.55;}
+
+/* FRAMEWORKS */
+.frameworks-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px;}
+.framework-card{background:var(--card-soft);border:1px solid var(--border);border-radius:var(--r-sm);padding:14px 16px;}
+.framework-name{font-size:13px;font-weight:600;color:var(--text);margin-bottom:3px;}
+.framework-ref{font-family:var(--mono);font-size:11px;color:var(--text-muted);margin-bottom:6px;}
+.framework-note{font-size:11px;color:var(--text-dim);font-style:italic;line-height:1.4;}
+
+/* HISTORY */
+.history-list{display:flex;flex-direction:column;gap:0;}
+.history-item{display:flex;gap:16px;padding:12px 0;border-bottom:1px solid var(--border);font-size:12.5px;align-items:baseline;}
+.history-item:last-child{border-bottom:none;}
+.history-time{font-family:var(--mono);font-size:11px;color:var(--text-muted);flex-shrink:0;min-width:150px;}
+.history-what{flex:1;color:var(--text);line-height:1.5;}
+.history-by{color:var(--text-muted);font-size:11.5px;flex-shrink:0;}
+
+/* SIDE CARDS */
+.side-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r-md);padding:18px 20px;}
+.side-title{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-dim);margin-bottom:12px;}
+.next-action{background:linear-gradient(135deg,var(--primary-light) 0%,var(--card) 100%);border:1px solid var(--primary-border);}
+.next-action.success{background:linear-gradient(135deg,var(--success-bg) 0%,var(--card) 100%);border-color:var(--success-border);}
+.next-action.danger{background:linear-gradient(135deg,var(--danger-bg) 0%,var(--card) 100%);border-color:var(--danger-border);}
+.next-action-eyebrow{font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;color:var(--primary);margin-bottom:8px;}
+.next-action.success .next-action-eyebrow{color:var(--success);}
+.next-action.danger .next-action-eyebrow{color:var(--danger);}
+.next-action-title{font-size:14px;font-weight:600;color:var(--text);margin-bottom:6px;line-height:1.35;}
+.next-action-detail{font-size:12.5px;color:var(--text-secondary);line-height:1.55;margin-bottom:14px;}
+.next-action-btn{width:100%;padding:9px 12px;background:var(--primary);color:white;border-radius:8px;font-size:13px;font-weight:500;display:flex;align-items:center;justify-content:center;gap:6px;transition:all 0.15s;}
+.next-action-btn:hover{background:var(--primary-hover);}
+.next-action.success .next-action-btn{background:var(--success);}
+.next-action.success .next-action-btn:hover{background:#055a37;}
+.next-action.danger .next-action-btn{background:var(--danger);}
+.next-action.danger .next-action-btn:hover{background:#8f1c13;}
+
+.meta-list{display:flex;flex-direction:column;gap:10px;}
+.meta-row{display:flex;justify-content:space-between;gap:8px;font-size:12.5px;align-items:baseline;}
+.meta-label{color:var(--text-muted);flex-shrink:0;}
+.meta-value{color:var(--text);font-weight:500;text-align:right;word-break:break-word;}
+.meta-value.mono{font-family:var(--mono);font-size:11.5px;}
+
+.side-actions{display:flex;flex-direction:column;gap:8px;}
+.side-action{display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid var(--border);border-radius:var(--r-sm);background:var(--card);text-align:left;transition:all 0.12s;font-size:13px;color:var(--text);}
+.side-action:hover{border-color:var(--primary);background:var(--primary-light);}
+.side-action:disabled{opacity:0.5;cursor:not-allowed;}
+.side-action:disabled:hover{border-color:var(--border);background:var(--card);}
+.side-action-icon{font-size:14px;flex-shrink:0;}
+.side-action-body{flex:1;min-width:0;}
+.side-action-title{font-weight:500;font-size:13px;}
+.side-action-detail{font-size:11.5px;color:var(--text-muted);margin-top:1px;line-height:1.4;}
+.side-action-arrow{color:var(--text-dim);font-size:13px;flex-shrink:0;}
+
+/* MODAL */
+.modal-backdrop{position:fixed;inset:0;background:rgba(15,23,41,0.5);opacity:0;pointer-events:none;transition:opacity 0.2s;z-index:60;display:flex;align-items:center;justify-content:center;padding:20px;}
+.modal-backdrop.open{opacity:1;pointer-events:auto;}
+.modal{background:var(--card);border-radius:var(--r-lg);max-width:560px;width:100%;box-shadow:var(--sh-4);transform:scale(0.96);transition:transform 0.2s;overflow:hidden;}
+.modal-backdrop.open .modal{transform:scale(1);}
+.modal-head{padding:22px 26px 14px;}
+.modal-title{font-size:17px;font-weight:600;margin-bottom:6px;}
+.modal-sub{font-size:13px;color:var(--text-muted);line-height:1.55;}
+.modal-body{padding:18px 26px;border-top:1px solid var(--border);border-bottom:1px solid var(--border);font-size:13px;line-height:1.6;}
+.modal-foot{padding:14px 26px;display:flex;gap:8px;justify-content:flex-end;}
+
+/* TOAST */
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(8px);background:var(--text);color:white;padding:11px 20px;border-radius:var(--r-sm);font-size:13px;z-index:100;box-shadow:var(--sh-3);opacity:0;pointer-events:none;transition:all 0.2s;max-width:520px;text-align:center;line-height:1.5;}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+/* CALLOUT */
+.callout{padding:14px 18px;border-radius:var(--r-sm);font-size:13px;line-height:1.55;}
+.callout-info{background:var(--primary-light);border:1px solid var(--primary-border);color:var(--text);}
+.callout-info strong{color:var(--primary);font-weight:600;}
+.callout-warn{background:var(--amber-bg);border:1px solid var(--amber-border);color:var(--amber);}
+
+/* PRINT */
+@media print{
+  body{background:white;}
+  .page{padding:0;max-width:none;}
+  .header-right,.side-col,.modal-backdrop,.toast,.facet-head,.scenario-tabs,.filter-bar,.expand-actions{display:none !important;}
+  .facet .facet-body{display:block !important;padding:16px !important;}
+  .facet .facet-chev{display:none;}
+  .facet{page-break-inside:avoid;}
+}
+
+/* RESPONSIVE */
+@media (max-width:1200px){
+  .grid-2col{grid-template-columns:minmax(0,1fr);}
+  .side-col{position:static;display:grid;grid-template-columns:repeat(2,1fr);}
+}
+@media (max-width:1100px){
+  .compass{grid-template-columns:repeat(6,1fr);}
+  .compass-cell{min-height:64px;}
+}
+@media (max-width:900px){
+  .page{padding:16px;}
+  .compass{grid-template-columns:repeat(4,1fr);}
+  .control-summary-stats{grid-template-columns:1fr 1fr;}
+  .facet-facts{grid-template-columns:1fr;gap:6px;}
+  .facet-body{padding-left:16px;}
+  .side-col{grid-template-columns:1fr;}
+  .frameworks-grid{grid-template-columns:1fr;}
+  .scenario-tab{font-size:12px;padding:6px 10px;}
+}
+@media (max-width:600px){
+  h1{font-size:20px;}
+  .control-title{font-size:16px;}
+  .compass{grid-template-columns:repeat(3,1fr);}
+  .compass-label{font-size:9px;}
+  .facet-state{max-width:120px;font-size:10px;}
+  .history-item{flex-direction:column;gap:4px;align-items:flex-start;}
+  .history-time{min-width:auto;}
+  .approval-step{padding:6px 0;}
+  .control-summary{padding:18px 20px;}
+}
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <header class="page-header">
+    <div class="crumb">
+      <span class="org">Acme Corp</span>
+      <span class="sep">›</span>
+      <span>Support Agent v2</span>
+      <span class="env">production</span>
+      <span class="sep">›</span>
+      <span class="current">Controls</span>
+    </div>
+    <div class="header-right">
+      <span class="synthetic-chip">Synthetic demo</span>
+    </div>
+  </header>
+
+  <div class="scenario-tabs" id="scenario-tabs"></div>
+
+  <div id="main-content"></div>
+</div>
+
+<div class="modal-backdrop" id="modal-backdrop" onclick="if(event.target===this)closeModal()">
+  <div class="modal">
+    <div class="modal-head"><div class="modal-title" id="modal-title"></div><div class="modal-sub" id="modal-sub"></div></div>
+    <div class="modal-body" id="modal-body"></div>
+    <div class="modal-foot" id="modal-foot"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ═══════════════════════════════════════════════
+   FIXTURES — four scenario controls, each with 12 facets
+   ═══════════════════════════════════════════════ */
+
+const SCENARIOS = {
+
+  /* ─── A03: fully executed ─── */
+  executed: {
+    id: 'a03', tabLabel: 'A03 · Fully executed', tone: 'success',
+    controlId: 'A03', title: 'Delegated Action Integrity', family: 'Assurance',
+    owner: 'alice.chen@example.com', version: 'catalog v1.4 · manifest A03-2026-10',
+    summary: 'Every operational facet is qualified. Delegation grants are wired, monitored, and independently verified at target. The control test has executed with a frozen receipt and confirmed replay.',
+    qualified: 12, attention: 0, blocked: 0,
+    nextAction: {
+      tone: 'success',
+      title: 'This control is fully qualified at this evaluation',
+      detail: 'All twelve facets are qualified. Continue monitoring or open the receipt to hand to a reviewer.',
+      cta: 'Open receipt →', action: 'receipt'
+    },
+    facets: [
+      { id: 'applicability', icon:'📋', label:'Applicability & catalog', state:'Applicable', tone:'success',
+        summary:'Control applies to this system in production. Catalog version and objective verified.',
+        facts:[{l:'Catalog version',v:'v1.4',m:true},{l:'Family',v:'Assurance'},{l:'Decided',v:'2026-10-15 09:14 UTC'},{l:'Applicability basis',v:'Cross-system delegation observed in code + runtime'}],
+        evidence:[{ref:'catalog.A03',s:'Control catalog entry v1.4 · approved'},{ref:'applicability.a03.sys-supp-2f4a',s:'Applicability decision bound to system'}],
+        next:null },
+      { id: 'configuration', icon:'⚙️', label:'Configuration · versioned policy', state:'Configured · v12', tone:'success',
+        summary:'Operating Envelope v12 is the active configuration. Version, digest and scope are recorded.',
+        facts:[{l:'Configuration',v:'Operating Envelope v12'},{l:'Digest',v:'sha256:8f2a…c4b1',m:true},{l:'Configured at',v:'2026-10-17 09:14 UTC'},{l:'Target scope',v:'refund.create ≤ $500 · US · prod'}],
+        evidence:[{ref:'envelope.v12',s:'Operating Envelope v12 · frozen digest'},{ref:'config.change.2026-10-17.0914',s:'Config change event bound to digest'}],
+        next:null },
+      { id: 'human-policy', icon:'👤', label:'Human authorization · policy', state:'Approved · alice.chen', tone:'success',
+        summary:'Policy approved by a named human with digest binding. Policy approval ≠ deployment approval — both exist separately.',
+        facts:[{l:'Approver',v:'alice.chen@example.com'},{l:'Approved at',v:'2026-10-17 09:14 UTC'},{l:'Digest bound',v:'sha256:8f2a…c4b1',m:true},{l:'SoD',v:'Requester ≠ Approver'}],
+        evidence:[{ref:'signature.kms.hk-4a2e-17',s:'KMS-signed policy approval · digest match'}],
+        next:null },
+      { id: 'human-deploy', icon:'⚖️', label:'Human operational decision · deployment', state:'APPROVED_SCOPED · bob.kumar', tone:'success',
+        summary:'Deployment decision recorded by a different named human. Scoped approval, expires in 7 days.',
+        facts:[{l:'Decision',v:'APPROVED_SCOPED'},{l:'Reviewer',v:'bob.kumar@example.com'},{l:'Expires',v:'2026-10-24 09:14 UTC',m:true},{l:'SoD',v:'Reviewer ≠ Policy approver'}],
+        evidence:[{ref:'decision.dep-a03-001',s:'Deployment decision · append-only record'},{ref:'decision.conditions.a03',s:'Conditions: refund ≤ $500, US, prod'}],
+        next:null },
+      { id: 'target-integration', icon:'🔌', label:'Deployed target integration', state:'Wired · PEP v2.1', tone:'success',
+        summary:'Native policy enforcement point installed at the target and bound to the approved scope.',
+        facts:[{l:'Integration type',v:'Native PEP'},{l:'Adapter',v:'v2.1',m:true},{l:'Bound at',v:'2026-10-17 09:22 UTC'},{l:'Last ack',v:'2026-10-17 10:42:20 UTC'}],
+        evidence:[{ref:'pep.install.2026-10-17.0922',s:'PEP installation · digest verified'},{ref:'pep.ack.2026-10-17.1042',s:'Enforcement acknowledgement from target'}],
+        next:null },
+      { id: 'monitoring', icon:'👁️', label:'Monitoring · source health', state:'Fresh · 12m ago', tone:'success',
+        summary:'Telemetry source is fresh and reporting qualified events. Baseline is established.',
+        facts:[{l:'Source',v:'OTLP collector · prod'},{l:'Last qualified event',v:'2026-10-17 14:10 UTC'},{l:'Baseline',v:'7d rolling · n=14,240 events'},{l:'Freshness',v:'FRESH · 12m since last signal'}],
+        evidence:[{ref:'telemetry.baseline.a03',s:'Baseline snapshot · 14,240 qualified events'}],
+        next:null },
+      { id: 'threshold', icon:'🚨', label:'Threshold · guardrail · alert', state:'Configured · delivered', tone:'success',
+        summary:'Threshold configured and alert delivery instrumented. Alert delivery confirmed means delivery ack — not alert acknowledgment.',
+        facts:[{l:'Threshold',v:'Widening on any DAI dimension'},{l:'Last alert',v:'2026-10-16 14:07 UTC'},{l:'Delivery status',v:'DELIVERY_CONFIRMED'},{l:'Delivery ≠ ACK',v:'Alert delivery is not acknowledgment'}],
+        evidence:[{ref:'alert.rule.a03',s:'Alert rule configuration'},{ref:'alert.delivery.2026-10-16.1407',s:'Alert delivery confirmed · webhook ack'}],
+        next:null },
+      { id: 'kill-switch', icon:'🛑', label:'Kill Switch readiness', state:'Ready · tested 2026-10-10', tone:'success',
+        summary:'Kill Switch route configured and tested. Test ≠ dispatch — no emergency action was triggered.',
+        facts:[{l:'Route',v:'Halt refund.create on this system'},{l:'Last tested',v:'2026-10-10 15:22 UTC'},{l:'Test result',v:'Dry-run passed · no dispatch'},{l:'Note',v:'Kill switch route is not automatic live enforcement'}],
+        evidence:[{ref:'killswitch.test.2026-10-10',s:'Kill switch dry-run · route verified'},{ref:'killswitch.audit',s:'No dispatch events since configuration'}],
+        next:null },
+      { id: 'target-enforcement', icon:'⚡', label:'Actual target enforcement', state:'3 allowed · 1 denied', tone:'success',
+        summary:'Guard decisions recorded at the target with operation and scope. Denials are enforcement evidence, not violations.',
+        facts:[{l:'Last decision',v:'ALLOW · refund.create $247.50'},{l:'At',v:'2026-10-17 10:42:19 UTC'},{l:'Denials (24h)',v:'1 · scope widening'},{l:'Last denial',v:'2026-10-16 14:07 UTC'}],
+        evidence:[{ref:'guard.decision.104219',s:'Guard ALLOW decision · scope check passed'},{ref:'guard.deny.2026-10-16.1407',s:'Guard DENY · scope widening blocked'}],
+        next:null },
+      { id: 'verified-effect', icon:'✅', label:'Independently verified effect', state:'TARGET_EFFECT_VERIFIED', tone:'success',
+        summary:'Independent target readback confirms the effect. Provider ack alone would not be sufficient.',
+        facts:[{l:'Last verified',v:'2026-10-17 10:42:24 UTC'},{l:'Readback source',v:'Stripe balance (independent)'},{l:'Balance delta',v:'−$247.50'},{l:'Tx match',v:'tx_3QfL8mR2aB ✓'}],
+        evidence:[{ref:'readback.stripe.104224',s:'Independent Stripe balance readback · matching transaction id'}],
+        next:null },
+      { id: 'test-replay', icon:'🧪', label:'Control test · replay', state:'EXECUTED · NO_FINDING_OBSERVED', tone:'success',
+        summary:'TestSpec executed with approval. Deterministic replay confirmed. Receipt stored immutably.',
+        facts:[{l:'TestSpec',v:'v3',m:true},{l:'Approved by',v:'bob.kumar · 11:02 UTC'},{l:'Executed at',v:'11:04 UTC'},{l:'Replay',v:'DIGEST_MATCH · confirmed'}],
+        evidence:[{ref:'testspec.a03.v3',s:'TestSpec v3 · frozen · approval bound'},{ref:'test.result.a03.1104',s:'NO_FINDING_OBSERVED'},{ref:'replay.a03.1104',s:'Deterministic replay confirmed'},{ref:'receipt.rcpt-a03-2f4a-001',s:'Frozen receipt · immutable'}],
+        next:null },
+      { id: 'change', icon:'🔄', label:'Change & revalidation', state:'Current', tone:'success',
+        summary:'No material change since last evaluation. All bound versions match current configuration.',
+        facts:[{l:'Config version',v:'v12 · current'},{l:'Evaluated version',v:'v12'},{l:'TestSpec version',v:'v3 · current'},{l:'Last revalidation',v:'2026-10-17 11:04 UTC'}],
+        evidence:[{ref:'change.a03.none',s:'No change events since 2026-10-17 11:04 UTC'}],
+        next:null }
+    ],
+    testSpec: {
+      version:'TestSpec v3', digest:'sha256:4a7c…e9f2', status:'EXECUTED', tone:'success',
+      chain:[
+        {title:'TestSpec drafted',status:'done',by:'alice.chen',at:'2026-10-17 10:48'},
+        {title:'Approved for execution',status:'done',by:'bob.kumar',at:'2026-10-17 11:02'},
+        {title:'Executed against frozen evidence',status:'done',by:'system',at:'2026-10-17 11:04'},
+        {title:'Deterministic replay confirmed',status:'done',by:'system',at:'2026-10-17 11:04'}
+      ],
+      result:{tone:'success',label:'NO_FINDING_OBSERVED',detail:'TestSpec v3 executed against the frozen evidence basis. Deterministic replay confirmed the result. This is not a compliance verdict — it confirms the control executed against the recorded scope without detecting a violation.'}
+    },
+    response: { hasResponse: false, note: 'No response workflow is open. The most recent test executed with NO_FINDING_OBSERVED and no incident was raised.' },
+    frameworks: [
+      {name:'OWASP Agentic AI',ref:'AAI-04 · Delegated authority',note:'Mapped — mapping is not certification'},
+      {name:'MITRE ATLAS',ref:'AML.T0024 · Exfiltration via AI',note:'Mapped — context only'},
+      {name:'NIST AI RMF',ref:'MANAGE 2.3 · Third-party risk',note:'Mapped — no compliance claim'}
+    ],
+    history: [
+      {time:'2026-10-17 11:04',what:'Control test executed · NO_FINDING_OBSERVED',by:'system'},
+      {time:'2026-10-17 11:02',what:'TestSpec v3 approved for execution',by:'bob.kumar'},
+      {time:'2026-10-17 10:48',what:'TestSpec v3 drafted',by:'alice.chen'},
+      {time:'2026-10-17 09:22',what:'Target PEP v2.1 wired · enforcement ack',by:'system'},
+      {time:'2026-10-17 09:14',what:'Operating Envelope v12 approved · scoped',by:'alice.chen'}
+    ]
+  },
+
+  /* ─── R03: mixed state — the "refund guardrail" example ─── */
+  mixed: {
+    id: 'r03', tabLabel: 'R03 · Mixed state', tone: 'amber',
+    controlId: 'R03', title: 'Runtime guardrail enforcement evidence', family: 'Runtime',
+    owner: 'alice.chen@example.com', version: 'catalog v1.4 · manifest R03-2026-10',
+    summary: 'Configuration is approved but the target PEP is not wired. Telemetry is stale, guard decisions have never been recorded at the target, and the control test is blocked on durable-store migration. Five of twelve facets need attention.',
+    qualified: 4, attention: 7, blocked: 1,
+    nextAction: {
+      tone: 'danger',
+      title: 'Wire the target PEP to enable enforcement',
+      detail: 'No native PEP is installed at stripe-prod. Guard decisions cannot be enforced at the source of action. Until this is wired, R03 cannot produce enforcement evidence or an independently verified effect.',
+      cta: 'Open configuration →', action: 'config'
+    },
+    facets: [
+      { id: 'applicability', icon:'📋', label:'Applicability & catalog', state:'Applicable', tone:'success',
+        summary:'Control applies to this system in production. Refund execution path requires guard decisions.',
+        facts:[{l:'Catalog version',v:'v1.4',m:true},{l:'Family',v:'Runtime'},{l:'Decided',v:'2026-10-15 09:14 UTC'},{l:'Applicability basis',v:'Refund path requires guard decisions'}],
+        evidence:[{ref:'catalog.R03',s:'Control catalog entry v1.4'}],
+        next:null },
+      { id: 'configuration', icon:'⚙️', label:'Configuration · versioned policy', state:'Configured · v12', tone:'success',
+        summary:'Operating Envelope v12 is active. Guardrail policy configured to deny on any DAI widening.',
+        facts:[{l:'Configuration',v:'Operating Envelope v12 + guardrail v2'},{l:'Digest',v:'sha256:8f2a…c4b1',m:true},{l:'Policy',v:'deny on scope widening · any DAI dimension'},{l:'Configured at',v:'2026-10-17 09:14 UTC'}],
+        evidence:[{ref:'envelope.v12',s:'Operating Envelope v12'},{ref:'guardrail.policy.v2',s:'Guardrail policy v2 · deny on widening'}],
+        next:null },
+      { id: 'human-policy', icon:'👤', label:'Human authorization · policy', state:'Approved · alice.chen', tone:'success',
+        summary:'Policy approved by a named human with digest binding.',
+        facts:[{l:'Approver',v:'alice.chen@example.com'},{l:'Approved at',v:'2026-10-17 09:14 UTC'},{l:'Digest bound',v:'sha256:8f2a…c4b1',m:true}],
+        evidence:[{ref:'signature.kms.hk-4a2e-17',s:'KMS-signed policy approval'}],
+        next:null },
+      { id: 'human-deploy', icon:'⚖️', label:'Human operational decision · deployment', state:'APPROVED_CONDITIONAL', tone:'amber',
+        summary:'Deployment approved conditionally: requires target PEP installation. The condition is not yet met.',
+        facts:[{l:'Decision',v:'APPROVED_CONDITIONAL'},{l:'Reviewer',v:'bob.kumar@example.com'},{l:'Condition',v:'Native PEP installation at stripe-prod'},{l:'Expires',v:'2026-10-24 09:14 UTC',m:true}],
+        evidence:[{ref:'decision.dep-r03-002',s:'Conditional approval · condition recorded'}],
+        next:{text:'The condition has not been met. Complete target PEP installation to advance this to APPROVED_SCOPED.'} },
+      { id: 'target-integration', icon:'🔌', label:'Deployed target integration', state:'NOT_WIRED', tone:'danger',
+        summary:'No native policy enforcement point is installed at the target. Guard decisions cannot be enforced at the source of action.',
+        facts:[{l:'Integration type',v:'None'},{l:'Target',v:'stripe-prod'},{l:'State',v:'NOT_WIRED'},{l:'Last attempt',v:'2026-10-16 14:07 UTC · failed'}],
+        evidence:[{ref:'integration.attempt.2026-10-16.1407',s:'Installation attempt failed · provider adapter unavailable'}],
+        next:{text:'Request target adapter installation from provider, or open an alternate enforcement path.'} },
+      { id: 'monitoring', icon:'👁️', label:'Monitoring · source health', state:'STALE · 6h ago', tone:'amber',
+        summary:'Telemetry source has not reported within cadence tolerance. No alerts will fire from a stale source.',
+        facts:[{l:'Source',v:'OTLP collector · prod'},{l:'Last qualified event',v:'2026-10-17 08:14 UTC'},{l:'Freshness',v:'STALE · 6h since last signal'},{l:'Baseline',v:'partial · n=8,120 events'}],
+        evidence:[{ref:'telemetry.last.2026-10-17.0814',s:'Last telemetry receipt · 6h ago'}],
+        next:{text:'Investigate collector health or reconnect the OTLP source. A stale source means no breach detection.'} },
+      { id: 'threshold', icon:'🚨', label:'Threshold · guardrail · alert', state:'Configured · delivery unknown', tone:'amber',
+        summary:'Threshold is configured but delivery status is unknown because the source is stale. No alerts since the source went stale.',
+        facts:[{l:'Threshold',v:'deny on scope widening'},{l:'Last alert',v:'None since source stale'},{l:'Delivery',v:'Unknown — source stale'},{l:'Alert delivery ≠ ACK',v:'Even delivered alerts require acknowledgment'}],
+        evidence:[{ref:'alert.rule.r03',s:'Alert rule configuration'}],
+        next:{text:'Reconnect the source to resume alert delivery. Then test delivery with a synthetic alert.'} },
+      { id: 'kill-switch', icon:'🛑', label:'Kill Switch readiness', state:'Unknown · no SDK guard', tone:'amber',
+        summary:'No native SDK guard is installed on this system, so no kill-switch route exists. This is distinct from an unconnected kill switch.',
+        facts:[{l:'Route',v:'No route · SDK guard absent'},{l:'Last tested',v:'Never'},{l:'Note',v:'Kill switch requires an installed SDK guard to route'}],
+        evidence:[{ref:'killswitch.r03.none',s:'No kill-switch route is available without an SDK guard'}],
+        next:{text:'Install the SDK guard as part of the target integration, then configure a kill-switch route.'} },
+      { id: 'target-enforcement', icon:'⚡', label:'Actual target enforcement', state:'No decision recorded', tone:'amber',
+        summary:'No guard decision has been recorded at the target. The target is not wired, so no enforcement can occur at the source.',
+        facts:[{l:'Last decision',v:'None'},{l:'Last attempted action',v:'2026-10-16 14:07 UTC'},{l:'Attempted operation',v:'refund.create $1,840'},{l:'Outcome',v:'Provider accepted · no guard witness'}],
+        evidence:[{ref:'dispatch.2026-10-16.1407',s:'Provider dispatch · no guard witness present'}],
+        next:{text:'Wire the target PEP so future actions can be decided at the source.'} },
+      { id: 'verified-effect', icon:'✅', label:'Independently verified effect', state:'EFFECT_NOT_VERIFIED', tone:'amber',
+        summary:'No independent readback has confirmed the target effect for the last dispatched action.',
+        facts:[{l:'Expected effect',v:'−$1,840.00 at Stripe balance'},{l:'Transaction id',v:'tx_9bK3nV5pQ2',m:true},{l:'Readback source',v:'Not yet qualified'},{l:'Since',v:'2026-10-16 14:07:48 UTC'}],
+        evidence:[],
+        next:{text:'Attach an independent target readback to verify the effect, or wait for the next scheduled pull.'} },
+      { id: 'test-replay', icon:'🧪', label:'Control test · replay', state:'PENDING_ACTIVATION', tone:'amber',
+        summary:'TestSpec v3 is approved and ready, but durable-store migration is not complete. Test execution cannot proceed until migration finishes.',
+        facts:[{l:'TestSpec',v:'v3 · ready',m:true},{l:'Approved by',v:'bob.kumar · 11:02 UTC'},{l:'State',v:'PENDING_ACTIVATION'},{l:'Blocker',v:'Durable store migration not complete'}],
+        evidence:[{ref:'testspec.r03.v3',s:'TestSpec v3 · frozen · approval bound'},{ref:'activation.r03.pending',s:'Durable store migration in progress'}],
+        next:{text:'Complete durable store migration to enable test execution. This is not a test failure — it is an activation blocker.'} },
+      { id: 'change', icon:'🔄', label:'Change & revalidation', state:'Needs re-evaluation', tone:'amber',
+        summary:'Configuration is current but several facets are unqualified. Control cannot be revalidated until blockers resolve.',
+        facts:[{l:'Config version',v:'v12 · current'},{l:'Evaluated version',v:'v11 · last complete',m:true},{l:'Blockers',v:'3 unqualified facets'},{l:'Next revalidation',v:'Blocked'}],
+        evidence:[{ref:'change.r03.2026-10-17',s:'Envelope v12 introduced new guardrail policy'}],
+        next:{text:'Resolve target wiring, telemetry freshness, and test activation. Then re-evaluate.'} }
+    ],
+    testSpec: {
+      version:'TestSpec v3', digest:'sha256:4a7c…e9f2', status:'PENDING_ACTIVATION', tone:'amber',
+      chain:[
+        {title:'TestSpec drafted',status:'done',by:'alice.chen',at:'2026-10-17 10:48'},
+        {title:'Approved for execution',status:'done',by:'bob.kumar',at:'2026-10-17 11:02'},
+        {title:'Execution',status:'blocked',by:'—',at:'Blocked by durable store'},
+        {title:'Replay',status:'blocked',by:'—',at:'Pending execution'}
+      ],
+      result:{tone:'neutral',label:'PENDING_ACTIVATION',detail:'TestSpec v3 is approved and ready, but the durable-store migration is not complete. Test execution cannot proceed until migration finishes. This is not a test failure — it is an activation blocker, distinct from PENDING, NOT_STARTED, or BLOCKED.'}
+    },
+    response: { hasResponse: false, note: 'No test has executed, so no response workflow is open. Three blockers are tracked: target wiring, telemetry freshness, test activation.' },
+    frameworks: [
+      {name:'OWASP Agentic AI',ref:'AAI-06 · Insufficient guardrails',note:'Mapped — mapping is not certification'},
+      {name:'MITRE ATLAS',ref:'AML.T0012 · Valid Accounts',note:'Mapped — context only'}
+    ],
+    history: [
+      {time:'2026-10-17 11:02',what:'TestSpec v3 approved for execution',by:'bob.kumar'},
+      {time:'2026-10-17 10:48',what:'TestSpec v3 drafted',by:'alice.chen'},
+      {time:'2026-10-17 09:14',what:'Operating Envelope v12 approved · conditional',by:'alice.chen'},
+      {time:'2026-10-16 14:07',what:'Target PEP installation attempted · failed',by:'system'},
+      {time:'2026-10-16 14:07',what:'Last qualified telemetry event',by:'system'}
+    ]
+  },
+
+  /* ─── A04: awaiting approval ─── */
+  awaiting: {
+    id: 'a04', tabLabel: 'A04 · Awaiting approval', tone: 'amber',
+    controlId: 'A04', title: 'Observed action outside approved policy', family: 'Assurance',
+    owner: 'bob.kumar@example.com', version: 'catalog v1.4 · manifest A04-2026-10',
+    summary: 'Configuration is drafted but not yet approved. No reviewer is assigned. This control is observational — no target enforcement is expected, but without approval it cannot evaluate observed actions against policy.',
+    qualified: 2, attention: 4, blocked: 6,
+    nextAction: {
+      tone: 'danger',
+      title: 'Assign a reviewer to advance this request',
+      detail: 'Configuration v13-draft is awaiting review. No reviewer is assigned. SoD requires the reviewer to be different from the requester (bob.kumar).',
+      cta: 'Assign reviewer →', action: 'assign'
+    },
+    facets: [
+      { id: 'applicability', icon:'📋', label:'Applicability & catalog', state:'Applicable', tone:'success',
+        summary:'Control applies to this system in production. Runtime actions are observable.',
+        facts:[{l:'Catalog version',v:'v1.4',m:true},{l:'Family',v:'Assurance'},{l:'Decided',v:'2026-10-17 14:20 UTC'},{l:'Applicability basis',v:'Runtime actions observable; policy comparison required'}],
+        evidence:[{ref:'catalog.A04',s:'Control catalog entry v1.4'}],
+        next:null },
+      { id: 'configuration', icon:'⚙️', label:'Configuration · versioned policy', state:'Drafted · v13-draft', tone:'amber',
+        summary:'Configuration is drafted but not yet approved. Digest is provisional until approval completes.',
+        facts:[{l:'Configuration',v:'Operating Envelope v13-draft'},{l:'Digest',v:'pending · not frozen',m:true},{l:'Drafted at',v:'2026-10-17 14:20 UTC'},{l:'Drafted by',v:'bob.kumar@example.com'}],
+        evidence:[{ref:'envelope.v13.draft',s:'Draft configuration · not approved'}],
+        next:{text:'Submit draft for review. No digest is frozen until approval completes.'} },
+      { id: 'human-policy', icon:'👤', label:'Human authorization · policy', state:'PENDING · unassigned', tone:'amber',
+        summary:'Policy review was requested but no reviewer is assigned. Configuration cannot be approved without a named human.',
+        facts:[{l:'Policy decision',v:'PENDING'},{l:'Reviewer',v:'Unassigned'},{l:'Requested at',v:'2026-10-17 14:20 UTC'},{l:'Requested by',v:'bob.kumar@example.com'}],
+        evidence:[{ref:'review.request.a04.2026-10-17',s:'Review requested · unassigned'}],
+        next:{text:'Assign a reviewer via My Work → Assigned Approvals. Reviewer must differ from requester (SoD).'} },
+      { id: 'human-deploy', icon:'⚖️', label:'Human operational decision · deployment', state:'NOT_REQUESTED', tone:'neutral',
+        summary:'Deployment decision cannot be requested until policy approval completes. This is a sequencing fact, not a rejection.',
+        facts:[{l:'Decision',v:'NOT_REQUESTED'},{l:'Reason',v:'Policy approval must complete first'},{l:'No record',v:'No deployment decision exists yet'}],
+        evidence:[],
+        next:null },
+      { id: 'target-integration', icon:'🔌', label:'Deployed target integration', state:'N/A · observational control', tone:'neutral',
+        summary:'A04 is observational by design. It does not enforce at the target. No PEP wiring is expected or required.',
+        facts:[{l:'Integration type',v:'Not applicable'},{l:'Rationale',v:'Observational control — no target enforcement expected'},{l:'Note',v:'This facet is qualified by design'}],
+        evidence:[{ref:'control.a04.design',s:'A04 is observational by design · no PEP required'}],
+        next:null },
+      { id: 'monitoring', icon:'👁️', label:'Monitoring · source health', state:'Unknown · no baseline', tone:'neutral',
+        summary:'No qualified telemetry source is bound to this control. Baseline cannot be established without approval.',
+        facts:[{l:'Source',v:'Not bound'},{l:'Last event',v:'—'},{l:'Freshness',v:'UNKNOWN'},{l:'Baseline',v:'Not established'}],
+        evidence:[],
+        next:{text:'Once approved, bind the OTLP source and establish a baseline.'} },
+      { id: 'threshold', icon:'🚨', label:'Threshold · guardrail · alert', state:'Not configured', tone:'neutral',
+        summary:'Threshold cannot be configured without an approved policy and a bound source.',
+        facts:[{l:'Threshold',v:'Not configured'},{l:'Dependency',v:'Policy approval + source binding'}],
+        evidence:[],
+        next:null },
+      { id: 'kill-switch', icon:'🛑', label:'Kill Switch readiness', state:'N/A · observational control', tone:'neutral',
+        summary:'A04 does not require a kill-switch route. It compares observed actions against policy — it does not itself halt actions.',
+        facts:[{l:'Route',v:'Not applicable'},{l:'Rationale',v:'Observational control'}],
+        evidence:[],
+        next:null },
+      { id: 'target-enforcement', icon:'⚡', label:'Actual target enforcement', state:'N/A · observational control', tone:'neutral',
+        summary:'A04 does not make guard decisions. It evaluates observed actions against approved policy.',
+        facts:[{l:'Decision type',v:'Not applicable'},{l:'Model',v:'Compare-only'},{l:'Enforcement',v:'None'}],
+        evidence:[{ref:'control.a04.design',s:'A04 design · observational only'}],
+        next:null },
+      { id: 'verified-effect', icon:'✅', label:'Independently verified effect', state:'N/A · observational control', tone:'neutral',
+        summary:'A04 does not verify target effects. This is a compare-only control.',
+        facts:[{l:'Readback',v:'Not applicable'},{l:'Rationale',v:'Observational control'}],
+        evidence:[],
+        next:null },
+      { id: 'test-replay', icon:'🧪', label:'Control test · replay', state:'NOT_STARTED · blocked', tone:'neutral',
+        summary:'Test execution is blocked because configuration is pending approval. TestSpec cannot be drafted until configuration is approved.',
+        facts:[{l:'TestSpec',v:'Not drafted'},{l:'State',v:'NOT_STARTED'},{l:'Blocker',v:'Configuration pending approval'}],
+        evidence:[],
+        next:{text:'Test cannot proceed until configuration is approved and TestSpec is drafted.'} },
+      { id: 'change', icon:'🔄', label:'Change & revalidation', state:'New configuration', tone:'neutral',
+        summary:'This is a new control for this system. No prior evaluation exists.',
+        facts:[{l:'Config',v:'v13-draft'},{l:'Evaluated',v:'— · no prior',m:true},{l:'Last revalidation',v:'Never · new control'}],
+        evidence:[],
+        next:{text:'Complete approval → configuration → test → first evaluation.'} }
+    ],
+    testSpec: null,
+    response: { hasResponse: false, note: 'No test has executed. No response workflow is open.' },
+    frameworks: [
+      {name:'OWASP Agentic AI',ref:'AAI-04 · Delegated authority',note:'Mapped — mapping is not certification'},
+      {name:'NIST AI RMF',ref:'MEASURE 2.6 · Monitoring',note:'Mapped — no compliance claim'}
+    ],
+    history: [
+      {time:'2026-10-17 14:20',what:'Review requested · unassigned',by:'bob.kumar'},
+      {time:'2026-10-17 14:20',what:'Configuration v13-draft created',by:'bob.kumar'},
+      {time:'2026-10-17 14:20',what:'Control A04 added to system',by:'bob.kumar'}
+    ]
+  },
+
+  /* ─── S02: test failed ─── */
+  failed: {
+    id: 's02', tabLabel: 'S02 · Test failed', tone: 'danger',
+    controlId: 'S02', title: 'Multi-tenant isolation', family: 'Security',
+    owner: 'alice.chen@example.com', version: 'catalog v1.4 · manifest S02-2026-10',
+    summary: 'The control test detected a cross-tenant read reachable through an undeclared query path. Response workflow is open. Revalidation is blocked until RETEST_VERIFIED. Eight of twelve facets remain qualified — the failure is isolated to test result and revalidation.',
+    qualified: 8, attention: 2, blocked: 2,
+    nextAction: {
+      tone: 'danger',
+      title: 'Complete remediation and retest to close the finding',
+      detail: 'Remediation is in code review (ETA 2026-10-17 18:00 UTC). Only RETEST_VERIFIED clears the revalidation block. The response workflow is at step 5 of 7.',
+      cta: 'Open response →', action: 'response'
+    },
+    facets: [
+      { id: 'applicability', icon:'📋', label:'Applicability & catalog', state:'Applicable', tone:'success',
+        summary:'Control applies — multi-tenant data and cross-tenant paths exist in this system.',
+        facts:[{l:'Catalog version',v:'v1.4',m:true},{l:'Family',v:'Security'},{l:'Decided',v:'2026-10-15 09:14 UTC'},{l:'Applicability basis',v:'Multi-tenant data access in code + runtime'}],
+        evidence:[{ref:'catalog.S02',s:'Control catalog entry v1.4'}],
+        next:null },
+      { id: 'configuration', icon:'⚙️', label:'Configuration · versioned policy', state:'Configured · v11', tone:'success',
+        summary:'Operating Envelope v11 is active with multi-tenant isolation policy.',
+        facts:[{l:'Configuration',v:'Operating Envelope v11 + tenant policy'},{l:'Digest',v:'sha256:7c1b…a9d3',m:true},{l:'Policy',v:'deny cross-tenant reads/writes'},{l:'Configured at',v:'2026-10-16 22:15 UTC'}],
+        evidence:[{ref:'envelope.v11',s:'Operating Envelope v11 · frozen digest'}],
+        next:null },
+      { id: 'human-policy', icon:'👤', label:'Human authorization · policy', state:'Approved · alice.chen', tone:'success',
+        summary:'Policy approved by a named human with digest binding.',
+        facts:[{l:'Approver',v:'alice.chen@example.com'},{l:'Approved at',v:'2026-10-16 22:15 UTC'},{l:'Digest bound',v:'sha256:7c1b…a9d3',m:true}],
+        evidence:[{ref:'signature.kms.hk-4a2e-17',s:'KMS-signed policy approval'}],
+        next:null },
+      { id: 'human-deploy', icon:'⚖️', label:'Human operational decision · deployment', state:'APPROVED_SCOPED · bob.kumar', tone:'success',
+        summary:'Deployment decision recorded by a different named human. Scoped approval, expires in 7 days.',
+        facts:[{l:'Decision',v:'APPROVED_SCOPED'},{l:'Reviewer',v:'bob.kumar@example.com'},{l:'Expires',v:'2026-10-23 22:15 UTC',m:true},{l:'SoD',v:'Reviewer ≠ Policy approver'}],
+        evidence:[{ref:'decision.dep-s02-003',s:'Deployment decision · scoped'}],
+        next:null },
+      { id: 'target-integration', icon:'🔌', label:'Deployed target integration', state:'Wired · PEP v1.3', tone:'success',
+        summary:'Native tenant-isolation PEP installed at the data layer. Enforcement is active.',
+        facts:[{l:'Integration type',v:'Native PEP · data layer'},{l:'Adapter',v:'v1.3',m:true},{l:'Bound at',v:'2026-10-16 22:30 UTC'},{l:'Last ack',v:'2026-10-17 10:42:00 UTC'}],
+        evidence:[{ref:'pep.install.2026-10-16.2230',s:'PEP installation · digest verified'}],
+        next:null },
+      { id: 'monitoring', icon:'👁️', label:'Monitoring · source health', state:'Fresh · 8m ago', tone:'success',
+        summary:'Telemetry source is fresh. Baseline established. Alerts configured and delivered.',
+        facts:[{l:'Source',v:'OTLP collector · prod'},{l:'Last event',v:'2026-10-17 14:14 UTC'},{l:'Baseline',v:'7d rolling · n=22,840'},{l:'Freshness',v:'FRESH · 8m'}],
+        evidence:[{ref:'telemetry.baseline.s02',s:'Baseline snapshot · 22,840 qualified events'}],
+        next:null },
+      { id: 'threshold', icon:'🚨', label:'Threshold · guardrail · alert', state:'Configured · delivered', tone:'success',
+        summary:'Threshold configured. Alert delivery confirmed — including the recent denial event.',
+        facts:[{l:'Threshold',v:'Any cross-tenant read/write'},{l:'Last alert',v:'2026-10-17 10:42 UTC'},{l:'Delivery',v:'DELIVERY_CONFIRMED'},{l:'Delivery ≠ ACK',v:'Delivery ack ≠ incident acknowledgment'}],
+        evidence:[{ref:'alert.delivery.2026-10-17.1042',s:'Alert delivered · webhook ack'}],
+        next:null },
+      { id: 'kill-switch', icon:'🛑', label:'Kill Switch readiness', state:'Ready · tested 2026-10-09', tone:'success',
+        summary:'Kill Switch route configured and tested. Dry-run verified. No emergency dispatch has occurred.',
+        facts:[{l:'Route',v:'Halt cross-tenant reads on customer-db'},{l:'Last tested',v:'2026-10-09 10:14 UTC'},{l:'Test result',v:'Dry-run passed'},{l:'Dispatch',v:'No dispatch events'}],
+        evidence:[{ref:'killswitch.test.2026-10-09',s:'Kill switch dry-run · route verified'}],
+        next:null },
+      { id: 'target-enforcement', icon:'⚡', label:'Actual target enforcement', state:'1 denied · response open', tone:'amber',
+        summary:'A denial was recorded for a cross-tenant read. Response workflow is open and assigned. The denial itself is enforcement evidence, not a failure.',
+        facts:[{l:'Last decision',v:'DENY · cross-tenant read'},{l:'At',v:'2026-10-17 10:42:00 UTC'},{l:'Denials (24h)',v:'2 · cross-tenant'},{l:'Response',v:'OPEN · bob.kumar'}],
+        evidence:[{ref:'guard.deny.2026-10-17.1042',s:'Guard denial · cross-tenant read blocked'}],
+        next:{text:'Response workflow is tracking investigation. Denial is enforcement evidence, not a violation.'} },
+      { id: 'verified-effect', icon:'✅', label:'Independently verified effect', state:'TARGET_EFFECT_VERIFIED', tone:'success',
+        summary:'Independent readback confirms no data left the tenant boundary. This is the crucial verification for an isolation control.',
+        facts:[{l:'Readback',v:'customer-db query logs'},{l:'Verified at',v:'2026-10-17 10:42:00 UTC'},{l:'Result',v:'No cross-tenant data read'},{l:'Tx match',v:'query.2026-10-17.104200 ✓'}],
+        evidence:[{ref:'readback.customer-db.104200',s:'Independent readback · no data left tenant boundary'}],
+        next:null },
+      { id: 'test-replay', icon:'🧪', label:'Control test · replay', state:'EXECUTED · DETECTED_FINDING', tone:'danger',
+        summary:'TestSpec executed with approval. Result DETECTED_FINDING: a cross-tenant read was reachable via an undeclared query path. Replay confirmed. Receipt stored. This is a legitimate finding, not a test failure.',
+        facts:[{l:'TestSpec',v:'v2',m:true},{l:'Approved by',v:'bob.kumar · 09:30 UTC'},{l:'Result',v:'DETECTED_FINDING'},{l:'Replay',v:'DIGEST_MATCH · confirmed'}],
+        evidence:[{ref:'testspec.s02.v2',s:'TestSpec v2 · frozen · approval bound'},{ref:'test.result.s02.0932',s:'DETECTED_FINDING · query path reachable'},{ref:'replay.s02.0932',s:'Deterministic replay · digest match'},{ref:'receipt.rcpt-s02-2f4a-003',s:'Frozen receipt · immutable'}],
+        next:{text:'Response workflow must reach RETEST_VERIFIED before this control can be revalidated.'} },
+      { id: 'change', icon:'🔄', label:'Change & revalidation', state:'Blocked · finding open', tone:'amber',
+        summary:'Test detected a finding. Revalidation is blocked until remediation and retest complete.',
+        facts:[{l:'Config version',v:'v11 · current'},{l:'Evaluated version',v:'v11 · matches',m:true},{l:'TestSpec',v:'v2 · finding'},{l:'Blocked by',v:'Open finding · response workflow'}],
+        evidence:[{ref:'change.s02.finding',s:'Finding raised 2026-10-17 09:32 UTC'}],
+        next:{text:'Complete remediation and retest. Only RETEST_VERIFIED clears the revalidation block.'} }
+    ],
+    testSpec: {
+      version:'TestSpec v2', digest:'sha256:6b1e…d4a7', status:'EXECUTED · DETECTED_FINDING', tone:'danger',
+      chain:[
+        {title:'TestSpec drafted',status:'done',by:'alice.chen',at:'2026-10-17 09:10'},
+        {title:'Approved for execution',status:'done',by:'bob.kumar',at:'2026-10-17 09:30'},
+        {title:'Executed against frozen evidence',status:'done',by:'system',at:'2026-10-17 09:32'},
+        {title:'Deterministic replay confirmed',status:'done',by:'system',at:'2026-10-17 09:32'}
+      ],
+      result:{tone:'danger',label:'DETECTED_FINDING',detail:'TestSpec v2 executed against the frozen evidence basis. Result: a cross-tenant read was reachable through an undeclared query path. Deterministic replay confirmed. Receipt stored. Response workflow is open. This is a legitimate finding — not a test failure or infrastructure issue.'}
+    },
+    response: {
+      hasResponse: true,
+      tone: 'danger',
+      steps: [
+        {title:'Finding raised · incident opened',status:'done',time:'2026-10-17 09:32',detail:'DETECTED_FINDING · incident INC-2026-10-17-003 opened.'},
+        {title:'Notification delivered',status:'done',time:'2026-10-17 09:33',detail:'DELIVERY_CONFIRMED · webhook + email. Delivery ≠ ACK.'},
+        {title:'Acknowledged',status:'done',time:'2026-10-17 09:45',detail:'ACK by bob.kumar · investigation started. ACK ≠ remediation.'},
+        {title:'Escalated',status:'done',time:'2026-10-17 10:30',detail:'Escalated to alice.chen · S02 priority.'},
+        {title:'Remediation in progress',status:'active',time:'Now',detail:'Query-path fix in code review · ETA 2026-10-17 18:00 UTC.'},
+        {title:'Independent retest',status:'pending',time:'—',detail:'Pending remediation completion. Retest uses a fresh frozen evidence basis.'},
+        {title:'RETEST_VERIFIED',status:'pending',time:'—',detail:'Required before control revalidation. Only this state clears the block.'}
+      ]
+    },
+    frameworks: [
+      {name:'OWASP Agentic AI',ref:'AAI-05 · Cross-tenant leakage',note:'Mapped — mapping is not certification'},
+      {name:'MITRE ATLAS',ref:'AML.T0012 · Valid Accounts',note:'Mapped — context only'},
+      {name:'NIST AI RMF',ref:'GOVERN 1.2 · Data governance',note:'Mapped — no compliance claim'}
+    ],
+    history: [
+      {time:'2026-10-17 10:30',what:'Incident escalated to alice.chen',by:'bob.kumar'},
+      {time:'2026-10-17 09:45',what:'Finding acknowledged · investigation started',by:'bob.kumar'},
+      {time:'2026-10-17 09:32',what:'TestSpec v2 executed · DETECTED_FINDING',by:'system'},
+      {time:'2026-10-17 09:30',what:'TestSpec v2 approved for execution',by:'bob.kumar'},
+      {time:'2026-10-16 22:30',what:'Target PEP v1.3 wired · enforcement ack',by:'system'}
+    ]
+  }
+};
+
+/* ═══════════════════════════════════════════════
+   STATE
+   ═══════════════════════════════════════════════ */
+
+const state = {
+  scenario: 'mixed',
+  filter: 'all',
+  openFacets: new Set(['target-integration','monitoring','test-replay'])
+};
+
+function currentScenario() { return SCENARIOS[state.scenario]; }
+
+/* ═══════════════════════════════════════════════
+   UTILITIES
+   ═══════════════════════════════════════════════ */
+
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+
+function toast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;
+  t.classList.add('show');
+  clearTimeout(t._t);
+  t._t=setTimeout(()=>t.classList.remove('show'),3200);
+}
+
+function setScenario(id){
+  state.scenario = id;
+  state.filter = 'all';
+  // Auto-open first non-success facet
+  const sc = currentScenario();
+  const firstIssue = sc.facets.find(f => f.tone !== 'success');
+  state.openFacets = new Set(firstIssue ? [firstIssue.id] : []);
+  render();
+  document.getElementById('main-content').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function jumpToFacet(facetId){
+  state.openFacets.add(facetId);
+  render();
+  // Scroll to facet after render
+  setTimeout(()=>{
+    const el = document.getElementById('facet-'+facetId);
+    if(el){
+      el.scrollIntoView({behavior:'smooth',block:'center'});
+      el.classList.remove('pulse');
+      void el.offsetWidth;
+      el.classList.add('pulse');
+      setTimeout(()=>el.classList.remove('pulse'), 1300);
+    }
+  }, 30);
+}
+
+function toggleFacet(facetId){
+  if(state.openFacets.has(facetId)) state.openFacets.delete(facetId);
+  else state.openFacets.add(facetId);
+  render();
+}
+
+function expandAll(){
+  const sc = currentScenario();
+  state.openFacets = new Set(sc.facets.map(f=>f.id));
+  render();
+}
+
+function collapseAll(){
+  state.openFacets = new Set();
+  render();
+}
+
+/* ═══════════════════════════════════════════════
+   RENDER
+   ═══════════════════════════════════════════════ */
+
+function render(){
+  renderTabs();
+  const sc = currentScenario();
+  document.getElementById('main-content').innerHTML = `
+    ${renderControlSummary(sc)}
+    ${renderCompass(sc)}
+    <div class="filter-bar">
+      <button class="filter-chip ${state.filter==='all'?'active':''}" onclick="state.filter='all';render()">All facets (${sc.facets.length})</button>
+      <button class="filter-chip ${state.filter==='qualified'?'active':''}" onclick="state.filter='qualified';render()">Qualified (${sc.facets.filter(f=>f.tone==='success').length})</button>
+      <button class="filter-chip ${state.filter==='attention'?'active':''}" onclick="state.filter='attention';render()">Needs attention (${sc.facets.filter(f=>f.tone==='amber'||f.tone==='danger').length})</button>
+      <button class="filter-chip ${state.filter==='na'?'active':''}" onclick="state.filter='na';render()">Not applicable (${sc.facets.filter(f=>f.tone==='neutral').length})</button>
+      <div class="expand-actions">
+        <button class="btn btn-ghost btn-sm" onclick="expandAll()">Expand all</button>
+        <button class="btn btn-ghost btn-sm" onclick="collapseAll()">Collapse all</button>
+      </div>
+    </div>
+    <div class="grid-2col">
+      <div class="main-col">
+        ${renderFacetsSection(sc)}
+        ${sc.testSpec ? renderTestSpec(sc.testSpec) : ''}
+        ${renderResponse(sc.response)}
+        ${renderFrameworks(sc.frameworks)}
+        ${renderHistory(sc.history)}
+      </div>
+      <aside class="side-col">
+        ${renderNextAction(sc.nextAction)}
+        ${renderMetadata(sc)}
+        ${renderQuickActions(sc)}
+      </aside>
+    </div>
+  `;
+}
+
+function renderTabs(){
+  const el = document.getElementById('scenario-tabs');
+  el.innerHTML = Object.values(SCENARIOS).map(s => `
+    <button class="scenario-tab ${s.id===state.scenario?'active':''}" onclick="setScenario('${s.id}')">
+      <span class="tab-dot ${s.tone}"></span>${esc(s.tabLabel)}
+    </button>
+  `).join('');
+}
+
+function renderControlSummary(sc){
+  return `
+    <div class="control-summary ${sc.tone}">
+      <div class="control-summary-top">
+        <div class="control-summary-left">
+          <div class="control-id-label">${esc(sc.controlId)} · ${esc(sc.family)}</div>
+          <div class="control-title">${esc(sc.title)}</div>
+          <div class="control-summary-desc">${esc(sc.summary)}</div>
+        </div>
+        <div class="control-verdict-badge ${sc.tone}">
+          ${sc.qualified}/12 facets qualified
+          ${sc.attention ? ` · ${sc.attention} need attention` : ''}
+          ${sc.blocked ? ` · ${sc.blocked} blocked` : ''}
+        </div>
+      </div>
+      <div class="control-summary-stats">
+        <div class="summary-stat">
+          <div class="summary-stat-label">Qualified</div>
+          <div class="summary-stat-value qualified">${sc.qualified} of 12</div>
+        </div>
+        <div class="summary-stat">
+          <div class="summary-stat-label">Need attention</div>
+          <div class="summary-stat-value attention">${sc.attention}</div>
+        </div>
+        <div class="summary-stat">
+          <div class="summary-stat-label">Blocked</div>
+          <div class="summary-stat-value blocked">${sc.blocked}</div>
+        </div>
+        <div class="summary-stat">
+          <div class="summary-stat-label">Owner</div>
+          <div class="summary-stat-value" style="font-size:12px;">${esc(sc.owner)}</div>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function renderCompass(sc){
+  return `
+    <div class="compass-wrap">
+      <div class="compass-head">
+        <div class="compass-title">12-facet operational lifecycle</div>
+        <div class="compass-legend">
+          <span class="legend-item"><span class="legend-swatch success"></span>Qualified</span>
+          <span class="legend-item"><span class="legend-swatch amber"></span>Attention</span>
+          <span class="legend-item"><span class="legend-swatch danger"></span>Blocked / failed</span>
+          <span class="legend-item"><span class="legend-swatch neutral"></span>Not applicable</span>
+        </div>
+      </div>
+      <div class="compass">
+        ${sc.facets.map((f, i) => `
+          <button class="compass-cell ${f.tone}" onclick="jumpToFacet('${f.id}')" title="${esc(f.label)}">
+            <span class="compass-num">${String(i+1).padStart(2,'0')}</span>
+            <span class="compass-icon">${f.icon}</span>
+            <span class="compass-label">${esc(f.label.split('·')[0].trim())}</span>
+            <span class="compass-state">${esc(f.state)}</span>
+          </button>
+        `).join('')}
+      </div>
+    </div>
+  `;
+}
+
+function renderFacetsSection(sc){
+  let facets = sc.facets;
+  if (state.filter === 'qualified') facets = facets.filter(f => f.tone === 'success');
+  else if (state.filter === 'attention') facets = facets.filter(f => f.tone === 'amber' || f.tone === 'danger');
+  else if (state.filter === 'na') facets = facets.filter(f => f.tone === 'neutral');
+
+  return `
+    <div class="facets-section">
+      <div class="facets-section-head">
+        <div class="facets-section-title">12 operational facets</div>
+        <div class="facets-section-sub">Each facet is qualified independently — by a different source, actor, and time basis. A control with ${sc.qualified}/12 facets qualified is not "${Math.round(sc.qualified/12*100)}% passed" — it is in a specific operational state that depends on which facets. Click any facet to expand.</div>
+      </div>
+      <div class="facets-list">
+        ${facets.length ? facets.map(f => renderFacet(f, sc.facets.indexOf(f))).join('') : '<div style="text-align:center;padding:32px 20px;color:var(--text-muted);font-size:13px;">No facets match this filter.</div>'}
+      </div>
+    </div>
+  `;
+}
+
+function renderFacet(f, index){
+  const open = state.openFacets.has(f.id);
+  const stateLabel = f.state;
+  return `
+    <div class="facet ${f.tone} ${open?'open':''}" id="facet-${f.id}">
+      <button class="facet-head" onclick="toggleFacet('${f.id}')">
+        <span class="facet-num">${String(index+1).padStart(2,'0')}</span>
+        <span class="facet-icon">${f.icon}</span>
+        <span class="facet-label">${esc(f.label)}</span>
+        <span class="facet-state ${f.tone}">${esc(stateLabel)}</span>
+        <span class="facet-chev">▼</span>
+      </button>
+      <div class="facet-body">
+        <div class="facet-summary">${esc(f.summary)}</div>
+        <div class="facet-facts">
+          ${f.facts.map(x => `
+            <div class="facet-fact">
+              <span class="facet-fact-label">${esc(x.l)}</span>
+              <span class="facet-fact-value ${x.m?'mono':''}">${esc(x.v)}</span>
+            </div>
+          `).join('')}
+        </div>
+        ${f.evidence && f.evidence.length ? `
+          <div class="facet-evidence">
+            <div class="facet-evidence-title">Evidence references (${f.evidence.length})</div>
+            ${f.evidence.map(ev => `
+              <div class="ev-item">
+                <span class="ev-ref">${esc(ev.ref)}</span>
+                <span class="ev-summary">${esc(ev.s)}</span>
+              </div>
+            `).join('')}
+          </div>
+        ` : ''}
+        ${f.next ? `
+          <div class="facet-next">
+            <strong>Next step:</strong>
+            <span>${esc(f.next.text)}</span>
+          </div>
+        ` : ''}
+      </div>
+    </div>
+  `;
+}
+
+function renderTestSpec(ts){
+  return `
+    <div class="section">
+      <div class="section-head">
+        <div>
+          <div class="section-title">TestSpec & execution</div>
+          <div class="section-sub">Versioned, digest-bound. Test approval ≠ deployment approval. Approval is required before execution.</div>
+        </div>
+      </div>
+      <div class="section-pad">
+        <div class="testspec-card">
+          <div class="testspec-head">
+            <div>
+              <div class="testspec-version">${esc(ts.version)}</div>
+              <div class="testspec-digest">${esc(ts.digest)}</div>
+            </div>
+            <span class="testspec-status ${ts.tone}">${esc(ts.status)}</span>
+          </div>
+          <div class="approval-chain">
+            ${ts.chain.map(step => `
+              <div class="approval-step ${step.status}">
+                <div class="approval-icon ${step.status}">${step.status==='done'?'✓':step.status==='active'?'●':step.status==='blocked'?'×':'·'}</div>
+                <div class="approval-body">
+                  <div class="approval-title">${esc(step.title)}</div>
+                  <div class="approval-meta">${esc(step.by)} · ${esc(step.at)}</div>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+        <div class="result-block ${ts.result.tone}">
+          <div class="result-title">
+            ${ts.result.tone==='success'?'✓':ts.result.tone==='danger'?'⚠':ts.result.tone==='amber'?'◐':'·'}
+            ${esc(ts.result.label)}
+          </div>
+          <div class="result-detail">${esc(ts.result.detail)}</div>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function renderResponse(resp){
+  if (!resp.hasResponse) {
+    return `
+      <div class="section">
+        <div class="section-head">
+          <div>
+            <div class="section-title">Response & retest workflow</div>
+            <div class="section-sub">Notification delivery ≠ ACK ≠ remediation ≠ RETEST_VERIFIED. Each state is tracked independently.</div>
+          </div>
+        </div>
+        <div class="section-pad">
+          <div class="callout callout-info" style="font-size:13px;">
+            ${esc(resp.note)}
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  return `
+    <div class="section">
+      <div class="section-head">
+        <div>
+          <div class="section-title">Response & retest workflow</div>
+          <div class="section-sub">Notification delivery ≠ ACK ≠ remediation ≠ RETEST_VERIFIED. Only RETEST_VERIFIED clears the revalidation block.</div>
+        </div>
+        <span class="chip chip-${resp.tone}">${resp.steps.filter(s=>s.status==='done').length}/${resp.steps.length} complete</span>
+      </div>
+      <div class="section-pad">
+        <div class="response-timeline">
+          ${resp.steps.map(step => `
+            <div class="response-step ${step.status}">
+              <div class="response-step-head">
+                <span class="response-step-title">${esc(step.title)}</span>
+                <span class="response-step-time">${esc(step.time)}</span>
+              </div>
+              <div class="response-step-detail">${esc(step.detail)}</div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function renderFrameworks(frameworks){
+  if (!frameworks || !frameworks.length) return '';
+  return `
+    <div class="section">
+      <div class="section-head">
+        <div>
+          <div class="section-title">Related frameworks</div>
+          <div class="section-sub">Mappings provide context. Mapping ≠ applicability ≠ assessed obligation ≠ certified compliance.</div>
+        </div>
+      </div>
+      <div class="section-pad">
+        <div class="frameworks-grid">
+          ${frameworks.map(f => `
+            <div class="framework-card">
+              <div class="framework-name">${esc(f.name)}</div>
+              <div class="framework-ref">${esc(f.ref)}</div>
+              <div class="framework-note">${esc(f.note)}</div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function renderHistory(history){
+  if (!history || !history.length) return '';
+  return `
+    <div class="section">
+      <div class="section-head">
+        <div>
+          <div class="section-title">Change history</div>
+          <div class="section-sub">Every configuration, authorization, execution and response event is recorded with actor and time.</div>
+        </div>
+      </div>
+      <div class="section-pad">
+        <div class="history-list">
+          ${history.map(h => `
+            <div class="history-item">
+              <span class="history-time">${esc(h.time)}</span>
+              <span class="history-what">${esc(h.what)}</span>
+              <span class="history-by">${esc(h.by)}</span>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function renderNextAction(na){
+  if (!na) return '';
+  return `
+    <div class="side-card next-action ${na.tone}">
+      <div class="next-action-eyebrow">Next best action</div>
+      <div class="next-action-title">${esc(na.title)}</div>
+      <div class="next-action-detail">${esc(na.detail)}</div>
+      <button class="next-action-btn" onclick="handleNextAction('${na.action}')">${esc(na.cta)}</button>
+    </div>
+  `;
+}
+
+function renderMetadata(sc){
+  return `
+    <div class="side-card">
+      <div class="side-title">Control metadata</div>
+      <div class="meta-list">
+        <div class="meta-row"><span class="meta-label">Control ID</span><span class="meta-value mono">${esc(sc.controlId)}</span></div>
+        <div class="meta-row"><span class="meta-label">Objective</span><span class="meta-value" style="text-align:right;font-size:12px;">${esc(sc.title)}</span></div>
+        <div class="meta-row"><span class="meta-label">Family</span><span class="meta-value">${esc(sc.family)}</span></div>
+        <div class="meta-row"><span class="meta-label">Owner</span><span class="meta-value" style="font-size:12px;">${esc(sc.owner)}</span></div>
+        <div class="meta-row"><span class="meta-label">Version</span><span class="meta-value mono" style="font-size:11px;">${esc(sc.version)}</span></div>
+        <div class="meta-row"><span class="meta-label">System</span><span class="meta-value">Support Agent v2</span></div>
+      </div>
+    </div>
+  `;
+}
+
+function renderQuickActions(sc){
+  const canRunTest = !!(sc.testSpec && sc.testSpec.status === 'EXECUTED');
+  const canConfigure = sc.tone !== 'danger' || state.scenario === 'failed';
+  return `
+    <div class="side-card">
+      <div class="side-title">Actions</div>
+      <div class="side-actions">
+        <button class="side-action" onclick="previewConfigure()">
+          <span class="side-action-icon">⚙️</span>
+          <div class="side-action-body">
+            <div class="side-action-title">Configure</div>
+            <div class="side-action-detail">Open policy editor (preview)</div>
+          </div>
+          <span class="side-action-arrow">→</span>
+        </button>
+        <button class="side-action" ${!canRunTest?'disabled':''} onclick="${canRunTest?'previewRunTest()':'toast(\'Test execution blocked — see test facet for details\')'}">
+          <span class="side-action-icon">🧪</span>
+          <div class="side-action-body">
+            <div class="side-action-title">Run test</div>
+            <div class="side-action-detail">${canRunTest?'Executes TestSpec (preview)':'Blocked by activation or approval'}</div>
+          </div>
+          <span class="side-action-arrow">→</span>
+        </button>
+        <button class="side-action" onclick="previewExport()">
+          <span class="side-action-icon">↓</span>
+          <div class="side-action-body">
+            <div class="side-action-title">Export receipt</div>
+            <div class="side-action-detail">Full control receipt (preview)</div>
+          </div>
+          <span class="side-action-arrow">→</span>
+        </button>
+        <button class="side-action" onclick="previewAuditLog()">
+          <span class="side-action-icon">📋</span>
+          <div class="side-action-body">
+            <div class="side-action-title">Open audit log</div>
+            <div class="side-action-detail">Full event history</div>
+          </div>
+          <span class="side-action-arrow">→</span>
+        </button>
+      </div>
+    </div>
+  `;
+}
+
+/* ═══════════════════════════════════════════════
+   ACTION HANDLERS
+   ═══════════════════════════════════════════════ */
+
+function handleNextAction(action){
+  const sc = currentScenario();
+  if (action === 'receipt') {
+    previewExport();
+  } else if (action === 'config') {
+    previewConfigure();
+  } else if (action === 'assign') {
+    openModal({
+      title:'Assign a reviewer',
+      sub:'This is a preview. Real reviewer assignment requires authenticated write, an eligible org member, and SoD validation (reviewer ≠ requester).',
+      body:`
+        <div style="font-size:13px;line-height:1.6;">
+          <div style="margin-bottom:12px;"><strong>Request:</strong> Configuration v13-draft for ${esc(sc.controlId)} on Support Agent v2</div>
+          <div style="margin-bottom:12px;"><strong>Requester:</strong> bob.kumar@example.com</div>
+          <div style="margin-bottom:12px;"><strong>Required:</strong> A reviewer different from the requester (separation of duties)</div>
+          <div style="padding:10px 12px;background:var(--amber-bg);border:1px solid var(--amber-border);border-radius:var(--r-xs);font-size:12px;color:var(--amber);">
+            <strong>Note:</strong> In production this opens a reviewer picker filtered to eligible org members with appropriate roles. The reviewer is notified in-app, and can then open the exact decision packet to approve, reject, or request changes.
+          </div>
+        </div>
+      `,
+      buttons:[
+        {label:'Cancel',style:'ghost',action:closeModal},
+        {label:'Preview only — not executed',style:'primary',disabled:true}
+      ]
+    });
+  } else if (action === 'response') {
+    openModal({
+      title:'Open response workflow',
+      sub:'This is a preview. The full response timeline is visible in the section below — this modal would open a dedicated workflow view.',
+      body:`
+        <div style="font-size:13px;line-height:1.6;">
+          <div style="margin-bottom:8px;"><strong>Incident:</strong> INC-2026-10-17-003</div>
+          <div style="margin-bottom:8px;"><strong>Current step:</strong> Remediation in progress (step 5 of 7)</div>
+          <div style="margin-bottom:8px;"><strong>Owner:</strong> bob.kumar@example.com (assigned)</div>
+          <div style="margin-bottom:8px;"><strong>ETA:</strong> 2026-10-17 18:00 UTC (code review in progress)</div>
+          <div style="padding:10px 12px;background:var(--primary-light);border:1px solid var(--primary-border);border-radius:var(--r-xs);font-size:12px;color:var(--primary);">
+            <strong>Required:</strong> Complete remediation → independent retest → RETEST_VERIFIED. Only RETEST_VERIFIED clears the revalidation block.
+          </div>
+        </div>
+      `,
+      buttons:[
+        {label:'Close',style:'ghost',action:closeModal},
+        {label:'Open workflow (preview)',style:'primary',disabled:true}
+      ]
+    });
+  }
+}
+
+function previewConfigure(){
+  const sc = currentScenario();
+  openModal({
+    title:'Open configuration editor',
+    sub:'This is a preview. In production, this opens the versioned policy editor for this control.',
+    body:`
+      <div style="font-size:13px;line-height:1.6;">
+        <div style="margin-bottom:8px;"><strong>Current configuration:</strong> ${sc.facets.find(f=>f.id==='configuration').state}</div>
+        <div style="margin-bottom:8px;"><strong>Owner:</strong> ${esc(sc.owner)}</div>
+        <div style="padding:10px 12px;background:var(--amber-bg);border:1px solid var(--amber-border);border-radius:var(--r-xs);font-size:12px;color:var(--amber);">
+          <strong>Note:</strong> Editing creates a new draft. Config changes require approval by a named human before they affect enforcement or evaluation.
+        </div>
+      </div>
+    `,
+    buttons:[
+      {label:'Cancel',style:'ghost',action:closeModal},
+      {label:'Open editor (preview)',style:'primary',disabled:true}
+    ]
+  });
+}
+
+function previewRunTest(){
+  const sc = currentScenario();
+  openModal({
+    title:'Run control test',
+    sub:'This is a preview. In production, running a test requires an approved TestSpec, durable-store activation, and may produce a finding.',
+    body:`
+      <div style="font-size:13px;line-height:1.6;">
+        <div style="margin-bottom:8px;"><strong>TestSpec:</strong> ${esc(sc.testSpec.version)}</div>
+        <div style="margin-bottom:8px;"><strong>Approved by:</strong> bob.kumar@example.com</div>
+        <div style="margin-bottom:8px;"><strong>Current state:</strong> ${esc(sc.testSpec.status)}</div>
+        <div style="padding:10px 12px;background:var(--primary-light);border:1px solid var(--primary-border);border-radius:var(--r-xs);font-size:12px;color:var(--primary);">
+          <strong>What would happen:</strong> The engine would re-execute the TestSpec against a fresh frozen evidence basis, produce a result (NO_FINDING_OBSERVED, DETECTED_FINDING, or COVERAGE_INSUFFICIENT), confirm the replay digest, and store an immutable receipt.
+        </div>
+      </div>
+    `,
+    buttons:[
+      {label:'Cancel',style:'ghost',action:closeModal},
+      {label:'Run test (preview)',style:'primary',disabled:true}
+    ]
+  });
+}
+
+function previewExport(){
+  const sc = currentScenario();
+  openModal({
+    title:'Export control receipt',
+    sub:'This is a preview. In production, this produces a signed PDF containing all twelve facets, TestSpec, execution result, and response history.',
+    body:`
+      <div style="font-size:13px;line-height:1.6;">
+        <div style="margin-bottom:8px;"><strong>Control:</strong> ${esc(sc.controlId)} · ${esc(sc.title)}</div>
+        <div style="margin-bottom:8px;"><strong>Facets qualified:</strong> ${sc.qualified} of 12</div>
+        <div style="margin-bottom:8px;"><strong>Frozen at:</strong> 2026-10-17 14:22 UTC</div>
+        <div style="padding:10px 12px;background:var(--primary-light);border:1px solid var(--primary-border);border-radius:var(--r-xs);font-size:12px;color:var(--primary);">
+          <strong>Receipt includes:</strong> per-facet state and evidence references, TestSpec approval chain, execution result and replay digest, response workflow timeline, framework mappings (labeled as context, not certification).
+        </div>
+      </div>
+    `,
+    buttons:[
+      {label:'Cancel',style:'ghost',action:closeModal},
+      {label:'Export PDF (preview)',style:'primary',disabled:true}
+    ]
+  });
+}
+
+function previewAuditLog(){
+  openModal({
+    title:'Open audit log',
+    sub:'This is a preview. In production, this opens the full append-only event log for this control.',
+    body:`
+      <div style="font-size:13px;line-height:1.6;">
+        <div style="margin-bottom:8px;"><strong>Events in the last 90 days:</strong> ${currentScenario().history.length} shown above, more in full log</div>
+        <div style="margin-bottom:8px;"><strong>Includes:</strong> configuration changes, approvals, deployments, test executions, response events, revocations</div>
+        <div style="padding:10px 12px;background:var(--primary-light);border:1px solid var(--primary-border);border-radius:var(--r-xs);font-size:12px;color:var(--primary);">
+          <strong>Note:</strong> The audit log is append-only and digest-bound. Records cannot be deleted or modified — only appended.
+        </div>
+      </div>
+    `,
+    buttons:[
+      {label:'Close',style:'ghost',action:closeModal}
+    ]
+  });
+}
+
+/* ═══════════════════════════════════════════════
+   MODAL CHROME
+   ═══════════════════════════════════════════════ */
+
+function openModal({title,sub,body,buttons}){
+  document.getElementById('modal-title').textContent=title;
+  document.getElementById('modal-sub').textContent=sub;
+  document.getElementById('modal-body').innerHTML=body;
+  document.getElementById('modal-foot').innerHTML=buttons.map(b=>
+    `<button class="btn btn-${b.style==='primary'?'primary':b.style==='ghost'?'ghost':'secondary'}" ${b.disabled?'disabled style="opacity:0.5;cursor:not-allowed;"':''} onclick="${b.disabled?'':(b.action===closeModal?'closeModal()':b.action)}">${esc(b.label)}</button>`
+  ).join('');
+  document.getElementById('modal-backdrop').classList.add('open');
+}
+
+function closeModal(){
+  document.getElementById('modal-backdrop').classList.remove('open');
+}
+
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape' && document.getElementById('modal-backdrop').classList.contains('open')){
+    closeModal();
+  }
+});
+
+/* ═══════════════════════════════════════════════
+   INIT
+   ═══════════════════════════════════════════════ */
+
+render();
+</script>
+</body>
+</html>
