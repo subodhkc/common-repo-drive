@@ -5,6 +5,8 @@
 > **Latest product-design addendum (2026-10-17):** [HAIEC E6 Enterprise UX, Role & Approval Journeys, Control Setup, Evidence & Middleware Dependency Review](./haiec-product-capability-architecture/E6-ENTERPRISE-UX-ROLE-OPERATIONS-CONTROL-EVIDENCE-DEPENDENCY-DESIGN-REVIEW-2026-10-17.md). Includes source-backed remaining UX gaps and regression-safe workflow dependencies across the known AI estate, systems, agents, U5/U6, E5.1 and UCP. Earlier implementation-status paragraphs below are dated history; this document is design review, not deployed functionality.
 
 
+> **2026-10-17 product-entry UX decision:** [HAIEC consequence-first promise, three entry choices, six job cards and contextual inspector design](./haiec-product-capability-architecture/HAIEC-PRODUCT-ENTRY-CONSEQUENCE-ONTOLOGY-JOBS-AND-INSPECTOR-UX-DECISION-2026-10-17.md). Keeps exact technical consequence ontology; people may start from a system, a goal or evidence without being required to know the consequence. This is a source-checked design decision, **not shipped UX**.
+
 **Concurrent Sprint 28 correction:** [Sprint 28 status](./haiec-product-capability-architecture/SPRINT-28-DECISION-INTEGRITY-STATUS-2026-10-16.md) records a **simulated** PO partial-mutation defect repaired at the shared commit boundary. GitHub manufacturing `main` `1fa4c640` is a code-merge observation, not Vercel runtime verification. See the [full audit](./haiec-product-capability-architecture/COMMON-REPO-FULL-52-FILE-ALIGNMENT-AUDIT-2026-10-16.md) for versioned caveats.
 
 ## Start here — current HAIEC / Kestrel decision authority
