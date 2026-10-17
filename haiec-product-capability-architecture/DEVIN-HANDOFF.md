@@ -165,3 +165,7 @@ No new engine, registry, permission layer, evidence store, or persisted state. R
 4. **T1 (after E1–E7 + gates):** external KestrelVoice black-box MCP acceptance — independent workspace, isolated test tenant, numbered redacted screenshots. NOT started; do not simulate.
 
 Full per-file details: appended "Implementation record" sections in the E1 and E2 contracts; 14 subtask rows in `E1-E2-IMPLEMENTATION-READY-SUBTASKS-AND-OWNER-GATES-2026-10-16.csv` moved to `DEPLOYED_VERIFIED`.
+
+## Post-merge E1/E2 source review — October 16–17, 2026
+
+See [source-level code review and small remediation packet](E1-E2-POST-MERGE-CODE-REVIEW-AND-REMEDIATION-2026-10-16.md). PR #2222 is merged and its Vercel deployment returned success. **Do not equate this with real per-tenant execution proof.** The review found one P0 product-truth contract defect (U5 assurance disposition projected into `approvalStatus`) and P1 next-action eligibility/consent-scope and comparison/receipt wording concerns. These are *presentation/projection issues requiring owner review*, not confirmed server authorization bypasses. Recommended next step is a bounded E1/E2 correctness patch, coordinated with separately owned E3 PR #2220 and E4 telemetry, before claiming per-user availability accurate across all privileged actions. Kestrel external MCP acceptance is still deferred.
