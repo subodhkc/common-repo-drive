@@ -1,0 +1,44 @@
+# HAIEC — UX-P04.1 independent acceptance, residual risk and UX-P05 handoff
+
+**Actual review date:** 2026-10-17. **Status:** UX-P04.1 **DEPLOYED_VERIFIED** (independent merge/CI/deployment), **behavioral enterprise acceptance PARTIAL** (Devin's dev smoke reported; not independently rerun). **No HAIEC product code changed in this review.**
+
+**Product source:** `subodhkc/haiec-website` [PR #2238](https://github.com/subodhkc/haiec-website/pull/2238) closed/merged; exact `Main` SHA `0fdf0f2f88c4ee67cc4aafdd03e8d2c3b3f63ca6`; changed precisely `components/ai-inventory/AssuranceCasePanel.tsx`, `tests/unit/assurance-case-ux-p04.test.ts`, and `tests/unit/assurance-case-ux-p041.test.ts`. [Vercel](https://vercel.com/suvodkc-7643s-projects/haiec-website-vercel/2s3yC179PZi1NDo5aX6cLcj2Dx6A) deployment ID `dpl_2s3yC179PZi1NDo5aX6cLcj2Dx6A`, `READY`, target production, commit SHA exact, `haiec.com` and `www.haiec.com` aliases verified. [GitHub lint gate](https://github.com/subodhkc/haiec-website/actions/runs/39054034192) and [Consolidated pipeline](https://github.com/subodhkc/haiec-website/actions/runs/39054034259) both completed **success** on exact SHA. **Note:** Devin implementation record filename has `2026-10-20` but the actual review/release observation is 2026-10-17; preserve original archival filename rather than silently rewriting dates.
+
+Read with [P04.1 implementation record](UX-P04.1-CASE-INTEGRITY-IMPLEMENTATION-RECORD-2026-10-20.md) and [original P04 audit](UX-P04-INDEPENDENT-POST-MERGE-ACCEPTANCE-AND-P04.1-RELIABILITY-REVIEW-2026-10-17.md).
+
+## 1. Independent source findings — original five gaps
+
+| Prior gap | Actual shipped source | Acceptance status |
+|---|---|---|
+| G01 selector contains pending/failed | `selectableFrozenEvaluations(rows)` retains only `evaluationStatus==='COMPLETED'`; `classifySelectedSummary()` validates exact `evaluationId`, `aiSystemId`, and `u5DecisionBasis.evaluationStatus==='COMPLETED'`. Status is really exposed by canonical list and exact summary routes. | **SOURCE_VERIFIED**; Devin reports helper behavioral tests and live dev selector with two completed and one failed. |
+| G02 governance failure blanks entire case | Governance fetch now cancels on `systemId` change and resets own gov state; `Case/Basis/Planes/Next` render from already-available `workspace`; governance loading/failure is isolated to `#ac-govern`, and E5.1 facts/aggregate counts render only when `gov` loaded. | **SOURCE_VERIFIED**; Devin reports forced governance HTTP 500 dev-browser acceptance. |
+| G03 selected historical gets latest planes/receipt | Plane heading explicitly says `latest completed evaluation basis`; historical selection gets latest-plane/receipt boundary wording. No fabricated frozen plane read. | **SOURCE_VERIFIED**; historical note with *assessed* latest planes not browser-run (seed planeAvailability unassessed). |
+| G04 selector implies full history | UI displays completed count of bounded recent 20-record window and a `?tab=assurance` navigation link. | **SOURCE_VERIFIED**; link exists, but **do not call this a guaranteed all-time uncapped history archive** without checking its underlying data/query. |
+| G05 no observed evidence sounds like no actions happened | Source says `no observed action established in this connected evidence projection`. | **SOURCE_VERIFIED**. |
+
+Devin reports **61/61** targeted locks (including 11 executing pure helpers), TS/changed-file lint clean, unchanged 3 adjacent baseline failures, dev browser at 1440/390 using two temporary development-only evaluation rows (removed), and forced 500. These local steps are **DEVELOPER_REPORTED**, not independently rerun. Viewer-role, multi-org switching, assessed-historical-plane case, and direct non-completed-summary rendering remain **NOT_RUN**. Static test success is not exhaustive runtime acceptance.
+
+## 2. Small residual code-level issue, not a blocker for UX-P05
+
+**P04-R01 — stale selector state on in-place system changes (P2; source-level possibility, NOT LIVE_REPRODUCED).** `AssuranceCasePanel` now cancels/resets only its `gov` read when `systemId` changes. But `evalList`, `evalListFailed`, `selectedEvalId`, `selSummary`, `selState` live across prop changes. List effect cancels stale responses but does not reset list/error; the initial-selection effect only chooses the new latest if `!selectedEvalId`. If React reuses the panel instance between system IDs (rather than remounting the Next page), old options/selection may remain or be briefly displayed. The selected-summary exact identity check **withholds** a wrong-system response; canonical endpoints enforce resource authorization. **This is not a verified cross-tenant leak or an established customer production incident.**
+
+**Future small fix direction:** reset selection/list/error/detail on exact `systemId`/latestEval identity changes or key the case subtree on system identity after checking router behavior; guard transient stale renders as well as async completions; test A→B→A, owner/org switch and two evals each. Do not mix into DAI screen and do not launch P04.2 automatically. Similar separate maintenance item exists for P03.1 zero-result search clear -> transient false zero-estate onboarding. Dashboard D01–D03 data-truth P1 lane remains independently owned.
+
+## 3. UX-P05 — next independent Agent Action / DAI session
+
+**Read first:** [DAI/Assurance design review](HAIEC-DEEPSEEK-DAI-AND-ASSURANCE-UX-REFERENCES-VALIDATION-AND-ADDITIVE-DESIGN-2026-10-17.md), [cross-system engineering gate](E62-CROSS-SYSTEM-DAI-DELEGATION-ENGINEERING-CONTRACT-2026-10-20.md), [page-by-page UX roadmap](HAIEC-PAGE-BY-PAGE-UX-DESIGN-AND-VALIDATION-PROGRAM-2026-10-17.md), [UX-P04.1 source status](UX-P04.1-CASE-INTEGRITY-IMPLEMENTATION-RECORD-2026-10-20.md), and current application code.
+
+**Authoritative existing owners:**
+- `lib/assurance/dai-evaluation.ts` and `lib/assurance/dai-assembler.ts`: canonical DAI semantics, scoped grant comparisons, dispositions and explicit unknowns; do not reproduce in client/LLM.
+- `lib/ai-inventory/system-action-authority.ts`: three distinct current source/evaluated/current-policy bases and divergence (divergence != verdict).
+- `lib/control-test/ucp/delegation-witness.ts`: same-system, same-org/run boundary witnesses; do not quietly imply cross-system proof.
+- `SystemWorkspace.tsx` and existing Action Map/Constellation routes: all present system/agent action and topology navigation, selected path/evaluation deep links, canonical proofs and technical detail; **enhance in place**.
+- MCP `POST /api/mcp` uses scoped API-key identity; browser uses session/role checks. Both must project the same persisted DAI/evidence and limitation owners, not add MCP autonomous approval or alternative DAI scoring.
+
+**UX-P05 desired visible customer journey:** identify *what an agent can cause* → choose a real action/chain identity and current or exact evaluated basis → inspect root/parent/child/tool/provider hop(s) and the **first source-qualified wider / unqualified or unknown junction**, with all chain branches representable → inspect canonical nine DAI dimensions (OPERATION, TARGET, SCOPE, MAGNITUDE, DURATION, APPROVAL, DATA_CLASS, ENVIRONMENT, GEOGRAPHY) as **independent categorical comparisons** `MATCHES / BROADER / NARROWER / MISSING / UNKNOWN` only where the read model supports them, with evidence refs → explicit qualified observed outcome vs dispatch/ack vs independently applied effect → link to proof/source/assurance case/report and next permitted action. Accessible table alternative, responsive 390/768/1280/1440, keyboard and roles. Never convert missing grant to violation, observed to authorized, source reachability to deployed operation or absent readback to confirmed no effect. Same-system proof must be labeled as such; cross-system joins remain `CANDIDATE/NOT_VERIFIED/NOT_ASSESSED` until issuer/target principal identity, grant scope, trace continuity, cryptographic producer provenance and independent effect readback meet the documented gate. Scope must be implementation-scoped, no new cross-system backend engine for visual redesign.
+
+**Delivery:** check active PR/file ownership first, minimal additive PR with focused behavioral truth locks and browser smoke using authorized dev fixtures, preserve legacy workspace tabs/report/deep links and simulation labels, merge to `Main` after required gates, verify exact-SHA Vercel production deployment and update Common Repo roadmap/handoff/implementation record. Stop after P05. No dashboard D01–D03, P03.1/P04 residual maintenance, P07 detection, P08 controls, P09 human decisions or P10 runtime system rewrite in this PR.
+
+## Disposition
+
+**Ship acceptance:** P04.1 genuinely fixes reviewed G01–G05 at code/read-model level; no reason to block P05 or reopen P04. Carry P04-R01 to small independent maintenance and record viewer/multi-org browser acceptance as outstanding, not falsely complete.
