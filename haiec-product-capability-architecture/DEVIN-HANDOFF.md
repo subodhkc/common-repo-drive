@@ -1,5 +1,8 @@
 # Devin Implementation Handoff — HAIEC Product Architecture Convergence
 
+> **2026-10-17 NEW DeepSeek Overview/Estate mock review:** [Independently checked additive curation, negative browser tests and archive decision](UX-P02-P03-DEEPSEEK-OVERVIEW-ESTATE-REFRESH-REVIEW-2026-10-17.md). The new overview HTML exists in ChatGPT attachment only; **not available to Devin**; the already archived 14-page atlas conveys its useful layouts. The second My Work upload is identical to the existing P09 archived HTML. Never use the new mock's broken input rerender, 5/7 hidden mobile topology nodes, mobile table clipping, made-up 7-rung “fully qualified” or client role switcher. **Next actual code scope = minimal P03.1 P1 enterprise completeness corrections**, with focus-preserving server search and stale-read protection; next separate design page = P04. No P02/P03 redesign or new MCP/write authority.
+
+
 > **Latest verified UX handoff (2026-10-17):** P03 AI Estate PR #2235 shipped on `Main` `d62471f20`; GitHub CI passed and production Vercel exact-SHA deployment is `READY`. [Independent UX-P03 acceptance and P03.1 follow-up](UX-P03-INDEPENDENT-ACCEPTANCE-GAP-REVIEW-2026-10-17.md) records two existing P1 completeness gaps (server-side discoverability beyond 100 and 1024–1279px Next Step visibility), two P2 receipt/UI copy issues and missing viewer/multi-org acceptance. This is a **narrow follow-up**, not authorization to rewrite P03 or add MCP permissions; [UX-P04](UX-P04-DEEPSEEK-FOCUSED-ASSURANCE-CASE-REVIEW-AND-DASHBOARD-DATA-TRUTH-GAPS-2026-10-17.md) remains the next **separate page session** after confirming ownership. Any older baseline stating 'P03 active' is superseded by this note.
 
 
