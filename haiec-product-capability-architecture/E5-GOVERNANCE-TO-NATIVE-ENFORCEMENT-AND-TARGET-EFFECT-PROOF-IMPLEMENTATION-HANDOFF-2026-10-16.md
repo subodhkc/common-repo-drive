@@ -67,3 +67,38 @@ Use one coherent PR if safe, respect required reviews/gates, merge to HAIEC `Mai
 **Definition of done:** source-true authorization-to-native-target workflow is available for an explicitly scoped *implemented* target seam; all other unimplemented integrations transparently `NOT_WIRED`; proper independent target receipt required for verified applied/effect claims; focused negative tests, deployment status and Common Repo updated. No redundant engines/registries/telemetry stores and no customer-impacting actions.
 
 **Next after E5:** E6 unify per-system customer case, U5/U6, decisions, authority, telemetry and truly qualified protection into evidence-bound navigation and reporting; E7 remote MCP discovery/usability; then controlled Kestrel external acceptance + two mandatory videos.
+
+---
+
+## Implementation record — E5 deployed (2026-10-17)
+
+**Status: `DEPLOYED_VERIFIED` (partial — no live target integration wired).** HAIEC PR [#2225](https://github.com/subodhkc/haiec-website/pull/2225) merged to `Main` at squash commit `2e07398da` (`2e07398d…`); branch `feat/e5-governance-to-native-enforcement-20261017` @ `b6f271dc9`. Vercel production deployment `8MBh2DU8nDS8CgFnX3NngbvBS6Aj`.
+
+### Source inventory findings (E5-A — verified at code level)
+
+- `lib/kill-switch/execution-guard.ts` `assertAiExecutionAllowed` is a real fail-closed local guard (fail-closed on unknown system, records BLOCKED_ATTEMPT + time-to-effect) — **invoked by no production caller**; only `invalidateCache`/`validateSeparationOfDuties` are consumed by the E3-secured trigger/recover routes.
+- `kill_switch_systems` has **no `aiSystemId` binding** — guards are organization-scoped registrations; per-system protection remains `NOT_ESTABLISHED` (governance projection lock kept verbatim).
+- `guardrail_decisions` ladder is **live**: runtime probes advance persisted rungs (`ENFORCEMENT_APPLIED` on AUTH_FAILED) through `advancePersistedGuardrailDecision`.
+- `deployment_decisions` (SoD/digest CAS/effective state) and `operating_envelopes` (DRAFT/APPROVED/SUPERSEDED/REVOKED + digest) are complete owners — reused, not rebuilt.
+- `lib/control-test/tmf-control-transport.ts` untouched; PR #2141 separately owned and still open.
+
+### Delivered
+
+- **`lib/assurance/enforcement-read-model.ts`** — the §2 ladder as a read-only projection: NOT_WIRED → CONFIGURED → AUTHORIZED → DISPATCH_ELIGIBLE → DISPATCH_* → APPLIED/BLOCKED_AT_TARGET → EFFECT_VERIFIED/NOT_VERIFIED. Composed from approved envelope + effective decision + active `AUTHORITATIVE_CONTROL_BOUNDARY` binder bound to the aiSystemId + exact-surfaceId guardrail ladder rungs + bound-binder outcome records + V2 payload-bound attestation. Org-scoped kill-switch facts reported separately, never attributed. Dispatch ≠ applied ≠ verified; V1/self-report never reaches EFFECT_VERIFIED.
+- **`lib/kill-switch/native-enforcement-adapter.ts`** — provider-independent adapter contract + opt-in non-production `FixtureLocalGuardAdapter` (permanently `fixture: true`, refused in production, requires `HAIEC_NATIVE_GUARD_FIXTURE=1`). Empty registry → `NOT_WIRED`.
+- **Surfaces**: `GovernancePortfolioRow.enforcement` + governance page Enforcement column; `GovernanceProjection.enforcement.operationStatus` → `GET /api/inventory/systems/[id]/governance` + `haiec_get_governance` (description updated). Pre-existing dead `frameworkReproducibility` binding fixed in the same cone.
+
+### Validation
+
+`vitest run` focused cone **53/53** (14-case enforcement-read-model suite + execution-guard 5 + telemetry-source-health 21 + engine-batch-y2 13); `tsc --noEmit` clean; changed-file ESLint clean; CI TypeScript + New-Violations Gate + U6 + px0 pass; baseline repo-wide ESLint + Vercel-preview conditions unchanged.
+
+### Remaining limitations (explicit non-claims)
+
+- **No live target integration is wired** — all external seams `NOT_WIRED`; the fixture is test-only.
+- Per-system kill-switch binding `NOT_ESTABLISHED` (no schema binding; migration would need separate approval).
+- `EFFECT_VERIFIED` requires V2 payload-bound outcome records through a bound control-boundary source.
+- `MCP_TO_SAAS_EVIDENCE_INGESTION_HOLD` preserved; no Kestrel/customer actions taken.
+
+### E6 handoff note
+
+E6 unifies per-system customer case + U5/U6 + decisions + authority + telemetry + qualified protection into evidence-bound navigation/reporting — the E5 `operationStatus` ladder is the protection-truth input. Then E7 remote MCP discovery, then gated Kestrel external acceptance.
