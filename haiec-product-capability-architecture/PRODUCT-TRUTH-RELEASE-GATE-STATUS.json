@@ -88,5 +88,23 @@
       "E0-R1-16-WORKFLOW-CANONICAL-OWNER-SOURCE-RECONCILIATION-2026-10-16.csv"
     ],
     "branchProtectionEnforcement": "UNVERIFIED_LIVE_API_FORBIDDEN_403"
+  },
+  "subsequentReleaseVerification": {
+    "observedAt": "2026-10-17T02:40:29Z (merge); subsequent GitHub status check 2026-10-16 America/Chicago",
+    "preservesHistoricalSnapshot": true,
+    "pr2220State": "MERGED",
+    "pr2220Url": "https://github.com/subodhkc/haiec-website/pull/2220",
+    "pr2220HeadSha": "ae8e0c312d8b6449339cd23592d109910748e225",
+    "mainSha": "c3de967e62615c3bf669527a1ec79e2d90e2c814",
+    "vercelDeploymentId": "DPLkCjVSfFyjgBKkNGigFFm2jFXU",
+    "vercelCommitStatus": "SUCCESS",
+    "githubCISummary": "SUCCESS",
+    "githubCodeValidation": "SUCCESS",
+    "githubESLintNewViolationsMergeSha": "IN_PROGRESS_AT_OBSERVATION",
+    "reportedFocusedTests": "72/72 (Devin report; not independently rerun)",
+    "targetEffectEnforcement": "NOT_VERIFIED_NO_LIVE_TARGET_RECEIPT",
+    "privilegedOperationLiveExecution": "NOT_VERIFIED",
+    "remainingProductWork": "E4 source freshness/qualified observations, E5-E7 governance-to-effect proof, later external Kestrel tenant acceptance",
+    "note": "Original top-level state, mainDeployed false and releaseReadiness strings document the PRE-MERGE historical review and intentionally remain unchanged. Use this newer observation and CURRENT-DECISIONS for current source-based release state."
   }
 }
