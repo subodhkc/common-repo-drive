@@ -2,1312 +2,241 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Start from evidence — HAIEC Navigator</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>HAIEC — consequence-first entry experience (design reference)</title>
 <style>
-:root {
-  --bg: #fafbfc; --card: #ffffff; --border: #e7e9ee; --border-hover: #d0d4dd;
-  --text: #101828; --text-muted: #667085; --text-dim: #98a2b3;
-  --primary: #4f46e5; --primary-hover: #4338ca; --primary-light: #f0f1ff; --primary-border: #c7d2fe;
-  --success: #067647; --success-bg: #ecfdf3; --success-border: #abefc6;
-  --amber: #b54708; --amber-bg: #fffaeb; --amber-border: #fedf89;
-  --gray-bg: #f2f4f7;
-  --tint-1: #eef4ff; --tint-2: #fef6ee; --tint-3: #ecfdf3; --tint-4: #f4f3ff; --tint-5: #fef3f2; --tint-6: #f0f9ff;
-  --radius-sm: 8px; --radius-md: 12px; --radius-lg: 18px;
-  --shadow-sm: 0 1px 2px rgba(16,24,40,0.04);
-  --shadow-md: 0 4px 12px rgba(16,24,40,0.07);
-  --shadow-lg: 0 20px 48px rgba(16,24,40,0.11);
-}
-* { box-sizing: border-box; margin: 0; padding: 0; }
-html, body { height: 100%; }
-body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
-  font-size: 15px; line-height: 1.55; color: var(--text); background: var(--bg);
-  -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
-}
-a { color: inherit; }
-button { font-family: inherit; }
-
-/* ─── Page shell ─── */
-.page { display: flex; min-height: 100vh; }
-
-/* ─── Rail ─── */
-.rail {
-  width: 248px; padding: 28px 20px; border-right: 1px solid var(--border);
-  background: var(--card); position: sticky; top: 0; height: 100vh;
-  flex-shrink: 0; display: flex; flex-direction: column;
-}
-.rail-brand {
-  font-weight: 600; font-size: 14px; color: var(--text);
-  display: flex; align-items: center; gap: 10px; padding: 0 4px; margin-bottom: 36px;
-}
-.rail-brand-mark {
-  width: 26px; height: 26px; border-radius: 7px;
-  background: linear-gradient(135deg, #4f46e5, #6366f1);
-  color: white; display: flex; align-items: center; justify-content: center;
-  font-size: 12px; font-weight: 700; letter-spacing: -0.02em;
-}
-.rail-steps { list-style: none; display: flex; flex-direction: column; gap: 2px; flex: 1; }
-.rail-step {
-  display: flex; align-items: center; gap: 12px; padding: 11px 12px;
-  border-radius: var(--radius-sm); font-size: 14px; color: var(--text-muted);
-  transition: all 0.2s;
-}
-.rail-step.active { background: var(--primary-light); color: var(--primary); font-weight: 500; }
-.rail-step.done { color: var(--success); }
-.rail-step-num {
-  width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid currentColor;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 11px; font-weight: 600; flex-shrink: 0; transition: all 0.2s;
-}
-.rail-step.done .rail-step-num { background: var(--success); color: white; border-color: var(--success); }
-.rail-step.active .rail-step-num { background: var(--primary); color: white; border-color: var(--primary); }
-.rail-footer { padding: 16px 4px 0; border-top: 1px solid var(--border); }
-.rail-footer a { font-size: 12px; color: var(--text-dim); text-decoration: none; cursor: pointer; }
-.rail-footer a:hover { color: var(--text); }
-
-/* ─── Canvas ─── */
-.canvas { flex: 1; display: flex; flex-direction: column; max-width: 1000px; margin: 0 auto; width: 100%; padding: 0 44px; }
-.canvas-header {
-  padding: 22px 0 18px; display: flex; justify-content: space-between; align-items: center;
-  border-bottom: 1px solid var(--border); position: sticky; top: 0; background: var(--bg); z-index: 10;
-}
-.crumb { font-size: 13px; color: var(--text-muted); display: flex; align-items: center; gap: 8px; }
-.crumb-strong { color: var(--text); font-weight: 500; }
-.crumb-sep { color: var(--text-dim); }
-.close-btn {
-  background: transparent; border: 1px solid var(--border); width: 32px; height: 32px;
-  border-radius: var(--radius-sm); cursor: pointer; color: var(--text-muted);
-  font-size: 18px; display: flex; align-items: center; justify-content: center;
-  transition: all 0.15s; line-height: 1;
-}
-.close-btn:hover { background: var(--gray-bg); color: var(--text); }
-.canvas-body { flex: 1; padding: 40px 0 140px; }
-.canvas-footer {
-  position: sticky; bottom: 0;
-  background: linear-gradient(to top, var(--bg) 60%, rgba(250,251,252,0.92) 85%, transparent);
-  padding: 24px 0 28px; display: flex; justify-content: space-between; align-items: center;
-  gap: 16px; margin-top: -80px; z-index: 5;
-}
-.footer-info { font-size: 13px; color: var(--text-muted); display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
-.footer-info strong { color: var(--text); font-weight: 600; }
-.footer-actions { display: flex; gap: 10px; }
-
-/* ─── Type ─── */
-h1 {
-  font-size: 32px; font-weight: 600; letter-spacing: -0.025em; line-height: 1.2;
-  margin-bottom: 12px; color: var(--text);
-}
-.lead { color: var(--text-muted); font-size: 16px; line-height: 1.55; max-width: 640px; }
-h2 { font-size: 20px; font-weight: 600; letter-spacing: -0.015em; margin-bottom: 4px; }
-
-/* ─── Context banner ─── */
-.context-banner {
-  display: flex; align-items: center; gap: 10px; padding: 12px 16px;
-  background: var(--card); border: 1px solid var(--border);
-  border-radius: var(--radius-sm); font-size: 13px; color: var(--text-muted);
-  margin-bottom: 32px;
-}
-.context-banner strong { color: var(--text); font-weight: 500; }
-.context-banner .change { color: var(--primary); cursor: pointer; text-decoration: underline; text-underline-offset: 2px; }
-
-/* ─── Buttons ─── */
-.btn {
-  padding: 10px 18px; border-radius: var(--radius-sm); font-size: 14px; font-weight: 500;
-  cursor: pointer; border: 1px solid transparent; transition: all 0.15s;
-  display: inline-flex; align-items: center; gap: 6px; letter-spacing: -0.005em;
-}
-.btn:disabled { opacity: 0.4; cursor: not-allowed; }
-.btn-primary { background: var(--primary); color: white; box-shadow: var(--shadow-sm); }
-.btn-primary:hover:not(:disabled) { background: var(--primary-hover); box-shadow: var(--shadow-md); }
-.btn-ghost { background: transparent; color: var(--text-muted); border-color: var(--border); }
-.btn-ghost:hover { background: var(--gray-bg); color: var(--text); }
-
-/* ─── Step 1 — Jobs ─── */
-.jobs-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 32px; }
-.job-card {
-  background: var(--card); border: 1.5px solid var(--border); border-radius: var(--radius-md);
-  padding: 20px; cursor: pointer; transition: all 0.2s; text-align: left;
-  font: inherit; color: inherit; display: flex; flex-direction: column;
-  position: relative;
-}
-.job-card:hover { border-color: var(--primary); box-shadow: var(--shadow-md); transform: translateY(-2px); }
-.job-card.selected { border-color: var(--primary); background: var(--primary-light); box-shadow: var(--shadow-md); }
-.job-card.selected::after {
-  content: '✓'; position: absolute; top: 14px; right: 14px;
-  width: 22px; height: 22px; border-radius: 50%; background: var(--primary); color: white;
-  display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700;
-}
-.job-icon-wrap {
-  width: 40px; height: 40px; border-radius: 10px; display: flex;
-  align-items: center; justify-content: center; font-size: 20px; margin-bottom: 14px;
-}
-.job-card[data-job="discover"]  .job-icon-wrap { background: var(--tint-1); }
-.job-card[data-job="evaluate"]  .job-icon-wrap { background: var(--tint-2); }
-.job-card[data-job="authorize"] .job-icon-wrap { background: var(--tint-3); }
-.job-card[data-job="monitor"]   .job-icon-wrap { background: var(--tint-4); }
-.job-card[data-job="protect"]   .job-icon-wrap { background: var(--tint-5); }
-.job-card[data-job="verify"]    .job-icon-wrap { background: var(--tint-6); }
-.job-name { font-weight: 600; font-size: 16px; margin-bottom: 2px; letter-spacing: -0.01em; }
-.job-tagline { font-size: 13.5px; color: var(--text-muted); margin-bottom: 12px; }
-.job-desc { font-size: 13px; color: var(--text-muted); line-height: 1.5; margin-bottom: 14px; flex: 1; }
-.job-answers {
-  font-size: 12px; color: var(--text-dim); line-height: 1.5;
-  padding-top: 12px; border-top: 1px solid var(--border); font-style: italic;
-}
-.job-answers strong { font-style: normal; color: var(--text-muted); font-weight: 500; }
-
-/* ─── Consequence gallery ─── */
-.consequence-section {
-  margin-top: 36px; padding-top: 32px; border-top: 1px solid var(--border);
-  animation: fadeUp 0.3s ease;
-}
-.consequence-section h3 { font-size: 14px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 16px; }
-.consequence-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
-.consequence {
-  background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-sm);
-  padding: 14px 16px; display: flex; gap: 12px; align-items: flex-start;
-}
-.consequence-icon { font-size: 16px; line-height: 1.4; flex-shrink: 0; }
-.consequence-title { font-weight: 500; font-size: 13.5px; margin-bottom: 2px; letter-spacing: -0.005em; }
-.consequence-desc { font-size: 12.5px; color: var(--text-muted); line-height: 1.45; }
-
-/* ─── Step 2 — Sources ─── */
-.section-label { display: flex; align-items: baseline; gap: 10px; margin: 36px 0 14px; }
-.section-label .label { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-dim); }
-.section-label .hint { font-size: 13px; color: var(--text-muted); }
-.section-rationale {
-  font-size: 13px; color: var(--text-muted); margin: -6px 0 16px; max-width: 640px; line-height: 1.5;
-}
-.sources-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
-.source-card {
-  background: var(--card); border: 1.5px solid var(--border); border-radius: var(--radius-md);
-  padding: 18px; cursor: pointer; transition: all 0.15s;
-  position: relative; text-align: left; font: inherit; color: inherit;
-  display: flex; flex-direction: column; gap: 10px;
-}
-.source-card:hover { border-color: var(--border-hover); box-shadow: var(--shadow-sm); }
-.source-card.selected { border-color: var(--primary); background: var(--primary-light); }
-.source-card.selected::after {
-  content: '✓'; position: absolute; top: 14px; right: 14px;
-  width: 20px; height: 20px; border-radius: 50%; background: var(--primary); color: white;
-  display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700;
-}
-.source-head { display: flex; align-items: flex-start; gap: 12px; }
-.source-icon { font-size: 20px; line-height: 1.2; }
-.source-meta { flex: 1; min-width: 0; }
-.source-name { font-weight: 600; font-size: 14.5px; margin-bottom: 1px; }
-.source-sub { font-size: 12px; color: var(--text-muted); }
-.source-best {
-  display: inline-block; font-size: 10.5px; font-weight: 600; padding: 2px 8px;
-  border-radius: 4px; background: var(--gray-bg); color: var(--text-muted);
-  text-transform: uppercase; letter-spacing: 0.04em; margin-top: 4px;
-}
-.source-card.selected .source-best { background: rgba(255,255,255,0.6); }
-.source-establishes { font-size: 13px; color: var(--text); line-height: 1.45; }
-.source-establishes strong { color: var(--text-muted); font-weight: 500; font-size: 12px; text-transform: uppercase; letter-spacing: 0.04em; display: block; margin-bottom: 2px; }
-.source-meta-row { display: flex; justify-content: space-between; align-items: center; padding-top: 8px; border-top: 1px solid var(--border); gap: 8px; }
-.source-card.selected .source-meta-row { border-color: rgba(79,70,229,0.2); }
-.ladder { display: flex; gap: 3px; }
-.dot { width: 8px; height: 8px; border-radius: 50%; border: 1.5px solid var(--border-hover); background: transparent; }
-.dot.filled { background: var(--primary); border-color: var(--primary); }
-.ladder-label { font-size: 10.5px; font-family: ui-monospace, 'SF Mono', Monaco, monospace; color: var(--text-muted); letter-spacing: 0.02em; }
-.source-setup { font-size: 11.5px; color: var(--text-dim); white-space: nowrap; }
-.source-chip { display: inline-block; font-size: 10px; padding: 2px 6px; border-radius: 4px; margin-top: 6px; font-weight: 600; }
-.chip-held { background: var(--amber-bg); color: var(--amber); border: 1px solid var(--amber-border); }
-
-/* ─── Packages ─── */
-.packages-section { margin-top: 40px; padding-top: 28px; border-top: 1px solid var(--border); }
-.packages-section h3 { font-size: 13px; font-weight: 600; color: var(--text-muted); margin-bottom: 14px; }
-.package-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-.package-card {
-  background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-sm);
-  padding: 14px 16px; text-align: left; cursor: pointer; transition: all 0.15s;
-  font: inherit; color: inherit; display: flex; flex-direction: column; gap: 4px;
-}
-.package-card:hover { border-color: var(--primary); background: var(--primary-light); }
-.package-name { font-weight: 600; font-size: 13.5px; letter-spacing: -0.005em; }
-.package-desc { font-size: 12px; color: var(--text-muted); line-height: 1.4; }
-.package-meta { font-size: 11px; color: var(--text-dim); margin-top: 4px; }
-
-.show-more-btn {
-  margin-top: 20px; background: transparent; border: none; padding: 0;
-  color: var(--primary); font-size: 14px; font-weight: 500; cursor: pointer;
-  text-decoration: underline; text-underline-offset: 3px;
-}
-
-/* ─── Step 3 — Preflight ─── */
-.coverage-band {
-  display: flex; align-items: center; justify-content: space-between; gap: 16px;
-  padding: 14px 18px; background: var(--card); border: 1px solid var(--border);
-  border-radius: var(--radius-sm); margin: 20px 0 24px; font-size: 13px;
-}
-.coverage-band .cov-left { display: flex; align-items: center; gap: 10px; color: var(--text-muted); }
-.coverage-band .cov-right { display: flex; align-items: center; gap: 10px; font-family: ui-monospace, monospace; color: var(--text); font-size: 12px; }
-.why-callout {
-  padding: 14px 18px; background: var(--primary-light); border: 1px solid var(--primary-border);
-  border-radius: var(--radius-sm); margin-bottom: 24px; font-size: 13.5px; color: var(--text);
-  line-height: 1.55;
-}
-.why-callout strong { font-weight: 600; color: var(--primary); }
-
-.sources-summary { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 24px; }
-.source-chip-summary {
-  font-size: 13px; padding: 5px 12px 5px 10px; background: var(--card);
-  border: 1px solid var(--border); border-radius: 20px;
-  display: inline-flex; align-items: center; gap: 6px; color: var(--text);
-}
-
-.bucket { border-radius: var(--radius-md); padding: 20px 22px; margin-bottom: 12px; }
-.bucket-establish { background: var(--success-bg); border: 1px solid var(--success-border); }
-.bucket-away { background: var(--amber-bg); border: 1px solid var(--amber-border); }
-.bucket-outside { background: var(--gray-bg); border: 1px solid var(--border); }
-.bucket-header {
-  display: flex; align-items: center; gap: 8px; margin-bottom: 12px;
-  font-weight: 600; font-size: 12.5px; text-transform: uppercase; letter-spacing: 0.05em;
-}
-.bucket-establish .bucket-header { color: var(--success); }
-.bucket-away .bucket-header { color: var(--amber); }
-.bucket-outside .bucket-header { color: var(--text-muted); }
-.bucket-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
-.bucket-list li { font-size: 14px; position: relative; line-height: 1.55; }
-.bucket-establish .bucket-list li { padding-left: 24px; }
-.bucket-establish .bucket-list li::before { content: '✓'; position: absolute; left: 0; color: var(--success); font-weight: 700; font-size: 14px; top: 1px; }
-.bucket-away .bucket-list li { padding-left: 24px; }
-.bucket-away .bucket-list li::before { content: '○'; position: absolute; left: 3px; color: var(--amber); font-size: 14px; top: 0; }
-.bucket-outside .bucket-list li { padding-left: 24px; }
-.bucket-outside .bucket-list li::before { content: '·'; position: absolute; left: 8px; color: var(--text-dim); font-weight: 700; font-size: 18px; top: -4px; }
-.away-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
-.away-row .away-text { flex: 1; min-width: 200px; }
-.away-row .away-text strong { color: var(--text); font-weight: 500; }
-.add-chip {
-  font-size: 12.5px; padding: 6px 12px; background: white;
-  border: 1px solid var(--amber-border); color: var(--amber);
-  border-radius: 6px; cursor: pointer; font-weight: 500;
-  white-space: nowrap; transition: all 0.15s; flex-shrink: 0; font-family: inherit;
-}
-.add-chip:hover { background: var(--amber); color: white; border-color: var(--amber); }
-
-.tech-toggle {
-  margin-top: 28px; background: transparent; border: 1px solid var(--border);
-  padding: 12px 16px; border-radius: var(--radius-sm); cursor: pointer;
-  font-size: 13px; color: var(--text-muted); width: 100%; text-align: left;
-  display: flex; justify-content: space-between; align-items: center;
-  font-family: inherit; transition: all 0.15s;
-}
-.tech-toggle:hover { background: var(--gray-bg); }
-.tech-detail {
-  margin-top: 12px; padding: 18px; background: var(--card);
-  border: 1px solid var(--border); border-radius: var(--radius-sm);
-  font-size: 12px; color: var(--text-muted);
-  font-family: ui-monospace, 'SF Mono', Monaco, monospace; line-height: 1.7;
-}
-.tech-detail .tech-row { display: flex; gap: 12px; padding: 5px 0; }
-.tech-detail .tech-key { color: var(--text-dim); min-width: 130px; flex-shrink: 0; }
-.tech-detail .tech-val { color: var(--text); }
-.tech-detail h4 { color: var(--text); font-size: 13px; font-family: -apple-system, sans-serif; margin-bottom: 8px; font-weight: 600; }
-
-/* ─── Step 4 — Outcome ─── */
-.outcome-hero { padding: 8px 0 32px; }
-.outcome-icon {
-  width: 52px; height: 52px; border-radius: 50%; background: var(--success-bg);
-  color: var(--success); display: flex; align-items: center; justify-content: center;
-  font-size: 26px; margin-bottom: 18px; border: 2px solid var(--success-border);
-}
-
-/* Pipeline */
-.pipeline {
-  background: var(--card); border: 1px solid var(--border);
-  border-radius: var(--radius-md); padding: 20px 22px; margin-bottom: 24px;
-}
-.pipeline-header { font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-dim); font-weight: 600; margin-bottom: 14px; }
-.pipe-stages { display: flex; flex-direction: column; gap: 10px; }
-.pipe-stage {
-  display: flex; align-items: center; gap: 10px; font-size: 14px;
-  color: var(--text-muted); transition: all 0.3s;
-}
-.pipe-stage.done { color: var(--success); }
-.pipe-stage.running { color: var(--text); font-weight: 500; }
-.pipe-stage.pending { color: var(--text-dim); }
-.pipe-marker {
-  width: 20px; height: 20px; border-radius: 50%; flex-shrink: 0;
-  display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700;
-  border: 1.5px solid var(--border-hover); background: white;
-}
-.pipe-stage.done .pipe-marker { background: var(--success); border-color: var(--success); color: white; }
-.pipe-stage.running .pipe-marker { border-color: var(--primary); }
-.pipe-stage.running .pipe-marker::after {
-  content: ''; width: 8px; height: 8px; border-radius: 50%;
-  background: var(--primary); animation: pulse 1.2s ease-in-out infinite;
-}
-@keyframes pulse { 0%, 100% { opacity: 0.3; transform: scale(0.7); } 50% { opacity: 1; transform: scale(1); } }
-
-.outcome-summary {
-  background: var(--card); border: 1px solid var(--border);
-  border-radius: var(--radius-md); padding: 4px 20px; margin-bottom: 24px;
-}
-.summary-row {
-  display: flex; justify-content: space-between; align-items: center;
-  padding: 14px 0; border-bottom: 1px solid var(--border); font-size: 14px; gap: 16px;
-}
-.summary-row:last-child { border-bottom: none; }
-.summary-label { color: var(--text-muted); flex-shrink: 0; font-size: 13px; }
-.summary-value { font-weight: 500; text-align: right; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; justify-content: flex-end; }
-.ladder-inline { display: inline-flex; gap: 3px; }
-.ladder-inline .dot { width: 7px; height: 7px; }
-.ladder-tag { font-family: ui-monospace, monospace; font-size: 11px; color: var(--text-muted); }
-
-.unlocks-section h3 {
-  font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em;
-  color: var(--text-dim); margin-bottom: 12px; margin-top: 28px; font-weight: 600;
-}
-.unlock-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
-.unlock-row {
-  background: var(--card); border: 1px solid var(--border);
-  border-radius: var(--radius-sm); padding: 16px 18px;
-  display: flex; align-items: center; justify-content: space-between;
-  gap: 12px; font-size: 14px; cursor: pointer; transition: all 0.15s;
-  text-align: left; font-family: inherit; color: inherit; width: 100%;
-}
-.unlock-row:hover { border-color: var(--primary); background: var(--primary-light); }
-.unlock-row .unlock-text { display: flex; align-items: center; gap: 12px; }
-.unlock-row .arrow { color: var(--primary); font-weight: 600; font-size: 16px; }
-.unlock-row .unlock-hint { font-size: 12.5px; color: var(--text-muted); text-align: right; }
-
-.consequence-list {
-  list-style: none; display: flex; flex-direction: column; gap: 10px;
-  padding: 20px 22px; background: var(--success-bg); border: 1px solid var(--success-border);
-  border-radius: var(--radius-md);
-}
-.consequence-list li { font-size: 14px; line-height: 1.5; padding-left: 24px; position: relative; }
-.consequence-list li::before { content: '?'; position: absolute; left: 0; top: 1px; font-weight: 700; color: var(--success); font-size: 15px; }
-
-@keyframes fadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
-.screen { animation: fadeUp 0.35s ease; }
-
-/* ─── Responsive ─── */
-@media (max-width: 900px) {
-  .rail { display: none; }
-  .canvas { padding: 0 20px; }
-  .jobs-grid { grid-template-columns: repeat(2, 1fr); }
-  .sources-grid { grid-template-columns: 1fr; }
-  .consequence-grid { grid-template-columns: 1fr; }
-  .package-grid { grid-template-columns: 1fr; }
-  .coverage-band { flex-direction: column; align-items: flex-start; }
-}
-@media (max-width: 600px) {
-  .jobs-grid { grid-template-columns: 1fr; }
-  h1 { font-size: 24px; }
-  .lead { font-size: 15px; }
-  .summary-row { flex-direction: column; align-items: flex-start; gap: 6px; }
-  .summary-value { text-align: left; justify-content: flex-start; }
-  .footer-actions { flex-direction: column-reverse; width: 100%; }
-  .footer-actions .btn { width: 100%; justify-content: center; }
-  .canvas-footer { flex-direction: column; align-items: stretch; }
-}
+:root{--bg:#f7f8fb;--paper:#fff;--ink:#13233b;--muted:#576779;--line:#dfe5ec;--navy:#152f51;--blue:#235fa8;--tint:#edf4fd;--green:#247451;--amber:#95621a;--shadow:0 14px 42px rgba(29,54,85,.075)}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif}
+button,select{font:inherit}button{cursor:pointer}button:focus-visible,select:focus-visible,a:focus-visible,summary:focus-visible{outline:3px solid #478add;outline-offset:3px}
+button:disabled{opacity:.55;cursor:not-allowed}
+a{color:var(--blue)}
+.shell{max-width:1200px;margin:0 auto;padding:0 28px 72px}
+.header{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:22px 0;border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:12px;font-weight:750;letter-spacing:.02em}
+.brandmark{width:33px;height:33px;border-radius:10px;background:var(--navy);color:white;display:grid;place-items:center}
+.eyebrow{color:var(--blue);text-transform:uppercase;letter-spacing:.12em;font-size:11px;font-weight:750}
+.micro{font-size:12px;color:var(--muted)}
+.pill{border:1px solid var(--line);border-radius:100px;padding:5px 11px;color:var(--muted);font-size:12px;background:#fff}
+.hero{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(255px,.7fr);gap:26px;padding:49px 0 30px;align-items:center}
+h1{font-size:clamp(30px,4.8vw,50px);letter-spacing:-.042em;line-height:1.13;margin:10px 0 15px;font-weight:700}
+h2{font-size:23px;line-height:1.25;letter-spacing:-.018em;margin:0 0 9px}
+h3{font-size:16px;margin:0 0 8px}
+p{margin:0 0 12px}p:last-child{margin-bottom:0}
+.lead{font-size:17px;color:var(--muted);max-width:650px}
+.hero-note{border:1px solid var(--line);background:var(--paper);padding:20px 21px;border-radius:17px;box-shadow:var(--shadow)}
+.note-title{font-weight:700;margin-bottom:8px}.note-row{border-top:1px solid var(--line);padding:10px 0 0;margin-top:10px;font-size:13px;color:var(--muted)}
+.section{margin:24px 0 0}
+.section-head{display:flex;align-items:end;justify-content:space-between;gap:15px;margin-bottom:15px}
+.cards3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.card-choice{text-align:left;background:var(--paper);border:1.5px solid var(--line);border-radius:15px;padding:20px;min-height:145px;color:inherit;box-shadow:0 2px 5px rgba(0,0,0,.012);transition:border-color .13s,box-shadow .13s;display:flex;flex-direction:column;gap:8px}
+.card-choice:hover{border-color:#78a5d2;box-shadow:var(--shadow)}
+.card-choice.selected{border:2px solid #3571b2;background:#f0f6ff;padding:19.5px}
+.icon{font-size:20px;line-height:1}.card-title{font-weight:700;font-size:16px}.card-desc{color:var(--muted);font-size:13px}
+.context{background:var(--paper);padding:20px 22px;border:1px solid var(--line);border-radius:15px;margin-top:16px}
+.context-head{display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+select{border:1px solid #b9c8d9;background:white;border-radius:9px;padding:9px 32px 9px 12px;color:var(--ink);max-width:100%}
+.workspace{margin-top:23px;display:grid;grid-template-columns:minmax(0,1fr) minmax(240px,.38fr);gap:18px;align-items:start}
+.panel{background:var(--paper);border:1px solid var(--line);border-radius:17px;padding:23px;min-width:0}
+.stack{display:flex;flex-direction:column;gap:13px}
+.subtle{color:var(--muted);font-size:13px}
+.chip{border:1px solid var(--line);background:#fff;border-radius:9px;padding:8px 11px;font-size:12px}
+.chip.selected{background:var(--tint);border-color:#7daadd;color:var(--navy);font-weight:700}
+.row{display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.jobs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin:14px 0}
+.job{background:white;border:1px solid var(--line);border-radius:11px;padding:11px 12px;min-height:73px;text-align:left;color:var(--ink)}
+.job strong{display:block}.job span{font-size:11px;color:var(--muted)}.job.selected{border-color:#337bbd;background:var(--tint)}
+.source-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:15px 0}
+.source{border:1px solid var(--line);border-radius:12px;padding:13px;min-width:0}
+.source strong{display:block;font-size:14px}.source .source-kind{font-size:11px;color:var(--muted);display:block}
+.source p{font-size:12px;color:var(--muted);margin:8px 0 12px}
+.source button{border-radius:8px;border:1px solid #aac6e4;padding:6px 10px;background:white;font-size:12px;color:var(--blue);font-weight:650}
+.source button.selected{background:var(--navy);border-color:var(--navy);color:white}
+.source.disabled{background:#fafafa}
+.source.disabled button{border-color:var(--line);color:var(--muted)}
+.preview-bucket{border-top:1px solid var(--line);padding-top:13px;margin-top:14px}
+.bullets{margin:9px 0 0;padding-left:21px;font-size:13px;color:var(--muted)}
+.bullets li{margin:6px 0}
+.kicker{font-size:11px;letter-spacing:.08em;font-weight:750;text-transform:uppercase;color:var(--blue)}
+.detail{background:#f5f8fb;border:1px solid #dfebf4;border-radius:12px;padding:16px;font-size:13px}
+.cover-list{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+.btn{padding:10px 15px;background:var(--navy);color:white;border:1px solid var(--navy);border-radius:9px;font-weight:650;font-size:13px}
+.btn.sub{background:white;color:var(--navy);border-color:#b3c5d6}
+.btn.ghost{background:transparent;color:var(--muted);border-color:var(--line)}
+small{color:var(--muted)}
+details{border-top:1px solid var(--line);padding-top:12px;margin-top:16px}
+summary{cursor:pointer;font-weight:650;font-size:13px}
+.footer{border-top:1px solid var(--line);padding-top:18px;margin-top:36px;color:var(--muted);font-size:12px}
+.modal{border:1px solid var(--line);border-radius:16px;padding:26px;max-width:min(92vw,600px);max-height:80vh;overflow:auto;box-shadow:0 30px 100px rgba(15,32,51,.2)}
+.modal::backdrop{background:rgba(16,35,59,.45)}
+.modal header{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.modal-close{border:1px solid var(--line);border-radius:8px;background:white;padding:5px 10px}
+.legend{font-size:12px;line-height:1.6;color:var(--muted)}
+hr{border:0;border-top:1px solid var(--line);margin:14px 0}
+@media(max-width:850px){.hero,.workspace{grid-template-columns:1fr}.cards3{grid-template-columns:1fr}.hero{padding:30px 0 18px}.jobs{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:560px){.shell{padding:0 15px 45px}.source-list,.jobs{grid-template-columns:1fr}.panel{padding:17px}h1{font-size:32px}.section-head{align-items:start;flex-direction:column}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.card-choice{transition:none}}
 </style>
 </head>
 <body>
-<div class="page">
-
-  <aside class="rail" aria-label="Progress">
-    <div class="rail-brand">
-      <div class="rail-brand-mark">H</div>
-      <span>Start from evidence</span>
-    </div>
-    <ol class="rail-steps" id="rail-steps">
-      <li class="rail-step" data-step="1"><span class="rail-step-num">1</span><span>Choose a job</span></li>
-      <li class="rail-step" data-step="2"><span class="rail-step-num">2</span><span>Pick sources</span></li>
-      <li class="rail-step" data-step="3"><span class="rail-step-num">3</span><span>Preview preflight</span></li>
-      <li class="rail-step" data-step="4"><span class="rail-step-num">4</span><span>Outcome</span></li>
-    </ol>
-    <div class="rail-footer">
-      <a id="reset-link">↺ Reset demo</a>
-    </div>
-  </aside>
-
-  <main class="canvas">
-    <header class="canvas-header">
-      <div class="crumb">
-        <span>Support Agent v2</span>
-        <span class="crumb-sep">·</span>
-        <span class="crumb-strong" id="crumb-job">Start from evidence</span>
-      </div>
-      <button class="close-btn" aria-label="Close">×</button>
-    </header>
-    <div class="canvas-body" id="canvas-body"></div>
-    <footer class="canvas-footer" id="canvas-footer"></footer>
-  </main>
+<div class="shell">
+<header class="header"><div class="brand"><span class="brandmark">H</span> HAIEC <span class="micro">/ Experience reference</span></div><span class="pill">Illustrative design · No live integrations</span></header>
+<section class="hero">
+  <div><span class="eyebrow">Human AI Evidence Company · Product entry concept</span>
+    <h1>Discover what HAIEC can establish.</h1>
+    <p class="lead">Explore the consequential capabilities of your AI systems, choose an objective, or begin with the evidence you already have. You never need every source to start.</p></div>
+  <aside class="hero-note"><div class="note-title">Consequence-first, evidence-bound.</div><p class="subtle">HAIEC investigates action paths, authority, observations and target effects. You do not need to know what your AI can cause before the assessment.</p><div class="note-row"><strong>Reference only:</strong> nothing on this page connects a source, uploads a file, runs a detector, changes a policy or issues an Assurance Receipt.</div></aside>
+</section>
+<section class="section">
+ <div class="section-head"><div><span class="eyebrow">One starting point, not a required wizard</span><h2>How would you like to begin?</h2></div><span class="micro">Switch paths anytime. Keep your choices.</span></div>
+ <div class="cards3" id="paths" aria-label="Starting points"></div>
+ <div class="context" id="context"></div>
+</section>
+<main class="workspace" id="workspace">
+  <section class="panel" id="main-view" aria-live="polite"></section>
+  <aside class="panel" id="aside-view" aria-label="Planning preview and evidence requirements"></aside>
+</main>
+<footer class="footer">Static product-design reference derived from existing HAIEC source contracts. All data, example systems, source status and scenarios are illustrative. The actual app must obtain readiness, output types and evidence claims from its tenant-scoped canonical owners, not this page's example logic.</footer>
 </div>
-
+<dialog id="compare" class="modal" aria-labelledby="compare-title"></dialog>
 <script>
-/* ─── Data ───────────────────────────────────────── */
-
-const LADDER = [
-  'FILE_STORED','HUMAN_ATTESTED','TYPED_MAPPING_CONFIRMED','PRODUCER_AUTHENTICATED',
-  'DETECTOR_EXECUTED','ASSURANCE_EVALUATED','REPORT_HUMAN_REVIEWED'
+'use strict';
+const JOBS={
+  discover:{name:'Discover',tag:'Find systems, agents and tools',min:'Authorized estate access or a qualifying inventory/source export for richer discovery.',out:'Known assets, candidates, tool paths and coverage limitations.',unknown:'Unregistered systems and unobserved runtime actors.'},
+  evaluate:{name:'Evaluate',tag:'Assess code, authority and evidence',min:'Selected AI system plus a qualifying source and supported assurance profile.',out:'Scoped HAIEC Assurance Engine assessment with supported findings.',unknown:'Unprovided authority, runtime and target-effect evidence.'},
+  authorize:{name:'Authorize',tag:'Govern exact operating decisions',min:'Scoped request or policy and an authorized human reviewer.',out:'Versioned approved policy or digest-bound human decision, when authorized.',unknown:'Whether any approved operation was actually dispatched.'},
+  monitor:{name:'Monitor',tag:'Inspect observed behavior',min:'Qualified telemetry or supported historical export with actor/time identity.',out:'Source freshness, bounded observations and eligible detections.',unknown:'Events outside collected coverage and unverified effects.'},
+  protect:{name:'Protect',tag:'Inspect and configure safeguards',min:'Control context for inspection; native, authorized target integration for actual enforcement.',out:'Configuration and wiring status; native outcome only where qualified.',unknown:'Any production protection without a verified target binding.'},
+  verify:{name:'Verify',tag:'Inspect receipts and evidence basis',min:'An exact eligible evaluation, source report or control result.',out:'Assurance Receipts, Evidence Verification and stated limitations.',unknown:'Unassessed controls, current deployment state and independent effects.'}
+};
+const SOURCES={
+  github:{name:'GitHub App',kind:'Code / authorized repository',adds:'Source-visible action paths and analyzer findings when installed, scanned and qualified.',status:'connection required'},
+  ci:{name:'GitHub CI Action',kind:'Code / CI artifact',adds:'Bounded CI findings and qualified scan bundles where a supported release is available.',status:'distribution must be verified',held:true},
+  archive:{name:'Source archive',kind:'ZIP / tar.gz',adds:'Source-scoped analysis without a GitHub installation after validation.',status:'upload and scan required'},
+  sarif:{name:'SARIF import',kind:'Third-party static findings',adds:'Imported findings with scanner identity and scope; not HAIEC independent detection.',status:'schema and import required'},
+  otlp:{name:'OTLP telemetry',kind:'Traces / metrics / logs',adds:'Observed action and source-health questions where instrumentation and a binder exist.',status:'collector and binder required'},
+  logs:{name:'Logs or JSON export',kind:'JSONL / CSV / supported raw logs',adds:'Bounded historical event questions after schema mapping and source qualification.',status:'typed mapping required'},
+  iam:{name:'IAM evidence',kind:'Live provider or JSON policy export',adds:'Declared permission context; effective per-action grants require extra provider authorization proof.',status:'policy export is not live effective grant'},
+  policy:{name:'Operating policy',kind:'Versioned human-approved envelope',adds:'Approved operation/resource limits only after exact-scope human approval.',status:'draft is not authorization'},
+  human:{name:'Human evidence upload',kind:'Documents / origin attestation',adds:'Attributed documentary context; does not independently authenticate technical facts.',status:'uploaded is not assessed'},
+  delegation:{name:'Delegation records',kind:'Confirmed documents / handoff evidence',adds:'Candidate delegation scopes; independent issuer proof and correlated trace for stronger DAI.',status:'declaration is not verified delegation'},
+  sbom:{name:'Dependency evidence',kind:'CycloneDX JSON / manifests',adds:'Declared dependency and component facts at an exact version.',status:'format and scope required'},
+  admin:{name:'Provider Admin API usage',kind:'Cost / inventory / attributed usage',adds:'Provider usage and spend context, not proof of agent actions; absent token counts remain unknown.',status:'authorized sync required'},
+  runtime:{name:'Runtime security test',kind:'Consented target endpoint',adds:'Empirical test observations in an authorized bounded run.',status:'BETA / authorized target only',held:true},
+  industry:{name:'Domain export',kind:'ServiceNow / AWS / telecom / manufacturing',adds:'Typed, domain-specific source evidence where a supported adapter qualifies it.',status:'exact profile required'}
+};
+const PATTERNS=[
+  {label:'Agent tool and API consequences',inputs:['github','archive'],desc:'Potential resource reads, writes and external API calls; no execution claim.'},
+  {label:'Delegated authority and DAI',inputs:['delegation','policy','otlp'],desc:'Compare declared authority, action evidence and scope when identities match.'},
+  {label:'Permissions and tenant boundaries',inputs:['iam','github'],desc:'Declared grants and code-level tenancy questions, not full effective IAM.'},
+  {label:'Data exposure and exfil indicators',inputs:['github','logs','otlp'],desc:'Inspect reachable data paths and qualified observed egress.'},
+  {label:'Prompt and retrieval exposure',inputs:['github','archive','runtime'],desc:'Coverage depends on which static or runtime analyzers actually run.'},
+  {label:'Deployed operational controls',inputs:['policy','otlp'],desc:'Configuration, monitoring, enforcement wiring and test proof are distinct.'}
 ];
-
-const JOBS = [
-  {
-    id:'discover', icon:'🔍', name:'Discover', tagline:'Know what exists.',
-    desc:'Map the AI systems, agents and tools in your estate — including the ones nobody registered.',
-    answers:'What agents exist? What tools can they reach? What\u2019s unregistered?'
-  },
-  {
-    id:'evaluate', icon:'🛡️', name:'Evaluate', tagline:'See what could cause harm.',
-    desc:'Surface undeclared authority, delegation drift, exposure paths and source-visible weaknesses before they\u2019re acted on.',
-    answers:'What could this system do? Where\u2019s the exposure?'
-  },
-  {
-    id:'authorize', icon:'✅', name:'Authorize', tagline:'Decide what\u2019s allowed.',
-    desc:'Turn detected capability into an approved, versioned operating boundary with a named human on record.',
-    answers:'What\u2019s approved? By whom? Until when?'
-  },
-  {
-    id:'monitor', icon:'👁️', name:'Monitor', tagline:'Know what\u2019s happening.',
-    desc:'Watch for drift, undeclared tool use and usage spikes against your approved baseline.',
-    answers:'Is what\u2019s happening what was approved?'
-  },
-  {
-    id:'protect', icon:'🛑', name:'Protect', tagline:'Contain what matters.',
-    desc:'Guard, mediate or halt high-consequence actions at the target — with a decision and denial witness.',
-    answers:'What happens when the system tries to act?'
-  },
-  {
-    id:'verify', icon:'📋', name:'Verify', tagline:'Prove what was assessed.',
-    desc:'Freeze the evidence basis, replay the control test, and hand an auditor a receipt — not a score.',
-    answers:'What was checked? What\u2019s the proof?'
-  }
+const SYSTEMS=[
+  {id:'support',name:'Support Agent v2',note:'Illustrative system · no real tenant records'},
+  {id:'orders',name:'Order Processing Agent',note:'Illustrative system · source readiness unknown'},
+  {id:'assistant',name:'Internal Knowledge Assistant',note:'Illustrative system · monitoring readiness unknown'}
 ];
-
-const CONSEQUENCES = {
-  discover: [
-    { icon:'🎯', title:'Unregistered agents', desc:'A tool-calling agent exists in your estate that no one declared.' },
-    { icon:'🔗', title:'Reachability graph', desc:'Which models, tools and data sources each system can actually reach.' },
-    { icon:'📦', title:'Hidden dependencies', desc:'Packages pulled from unapproved registries or drifted from SBOM.' }
-  ],
-  evaluate: [
-    { icon:'🔓', title:'Reachable write path', desc:'A code path reaches a tool sink that no policy authorizes.' },
-    { icon:'🎭', title:'Delegation drift', desc:'Agent B acts on scope Agent A holds but hasn\u2019t delegated.' },
-    { icon:'🚪', title:'Tenant boundary leak', desc:'One tenant\u2019s data appears in another\u2019s retrieval context.' }
-  ],
-  authorize: [
-    { icon:'📜', title:'Missing boundary', desc:'An agent acts on intent that was never approved by a named human.' },
-    { icon:'🔐', title:'Delegation gap', desc:'A handoff occurred with no matching delegation grant.' },
-    { icon:'📅', title:'Expired scope', desc:'Grant window ended but the agent still holds authority.' }
-  ],
-  monitor: [
-    { icon:'📈', title:'Baseline drift', desc:'Token or call volume exceeded the declared baseline.' },
-    { icon:'👻', title:'Undeclared surface', desc:'A model call originated from an unrecognized surface.' },
-    { icon:'⏰', title:'Stale source', desc:'Telemetry hasn\u2019t reported within cadence tolerance.' }
-  ],
-  protect: [
-    { icon:'🛑', title:'Guard decision', desc:'Policy denies an action; guard witness records the denial.' },
-    { icon:'🔒', title:'Kill switch', desc:'Human-authorized halt with native adapter confirmation.' },
-    { icon:'🧯', title:'Containment', desc:'Scope revoked mid-operation with downstream acknowledgement.' }
-  ],
-  verify: [
-    { icon:'📋', title:'Frozen receipt', desc:'Exact evidence basis with hashes, source ids and replay.' },
-    { icon:'🔁', title:'Replayable control', desc:'TestSpec, approval, execution and result all preserved.' },
-    { icon:'🔍', title:'Evidence basis', desc:'What was assessed, at which version, with what limitations.' }
-  ]
+const STARTERS={
+  static:{name:'Static starter',ids:['github','sbom']},
+  runtime:{name:'Runtime-first',ids:['otlp','logs']},
+  authority:{name:'Authority context',ids:['policy','iam','delegation']}
 };
-
-const SOURCES = {
-  'source-code': {
-    icon:'📦', name:'Source code', sublabel:'GitHub App or ZIP',
-    best:'Fastest path to breadth', setup:'~2 min',
-    establishes:'Reachable tool paths, source-visible weaknesses, dependency manifest, secret locations',
-    ceiling:5
-  },
-  'sarif': {
-    icon:'📄', name:'SARIF scan', sublabel:'Import third-party',
-    best:'Leverage existing scans', setup:'~1 min',
-    establishes:'Third-party findings at scan scope, with tool identity and schema validation',
-    ceiling:4
-  },
-  'runtime-traces': {
-    icon:'📊', name:'Runtime traces', sublabel:'OTLP or typed export',
-    best:'See what agents actually did', setup:'~5 min',
-    establishes:'Observed tool calls, handoffs, memory access, retrieval and prompt events',
-    ceiling:4
-  },
-  'iam-policy': {
-    icon:'🔑', name:'IAM or policy', sublabel:'Live AWS or JSON export',
-    best:'Authority context', setup:'~2 min',
-    establishes:'Declared grants, candidate dangerous permissions, policy scope (not effective per-action truth)',
-    ceiling:2
-  },
-  'sbom': {
-    icon:'📁', name:'SBOM', sublabel:'CycloneDX JSON 1.4\u20131.6',
-    best:'Supply chain context', setup:'~2 min',
-    establishes:'Dependency drift, known vulnerabilities, transitive permission changes',
-    ceiling:2
-  },
-  'logs': {
-    icon:'📓', name:'Logs', sublabel:'JSONL or raw',
-    best:'Access and data patterns', setup:'~3 min',
-    establishes:'Sign-in patterns, injection attempts, data exports, DNS anomalies',
-    ceiling:4
-  },
-  'attestation': {
-    icon:'✍️', name:'Attestation documents', sublabel:'PDF / Office / TXT',
-    best:'Human-signed statements', setup:'~1 min',
-    establishes:'Human-attested control evidence, policy acknowledgments, review notes',
-    ceiling:1
-  },
-  'runtime-test': {
-    icon:'🧪', name:'Runtime test', sublabel:'Authorized endpoint',
-    best:'Empirical attack simulation', setup:'~10 min',
-    establishes:'Live prompt injection, RAG poisoning, tool forcing \u2014 against an authorized endpoint',
-    ceiling:4, chip:'held'
-  },
-  'admin-usage': {
-    icon:'🧾', name:'Admin provider usage', sublabel:'OpenAI / Anthropic',
-    best:'Usage and spend', setup:'~2 min',
-    establishes:'Provider cost snapshots, usage logs where instrumented (not a security verdict)',
-    ceiling:2
-  },
-  'servicenow': {
-    icon:'📋', name:'ServiceNow export', sublabel:'AI Control Tower / agent / table',
-    best:'Enterprise AI estate', setup:'~3 min',
-    establishes:'AI estate inventory, execution records, table exports',
-    ceiling:2
-  },
-  'aws-cw': {
-    icon:'☁️', name:'AWS CloudWatch / AgentCore', sublabel:'Exported logs or assets',
-    best:'AWS ops and agent assets', setup:'~3 min',
-    establishes:'CloudWatch events, AgentCore assets, AWS runtime signals',
-    ceiling:2
-  },
-  'domain-export': {
-    icon:'🏭', name:'Domain export', sublabel:'5G / O-RAN / TMF / MFG',
-    best:'Sector-specific checks', setup:'~5 min',
-    establishes:'Sector-typed records for 5G, O-RAN, TMF, manufacturing scenarios',
-    ceiling:2
-  },
-  'dai-docs': {
-    icon:'📑', name:'DAI delegation documents', sublabel:'PDF / MD / YAML / JSON',
-    best:'Declared delegation chain', setup:'~2 min',
-    establishes:'Declared delegation scopes, advisory extraction, two-step human confirm',
-    ceiling:2
-  },
-  'user-policy': {
-    icon:'📜', name:'User-written policy', sublabel:'Approved Operating Envelope',
-    best:'Approved authority boundary', setup:'~5 min',
-    establishes:'Requested intent \u2192 POLICY_AUTHORIZED boundary when a named human approves',
-    ceiling:2
-  }
-};
-
-const jobGroups = {
-  discover:  { recommended:['source-code','servicenow','aws-cw','runtime-traces'],      also:['iam-policy','sbom','domain-export','admin-usage'],
-                rationale:'Start with source code for the fastest estate breadth, or bring an existing inventory export.' },
-  evaluate:  { recommended:['source-code','sarif','runtime-traces','iam-policy'],        also:['sbom','logs','runtime-test','attestation'],
-                rationale:'Source code gives breadth; runtime traces complete the picture with observed action.' },
-  authorize: { recommended:['user-policy','iam-policy','source-code','dai-docs'],        also:['runtime-traces','attestation','logs','runtime-test'],
-                rationale:'Authority comes from approved policy and granted scope; source code shows what\u2019s actually reachable.' },
-  monitor:   { recommended:['runtime-traces','logs','iam-policy','admin-usage'],         also:['source-code','servicenow','aws-cw','runtime-test'],
-                rationale:'Monitoring needs a live signal — OTLP traces, logs or usage give you the daily picture.' },
-  protect:   { recommended:['user-policy','runtime-traces','iam-policy','runtime-test'], also:['source-code','dai-docs','logs','attestation'],
-                rationale:'Protection requires an approved boundary, an observed signal, and a target to enforce against.' },
-  verify:    { recommended:['source-code','sarif','runtime-traces','attestation'],       also:['runtime-test','iam-policy','user-policy','logs'],
-                rationale:'Verification needs the exact evidence basis that was assessed — bring the sources that produced the result.' }
-};
-
-const PACKAGES = [
-  { id:'static-starter', name:'Static starter', desc:'Fastest breadth for code-visible risk', sources:['source-code','sbom'], meta:'Source code + SBOM' },
-  { id:'runtime-first',  name:'Runtime first',  desc:'Observe what agents actually do',       sources:['runtime-traces','logs'], meta:'OTLP traces + logs' },
-  { id:'authority-first',name:'Authority first',desc:'Scope what agents are allowed to do',   sources:['user-policy','iam-policy','dai-docs'], meta:'Policy + IAM + delegation' }
-];
-
-const JOB_RULES = {
-  discover: {
-    establishes: [
-      { text:'Code-visible system identity and manifest inventory', requires:['source-code'] },
-      { text:'Imported system or asset facts', requires:['servicenow','aws-cw','domain-export'] },
-      { text:'Declared policy scope', requires:['iam-policy','user-policy'] },
-      { text:'Runtime agent and tool identity', requires:['runtime-traces'] }
-    ],
-    oneAway: [
-      { if:['source-code'], add:'runtime-traces', unlocks:'runtime agent identity' },
-      { if:['source-code'], add:'servicenow',    unlocks:'estate inventory enrichment' },
-      { if:['runtime-traces'], add:'iam-policy', unlocks:'identity-to-authority mapping' }
-    ],
-    outside: [
-      'Confirmed production deployment (requires live observation)',
-      'Full cross-system agent graph (gated feature)'
-    ],
-    whenReady: [
-      'What agents exist in this system?',
-      'What tools can each agent reach?',
-      'Which dependencies are unapproved?'
-    ]
-  },
-  evaluate: {
-    establishes: [
-      { text:'Source-visible weaknesses and reachable tool/API paths', requires:['source-code'] },
-      { text:'Imported third-party findings at scan scope', requires:['sarif'] },
-      { text:'Runtime observations and agent traces', requires:['runtime-traces'] },
-      { text:'Declared policy contents and candidate grants', requires:['iam-policy'] },
-      { text:'Capability-to-policy comparison within exact scope', requires:['source-code','iam-policy'] },
-      { text:'Observed actions within qualified authority', requires:['iam-policy','runtime-traces'] },
-      { text:'Empirical runtime attack simulation (authorized endpoint)', requires:['runtime-test'] }
-    ],
-    oneAway: [
-      { if:['source-code'], add:'runtime-traces', unlocks:'observed agent actions' },
-      { if:['source-code'], add:'iam-policy',    unlocks:'code-to-policy comparison' },
-      { if:['iam-policy'],  add:'runtime-traces', unlocks:'observed actions within authority' },
-      { if:['runtime-traces'], add:'source-code', unlocks:'code-path correlation' }
-    ],
-    outside: [
-      'Target-side effect (requires authenticated provider ack and independent readback)',
-      'Full five-plane proof (requires all five qualified sources)'
-    ],
-    whenReady: [
-      'What could this system cause?',
-      'Where is authority undeclared or excessive?',
-      'What source-visible weaknesses are reachable?',
-      'Which agent actions fall outside approved scope?'
-    ]
-  },
-  authorize: {
-    establishes: [
-      { text:'Policy-approved authority boundary (POLICY_AUTHORIZED)', requires:['user-policy'] },
-      { text:'Declared delegation chain and scopes', requires:['dai-docs'] },
-      { text:'Code-capable authority inventory', requires:['source-code'] },
-      { text:'Candidate cloud permission', requires:['iam-policy'] },
-      { text:'Observed authority usage', requires:['runtime-traces'] }
-    ],
-    oneAway: [
-      { if:['user-policy'], add:'runtime-traces', unlocks:'observed authority usage' },
-      { if:['user-policy'], add:'iam-policy',    unlocks:'grant comparison' },
-      { if:['dai-docs'],    add:'runtime-traces', unlocks:'delegation witness' }
-    ],
-    outside: [
-      'Effective permission truth (requires IAM evaluator with all layers resolved)',
-      'Target-side enforcement (requires native provider integration)'
-    ],
-    whenReady: [
-      'What is approved for this agent?',
-      'By which named human, and until when?',
-      'What delegation chain authorizes this action?'
-    ]
-  },
-  monitor: {
-    establishes: [
-      { text:'Bounded runtime anomalies', requires:['runtime-traces'] },
-      { text:'Log-derived sign-in / API / data-access patterns', requires:['logs'] },
-      { text:'Usage and spend anomalies (where token counts available)', requires:['admin-usage'] },
-      { text:'Observed action vs authorized scope', requires:['runtime-traces','iam-policy'] }
-    ],
-    oneAway: [
-      { if:['runtime-traces'], add:'iam-policy',    unlocks:'scope comparison' },
-      { if:['logs'],           add:'runtime-traces', unlocks:'agent trace continuity' },
-      { if:['runtime-traces'], add:'source-code',   unlocks:'code-path correlation' }
-    ],
-    outside: [
-      'Continuous monitoring claim (requires connected collector with proven cadence)',
-      'Observed event absence (requires trusted source completeness)'
-    ],
-    whenReady: [
-      'Is what\u2019s happening what was approved?',
-      'What tool calls or surfaces are undeclared?',
-      'Where has usage crossed the declared baseline?'
-    ]
-  },
-  protect: {
-    establishes: [
-      { text:'Approved Operating Envelope boundary', requires:['user-policy'] },
-      { text:'Runtime actions within or outside approved scope', requires:['runtime-traces','user-policy'] },
-      { text:'Guard decision and denial witness', requires:['runtime-test'] }
-    ],
-    oneAway: [
-      { if:['user-policy'],    add:'runtime-traces', unlocks:'scope-violation witness' },
-      { if:['runtime-traces'], add:'runtime-test',   unlocks:'guard decision witness' },
-      { if:['runtime-test'],   add:'user-policy',    unlocks:'authorized guard boundary' }
-    ],
-    outside: [
-      'Target-side enforcement (requires native provider integration \u2014 NOT_WIRED for most targets)',
-      'Independently verified effect (requires readback)'
-    ],
-    whenReady: [
-      'What happens when the system tries to act?',
-      'Which guard decisions and denials are on record?',
-      'What is the target-side acknowledgement?'
-    ]
-  },
-  verify: {
-    establishes: [
-      { text:'Code-scoped assessment basis', requires:['source-code'] },
-      { text:'Imported findings provenance', requires:['sarif'] },
-      { text:'Runtime event basis with source identity', requires:['runtime-traces'] },
-      { text:'Qualified control test result with replay', requires:['runtime-test'] },
-      { text:'Human-attested control evidence', requires:['attestation'] }
-    ],
-    oneAway: [
-      { if:['source-code'],    add:'runtime-traces', unlocks:'combined code + runtime receipt' },
-      { if:['source-code'],    add:'iam-policy',     unlocks:'authority-bounded receipt' },
-      { if:['runtime-test'],   add:'attestation',    unlocks:'reviewed control receipt' }
-    ],
-    outside: [
-      'Certification or compliance verdict (mapping \u2260 certification)',
-      'Cross-tenant shared evidence'
-    ],
-    whenReady: [
-      'What was checked, at which version?',
-      'What evidence is behind each claim?',
-      'Can the assessment be replayed?'
-    ]
-  }
-};
-
-/* ─── State ─── */
-const state = {
-  step: 1,
-  job: null,
-  sources: [],
-  showAll: false,
-  techOpen: false,
-  pipelineStage: 0
-};
-
-const SYSTEM_NAME = 'Support Agent v2';
-
-/* ─── Helpers ─── */
-const $ = (id) => document.getElementById(id);
-
-function ladder(ceiling) {
-  let html = `<div class="ladder" aria-hidden="true">`;
-  for (let i = 0; i < 7; i++) html += `<span class="dot ${i <= ceiling ? 'filled' : ''}"></span>`;
-  return html + '</div>';
+const state={path:'system',system:'support',job:'evaluate',sources:[],showAll:false,openWhy:false};
+const el=id=>document.getElementById(id);
+const esc=v=>String(v).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+const uniq=a=>Array.from(new Set(a));
+function renderPaths(){
+ const modes=[
+  {id:'system',icon:'◎',title:'Explore an AI system',desc:'Lead with consequential capabilities, authority and what HAIEC can establish.'},
+  {id:'goal',icon:'◈',title:'Choose a goal',desc:'Find the minimum input and exact output for six independent customer jobs.'},
+  {id:'connect',icon:'⊕',title:'Connect a source',desc:'Start with GitHub, CI, files, telemetry, IAM, policy or evidence you already have.'}
+ ];
+ el('paths').innerHTML=modes.map(x=>'<button class="card-choice '+(state.path===x.id?'selected':'')+'" data-path="'+x.id+'" aria-pressed="'+(state.path===x.id)+'"><span class="icon">'+x.icon+'</span><span class="card-title">'+x.title+'</span><span class="card-desc">'+x.desc+'</span></button>').join('');
+ document.querySelectorAll('[data-path]').forEach(b=>b.addEventListener('click',()=>{state.path=b.dataset.path;render();}));
 }
-function ladderInline(ceiling) {
-  let html = '<div class="ladder-inline" aria-hidden="true">';
-  for (let i = 0; i < 7; i++) html += `<span class="dot ${i <= ceiling ? 'filled' : ''}"></span>`;
-  return html + '</div>';
+function renderContext(){
+ const s=SYSTEMS.find(x=>x.id===state.system);
+ el('context').innerHTML='<div class="context-head"><div><strong>AI system context</strong><div class="micro">'+esc(s.note)+'</div></div><label class="micro" for="system-picker">Example system <select id="system-picker">'+SYSTEMS.map(x=>'<option value="'+x.id+'" '+(x.id===s.id?'selected':'')+'>'+esc(x.name)+'</option>').join('')+'</select></label></div>';
+ el('system-picker').addEventListener('change',e=>{state.system=e.target.value;render();});
 }
-function highestCeiling(sources) {
-  if (!sources.length) return -1;
-  return Math.max(...sources.map(id => SOURCES[id].ceiling));
+function renderJobs(){
+ return '<div class="jobs">'+Object.entries(JOBS).map(([id,j])=>'<button class="job '+(state.job===id?'selected':'')+'" data-job="'+id+'" aria-pressed="'+(state.job===id)+'"><strong>'+j.name+'</strong><span>'+j.tag+'</span></button>').join('')+'</div>';
 }
-
-function preview(job, sources) {
-  const rules = JOB_RULES[job];
-  if (!rules) return { establish:[], oneAway:[], outside:[], whenReady:[] };
-  const establish = rules.establishes
-    .filter(e => e.requires.some(r => sources.includes(r)))
-    .map(e => e.text);
-  const oneAway = [];
-  const seen = new Set();
-  rules.oneAway.forEach(rule => {
-    const hasAll = rule.if.every(r => sources.includes(r));
-    const missing = !sources.includes(rule.add);
-    if (hasAll && missing && !seen.has(rule.unlocks)) {
-      seen.add(rule.unlocks);
-      oneAway.push({ add: rule.add, unlocks: rule.unlocks });
-    }
-  });
-  return { establish, oneAway, outside: rules.outside.slice(), whenReady: rules.whenReady.slice() };
+function bindJobs(){
+ document.querySelectorAll('[data-job]').forEach(b=>b.addEventListener('click',()=>{state.job=b.dataset.job;render();}));
 }
-
-/* ─── Renderers ─── */
-function renderRail() {
-  document.querySelectorAll('.rail-step').forEach(el => {
-    const n = parseInt(el.dataset.step, 10);
-    el.classList.toggle('active', n === state.step);
-    el.classList.toggle('done', n < state.step);
-  });
+function selectedS(){return state.sources.map(k=>SOURCES[k]).filter(Boolean);}
+function qualifiedPreview(){
+ const chosen=state.sources;
+ const relevant=PATTERNS.filter(p=>p.inputs.some(s=>chosen.includes(s)));
+ const joins=[];
+ if(chosen.includes('policy')&&(chosen.includes('github')||chosen.includes('archive')))joins.push('Code-to-approved-policy comparison may be possible only after exact scope and policy approval qualify.');
+ if(chosen.includes('otlp')&&chosen.includes('delegation'))joins.push('Delegation-to-observation comparison may be possible only with trusted identity, scope and trace correlation.');
+ if(chosen.includes('otlp')&&chosen.includes('iam'))joins.push('Runtime-to-permission context may be possible; exported IAM JSON never establishes an effective grant alone.');
+ if((chosen.includes('github')||chosen.includes('archive'))&&chosen.includes('otlp'))joins.push('Code-to-observation analysis may be possible if the same action/resource identities can be joined.');
+ return {relevant,joins};
 }
-function renderCrumb() {
-  const job = JOBS.find(j => j.id === state.job);
-  $('crumb-job').textContent = job ? job.name : 'Start from evidence';
+function renderSourceCards(showAll){
+ const top=['github','archive','otlp','iam','policy','logs','human','ci'];
+ const keys=showAll?Object.keys(SOURCES):top;
+ return '<div class="source-list">'+keys.map(id=>{
+ const s=SOURCES[id],sel=state.sources.includes(id);
+ return '<div class="source '+(s.held?'disabled':'')+'"><strong>'+esc(s.name)+'</strong><span class="source-kind">'+esc(s.kind)+'</span><p>'+esc(s.adds)+'</p><div class="row"><span class="micro">'+esc(s.status)+'</span><button data-source="'+id+'" class="'+(sel?'selected':'')+'" aria-pressed="'+sel+'" title="'+esc('What this could add: '+s.adds)+'">'+(sel?'Selected ✓':'+ Add')+'</button></div></div>';
+ }).join('')+'</div>';
 }
-
-function contextBanner() {
-  return `
-    <div class="context-banner">
-      Starting from: <strong>${SYSTEM_NAME}</strong>
-      <span style="color:var(--text-dim);">·</span>
-      <span class="change">Change system</span>
-    </div>`;
+function renderMain(){
+ const j=JOBS[state.job];
+ const head='<div class="eyebrow">'+(state.path==='system'?'Explore existing context':state.path==='goal'?'Lightweight objective selection':'Evidence and integration options')+'</div>';
+ if(state.path==='system'){
+  el('main-view').innerHTML=head+'<h2>Understand consequential capabilities.</h2><p class="subtle">HAIEC discovers source-reachable actions, tests evidence-bound authority and distinguishes observed behavior from verified effects. The examples below are investigation themes, not detected results for the selected system.</p><div class="source-list">'+PATTERNS.map(p=>'<div class="source"><strong>'+esc(p.label)+'</strong><p>'+esc(p.desc)+'</p><button data-investigate="'+esc(p.label)+'" title="View suggested sources for this investigation">Explore requirements →</button></div>').join('')+'</div><div class="row"><button class="btn sub" data-switch="goal">Choose an objective</button><button class="btn" data-switch="connect">Provide evidence</button></div>';
+ }else if(state.path==='goal'){
+  el('main-view').innerHTML=head+'<h2>What would you like to accomplish?</h2><p class="subtle">These jobs are independent, not mandatory stages. Select a goal to see its evidence contract. You can also begin with a source and refine the goal later.</p>'+renderJobs()+'<div class="detail"><div class="kicker">'+j.name+' · bounded contract</div><p><strong>Minimum to start:</strong> '+esc(j.min)+'</p><p><strong>What you may receive:</strong> '+esc(j.out)+'</p><p><strong>What stays unknown:</strong> '+esc(j.unknown)+'</p></div><div class="row" style="margin-top:16px"><button class="btn" data-switch="connect">Choose available evidence →</button><button class="btn sub" data-switch="system">Explore action paths</button></div>';
+ }else{
+  const p=qualifiedPreview();
+  el('main-view').innerHTML=head+'<h2>Start from evidence you already have.</h2><p class="subtle">Choose candidate source types. Clicking Add does not connect or upload anything. Hover or focus each control for the kind of assessment it could support.</p>'+renderSourceCards(state.showAll)+'<div class="row"><button class="btn sub" id="show-all">'+(state.showAll?'Show recommended sources only':'See all '+Object.keys(SOURCES).length+' source types')+'</button><button class="btn sub" id="compare-open">Compare with a starter</button></div><div class="preview-bucket"><div class="kicker">Possible investigation coverage · not analyzed</div><ul class="bullets">'+(p.relevant.length?p.relevant.map(x=>'<li><strong>'+esc(x.label)+'</strong> — '+esc(x.desc)+'</li>').join(''):'<li>Select a source to preview eligible investigation topics; no evidence has been assessed.</li>')+'</ul></div><div class="preview-bucket"><div class="kicker">Combining selected sources</div><ul class="bullets">'+(p.joins.length?p.joins.map(x=>'<li>'+esc(x)+'</li>').join(''):'<li>Cross-source joins depend on qualified identities, scope, provenance and comparable events; mere selection does not establish them.</li>')+'</ul></div><div class="preview-bucket"><div class="kicker">What is still missing</div><p class="subtle">Installed integration, role/tenant permission, source binder, exact system/producer identity, supported schema, actual detector execution and qualified outcome. Operational enforcement additionally requires native target wiring and appropriate authorization.</p></div>';
+ }
+ bindMain();
 }
-
-/* ─── Step 1 ─── */
-function renderStep1() {
-  const job = JOBS.find(j => j.id === state.job);
-
-  let html = `
-    <div class="screen">
-      ${contextBanner()}
-      <h1>What do you need to establish about this AI system?</h1>
-      <p class="lead">Pick the outcome closest to the decision you\u2019re making today. Six starting points \u2014 none blocks the others.</p>
-
-      <div class="jobs-grid">
-  `;
-  JOBS.forEach(j => {
-    const sel = state.job === j.id ? 'selected' : '';
-    html += `
-      <button class="job-card ${sel}" data-job="${j.id}">
-        <div class="job-icon-wrap">${j.icon}</div>
-        <div class="job-name">${j.name}</div>
-        <div class="job-tagline">${j.tagline}</div>
-        <div class="job-desc">${j.desc}</div>
-        <div class="job-answers"><strong>Answers:</strong> ${j.answers}</div>
-      </button>`;
-  });
-  html += `</div>`;
-
-  if (job) {
-    const consequences = CONSEQUENCES[job.id] || [];
-    html += `
-      <div class="consequence-section">
-        <h3>What ${job.name} catches</h3>
-        <div class="consequence-grid">
-          ${consequences.map(c => `
-            <div class="consequence">
-              <div class="consequence-icon">${c.icon}</div>
-              <div>
-                <div class="consequence-title">${c.title}</div>
-                <div class="consequence-desc">${c.desc}</div>
-              </div>
-            </div>`).join('')}
-        </div>
-      </div>`;
-  }
-
-  html += `</div>`;
-  $('canvas-body').innerHTML = html;
-
-  $('canvas-footer').innerHTML = `
-    <div class="footer-info">${job ? `<strong>${job.name}</strong> selected` : 'Choose a job to continue'}</div>
-    <div class="footer-actions">
-      <button class="btn btn-primary" id="next-1" ${state.job ? '' : 'disabled'}>Continue →</button>
-    </div>
-  `;
-
-  document.querySelectorAll('.job-card').forEach(el => {
-    el.addEventListener('click', () => { state.job = el.dataset.job; render(); });
-  });
-  $('next-1').addEventListener('click', () => { state.step = 2; render(); });
+function bindMain(){
+ document.querySelectorAll('[data-switch]').forEach(b=>b.addEventListener('click',()=>{state.path=b.dataset.switch;render();el('workspace').scrollIntoView({block:'start'});}));
+ bindJobs();
+ document.querySelectorAll('[data-investigate]').forEach(b=>b.addEventListener('click',()=>{state.path='connect';render();el('workspace').scrollIntoView({block:'start'});}));
+ document.querySelectorAll('[data-source]').forEach(b=>b.addEventListener('click',()=>{const id=b.dataset.source;state.sources=state.sources.includes(id)?state.sources.filter(v=>v!==id):state.sources.concat(id);render();}));
+ const show=el('show-all');if(show)show.addEventListener('click',()=>{state.showAll=!state.showAll;render();});
+ const cmp=el('compare-open');if(cmp)cmp.addEventListener('click',openCompare);
 }
-
-/* ─── Step 2 ─── */
-function sourceCard(id) {
-  const s = SOURCES[id];
-  const sel = state.sources.includes(id) ? 'selected' : '';
-  const chip = s.chip === 'held' ? '<span class="source-chip chip-held">BETA · endpoint consent</span>' : '';
-  return `
-    <button class="source-card ${sel}" data-source="${id}">
-      <div class="source-head">
-        <div class="source-icon">${s.icon}</div>
-        <div class="source-meta">
-          <div class="source-name">${s.name}</div>
-          <div class="source-sub">${s.sublabel}</div>
-          <span class="source-best">Best for: ${s.best}</span>
-        </div>
-      </div>
-      <div class="source-establishes">
-        <strong>Establishes</strong>
-        ${s.establishes}
-      </div>
-      <div class="source-meta-row">
-        <div>
-          ${ladder(s.ceiling)}
-          <div class="ladder-label">reaches ${LADDER[s.ceiling]}</div>
-        </div>
-        <div class="source-setup">${s.setup}</div>
-      </div>
-      ${chip}
-    </button>`;
+function renderAside(){
+ const p=qualifiedPreview();
+ const j=JOBS[state.job];
+ const suggestions={
+  discover:['github','archive','otlp'],
+  evaluate:['github','archive','policy','otlp'],
+  authorize:['policy','delegation','iam'],
+  monitor:['otlp','logs'],
+  protect:['policy','otlp'],
+  verify:['sarif','human','otlp']
+ };
+ const missing=(suggestions[state.job]||[]).filter(k=>!state.sources.includes(k)).slice(0,3);
+ el('aside-view').innerHTML='<div class="eyebrow">Live planning preview · illustrative only</div><h2 style="font-size:19px;margin-top:7px">What this could establish</h2><p class="subtle">The selected example system has not been queried and there is no live assessment in this HTML. These are source requirement hints.</p><div class="detail"><strong>Selected objective:</strong> '+esc(j.name)+'<br><strong>Candidate source types:</strong> '+state.sources.length+'<br><strong>Possible investigation themes:</strong> '+p.relevant.length+' <span class="micro">(not findings)</span></div><div class="preview-bucket"><div class="kicker">Still unknown</div><p class="subtle">'+esc(j.unknown)+' Current source availability and human approval are also unverified.</p></div><div class="preview-bucket"><div class="kicker">Consider providing</div><div class="cover-list">'+(missing.length?missing.map(id=>'<button class="chip" data-add-suggest="'+id+'" title="'+esc(SOURCES[id].adds)+'">+ '+esc(SOURCES[id].name)+'</button>').join(''):'<span class="subtle">No further example sources suggested for this objective.</span>')+'</div></div><details><summary>Why am I seeing these suggestions?</summary><p class="subtle" style="margin-top:9px">Examples are mapped to the chosen objective and the source types selected in this reference. In HAIEC production, this must come from canonical goal availability, tenant scope, producer activation and evidence qualification—not heuristic file names or this demo configuration.</p></details><hr><button class="btn sub" id="reset-demo">Reset illustration</button>';
+ document.querySelectorAll('[data-add-suggest]').forEach(b=>b.addEventListener('click',()=>{if(!state.sources.includes(b.dataset.addSuggest))state.sources.push(b.dataset.addSuggest);state.path='connect';render();}));
+ el('reset-demo').addEventListener('click',()=>{state.path='system';state.job='evaluate';state.sources=[];state.system='support';state.showAll=false;render();});
 }
-
-function renderStep2() {
-  const job = JOBS.find(j => j.id === state.job);
-  const groups = jobGroups[state.job] || { recommended:[], also:[], rationale:'' };
-  const allIds = Object.keys(SOURCES);
-  const shown = new Set([...groups.recommended, ...groups.also]);
-  const extras = allIds.filter(id => !shown.has(id));
-
-  let html = `
-    <div class="screen">
-      <h1>Show us what you already have.</h1>
-      <p class="lead">Each source shows what it can establish before you add it. Pick everything that applies.</p>
-
-      <div class="section-label">
-        <span class="label">Recommended for ${job.name}</span>
-      </div>
-      <p class="section-rationale">${groups.rationale}</p>
-      <div class="sources-grid">
-        ${groups.recommended.map(sourceCard).join('')}
-      </div>
-
-      <div class="section-label">
-        <span class="label">Also useful</span>
-        <span class="hint">Adds depth to ${job.name.toLowerCase()}</span>
-      </div>
-      <div class="sources-grid">
-        ${groups.also.map(sourceCard).join('')}
-      </div>
-  `;
-
-  if (extras.length) {
-    if (state.showAll) {
-      html += `
-        <div class="section-label"><span class="label">All other ways in</span><span class="hint">${extras.length} more</span></div>
-        <div class="sources-grid">${extras.map(sourceCard).join('')}</div>
-        <button class="show-more-btn" id="toggle-all">Show fewer</button>
-      `;
-    } else {
-      html += `<button class="show-more-btn" id="toggle-all">Show all ${allIds.length} ways in →</button>`;
-    }
-  }
-
-  if (state.sources.length === 0) {
-    html += `
-      <div class="packages-section">
-        <h3>Or try a packaged starting point</h3>
-        <div class="package-grid">
-          ${PACKAGES.map(p => `
-            <button class="package-card" data-package="${p.id}">
-              <span class="package-name">${p.name}</span>
-              <span class="package-desc">${p.desc}</span>
-              <span class="package-meta">${p.meta}</span>
-            </button>`).join('')}
-        </div>
-      </div>`;
-  }
-
-  html += `</div>`;
-  $('canvas-body').innerHTML = html;
-
-  const n = state.sources.length;
-  const ceiling = highestCeiling(state.sources);
-  const info = n === 0
-    ? 'No sources selected yet'
-    : `<strong>${n} source${n===1?'':'s'}</strong> selected · reaching <span class="ladder-tag">${LADDER[ceiling]}</span>`;
-
-  $('canvas-footer').innerHTML = `
-    <div class="footer-info">${info}</div>
-    <div class="footer-actions">
-      <button class="btn btn-ghost" id="back-2">← Back</button>
-      <button class="btn btn-primary" id="next-2" ${n ? '' : 'disabled'}>Preview preflight →</button>
-    </div>
-  `;
-
-  document.querySelectorAll('.source-card').forEach(el => {
-    el.addEventListener('click', () => {
-      const id = el.dataset.source;
-      const i = state.sources.indexOf(id);
-      if (i >= 0) state.sources.splice(i, 1);
-      else state.sources.push(id);
-      render();
-    });
-  });
-  document.querySelectorAll('[data-package]').forEach(el => {
-    el.addEventListener('click', () => {
-      const p = PACKAGES.find(x => x.id === el.dataset.package);
-      if (p) state.sources = [...p.sources];
-      render();
-    });
-  });
-  const toggle = $('toggle-all');
-  if (toggle) toggle.addEventListener('click', () => { state.showAll = !state.showAll; render(); });
-  $('back-2').addEventListener('click', () => { state.step = 1; render(); });
-  $('next-2').addEventListener('click', () => { if (state.sources.length) { state.step = 3; render(); } });
+function openCompare(){
+ const dlg=el('compare'), cur=state.sources;
+ dlg.innerHTML='<header><h2 id="compare-title">Compare candidate source sets</h2><button class="modal-close" id="compare-close" aria-label="Close comparison">Close</button></header><p class="subtle">This is a difference in source types, not a prediction of findings or validated assurance coverage.</p>'+Object.values(STARTERS).map(s=>{
+ const onlyStarter=s.ids.filter(i=>!cur.includes(i));
+ const onlyCurrent=cur.filter(i=>!s.ids.includes(i));
+ const shared=cur.filter(i=>s.ids.includes(i));
+ return '<div class="detail" style="margin-top:12px"><h3>'+esc(s.name)+'</h3><p><strong>Starter adds:</strong> '+esc(onlyStarter.map(i=>SOURCES[i].name).join(', ')||'Nothing additional')+'</p><p><strong>Your selection adds:</strong> '+esc(onlyCurrent.map(i=>SOURCES[i].name).join(', ')||'Nothing additional')+'</p><p><strong>Shared:</strong> '+esc(shared.map(i=>SOURCES[i].name).join(', ')||'None')+'</p><button class="btn sub" data-apply="'+Object.keys(STARTERS).find(k=>STARTERS[k]===s)+'">Use this illustrative set</button></div>';
+ }).join('')+'<p class="micro" style="margin-top:16px">Neither set confirms a source is connected, complete, qualified or executed.</p>';
+ dlg.showModal();
+ el('compare-close').addEventListener('click',()=>dlg.close());
+ dlg.querySelectorAll('[data-apply]').forEach(b=>b.addEventListener('click',()=>{state.sources=STARTERS[b.dataset.apply].ids.slice();state.path='connect';dlg.close();render();}));
 }
-
-/* ─── Step 3 ─── */
-function renderStep3() {
-  const job = JOBS.find(j => j.id === state.job);
-  const p = preview(state.job, state.sources);
-  const ceiling = highestCeiling(state.sources);
-  const n = state.sources.length;
-
-  let html = `
-    <div class="screen">
-      <h1>Here\u2019s what this run will establish.</h1>
-      <p class="lead">Nothing is assessed yet. This preview shows exactly what HAIEC can tell you from the evidence you picked.</p>
-
-      <div class="coverage-band">
-        <div class="cov-left">
-          <strong style="color:var(--text);font-weight:600;">${p.establish.length} consequenc${p.establish.length===1?'e':'es'} established</strong>
-          <span>·</span>
-          <span>${p.oneAway.length} one source away</span>
-        </div>
-        <div class="cov-right">
-          ${ladderInline(ceiling)}
-          <span class="ladder-tag">${LADDER[ceiling]}</span>
-        </div>
-      </div>
-
-      <div class="why-callout">
-        <strong>Why this preview exists.</strong> We\u2019re showing you what qualifies, what doesn\u2019t, and what\u2019s one source away \u2014 before you spend a run. Every fact below traces back to the evidence you selected.
-      </div>
-
-      <div class="sources-summary">
-        ${state.sources.map(id => `
-          <span class="source-chip-summary">${SOURCES[id].icon} ${SOURCES[id].name}</span>
-        `).join('')}
-      </div>
-
-      <div class="bucket bucket-establish">
-        <div class="bucket-header">✓ You\u2019ll be able to answer</div>
-        <ul class="bucket-list">
-  `;
-
-  if (p.establish.length) {
-    p.establish.forEach(t => html += `<li>${t}</li>`);
-  } else {
-    html += `<li style="padding-left:0;color:var(--text-muted);font-style:italic;">These sources alone don\u2019t complete a ${job.name.toLowerCase()} fact. Add one below.</li>`;
-  }
-  html += `</ul></div>`;
-
-  if (p.oneAway.length) {
-    html += `<div class="bucket bucket-away"><div class="bucket-header">○ One source away</div><ul class="bucket-list">`;
-    p.oneAway.forEach(row => {
-      const s = SOURCES[row.add];
-      html += `
-        <li>
-          <div class="away-row">
-            <span class="away-text"><strong>${row.unlocks}</strong> \u2014 add ${s.name.toLowerCase()} to unlock</span>
-            <button class="add-chip" data-add="${row.add}">+ ${s.icon} ${s.name}</button>
-          </div>
-        </li>`;
-    });
-    html += `</ul></div>`;
-  }
-
-  html += `
-      <div class="bucket bucket-outside">
-        <div class="bucket-header">· Stays outside this run</div>
-        <ul class="bucket-list">
-          ${p.outside.map(t => `<li>${t}</li>`).join('')}
-        </ul>
-      </div>
-
-      <button class="tech-toggle" id="tech-toggle">
-        <span>Technical detail \u2014 routes, binders, expected schema</span>
-        <span>${state.techOpen ? '▲' : '▼'}</span>
-      </button>
-  `;
-
-  if (state.techOpen) {
-    html += `<div class="tech-detail">`;
-    state.sources.forEach(id => {
-      const s = SOURCES[id];
-      html += `
-        <div style="margin-bottom:16px;">
-          <h4>${s.icon} ${s.name}</h4>
-          <div class="tech-row"><span class="tech-key">Ceiling:</span><span class="tech-val">${LADDER[s.ceiling]}</span></div>
-          <div class="tech-row"><span class="tech-key">Establishes:</span><span class="tech-val">${s.establishes}</span></div>
-          <div class="tech-row"><span class="tech-key">Setup:</span><span class="tech-val">${s.setup}</span></div>
-        </div>`;
-    });
-    html += `</div>`;
-  }
-
-  html += `</div>`;
-  $('canvas-body').innerHTML = html;
-
-  $('canvas-footer').innerHTML = `
-    <div class="footer-info">Typical run: <strong>~2 minutes</strong></div>
-    <div class="footer-actions">
-      <button class="btn btn-ghost" id="back-3">← Back</button>
-      <button class="btn btn-primary" id="start-3">Start assessment →</button>
-    </div>
-  `;
-
-  document.querySelectorAll('[data-add]').forEach(el => {
-    el.addEventListener('click', () => {
-      const id = el.dataset.add;
-      if (!state.sources.includes(id)) state.sources.push(id);
-      render();
-    });
-  });
-  $('tech-toggle').addEventListener('click', () => { state.techOpen = !state.techOpen; render(); });
-  $('back-3').addEventListener('click', () => { state.step = 2; render(); });
-  $('start-3').addEventListener('click', () => {
-    state.step = 4; state.pipelineStage = 0; render();
-    runPipeline();
-  });
-}
-
-/* ─── Step 4 ─── */
-function runPipeline() {
-  const stages = ['Parsing source code','Binding IAM evidence','Running detectors','Evaluating selected planes','Preparing Assurance Case'];
-  const maxStage = stages.length - 1;
-  if (state._pipeInterval) clearInterval(state._pipeInterval);
-  state._pipeInterval = setInterval(() => {
-    if (state.step !== 4) { clearInterval(state._pipeInterval); return; }
-    state.pipelineStage = Math.min(state.pipelineStage + 1, maxStage);
-    renderPipeline();
-    if (state.pipelineStage >= maxStage) clearInterval(state._pipeInterval);
-  }, 1100);
-}
-
-function renderPipeline() {
-  const el = document.getElementById('pipe-stages');
-  if (!el) return;
-  const stages = ['Parsing source code','Binding IAM evidence','Running detectors','Evaluating selected planes','Preparing Assurance Case'];
-  el.innerHTML = stages.map((label, i) => {
-    let cls = 'pending', marker = '';
-    if (i < state.pipelineStage) { cls = 'done'; marker = '✓'; }
-    else if (i === state.pipelineStage) { cls = 'running'; }
-    return `<div class="pipe-stage ${cls}"><div class="pipe-marker">${marker}</div><span>${label}</span></div>`;
-  }).join('');
-}
-
-function renderStep4() {
-  const job = JOBS.find(j => j.id === state.job);
-  const p = preview(state.job, state.sources);
-  const ceiling = highestCeiling(state.sources);
-
-  let html = `
-    <div class="screen">
-      <div class="outcome-hero">
-        <div class="outcome-icon">✓</div>
-        <h1>Your evidence is in \u2014 HAIEC is assessing now.</h1>
-        <p class="lead">You\u2019ll get a complete evidence basis with the exact sources, scope and limitations attached.</p>
-      </div>
-
-      <div class="pipeline">
-        <div class="pipeline-header">Running</div>
-        <div class="pipe-stages" id="pipe-stages"></div>
-      </div>
-
-      <div class="outcome-summary">
-        <div class="summary-row">
-          <span class="summary-label">System</span>
-          <span class="summary-value">${SYSTEM_NAME}</span>
-        </div>
-        <div class="summary-row">
-          <span class="summary-label">Job</span>
-          <span class="summary-value">${job.name}</span>
-        </div>
-        <div class="summary-row">
-          <span class="summary-label">Sources (${state.sources.length})</span>
-          <span class="summary-value">${state.sources.map(id => SOURCES[id].icon + ' ' + SOURCES[id].name).join(' · ')}</span>
-        </div>
-        <div class="summary-row">
-          <span class="summary-label">Ladder reached</span>
-          <span class="summary-value">
-            ${ladderInline(ceiling)}
-            <span class="ladder-tag">${LADDER[ceiling]}</span>
-          </span>
-        </div>
-      </div>
-  `;
-
-  if (p.whenReady.length) {
-    html += `
-      <div class="unlocks-section" style="margin-top:0;">
-        <h3>When results arrive, you\u2019ll be able to answer</h3>
-        <ul class="consequence-list">
-          ${p.whenReady.map(q => `<li>${q}</li>`).join('')}
-        </ul>
-      </div>`;
-  }
-
-  html += `
-    <div class="unlocks-section">
-      <h3>What this unlocks</h3>
-      <ul class="unlock-list">
-        <li>
-          <button class="unlock-row" data-action="results">
-            <span class="unlock-text"><span class="arrow">→</span> View ${job.name} results</span>
-            <span class="unlock-hint">available in ~2 min</span>
-          </button>
-        </li>
-        <li>
-          <button class="unlock-row" data-action="case">
-            <span class="unlock-text"><span class="arrow">→</span> Open Assurance Case</span>
-            <span class="unlock-hint">full evidence-basis view</span>
-          </button>
-        </li>
-      </ul>
-    </div>
-  `;
-
-  if (p.oneAway.length) {
-    html += `
-      <div class="unlocks-section">
-        <h3>Add a source to strengthen</h3>
-        <ul class="unlock-list">
-    `;
-    p.oneAway.slice(0, 3).forEach(row => {
-      const s = SOURCES[row.add];
-      html += `
-        <li>
-          <button class="unlock-row" data-add-from-outcome="${row.add}">
-            <span class="unlock-text"><span class="arrow">+</span> ${s.icon} ${s.name}</span>
-            <span class="unlock-hint">unlocks ${row.unlocks}</span>
-          </button>
-        </li>`;
-    });
-    html += `</ul></div>`;
-  }
-
-  html += `</div>`;
-  $('canvas-body').innerHTML = html;
-  renderPipeline();
-
-  $('canvas-footer').innerHTML = `
-    <div class="footer-info">Evidence receipt will attach automatically</div>
-    <div class="footer-actions">
-      <button class="btn btn-ghost" id="restart-4">↺ Start another</button>
-      <button class="btn btn-primary" id="close-4">Back to system</button>
-    </div>
-  `;
-
-  document.querySelectorAll('[data-action]').forEach(el => {
-    el.addEventListener('click', () => {
-      el.style.background = 'var(--success-bg)';
-      el.style.borderColor = 'var(--success)';
-      setTimeout(() => { el.style.background = ''; el.style.borderColor = ''; }, 700);
-    });
-  });
-  document.querySelectorAll('[data-add-from-outcome]').forEach(el => {
-    el.addEventListener('click', () => {
-      const id = el.dataset.addFromOutcome;
-      if (!state.sources.includes(id)) state.sources.push(id);
-      if (state._pipeInterval) clearInterval(state._pipeInterval);
-      state.step = 3; render();
-    });
-  });
-  $('restart-4').addEventListener('click', resetAll);
-  $('close-4').addEventListener('click', () => {
-    if (state._pipeInterval) clearInterval(state._pipeInterval);
-    $('canvas-body').innerHTML = `
-      <div class="screen" style="text-align:center;padding:80px 20px;">
-        <div style="font-size:52px;margin-bottom:16px;">✓</div>
-        <h1>Back to system</h1>
-        <p class="lead" style="margin:0 auto;">In the full product this closes the drawer and returns you to the AI System view.</p>
-        <button class="btn btn-primary" id="reopen" style="margin-top:28px;">Open the Navigator again</button>
-      </div>`;
-    $('canvas-footer').innerHTML = '';
-    $('reopen').addEventListener('click', resetAll);
-  });
-}
-
-function resetAll() {
-  if (state._pipeInterval) clearInterval(state._pipeInterval);
-  state.step = 1; state.job = null; state.sources = [];
-  state.showAll = false; state.techOpen = false; state.pipelineStage = 0;
-  render();
-}
-
-function render() {
-  renderRail();
-  renderCrumb();
-  if (state.step === 1) renderStep1();
-  else if (state.step === 2) renderStep2();
-  else if (state.step === 3) renderStep3();
-  else if (state.step === 4) renderStep4();
-}
-
-$('reset-link').addEventListener('click', resetAll);
+function render(){renderPaths();renderContext();renderMain();renderAside();}
 render();
 </script>
 </body>
