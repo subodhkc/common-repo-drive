@@ -1,5 +1,8 @@
 # HAIEC — Page-by-Page Enterprise UX Design & Validation Program
 
+> **2026-10-17 UX-P04.1 independent release check (supersedes preceding 'P04.1 open' audit):** [P04.1 independent verified release and UX-P05 DAI handoff](UX-P04.1-INDEPENDENT-ACCEPTANCE-AND-UX-P05-DAI-HANDOFF-2026-10-17.md). P04.1 `DEPLOYED_VERIFIED` ([PR #2238](https://github.com/subodhkc/haiec-website/pull/2238), `Main` `0fdf0f2f8`, exact-SHA Vercel `READY`, both CI workflows success). Reviewed G01–G05 fixed in source; Devin reports controlled 2-eval+failed fixture and governance-500 browser smoke. Viewer/multi-org still not run. Residual source-level P04-R01 (possible stale evaluation list/selected ID on in-place system changes) backlog in its own maintenance lane, not P05; P03 zero-clear and Dashboard D01–D03 remain separate. **UX-P05 Agent Action / DAI is the next dedicated enhancement, no parallel engine or cross-system proof leap.**
+
+
 > **2026-10-17 UX-P04 deployment independently verified; P04.1 acceptance lane opened:** [post-merge exact-Vercel-SHA audit, bounded selector and degraded-case fixes, UX-P05 handoff](UX-P04-INDEPENDENT-POST-MERGE-ACCEPTANCE-AND-P04.1-RELIABILITY-REVIEW-2026-10-17.md). P04 is `DEPLOYED_VERIFIED` (PR #2237, `Main` `5b033a9d0`) with live historical-selection/viewer/multi-org still `NOT_RUN`. P04.1 is **scoped integrity/reliability**, not a new page: completed-only selection, source-bounded recent-20 presentation, keep workspace case visible on governance read failure, make latest plane/receipt basis distinct from selected historical, copy that does not infer unobserved actions absent. UX-P05 DAI remains next *separate page* after bounded P04.1. Earlier P04 pending plans are historical.
 
 
