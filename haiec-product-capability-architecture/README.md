@@ -1,5 +1,7 @@
 # HAIEC Product Capability & Workflow Architecture
 
+> **2026-10-17 E6 UX / roles / control dependency update:** [Enterprise UX and operational dependency design review](E6-ENTERPRISE-UX-ROLE-OPERATIONS-CONTROL-EVIDENCE-DEPENDENCY-DESIGN-REVIEW-2026-10-17.md) is the latest source-checked design addendum. It maps organization → system → agent/action, role-specific approvals and reviewer assignment, per-control setup/proof stages, independent evidence planes, middleware/tenant safety, risk-ranked gaps and focused regression gates against the 87-row curated capability matrix and 45-control catalog. HAIEC E1–E5.1 are now merged; E6 estate/Assurance Case source exists at reviewed HAIEC `Main` `14b6b191`. Earlier pending-status paragraphs below are historical snapshots, not current release claims. **This is a planning addendum, not a product merge/deploy claim.**
+
 
 **Concurrent Sprint 28 correction:** [Sprint 28 status](./SPRINT-28-DECISION-INTEGRITY-STATUS-2026-10-16.md) records a **simulated** PO partial-mutation defect repaired at the shared commit boundary. GitHub manufacturing `main` `1fa4c640` is a code-merge observation, not Vercel runtime verification. See the [full audit](./COMMON-REPO-FULL-52-FILE-ALIGNMENT-AUDIT-2026-10-16.md) for versioned caveats.
 
