@@ -1,0 +1,1669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Work — Governance · HAIEC</title>
+<style>
+:root{
+  --bg:#FAFBFC; --card:#FFFFFF; --card-soft:#F5F7FA;
+  --border:#E7E9EE; --border-hover:#D0D4DD; --border-strong:#B8BFCC;
+  --text:#0F1729; --text-secondary:#414A5E; --text-muted:#667085; --text-dim:#98A2B3;
+  --primary:#4338CA; --primary-hover:#3730A3; --primary-light:#EEF2FF; --primary-border:#C7D2FE; --primary-ring:rgba(67,56,202,0.12);
+  --success:#067647; --success-bg:#ECFDF3; --success-border:#ABEFC6;
+  --amber:#B54708; --amber-bg:#FFFAEB; --amber-border:#FEDF89;
+  --danger:#B42318; --danger-bg:#FEF3F2; --danger-border:#FECDCA;
+  --info:#175CD3; --info-bg:#EFF8FF; --info-border:#B2DDFF;
+  --purple:#6941C6; --purple-bg:#F4F3FF; --purple-border:#D9D6FE;
+  --r-xs:6px; --r-sm:8px; --r-md:12px; --r-lg:16px; --r-xl:20px;
+  --sh-1:0 1px 2px rgba(16,24,40,0.04);
+  --sh-2:0 2px 6px rgba(16,24,40,0.06),0 1px 2px rgba(16,24,40,0.04);
+  --sh-3:0 8px 24px rgba(16,24,40,0.08);
+  --sh-4:0 24px 56px rgba(16,24,40,0.18);
+  --sans:-apple-system,BlinkMacSystemFont,'Inter','Segoe UI',system-ui,sans-serif;
+  --mono:ui-monospace,'SF Mono','Cascadia Code','Roboto Mono',monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{height:100%;}
+body{font-family:var(--sans);font-size:14.5px;line-height:1.55;color:var(--text);background:var(--bg);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit;}
+a{color:var(--primary);text-decoration:none;}
+a:hover{text-decoration:underline;text-underline-offset:2px;}
+code,.mono{font-family:var(--mono);font-size:0.92em;}
+::-webkit-scrollbar{width:10px;height:10px;}
+::-webkit-scrollbar-thumb{background:var(--border-hover);border-radius:5px;border:2px solid var(--bg);}
+::-webkit-scrollbar-thumb:hover{background:var(--border-strong);}
+
+.page{max-width:1400px;margin:0 auto;padding:24px 32px 60px;}
+
+/* HEADER */
+.page-header{display:flex;align-items:center;gap:16px;padding-bottom:18px;border-bottom:1px solid var(--border);margin-bottom:20px;flex-wrap:wrap;}
+.crumb{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text-muted);flex-wrap:wrap;}
+.crumb .org{font-weight:500;color:var(--text);}
+.crumb .sep{color:var(--text-dim);}
+.crumb .current{font-weight:600;color:var(--text);}
+.crumb .env{font-size:10px;padding:1px 6px;border-radius:4px;background:var(--success-bg);color:var(--success);border:1px solid var(--success-border);font-weight:600;letter-spacing:0.03em;text-transform:uppercase;}
+.header-right{margin-left:auto;display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.synthetic-chip{font-size:10.5px;font-weight:600;padding:3px 8px;border-radius:5px;background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-border);letter-spacing:0.02em;text-transform:uppercase;}
+.role-switcher{display:flex;align-items:center;border:1px solid var(--border);border-radius:var(--r-sm);overflow:hidden;background:var(--card);}
+.role-btn{padding:5px 12px;font-size:12px;font-weight:500;color:var(--text-muted);border-right:1px solid var(--border);transition:all 0.12s;}
+.role-btn:last-child{border-right:none;}
+.role-btn.active{background:var(--text);color:white;}
+
+/* ROLE CONTEXT BANNER */
+.role-context{background:var(--primary-light);border:1px solid var(--primary-border);border-radius:var(--r-sm);padding:12px 16px;margin-bottom:18px;display:flex;align-items:center;gap:12px;font-size:13px;line-height:1.55;}
+.role-context-icon{width:22px;height:22px;border-radius:50%;background:white;border:1px solid var(--primary-border);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--primary);flex-shrink:0;}
+.role-context-body{flex:1;color:var(--text);}
+.role-context-body strong{color:var(--primary);font-weight:600;}
+
+/* LAYOUT */
+.governance-layout{display:grid;grid-template-columns:minmax(0,400px) minmax(0,1fr);gap:20px;align-items:start;}
+
+/* QUEUE PANE */
+.queue-pane{background:var(--card);border:1px solid var(--border);border-radius:var(--r-md);overflow:hidden;position:sticky;top:20px;max-height:calc(100vh - 100px);display:flex;flex-direction:column;}
+.queue-filters{padding:14px 16px;border-bottom:1px solid var(--border);display:flex;gap:6px;flex-wrap:wrap;}
+.qf-chip{padding:5px 10px;border-radius:var(--r-sm);font-size:12px;border:1px solid var(--border);background:var(--card);color:var(--text-muted);cursor:pointer;font-weight:500;transition:all 0.12s;white-space:nowrap;}
+.qf-chip:hover{background:var(--card-soft);color:var(--text);}
+.qf-chip.active{background:var(--primary-light);color:var(--primary);border-color:var(--primary-border);}
+.qf-chip .count{font-family:var(--mono);font-size:10.5px;margin-left:3px;opacity:0.75;}
+
+.queue-list{overflow-y:auto;flex:1;}
+
+.queue-item{padding:14px 16px;border-bottom:1px solid var(--border);cursor:pointer;transition:background 0.1s;text-align:left;width:100%;display:block;font-family:inherit;color:inherit;border-left:3px solid transparent;}
+.queue-item:hover{background:var(--card-soft);}
+.queue-item.selected{background:var(--primary-light);border-left-color:var(--primary);}
+.queue-item:last-child{border-bottom:none;}
+.qi-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:6px;flex-wrap:wrap;}
+.qi-id{font-family:var(--mono);font-size:10.5px;color:var(--text-muted);font-weight:500;}
+.qi-age{font-size:11px;color:var(--text-muted);font-family:var(--mono);}
+.qi-title{font-size:13.5px;font-weight:500;color:var(--text);line-height:1.4;margin-bottom:4px;}
+.qi-meta{display:flex;gap:8px;font-size:11.5px;color:var(--text-muted);flex-wrap:wrap;align-items:center;}
+.qi-meta .dot{color:var(--text-dim);}
+.qi-badges{display:flex;gap:5px;flex-wrap:wrap;margin-top:6px;}
+.qi-type{font-size:10px;font-weight:600;padding:2px 7px;border-radius:4px;text-transform:uppercase;letter-spacing:0.04em;background:var(--card-soft);color:var(--text-muted);border:1px solid var(--border);}
+.qi-state{font-size:10.5px;font-weight:600;padding:2px 8px;border-radius:4px;}
+.qi-state.pending{background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-border);}
+.qi-state.unassigned{background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-border);}
+.qi-state.approved{background:var(--success-bg);color:var(--success);border:1px solid var(--success-border);}
+.qi-state.conditional{background:var(--info-bg);color:var(--info);border:1px solid var(--info-border);}
+.qi-state.rejected{background:var(--danger-bg);color:var(--danger);border:1px solid var(--danger-border);}
+.qi-state.expired{background:var(--card-soft);color:var(--text-muted);border:1px solid var(--border);}
+.qi-state.stale{background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-border);}
+.qi-state.revoked{background:var(--danger-bg);color:var(--danger);border:1px solid var(--danger-border);}
+.qi-effective{font-size:10px;font-weight:600;padding:1px 6px;border-radius:3px;font-family:var(--mono);letter-spacing:0.03em;}
+.qi-effective.current{background:var(--success-bg);color:var(--success);}
+.qi-effective.expired{background:var(--card-soft);color:var(--text-muted);}
+.qi-effective.stale{background:var(--amber-bg);color:var(--amber);}
+.qi-effective.revoked{background:var(--danger-bg);color:var(--danger);}
+.qi-effective.superseded{background:var(--card-soft);color:var(--text-muted);}
+
+/* PACKET PANE */
+.packet-pane{background:var(--card);border:1px solid var(--border);border-radius:var(--r-md);overflow:hidden;min-height:400px;}
+
+/* EMPTY STATE */
+.empty-state{padding:80px 32px;text-align:center;}
+.empty-icon{font-size:48px;margin-bottom:16px;opacity:0.4;}
+.empty-title{font-size:16px;font-weight:500;color:var(--text-secondary);margin-bottom:6px;}
+.empty-desc{font-size:13.5px;color:var(--text-muted);line-height:1.55;max-width:400px;margin:0 auto;}
+
+/* PACKET HEADER */
+.packet-header{padding:24px 28px 20px;border-bottom:1px solid var(--border);background:var(--card);}
+.packet-head-top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:14px;flex-wrap:wrap;}
+.packet-title-group{flex:1;min-width:240px;}
+.packet-id{font-family:var(--mono);font-size:11.5px;color:var(--text-muted);font-weight:500;margin-bottom:6px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.packet-type-tag{font-size:10px;font-weight:600;padding:2px 7px;border-radius:4px;text-transform:uppercase;letter-spacing:0.04em;background:var(--purple-bg);color:var(--purple);border:1px solid var(--purple-border);}
+.packet-operation{font-size:20px;font-weight:600;letter-spacing:-0.015em;line-height:1.3;color:var(--text);margin-bottom:4px;}
+.packet-operation-detail{font-size:13.5px;color:var(--text-muted);line-height:1.55;max-width:680px;}
+.packet-badges{display:flex;flex-direction:column;gap:6px;align-items:flex-end;flex-shrink:0;}
+.packet-state-badge{font-size:12.5px;font-weight:600;padding:6px 14px;border-radius:6px;white-space:nowrap;}
+.packet-state-badge.pending{background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-border);}
+.packet-state-badge.unassigned{background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-border);}
+.packet-state-badge.approved{background:var(--success-bg);color:var(--success);border:1px solid var(--success-border);}
+.packet-state-badge.conditional{background:var(--info-bg);color:var(--info);border:1px solid var(--info-border);}
+.packet-state-badge.rejected{background:var(--danger-bg);color:var(--danger);border:1px solid var(--danger-border);}
+.packet-state-badge.expired{background:var(--card-soft);color:var(--text-muted);border:1px solid var(--border);}
+.packet-state-badge.stale{background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-border);}
+.packet-state-badge.revoked{background:var(--danger-bg);color:var(--danger);border:1px solid var(--danger-border);}
+.packet-effective-badge{font-size:10.5px;font-weight:600;padding:3px 9px;border-radius:4px;font-family:var(--mono);letter-spacing:0.03em;}
+.packet-effective-badge.current{background:var(--success-bg);color:var(--success);border:1px solid var(--success-border);}
+.packet-effective-badge.expired{background:var(--card-soft);color:var(--text-muted);border:1px solid var(--border);}
+.packet-effective-badge.stale{background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-border);}
+.packet-effective-badge.revoked{background:var(--danger-bg);color:var(--danger);border:1px solid var(--danger-border);}
+.packet-effective-badge.superseded{background:var(--card-soft);color:var(--text-muted);border:1px solid var(--border);}
+
+.packet-meta-row{display:flex;gap:18px;flex-wrap:wrap;padding-top:14px;border-top:1px solid var(--border);}
+.packet-meta-item{display:flex;flex-direction:column;gap:2px;}
+.packet-meta-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-dim);}
+.packet-meta-value{font-size:13px;font-weight:500;color:var(--text);}
+.packet-meta-value.mono{font-family:var(--mono);font-size:12px;}
+
+/* ALERT BANNERS */
+.packet-alert{margin:0 28px;padding:14px 18px;border-radius:var(--r-sm);font-size:13px;line-height:1.6;display:flex;gap:12px;align-items:flex-start;margin-top:20px;}
+.packet-alert.warn{background:var(--amber-bg);border:1px solid var(--amber-border);color:var(--text);}
+.packet-alert.danger{background:var(--danger-bg);border:1px solid var(--danger-border);color:var(--text);}
+.packet-alert.info{background:var(--primary-light);border:1px solid var(--primary-border);color:var(--text);}
+.packet-alert.success{background:var(--success-bg);border:1px solid var(--success-border);color:var(--text);}
+.packet-alert-icon{width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;margin-top:1px;background:white;}
+.packet-alert.warn .packet-alert-icon{color:var(--amber);border:1px solid var(--amber-border);}
+.packet-alert.danger .packet-alert-icon{color:var(--danger);border:1px solid var(--danger-border);}
+.packet-alert.info .packet-alert-icon{color:var(--primary);border:1px solid var(--primary-border);}
+.packet-alert.success .packet-alert-icon{color:var(--success);border:1px solid var(--success-border);}
+.packet-alert-body strong{font-weight:600;display:block;margin-bottom:3px;}
+
+/* PACKET BODY */
+.packet-body{padding:24px 28px;}
+.packet-section{margin-bottom:24px;}
+.packet-section:last-child{margin-bottom:0;}
+.packet-section-title{font-size:11px;font-weight:600;letter-spacing:0.06em;color:var(--text-dim);text-transform:uppercase;margin-bottom:12px;display:flex;align-items:center;gap:8px;}
+.packet-section-title .badge{background:var(--card-soft);color:var(--text-muted);font-size:10px;padding:1px 6px;border-radius:8px;font-family:var(--mono);letter-spacing:0;text-transform:none;}
+
+/* PEOPLE ROW */
+.people-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.person-card{padding:14px 16px;background:var(--card-soft);border:1px solid var(--border);border-radius:var(--r-sm);display:flex;gap:12px;align-items:flex-start;}
+.person-avatar{width:36px;height:36px;border-radius:50%;background:var(--primary-light);color:var(--primary);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;flex-shrink:0;}
+.person-avatar.reviewer{background:var(--purple-bg);color:var(--purple);}
+.person-avatar.unassigned{background:var(--card);color:var(--text-dim);border:1px dashed var(--border-strong);}
+.person-body{flex:1;min-width:0;}
+.person-role{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-dim);margin-bottom:2px;}
+.person-name{font-size:13px;font-weight:500;color:var(--text);word-break:break-word;}
+.person-note{font-size:11.5px;color:var(--text-muted);margin-top:3px;line-height:1.4;}
+.sod-check{display:inline-flex;align-items:center;gap:4px;font-size:10.5px;font-weight:600;padding:2px 7px;border-radius:4px;margin-top:6px;background:var(--success-bg);color:var(--success);border:1px solid var(--success-border);}
+.sod-check.violation{background:var(--danger-bg);color:var(--danger);border-color:var(--danger-border);}
+.sod-check.pending{background:var(--amber-bg);color:var(--amber);border-color:var(--amber-border);}
+
+/* NOTIFICATION */
+.notification-row{display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--card-soft);border:1px solid var(--border);border-radius:var(--r-xs);font-size:12.5px;flex-wrap:wrap;}
+.notification-row .dot{width:6px;height:6px;border-radius:50%;background:var(--success);flex-shrink:0;}
+.notification-row.pending .dot{background:var(--amber);}
+.notification-row .label{font-weight:500;color:var(--text);}
+.notification-row .detail{color:var(--text-muted);font-family:var(--mono);font-size:11px;}
+.notification-note{font-size:11px;color:var(--text-dim);font-style:italic;margin-top:6px;}
+
+/* SCOPE COMPARISON */
+.scope-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.scope-block{padding:16px;border-radius:var(--r-sm);}
+.scope-block.allowed{background:var(--success-bg);border:1px solid var(--success-border);}
+.scope-block.prohibited{background:var(--danger-bg);border:1px solid var(--danger-border);}
+.scope-title{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:10px;}
+.scope-block.allowed .scope-title{color:var(--success);}
+.scope-block.prohibited .scope-title{color:var(--danger);}
+.scope-list{list-style:none;display:flex;flex-direction:column;gap:6px;}
+.scope-item{font-size:12.5px;color:var(--text);line-height:1.55;padding-left:20px;position:relative;}
+.scope-block.allowed .scope-item::before{content:'✓';position:absolute;left:0;top:0;color:var(--success);font-weight:700;font-size:12px;}
+.scope-block.prohibited .scope-item::before{content:'×';position:absolute;left:0;top:0;color:var(--danger);font-weight:700;font-size:13px;}
+
+/* CONDITIONS */
+.conditions-list{display:flex;flex-direction:column;gap:8px;}
+.condition{padding:12px 14px;background:var(--info-bg);border:1px solid var(--info-border);border-radius:var(--r-sm);display:flex;gap:10px;align-items:flex-start;}
+.condition-icon{width:20px;height:20px;border-radius:50%;background:white;border:1px solid var(--info-border);display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--info);flex-shrink:0;font-weight:700;}
+.condition-body{flex:1;}
+.condition-title{font-size:12.5px;font-weight:500;color:var(--text);margin-bottom:3px;}
+.condition-meta{font-size:11.5px;color:var(--text-muted);font-family:var(--mono);}
+
+/* EVIDENCE */
+.evidence-list{display:flex;flex-direction:column;gap:8px;}
+.ev-link{display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--card-soft);border:1px solid var(--border);border-radius:var(--r-sm);cursor:pointer;transition:all 0.12s;text-align:left;width:100%;font-family:inherit;color:inherit;}
+.ev-link:hover{border-color:var(--primary);background:var(--primary-light);}
+.ev-icon{font-size:16px;flex-shrink:0;}
+.ev-body{flex:1;min-width:0;}
+.ev-label{font-size:12.5px;font-weight:500;color:var(--text);margin-bottom:2px;}
+.ev-detail{font-size:11.5px;color:var(--text-muted);line-height:1.4;}
+.ev-arrow{color:var(--text-dim);font-size:14px;flex-shrink:0;}
+.ev-link:hover .ev-arrow{color:var(--primary);}
+
+/* POLICY */
+.policy-block{padding:14px 16px;background:var(--card-soft);border:1px solid var(--border);border-radius:var(--r-sm);}
+.policy-row{display:flex;justify-content:space-between;align-items:baseline;gap:12px;font-size:12.5px;padding:5px 0;border-bottom:1px solid var(--border);}
+.policy-row:last-child{border-bottom:none;}
+.policy-label{color:var(--text-muted);flex-shrink:0;}
+.policy-value{color:var(--text);font-weight:500;text-align:right;word-break:break-all;}
+.policy-value.mono{font-family:var(--mono);font-size:11.5px;}
+
+/* RESOLVED DECISION */
+.decision-summary{padding:16px;border-radius:var(--r-sm);display:flex;gap:14px;align-items:flex-start;}
+.decision-summary.approved{background:var(--success-bg);border:1px solid var(--success-border);}
+.decision-summary.rejected{background:var(--danger-bg);border:1px solid var(--danger-border);}
+.decision-summary.conditional{background:var(--info-bg);border:1px solid var(--info-border);}
+.decision-summary-icon{width:24px;height:24px;border-radius:50%;background:white;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;}
+.decision-summary.approved .decision-summary-icon{color:var(--success);border:1px solid var(--success-border);}
+.decision-summary.rejected .decision-summary-icon{color:var(--danger);border:1px solid var(--danger-border);}
+.decision-summary.conditional .decision-summary-icon{color:var(--info);border:1px solid var(--info-border);}
+.decision-summary-body{flex:1;min-width:0;}
+.decision-summary-title{font-size:13.5px;font-weight:600;margin-bottom:4px;}
+.decision-summary.approved .decision-summary-title{color:var(--success);}
+.decision-summary.rejected .decision-summary-title{color:var(--danger);}
+.decision-summary.conditional .decision-summary-title{color:var(--info);}
+.decision-summary-detail{font-size:12.5px;color:var(--text-muted);line-height:1.55;}
+.decision-summary-meta{display:flex;gap:14px;margin-top:8px;font-size:11.5px;color:var(--text-muted);flex-wrap:wrap;}
+.decision-summary-meta .mono{font-family:var(--mono);}
+
+/* HISTORY TIMELINE */
+.history-timeline{position:relative;padding-left:24px;}
+.history-timeline::before{content:'';position:absolute;left:7px;top:6px;bottom:6px;width:2px;background:var(--border);}
+.history-step{position:relative;padding:8px 0 12px;}
+.history-step::before{content:'';position:absolute;left:-24px;top:12px;width:12px;height:12px;border-radius:50%;background:var(--card);border:2px solid var(--border-hover);}
+.history-step:first-child::before{background:var(--primary);border-color:var(--primary);}
+.history-step-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:2px;flex-wrap:wrap;}
+.history-step-what{font-size:12.5px;color:var(--text);font-weight:500;}
+.history-step-time{font-family:var(--mono);font-size:11px;color:var(--text-muted);}
+.history-step-by{font-size:11.5px;color:var(--text-muted);}
+
+/* ACTION BAR */
+.packet-actions{padding:20px 28px;border-top:1px solid var(--border);background:var(--card-soft);display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;}
+.actions-primary{display:flex;gap:8px;flex-wrap:wrap;}
+.actions-secondary{display:flex;gap:8px;flex-wrap:wrap;}
+
+/* BUTTONS */
+.btn{padding:9px 18px;border-radius:var(--r-sm);font-size:13.5px;font-weight:500;border:1px solid transparent;transition:all 0.12s;display:inline-flex;align-items:center;gap:6px;letter-spacing:-0.005em;}
+.btn-primary{background:var(--primary);color:white;box-shadow:var(--sh-1);}
+.btn-primary:hover{background:var(--primary-hover);box-shadow:var(--sh-2);}
+.btn-success{background:var(--success);color:white;box-shadow:var(--sh-1);}
+.btn-success:hover{background:#055a37;}
+.btn-danger{background:var(--danger);color:white;}
+.btn-danger:hover{background:#8f1c13;}
+.btn-secondary{background:var(--card);color:var(--text);border-color:var(--border);}
+.btn-secondary:hover{background:var(--card-soft);border-color:var(--border-hover);}
+.btn-ghost{background:transparent;color:var(--text-muted);border-color:var(--border);}
+.btn-ghost:hover{background:var(--card-soft);color:var(--text);}
+.btn-sm{padding:6px 12px;font-size:12.5px;}
+.btn:disabled{opacity:0.4;cursor:not-allowed;}
+
+/* READ-ONLY BANNER */
+.readonly-banner{padding:10px 28px;background:var(--card-soft);border-top:1px solid var(--border);font-size:12.5px;color:var(--text-muted);text-align:center;}
+.readonly-banner strong{color:var(--text);font-weight:600;}
+
+/* MODAL */
+.modal-backdrop{position:fixed;inset:0;background:rgba(15,23,41,0.5);opacity:0;pointer-events:none;transition:opacity 0.2s;z-index:60;display:flex;align-items:center;justify-content:center;padding:20px;}
+.modal-backdrop.open{opacity:1;pointer-events:auto;}
+.modal{background:var(--card);border-radius:var(--r-lg);max-width:600px;width:100%;box-shadow:var(--sh-4);transform:scale(0.96);transition:transform 0.2s;overflow:hidden;max-height:90vh;display:flex;flex-direction:column;}
+.modal-backdrop.open .modal{transform:scale(1);}
+.modal-head{padding:22px 26px 14px;}
+.modal-title{font-size:17px;font-weight:600;margin-bottom:6px;}
+.modal-sub{font-size:13px;color:var(--text-muted);line-height:1.55;}
+.modal-body{padding:18px 26px;border-top:1px solid var(--border);border-bottom:1px solid var(--border);font-size:13px;line-height:1.6;overflow-y:auto;}
+.modal-foot{padding:14px 26px;display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap;}
+
+.preview-warning{background:var(--amber-bg);border:1px solid var(--amber-border);border-radius:var(--r-xs);padding:10px 12px;font-size:12px;color:var(--amber);line-height:1.55;margin-bottom:14px;}
+.preview-warning strong{font-weight:600;display:block;margin-bottom:3px;}
+
+.decision-field{margin-bottom:14px;}
+.decision-field-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-dim);margin-bottom:4px;}
+.decision-field-value{font-size:13px;color:var(--text);font-weight:500;}
+.decision-field-value.mono{font-family:var(--mono);font-size:12px;word-break:break-all;}
+.decision-textarea{width:100%;min-height:80px;padding:10px 12px;border:1px solid var(--border);border-radius:var(--r-xs);font-family:inherit;font-size:13px;color:var(--text);resize:vertical;background:var(--card);}
+.decision-textarea:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px var(--primary-ring);}
+.decision-textarea:disabled{background:var(--card-soft);color:var(--text-muted);cursor:not-allowed;}
+
+.reviewer-list{display:flex;flex-direction:column;gap:6px;}
+.reviewer-option{padding:10px 12px;border:1px solid var(--border);border-radius:var(--r-xs);font-size:12.5px;display:flex;align-items:center;gap:10px;background:var(--card);text-align:left;font-family:inherit;color:inherit;cursor:not-allowed;opacity:0.6;}
+.reviewer-option .avatar{width:28px;height:28px;border-radius:50%;background:var(--primary-light);color:var(--primary);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;}
+.reviewer-option .body{flex:1;}
+.reviewer-option .name{font-weight:500;color:var(--text);}
+.reviewer-option .role{font-size:11px;color:var(--text-muted);}
+
+/* TOAST */
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(8px);background:var(--text);color:white;padding:11px 20px;border-radius:var(--r-sm);font-size:13px;z-index:100;box-shadow:var(--sh-3);opacity:0;pointer-events:none;transition:all 0.2s;max-width:520px;text-align:center;line-height:1.5;}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+/* MOBILE BACK */
+.mobile-back{display:none;padding:12px 16px;border-bottom:1px solid var(--border);background:var(--card);}
+.mobile-back-btn{font-size:13px;color:var(--primary);font-weight:500;padding:4px 0;display:inline-flex;align-items:center;gap:6px;}
+.mobile-back-btn:hover{text-decoration:underline;text-underline-offset:2px;}
+
+/* PRINT */
+@media print{
+  body{background:white;}
+  .page{padding:0;max-width:none;}
+  .header-right,.queue-pane,.role-context,.packet-actions,.modal-backdrop,.toast,.mobile-back{display:none !important;}
+  .governance-layout{display:block;}
+  .packet-pane{border:none;}
+}
+
+/* RESPONSIVE */
+@media (max-width:1100px){
+  .governance-layout{grid-template-columns:1fr;}
+  .queue-pane{position:static;max-height:none;}
+  .queue-pane.hidden-on-mobile{display:none;}
+  .packet-pane.hidden-on-mobile{display:none;}
+  .mobile-back{display:block;}
+  .people-grid{grid-template-columns:1fr;}
+  .scope-grid{grid-template-columns:1fr;}
+  .packet-header,.packet-body,.packet-actions{padding-left:20px;padding-right:20px;}
+  .packet-alert{margin-left:20px;margin-right:20px;}
+}
+@media (max-width:600px){
+  .page{padding:16px;}
+  .packet-operation{font-size:17px;}
+  .packet-actions{flex-direction:column;align-items:stretch;}
+  .actions-primary,.actions-secondary{flex-direction:column;width:100%;}
+  .actions-primary .btn,.actions-secondary .btn{width:100%;justify-content:center;}
+  .queue-filters{padding:10px 12px;}
+  .qf-chip{font-size:11px;padding:4px 8px;}
+  .packet-meta-row{gap:12px;}
+  .packet-badges{align-items:flex-start;}
+  .packet-head-top{flex-direction:column;align-items:flex-start;}
+}
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <header class="page-header">
+    <div class="crumb">
+      <span class="org">Acme Corp</span>
+      <span class="sep">›</span>
+      <span>Governance</span>
+      <span class="sep">›</span>
+      <span class="current">My Work</span>
+    </div>
+    <div class="header-right">
+      <span class="synthetic-chip">Synthetic demo</span>
+      <div class="role-switcher">
+        <button class="role-btn" data-role="approver" onclick="setRole('approver')">Approver</button>
+        <button class="role-btn" data-role="requester" onclick="setRole('requester')">Requester</button>
+        <button class="role-btn" data-role="admin" onclick="setRole('admin')">Admin</button>
+        <button class="role-btn" data-role="auditor" onclick="setRole('auditor')">Auditor</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="role-context" id="role-context"></div>
+
+  <div class="governance-layout">
+    <div class="queue-pane" id="queue-pane">
+      <div class="queue-filters" id="queue-filters"></div>
+      <div class="queue-list" id="queue-list"></div>
+    </div>
+    <div class="packet-pane" id="packet-pane">
+      <div class="mobile-back">
+        <button class="mobile-back-btn" onclick="backToQueue()">← Back to queue</button>
+      </div>
+      <div id="packet-content"></div>
+    </div>
+  </div>
+
+</div>
+
+<div class="modal-backdrop" id="modal-backdrop" onclick="if(event.target===this)closeModal()">
+  <div class="modal">
+    <div class="modal-head">
+      <div class="modal-title" id="modal-title"></div>
+      <div class="modal-sub" id="modal-sub"></div>
+    </div>
+    <div class="modal-body" id="modal-body"></div>
+    <div class="modal-foot" id="modal-foot"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ═══════════════════════════════════════════════
+   FIXTURES — 9 requests across all states & roles
+   ═══════════════════════════════════════════════ */
+
+const USERS = {
+  alice: 'alice.chen@example.com',
+  bob: 'bob.kumar@example.com',
+  admin: 'admin@acme.example',
+  auditor: 'auditor@acme.example'
+};
+
+const ROLES = {
+  approver:  { user: USERS.alice,   label: 'Approver',  name: 'alice.chen' },
+  requester: { user: USERS.bob,     label: 'Requester', name: 'bob.kumar' },
+  admin:     { user: USERS.admin,   label: 'Org admin', name: 'admin' },
+  auditor:   { user: USERS.auditor, label: 'Auditor',   name: 'auditor' }
+};
+
+const REQUESTS = [
+
+  /* 1. PENDING — assigned to current approver (alice) */
+  {
+    id: 'DEP-2026-10-17-001',
+    type: 'deployment', typeLabel: 'Deployment decision',
+    system: 'Support Agent v2', systemId: 'sys-supp-2f4a',
+    operation: 'Widen refund limit from $500 → $1,000',
+    operationDetail: 'Allow support-triage-v3 to issue refunds up to $1,000 per transaction, up from the currently approved $500 limit. This would extend authority to a delegated chain that recently produced a scope-widening finding.',
+    requester: USERS.bob,
+    reviewer: USERS.alice,
+    state: 'PENDING', stateTone: 'pending',
+    effectiveState: 'CURRENT', effectiveTone: 'current',
+    createdAt: '2026-10-17 10:48 UTC', age: '4h',
+    sla: '3 business days · on time',
+    policyDigest: 'sha256:8f2a…c4b1',
+    policyVersion: 'Operating Envelope v12',
+    evaluationRef: 'eval-2f4a-9d3b · REVIEW · 2026-10-17 10:42 UTC',
+    allowed: [
+      'refund.create up to $1,000 per transaction',
+      'Customer scope: standard (no PII)',
+      'Environment: production',
+      'Geography: US'
+    ],
+    prohibited: [
+      'Refunds above $1,000',
+      'Non-USD currencies',
+      'Bulk refund operations',
+      'Refunds to unverified accounts'
+    ],
+    evidence: [
+      { icon: '📋', label: 'Latest evaluation', detail: 'eval-2f4a-9d3b · REVIEW · 10:42 UTC', kind: 'evaluation' },
+      { icon: '🔀', label: 'Chain 7a9c-2b14 finding', detail: 'Scope widening · EFFECT_NOT_VERIFIED', kind: 'dai' },
+      { icon: '⌘', label: 'Control A03', detail: 'Delegated Action Integrity · EXECUTED', kind: 'control' }
+    ],
+    notification: { delivered: true, at: '2026-10-17 10:48 UTC', channel: 'in-app + email' },
+    history: [
+      { at: '2026-10-17 10:48', what: 'Request created by bob.kumar', by: 'bob.kumar@example.com' },
+      { at: '2026-10-17 10:49', what: 'Notification delivered to reviewer', by: 'system' },
+      { at: '2026-10-17 10:49', what: 'Assigned to alice.chen (auto-assigned per policy)', by: 'system' }
+    ],
+    conditions: null,
+    resolution: null
+  },
+
+  /* 2. PENDING — assigned to bob (alice is requester, cannot review — SoD demo) */
+  {
+    id: 'ENV-2026-10-17-004',
+    type: 'policy', typeLabel: 'Policy approval',
+    system: 'Customer Insights', systemId: 'sys-ci-9f2e',
+    operation: 'Approve Operating Envelope v4 (draft)',
+    operationDetail: 'Approve the drafted Operating Envelope v4 for Customer Insights. Currently in draft — no named human has approved it yet. System has code-capable evidence but no policy authorization or effective grant context.',
+    requester: USERS.alice,
+    reviewer: USERS.bob,
+    state: 'PENDING', stateTone: 'pending',
+    effectiveState: 'CURRENT', effectiveTone: 'current',
+    createdAt: '2026-10-17 11:02 UTC', age: '3h',
+    sla: '3 business days · on time',
+    policyDigest: '— (draft · not frozen)',
+    policyVersion: 'Operating Envelope v4-draft',
+    evaluationRef: 'eval-ci-2f4a-7b09 · REVIEW · 2026-10-16 14:30 UTC',
+    allowed: [
+      'Read: aggregated customer telemetry',
+      'Query: batched (>100 rows)',
+      'Environment: staging only'
+    ],
+    prohibited: [
+      'Individual PII access',
+      'Write to customer DB',
+      'Production deployment'
+    ],
+    evidence: [
+      { icon: '📋', label: 'Evaluation (partial)', detail: 'eval-ci-2f4a-7b09 · REVIEW · evidence partial', kind: 'evaluation' },
+      { icon: '📁', label: 'Draft envelope', detail: 'v4-draft · not frozen', kind: 'envelope' }
+    ],
+    notification: { delivered: true, at: '2026-10-17 11:02 UTC', channel: 'in-app + email' },
+    history: [
+      { at: '2026-10-17 11:02', what: 'Request created by alice.chen', by: 'alice.chen@example.com' },
+      { at: '2026-10-17 11:03', what: 'Notification delivered to reviewer', by: 'system' },
+      { at: '2026-10-17 11:03', what: 'Assigned to bob.kumar', by: 'system' }
+    ],
+    conditions: null,
+    resolution: null
+  },
+
+  /* 3. UNASSIGNED — needs admin assignment */
+  {
+    id: 'DEP-2026-10-17-005',
+    type: 'deployment', typeLabel: 'Deployment decision',
+    system: 'Invoice Agent v1', systemId: 'sys-inv-1b7c',
+    operation: 'Extend reconciliation limit $10,000 → $15,000',
+    operationDetail: 'Allow invoice-reconciler-v1 to reconcile invoices up to $15,000. Currently limited to $10,000. No reviewer is assigned — requires an admin to assign an eligible reviewer.',
+    requester: USERS.alice,
+    reviewer: null,
+    state: 'UNASSIGNED', stateTone: 'unassigned',
+    effectiveState: 'CURRENT', effectiveTone: 'current',
+    createdAt: '2026-10-17 13:22 UTC', age: '1h',
+    sla: '3 business days · on time (not yet started)',
+    policyDigest: 'sha256:5e8a…c3f1',
+    policyVersion: 'Operating Envelope v8',
+    evaluationRef: 'eval-inv-2f4a-8c1a · ALLOW · 2026-10-17 09:58 UTC',
+    allowed: [
+      'invoice.reconcile up to $15,000',
+      'Standard invoice classes only',
+      'Environment: production'
+    ],
+    prohibited: [
+      'Invoices above $15,000',
+      'Manual override of reconciliation',
+      'Write to external ledgers'
+    ],
+    evidence: [
+      { icon: '📋', label: 'Latest evaluation', detail: 'eval-inv-2f4a-8c1a · ALLOW · 09:58 UTC', kind: 'evaluation' },
+      { icon: '⌘', label: 'Control A03', detail: 'Delegated Action Integrity · EXECUTED', kind: 'control' }
+    ],
+    notification: { delivered: false, reason: 'No reviewer assigned · notification pending' },
+    history: [
+      { at: '2026-10-17 13:22', what: 'Request created by alice.chen', by: 'alice.chen@example.com' },
+      { at: '2026-10-17 13:22', what: 'Awaiting reviewer assignment', by: 'system' }
+    ],
+    conditions: null,
+    resolution: null
+  },
+
+  /* 4. APPROVED_SCOPED — resolved */
+  {
+    id: 'DEP-2026-10-17-003',
+    type: 'deployment', typeLabel: 'Deployment decision',
+    system: 'Support Agent v2', systemId: 'sys-supp-2f4a',
+    operation: 'Deploy guardrail enforcement PEP v2.1',
+    operationDetail: 'Deploy a native PEP at stripe-prod to enforce the refund.create guardrail. Approved with scoped authority for the specific operation.',
+    requester: USERS.bob,
+    reviewer: USERS.alice,
+    state: 'APPROVED_SCOPED', stateTone: 'approved',
+    effectiveState: 'CURRENT', effectiveTone: 'current',
+    createdAt: '2026-10-17 08:52 UTC', age: '5h',
+    sla: 'Resolved in 22 min · on time',
+    policyDigest: 'sha256:8f2a…c4b1',
+    policyVersion: 'Operating Envelope v12',
+    evaluationRef: 'eval-2f4a-9d3b · REVIEW · 2026-10-17 10:42 UTC',
+    allowed: [
+      'Guardrail: refund.create',
+      'Target: stripe-prod',
+      'Scope: ≤ $500 per transaction'
+    ],
+    prohibited: [
+      'Non-refund operations',
+      'Cross-tenant targets'
+    ],
+    evidence: [
+      { icon: '📋', label: 'Evaluation', detail: 'eval-2f4a-9d3b · REVIEW', kind: 'evaluation' },
+      { icon: '⌘', label: 'Control A03', detail: 'Delegated Action Integrity', kind: 'control' }
+    ],
+    notification: { delivered: true, at: '2026-10-17 09:14 UTC', channel: 'in-app + email' },
+    history: [
+      { at: '2026-10-17 08:52', what: 'Request created by bob.kumar', by: 'bob.kumar@example.com' },
+      { at: '2026-10-17 09:14', what: 'Approved · scoped by alice.chen', by: 'alice.chen@example.com' },
+      { at: '2026-10-17 09:14', what: 'Decision notification delivered to requester', by: 'system' }
+    ],
+    conditions: null,
+    resolution: {
+      kind: 'approved', by: 'alice.chen@example.com', at: '2026-10-17 09:14 UTC',
+      digestBound: 'sha256:8f2a…c4b1',
+      rationale: 'Approved as scoped. Condition: enforcement only on refund.create for this system.'
+    }
+  },
+
+  /* 5. APPROVED_CONDITIONAL — with active conditions */
+  {
+    id: 'ENV-2026-10-17-006',
+    type: 'policy', typeLabel: 'Policy approval',
+    system: 'Support Agent v2', systemId: 'sys-supp-2f4a',
+    operation: 'Approve Operating Envelope v12 with conditions',
+    operationDetail: 'Approve Envelope v12 with two conditions: native PEP must be wired to stripe-prod within 7 days, and the R03 guardrail control must reach PENDING_ACTIVATION resolution.',
+    requester: USERS.bob,
+    reviewer: USERS.alice,
+    state: 'APPROVED_CONDITIONAL', stateTone: 'conditional',
+    effectiveState: 'CURRENT', effectiveTone: 'current',
+    createdAt: '2026-10-15 11:02 UTC', age: '2d',
+    sla: 'Resolved in 2 days',
+    policyDigest: 'sha256:8f2a…c4b1',
+    policyVersion: 'Operating Envelope v12',
+    evaluationRef: 'eval-2f4a-9d3b · REVIEW · 2026-10-17 10:42 UTC',
+    allowed: [
+      'refund.create ≤ $500 per transaction',
+      'Standard customer scope'
+    ],
+    prohibited: [
+      'Refunds above $500',
+      'Non-USD currencies'
+    ],
+    evidence: [
+      { icon: '📋', label: 'Evaluation', detail: 'eval-2f4a-9d3b · REVIEW', kind: 'evaluation' }
+    ],
+    notification: { delivered: true, at: '2026-10-15 11:02 UTC', channel: 'in-app + email' },
+    history: [
+      { at: '2026-10-15 11:02', what: 'Request created by bob.kumar', by: 'bob.kumar@example.com' },
+      { at: '2026-10-17 09:14', what: 'Approved · conditional by alice.chen', by: 'alice.chen@example.com' },
+      { at: '2026-10-17 09:14', what: 'Decision notification delivered', by: 'system' }
+    ],
+    conditions: [
+      { title: 'Native PEP wired to stripe-prod within 7 days', meta: 'Due 2026-10-24 · currently NOT_WIRED' },
+      { title: 'R03 guardrail must resolve PENDING_ACTIVATION', meta: 'Blocked by durable store migration' }
+    ],
+    resolution: {
+      kind: 'conditional', by: 'alice.chen@example.com', at: '2026-10-17 09:14 UTC',
+      digestBound: 'sha256:8f2a…c4b1',
+      rationale: 'Approved with two conditions. Failure to satisfy by due date invalidates the approval.'
+    }
+  },
+
+  /* 6. REJECTED */
+  {
+    id: 'DEP-2026-10-16-014',
+    type: 'deployment', typeLabel: 'Deployment decision',
+    system: 'Support Agent v2', systemId: 'sys-supp-2f4a',
+    operation: 'Allow refunds without approval under $50',
+    operationDetail: 'Request to bypass manual approval for small refunds (<$50). Rejected — bypass would remove the human decision point for a consequential operation.',
+    requester: USERS.bob,
+    reviewer: USERS.alice,
+    state: 'REJECTED', stateTone: 'rejected',
+    effectiveState: 'REVOKED', effectiveTone: 'revoked',
+    createdAt: '2026-10-16 18:22 UTC', age: '1d',
+    sla: 'Resolved in 4h',
+    policyDigest: 'sha256:7c1b…a9d3',
+    policyVersion: 'Operating Envelope v11',
+    evaluationRef: 'eval-2f4a-8c1a · ALLOW · 2026-10-16 22:15 UTC',
+    allowed: [
+      'refund.create ≤ $500'
+    ],
+    prohibited: [
+      'Refunds without human approval',
+      'Bulk refund operations'
+    ],
+    evidence: [
+      { icon: '📋', label: 'Evaluation', detail: 'eval-2f4a-8c1a · ALLOW', kind: 'evaluation' }
+    ],
+    notification: { delivered: true, at: '2026-10-16 22:15 UTC', channel: 'in-app + email' },
+    history: [
+      { at: '2026-10-16 18:22', what: 'Request created by bob.kumar', by: 'bob.kumar@example.com' },
+      { at: '2026-10-16 22:15', what: 'Rejected by alice.chen', by: 'alice.chen@example.com' },
+      { at: '2026-10-16 22:15', what: 'Decision notification delivered', by: 'system' }
+    ],
+    conditions: null,
+    resolution: {
+      kind: 'rejected', by: 'alice.chen@example.com', at: '2026-10-16 22:15 UTC',
+      digestBound: 'sha256:7c1b…a9d3',
+      rationale: 'Policy violation — bypasses approval for a high-risk path. The human decision point is a required control, not optional overhead. Resubmit with a narrower scope if the goal is to reduce approval latency for low-risk paths only.'
+    }
+  },
+
+  /* 7. EXPIRED */
+  {
+    id: 'DEP-2026-10-14-002',
+    type: 'deployment', typeLabel: 'Deployment decision',
+    system: 'Support Agent v2', systemId: 'sys-supp-2f4a',
+    operation: 'Temporary testing approval · refund limit $750',
+    operationDetail: 'Temporary approval for testing a raised refund limit during a controlled experiment. Approved for 48h and has now expired.',
+    requester: USERS.bob,
+    reviewer: USERS.alice,
+    state: 'APPROVED_SCOPED', stateTone: 'approved',
+    effectiveState: 'EXPIRED', effectiveTone: 'expired',
+    createdAt: '2026-10-14 09:00 UTC', age: '3d',
+    sla: 'Resolved in 1h · expired 2026-10-16 09:00 UTC',
+    policyDigest: 'sha256:8f2a…c4b1',
+    policyVersion: 'Operating Envelope v12',
+    evaluationRef: 'eval-2f4a-9d3b · REVIEW · 2026-10-17 10:42 UTC',
+    allowed: [
+      'refund.create ≤ $750 (temporary)',
+      'Test customer scope only'
+    ],
+    prohibited: [
+      'Production customer refunds',
+      'Refunds above $750'
+    ],
+    evidence: [
+      { icon: '📋', label: 'Evaluation', detail: 'eval-2f4a-9d3b · REVIEW', kind: 'evaluation' }
+    ],
+    notification: { delivered: true, at: '2026-10-14 09:00 UTC', channel: 'in-app + email' },
+    history: [
+      { at: '2026-10-14 09:00', what: 'Request created by bob.kumar', by: 'bob.kumar@example.com' },
+      { at: '2026-10-14 10:00', what: 'Approved · scoped (48h) by alice.chen', by: 'alice.chen@example.com' },
+      { at: '2026-10-16 09:00', what: 'Approval expired (48h window elapsed)', by: 'system' }
+    ],
+    conditions: null,
+    resolution: {
+      kind: 'approved', by: 'alice.chen@example.com', at: '2026-10-14 10:00 UTC',
+      digestBound: 'sha256:8f2a…c4b1',
+      rationale: 'Temporary approval for testing. Expires 2026-10-16 10:00 UTC. No extension without a new request.'
+    }
+  },
+
+  /* 8. STALE_POLICY — was approved, underlying policy changed */
+  {
+    id: 'DEP-2026-10-15-009',
+    type: 'deployment', typeLabel: 'Deployment decision',
+    system: 'Invoice Agent v1', systemId: 'sys-inv-1b7c',
+    operation: 'Extend reconciliation limit to $12,000',
+    operationDetail: 'Approved under Operating Envelope v8. A newer envelope (v9-draft) has since been proposed that would change the reconciliation policy — the approval basis is no longer current.',
+    requester: USERS.alice,
+    reviewer: USERS.bob,
+    state: 'APPROVED_SCOPED', stateTone: 'approved',
+    effectiveState: 'STALE_POLICY', effectiveTone: 'stale',
+    createdAt: '2026-10-15 09:14 UTC', age: '2d',
+    sla: 'Resolved in 30 min',
+    policyDigest: 'sha256:5e8a…c3f1',
+    policyVersion: 'Operating Envelope v8',
+    evaluationRef: 'eval-inv-2f4a-8c1a · ALLOW · 2026-10-17 09:58 UTC',
+    allowed: [
+      'invoice.reconcile ≤ $12,000'
+    ],
+    prohibited: [
+      'Invoices above $12,000'
+    ],
+    evidence: [
+      { icon: '📋', label: 'Evaluation', detail: 'eval-inv-2f4a-8c1a · ALLOW', kind: 'evaluation' }
+    ],
+    notification: { delivered: true, at: '2026-10-15 09:14 UTC', channel: 'in-app + email' },
+    history: [
+      { at: '2026-10-15 09:14', what: 'Request created by alice.chen', by: 'alice.chen@example.com' },
+      { at: '2026-10-15 09:44', what: 'Approved · scoped by bob.kumar', by: 'bob.kumar@example.com' },
+      { at: '2026-10-17 08:30', what: 'Envelope v9-draft introduced · approval basis changed', by: 'system' }
+    ],
+    conditions: null,
+    resolution: {
+      kind: 'approved', by: 'bob.kumar@example.com', at: '2026-10-15 09:44 UTC',
+      digestBound: 'sha256:5e8a…c3f1',
+      rationale: 'Approved as scoped under Envelope v8.'
+    }
+  },
+
+  /* 9. REVOKED */
+  {
+    id: 'DEP-2026-10-13-011',
+    type: 'deployment', typeLabel: 'Deployment decision',
+    system: 'Support Agent v2', systemId: 'sys-supp-2f4a',
+    operation: 'Refund limit $750 (superseded by DEP-2026-10-17-001)',
+    operationDetail: 'Was approved, then revoked when a scope-widening finding was raised against the underlying delegation chain. Currently being re-requested as DEP-2026-10-17-001.',
+    requester: USERS.bob,
+    reviewer: USERS.alice,
+    state: 'APPROVED_SCOPED', stateTone: 'approved',
+    effectiveState: 'REVOKED', effectiveTone: 'revoked',
+    createdAt: '2026-10-13 09:00 UTC', age: '4d',
+    sla: 'Resolved in 2h · revoked 2026-10-17 10:44 UTC',
+    policyDigest: 'sha256:8f2a…c4b1',
+    policyVersion: 'Operating Envelope v11',
+    evaluationRef: 'eval-2f4a-9d3b · REVIEW · 2026-10-17 10:42 UTC',
+    allowed: [
+      'refund.create ≤ $750 (revoked)'
+    ],
+    prohibited: [
+      'All operations — approval is revoked'
+    ],
+    evidence: [
+      { icon: '📋', label: 'Evaluation', detail: 'eval-2f4a-9d3b · REVIEW', kind: 'evaluation' },
+      { icon: '🔀', label: 'Chain 7a9c-2b14', detail: 'Scope widening · revocation trigger', kind: 'dai' }
+    ],
+    notification: { delivered: true, at: '2026-10-17 10:44 UTC', channel: 'in-app + email' },
+    history: [
+      { at: '2026-10-13 09:00', what: 'Request created by bob.kumar', by: 'bob.kumar@example.com' },
+      { at: '2026-10-13 11:00', what: 'Approved · scoped by alice.chen', by: 'alice.chen@example.com' },
+      { at: '2026-10-17 10:42', what: 'Scope widening finding detected on chain-7a9c-2b14', by: 'system' },
+      { at: '2026-10-17 10:44', what: 'Approval revoked by alice.chen', by: 'alice.chen@example.com' }
+    ],
+    conditions: null,
+    resolution: {
+      kind: 'approved', by: 'alice.chen@example.com', at: '2026-10-13 11:00 UTC',
+      digestBound: 'sha256:8f2a…c4b1',
+      rationale: 'Approved as scoped. Revoked 2026-10-17 10:44 UTC following a scope-widening finding on the underlying delegation chain.'
+    }
+  }
+];
+
+/* ═══════════════════════════════════════════════
+   STATE
+   ═══════════════════════════════════════════════ */
+
+const state = {
+  role: 'approver',
+  filter: 'assigned',
+  selectedId: null
+};
+
+function currentUser() { return ROLES[state.role].user; }
+function currentRoleName() { return ROLES[state.role].name; }
+
+/* ═══════════════════════════════════════════════
+   HELPERS
+   ═══════════════════════════════════════════════ */
+
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+
+function toast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;
+  t.classList.add('show');
+  clearTimeout(t._t);
+  t._t=setTimeout(()=>t.classList.remove('show'),3200);
+}
+
+function initials(email){
+  const name = email.split('@')[0];
+  const parts = name.split('.');
+  return parts.map(p => p[0]).join('').toUpperCase().slice(0,2);
+}
+
+function setRole(role){
+  state.role = role;
+  state.filter = roleFilterDefault(role);
+  state.selectedId = null;
+  document.querySelectorAll('.role-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.role === role);
+  });
+  render();
+}
+
+function roleFilterDefault(role){
+  if(role === 'approver') return 'assigned';
+  if(role === 'requester') return 'requested';
+  if(role === 'admin') return 'all';
+  if(role === 'auditor') return 'resolved';
+  return 'all';
+}
+
+/* ═══════════════════════════════════════════════
+   FILTERING
+   ═══════════════════════════════════════════════ */
+
+function queueForCurrentRole(){
+  const user = currentUser();
+  const role = state.role;
+
+  let items = REQUESTS.slice();
+
+  if(role === 'approver'){
+    // Approver sees: items assigned to them (any state), plus items they requested (to track)
+    items = items.filter(r => r.reviewer === user || r.requester === user);
+  } else if(role === 'requester'){
+    // Requester sees only items they requested
+    items = items.filter(r => r.requester === user);
+  } else if(role === 'admin'){
+    // Admin sees all
+    // no filter
+  } else if(role === 'auditor'){
+    // Auditor sees resolved only
+    items = items.filter(r => r.resolution !== null);
+  }
+
+  return items;
+}
+
+function applyFilter(items){
+  const f = state.filter;
+  if(f === 'all') return items;
+  if(f === 'assigned'){
+    return items.filter(r => r.reviewer === currentUser() && (r.state === 'PENDING' || r.state === 'UNASSIGNED'));
+  }
+  if(f === 'requested'){
+    return items.filter(r => r.requester === currentUser());
+  }
+  if(f === 'unassigned'){
+    return items.filter(r => r.state === 'UNASSIGNED');
+  }
+  if(f === 'pending'){
+    return items.filter(r => r.state === 'PENDING' || r.state === 'UNASSIGNED');
+  }
+  if(f === 'resolved'){
+    return items.filter(r => r.resolution !== null);
+  }
+  if(f === 'stale'){
+    return items.filter(r => r.effectiveState === 'STALE_POLICY' || r.effectiveState === 'STALE_EVALUATION' || r.effectiveState === 'EXPIRED');
+  }
+  if(f === 'revoked'){
+    return items.filter(r => r.effectiveState === 'REVOKED');
+  }
+  return items;
+}
+
+function filtersForRole(role){
+  if(role === 'approver'){
+    return [
+      { id: 'assigned', label: 'Assigned to me' },
+      { id: 'requested', label: 'I requested' },
+      { id: 'all', label: 'All visible' }
+    ];
+  }
+  if(role === 'requester'){
+    return [
+      { id: 'requested', label: 'My requests' },
+      { id: 'pending', label: 'Waiting for review' },
+      { id: 'resolved', label: 'Resolved' }
+    ];
+  }
+  if(role === 'admin'){
+    return [
+      { id: 'all', label: 'All requests' },
+      { id: 'pending', label: 'Pending' },
+      { id: 'unassigned', label: 'Unassigned' },
+      { id: 'stale', label: 'Stale / expired' },
+      { id: 'resolved', label: 'Resolved' }
+    ];
+  }
+  if(role === 'auditor'){
+    return [
+      { id: 'resolved', label: 'Resolved history' },
+      { id: 'revoked', label: 'Revoked' }
+    ];
+  }
+  return [{ id: 'all', label: 'All' }];
+}
+
+/* ═══════════════════════════════════════════════
+   RENDER
+   ═══════════════════════════════════════════════ */
+
+function render(){
+  renderRoleContext();
+  renderFilters();
+  renderQueue();
+  renderPacket();
+  applyMobileVisibility();
+}
+
+function renderRoleContext(){
+  const role = ROLES[state.role];
+  const el = document.getElementById('role-context');
+  const messages = {
+    approver: `<strong>You are viewing as ${role.name} (approver).</strong> You see requests assigned to you and requests you submitted. Acting on a request requires server-side authentication — every approval in this demo is a preview, not a real decision.`,
+    requester: `<strong>You are viewing as ${role.name} (requester).</strong> You see requests you submitted. You can track status and see the exact scope and conditions. Approval decisions are made by assigned reviewers, never by requesters (separation of duties).`,
+    admin: `<strong>You are viewing as ${role.name} (org admin).</strong> You see all requests across the org. You can preview reviewer assignment for unassigned requests. Assignment requires eligible org members and SoD validation — this demo does not attempt server-side mutation.`,
+    auditor: `<strong>You are viewing as ${role.name} (auditor).</strong> Read-only view of resolved decisions. This view shows exactly what was decided, by whom, with what scope and conditions. Auditors do not make decisions.`
+  };
+  el.innerHTML = `
+    <div class="role-context-icon">${state.role[0].toUpperCase()}</div>
+    <div class="role-context-body">${messages[state.role]}</div>
+  `;
+}
+
+function renderFilters(){
+  const el = document.getElementById('queue-filters');
+  const allItems = queueForCurrentRole();
+  const filters = filtersForRole(state.role);
+  el.innerHTML = filters.map(f => {
+    state.filter = f.id; // temporarily set to count
+    const count = applyFilter(allItems).length;
+    state.filter = filtersForRole(state.role); // reset
+    return `<button class="qf-chip ${state.filter === f.id ? 'active' : ''}" onclick="setFilter('${f.id}')">${esc(f.label)} <span class="count">${count}</span></button>`;
+  }).join('');
+  // Restore filter after counting
+  state.filter = filters.find(f => f.label)?.id && state.filter;
+}
+
+function setFilter(id){
+  state.filter = id;
+  state.selectedId = null;
+  render();
+}
+
+function renderQueue(){
+  const el = document.getElementById('queue-list');
+  const allItems = queueForCurrentRole();
+  const items = applyFilter(allItems);
+
+  if(items.length === 0){
+    el.innerHTML = `
+      <div class="empty-state" style="padding:40px 20px;">
+        <div class="empty-icon">✓</div>
+        <div class="empty-title">No requests at this filter</div>
+        <div class="empty-desc">Try a different filter, or switch roles to see a different queue.</div>
+      </div>
+    `;
+    return;
+  }
+
+  el.innerHTML = items.map(r => {
+    const selected = r.id === state.selectedId;
+    const stateClass = r.stateTone;
+    const effectiveClass = r.effectiveTone;
+    return `
+      <button class="queue-item ${selected ? 'selected' : ''}" onclick="selectRequest('${r.id}')">
+        <div class="qi-top">
+          <span class="qi-id">${esc(r.id)}</span>
+          <span class="qi-age">${esc(r.age)}</span>
+        </div>
+        <div class="qi-title">${esc(r.operation)}</div>
+        <div class="qi-meta">
+          <span>${esc(r.system)}</span>
+          <span class="dot">·</span>
+          <span>by ${esc(r.requester.split('@')[0])}</span>
+          ${r.reviewer ? `<span class="dot">·</span><span>reviewer ${esc(r.reviewer.split('@')[0])}</span>` : `<span class="dot">·</span><span style="color:var(--amber);">unassigned</span>`}
+        </div>
+        <div class="qi-badges">
+          <span class="qi-type">${esc(r.typeLabel)}</span>
+          <span class="qi-state ${stateClass}">${esc(r.state)}</span>
+          ${r.effectiveState !== 'CURRENT' ? `<span class="qi-effective ${effectiveClass}">${esc(r.effectiveState)}</span>` : ''}
+        </div>
+      </button>
+    `;
+  }).join('');
+}
+
+function selectRequest(id){
+  state.selectedId = id;
+  render();
+}
+
+function renderPacket(){
+  const el = document.getElementById('packet-content');
+  if(!state.selectedId){
+    el.innerHTML = `
+      <div class="empty-state">
+        <div class="empty-icon">⚖</div>
+        <div class="empty-title">Select a request from the queue</div>
+        <div class="empty-desc">Choose a decision packet to see the full scope, evidence basis, conditions, and available actions.</div>
+      </div>
+    `;
+    return;
+  }
+  const r = REQUESTS.find(x => x.id === state.selectedId);
+  if(!r){
+    el.innerHTML = '<div class="empty-state"><div class="empty-title">Request not found</div></div>';
+    return;
+  }
+
+  el.innerHTML = `
+    ${renderPacketHeader(r)}
+    ${renderPacketAlerts(r)}
+    <div class="packet-body">
+      ${renderPeopleSection(r)}
+      ${renderNotification(r)}
+      ${renderScopeComparison(r)}
+      ${renderConditions(r)}
+      ${renderEvidence(r)}
+      ${renderPolicy(r)}
+      ${renderResolution(r)}
+      ${renderHistory(r)}
+    </div>
+    ${renderActions(r)}
+  `;
+}
+
+function renderPacketHeader(r){
+  const stateClass = r.stateTone;
+  const effectiveClass = r.effectiveTone;
+  return `
+    <div class="packet-header">
+      <div class="packet-head-top">
+        <div class="packet-title-group">
+          <div class="packet-id">
+            <span>${esc(r.id)}</span>
+            <span class="packet-type-tag">${esc(r.typeLabel)}</span>
+          </div>
+          <div class="packet-operation">${esc(r.operation)}</div>
+          <div class="packet-operation-detail">${esc(r.operationDetail)}</div>
+        </div>
+        <div class="packet-badges">
+          <span class="packet-state-badge ${stateClass}">${esc(r.state)}</span>
+          ${r.effectiveState !== 'CURRENT' ? `<span class="packet-effective-badge ${effectiveClass}">${esc(r.effectiveState)}</span>` : `<span class="packet-effective-badge current">CURRENT</span>`}
+        </div>
+      </div>
+      <div class="packet-meta-row">
+        <div class="packet-meta-item">
+          <div class="packet-meta-label">System</div>
+          <div class="packet-meta-value">${esc(r.system)}</div>
+        </div>
+        <div class="packet-meta-item">
+          <div class="packet-meta-label">Created</div>
+          <div class="packet-meta-value mono">${esc(r.createdAt)}</div>
+        </div>
+        <div class="packet-meta-item">
+          <div class="packet-meta-label">Age</div>
+          <div class="packet-meta-value">${esc(r.age)}</div>
+        </div>
+        <div class="packet-meta-item">
+          <div class="packet-meta-label">SLA</div>
+          <div class="packet-meta-value">${esc(r.sla)}</div>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function renderPacketAlerts(r){
+  const alerts = [];
+  if(r.state === 'UNASSIGNED'){
+    alerts.push({ tone: 'warn', title: 'No reviewer assigned', body: 'This request requires an admin to assign an eligible reviewer. Assignment requires SoD — the reviewer must differ from the requester.' });
+  }
+  if(r.effectiveState === 'EXPIRED'){
+    alerts.push({ tone: 'warn', title: 'This approval has expired', body: 'The original approval window has elapsed. The operations covered are no longer authorized. Resubmit a new request to renew.' });
+  }
+  if(r.effectiveState === 'STALE_POLICY'){
+    alerts.push({ tone: 'warn', title: 'Policy basis has changed', body: 'The Operating Envelope this request was approved under has since been superseded. The approval is stale — it does not authorize the current policy.' });
+  }
+  if(r.effectiveState === 'REVOKED'){
+    alerts.push({ tone: 'danger', title: 'This approval has been revoked', body: 'The approval was revoked. No operations covered by this request are currently authorized.' });
+  }
+  if(r.requester === currentUser() && r.state === 'PENDING'){
+    alerts.push({ tone: 'info', title: 'You are the requester for this decision', body: 'Separation of duties prevents you from reviewing your own request. The review is assigned to ' + r.reviewer + '.' });
+  }
+  if(r.reviewer === currentUser() && r.state === 'PENDING'){
+    alerts.push({ tone: 'info', title: 'This request is assigned to you', body: 'You are eligible to review. Review the scope, evidence, and conditions, then choose an action. Approval is a deliberate act — not a routine confirmation.' });
+  }
+  if(r.state === 'APPROVED_CONDITIONAL' && r.conditions && r.conditions.length){
+    alerts.push({ tone: 'info', title: 'This approval has outstanding conditions', body: 'The approval is valid only while the conditions below are satisfied. If a condition lapses, the approval becomes invalid automatically.' });
+  }
+
+  return alerts.map(a => `
+    <div class="packet-alert ${a.tone}">
+      <div class="packet-alert-icon">${a.tone === 'warn' ? '!' : a.tone === 'danger' ? '!' : 'i'}</div>
+      <div class="packet-alert-body">
+        <strong>${esc(a.title)}</strong>
+        ${esc(a.body)}
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderPeopleSection(r){
+  const isRequester = r.requester === currentUser();
+  const isReviewer = r.reviewer === currentUser();
+  const sodViolation = !!(r.requester && r.reviewer && r.requester === r.reviewer);
+
+  return `
+    <div class="packet-section">
+      <div class="packet-section-title">Parties</div>
+      <div class="people-grid">
+        <div class="person-card">
+          <div class="person-avatar">${initials(r.requester)}</div>
+          <div class="person-body">
+            <div class="person-role">Requester</div>
+            <div class="person-name">${esc(r.requester)}</div>
+            ${isRequester ? '<div class="person-note">This is you</div>' : ''}
+          </div>
+        </div>
+        <div class="person-card">
+          <div class="person-avatar reviewer ${r.reviewer ? '' : 'unassigned'}">${r.reviewer ? initials(r.reviewer) : '?'}</div>
+          <div class="person-body">
+            <div class="person-role">Reviewer</div>
+            <div class="person-name">${r.reviewer ? esc(r.reviewer) : '<span style="color:var(--amber);">Unassigned</span>'}</div>
+            ${isReviewer ? '<div class="person-note">This is you</div>' : ''}
+            ${sodViolation ? `<span class="sod-check violation">⚠ SoD violation</span>` : (r.reviewer ? `<span class="sod-check">✓ SoD verified · reviewer ≠ requester</span>` : `<span class="sod-check pending">◐ SoD pending · assignment required</span>`)}
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function renderNotification(r){
+  const n = r.notification;
+  if(n.delivered){
+    return `
+      <div class="packet-section">
+        <div class="packet-section-title">Notification</div>
+        <div class="notification-row">
+          <span class="dot"></span>
+          <span class="label">Delivered to reviewer</span>
+          <span class="detail">${esc(n.at)} · ${esc(n.channel)}</span>
+        </div>
+        <div class="notification-note">Notification delivery ≠ approval ≠ acknowledgment. A delivered notification is a delivery fact, not an indication that a human has acted on it.</div>
+      </div>
+    `;
+  }
+  return `
+    <div class="packet-section">
+      <div class="packet-section-title">Notification</div>
+      <div class="notification-row pending">
+        <span class="dot"></span>
+        <span class="label">Not yet sent</span>
+        <span class="detail">${esc(n.reason)}</span>
+      </div>
+    </div>
+  `;
+}
+
+function renderScopeComparison(r){
+  return `
+    <div class="packet-section">
+      <div class="packet-section-title">Scope comparison</div>
+      <div class="scope-grid">
+        <div class="scope-block allowed">
+          <div class="scope-title">Allowed if approved</div>
+          <ul class="scope-list">
+            ${r.allowed.map(a => `<li class="scope-item">${esc(a)}</li>`).join('')}
+          </ul>
+        </div>
+        <div class="scope-block prohibited">
+          <div class="scope-title">Prohibited</div>
+          <ul class="scope-list">
+            ${r.prohibited.map(p => `<li class="scope-item">${esc(p)}</li>`).join('')}
+          </ul>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function renderConditions(r){
+  if(!r.conditions || !r.conditions.length) return '';
+  return `
+    <div class="packet-section">
+      <div class="packet-section-title">Active conditions <span class="badge">${r.conditions.length}</span></div>
+      <div class="conditions-list">
+        ${r.conditions.map(c => `
+          <div class="condition">
+            <div class="condition-icon">!</div>
+            <div class="condition-body">
+              <div class="condition-title">${esc(c.title)}</div>
+              <div class="condition-meta">${esc(c.meta)}</div>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `;
+}
+
+function renderEvidence(r){
+  return `
+    <div class="packet-section">
+      <div class="packet-section-title">Supporting evidence <span class="badge">${r.evidence.length}</span></div>
+      <div class="evidence-list">
+        ${r.evidence.map(e => `
+          <button class="ev-link" onclick="previewNavigate('${esc(e.label)}')">
+            <span class="ev-icon">${e.icon}</span>
+            <div class="ev-body">
+              <div class="ev-label">${esc(e.label)}</div>
+              <div class="ev-detail">${esc(e.detail)}</div>
+            </div>
+            <span class="ev-arrow">→</span>
+          </button>
+        `).join('')}
+      </div>
+    </div>
+  `;
+}
+
+function renderPolicy(r){
+  return `
+    <div class="packet-section">
+      <div class="packet-section-title">Policy basis</div>
+      <div class="policy-block">
+        <div class="policy-row">
+          <span class="policy-label">Policy version</span>
+          <span class="policy-value">${esc(r.policyVersion)}</span>
+        </div>
+        <div class="policy-row">
+          <span class="policy-label">Policy digest</span>
+          <span class="policy-value mono">${esc(r.policyDigest)}</span>
+        </div>
+        <div class="policy-row">
+          <span class="policy-label">Evaluation basis</span>
+          <span class="policy-value mono" style="font-size:11.5px;">${esc(r.evaluationRef)}</span>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function renderResolution(r){
+  if(!r.resolution) return '';
+  const res = r.resolution;
+  const cls = res.kind === 'approved' ? 'approved' : res.kind === 'conditional' ? 'conditional' : 'rejected';
+  const icon = res.kind === 'rejected' ? '×' : res.kind === 'conditional' ? '!' : '✓';
+  const label = res.kind === 'approved' ? 'Approved' : res.kind === 'conditional' ? 'Approved · conditional' : 'Rejected';
+  return `
+    <div class="packet-section">
+      <div class="packet-section-title">Decision</div>
+      <div class="decision-summary ${cls}">
+        <div class="decision-summary-icon">${icon}</div>
+        <div class="decision-summary-body">
+          <div class="decision-summary-title">${label}</div>
+          <div class="decision-summary-detail">${esc(res.rationale)}</div>
+          <div class="decision-summary-meta">
+            <span>By <strong style="color:var(--text);">${esc(res.by)}</strong></span>
+            <span class="mono">${esc(res.at)}</span>
+            <span class="mono">digest ${esc(res.digestBound)}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function renderHistory(r){
+  return `
+    <div class="packet-section">
+      <div class="packet-section-title">Request history</div>
+      <div class="history-timeline">
+        ${r.history.slice().reverse().map(h => `
+          <div class="history-step">
+            <div class="history-step-head">
+              <span class="history-step-what">${esc(h.what)}</span>
+              <span class="history-step-time">${esc(h.at)}</span>
+            </div>
+            <div class="history-step-by">by ${esc(h.by)}</div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `;
+}
+
+function renderActions(r){
+  const user = currentUser();
+  const role = state.role;
+  const isRequester = r.requester === user;
+  const isReviewer = r.reviewer === user;
+  const isResolved = !!r.resolution;
+  const isPending = r.state === 'PENDING';
+  const isUnassigned = r.state === 'UNASSIGNED';
+  const isEffectiveCurrent = r.effectiveState === 'CURRENT';
+
+  // Build action set based on role + request state
+  let primary = '';
+  let secondary = '';
+  let readonly = '';
+
+  if(role === 'auditor'){
+    readonly = `<div class="readonly-banner">Read-only view. <strong>Auditors do not make decisions.</strong> This view shows exactly what was decided, by whom, with what scope and conditions.</div>`;
+  } else if(role === 'approver'){
+    if(isReviewer && isPending){
+      primary = `
+        <button class="btn btn-success" onclick="previewDecision('${r.id}','approve')">Approve as scoped</button>
+        <button class="btn btn-secondary" onclick="previewDecision('${r.id}','conditional')">Approve with conditions</button>
+        <button class="btn btn-danger" onclick="previewDecision('${r.id}','reject')">Reject</button>
+      `;
+      secondary = `
+        <button class="btn btn-ghost" onclick="previewDecision('${r.id}','request-changes')">Request changes</button>
+      `;
+    } else if(isRequester && isPending){
+      primary = `<button class="btn btn-ghost" onclick="previewEscalate('${r.id}')">Escalate to admin</button>`;
+      secondary = '';
+    } else if(isEffectiveCurrent && isResolved && r.resolution.kind !== 'rejected'){
+      primary = `<button class="btn btn-ghost" onclick="previewDecision('${r.id}','revoke')">Revoke approval</button>`;
+      secondary = '';
+    } else if(r.effectiveState === 'EXPIRED' || r.effectiveState === 'STALE_POLICY'){
+      primary = `<button class="btn btn-primary" onclick="toast('Would open a new request form — this is a preview')">Request renewal</button>`;
+      secondary = '';
+    } else if(r.effectiveState === 'REVOKED'){
+      readonly = `<div class="readonly-banner">This approval has been <strong>revoked</strong>. It cannot be re-enabled — a new request is required.</div>`;
+    }
+  } else if(role === 'requester'){
+    if(isRequester && isPending){
+      readonly = `<div class="readonly-banner">You are the requester. <strong>Waiting on ${esc(r.reviewer || 'assignment')}.</strong> You can escalate or withdraw, but not review your own request.</div>`;
+      secondary = `
+        <button class="btn btn-ghost" onclick="previewEscalate('${r.id}')">Escalate</button>
+        <button class="btn btn-ghost" onclick="toast('Withdraw request — would require confirmation in production')">Withdraw</button>
+      `;
+    } else if(r.effectiveState === 'EXPIRED'){
+      primary = `<button class="btn btn-primary" onclick="toast('Would open a new request form — this is a preview')">Renew request</button>`;
+    } else if(r.effectiveState === 'STALE_POLICY'){
+      primary = `<button class="btn btn-primary" onclick="toast('Would open a new request form under current policy — preview')">Renew under current policy</button>`;
+    } else if(r.resolution && r.resolution.kind === 'rejected'){
+      primary = `<button class="btn btn-primary" onclick="toast('Would open a new request form — preview')">Submit new request</button>`;
+    }
+  } else if(role === 'admin'){
+    if(isUnassigned){
+      primary = `<button class="btn btn-primary" onclick="previewAssign('${r.id}')">Assign reviewer</button>`;
+      secondary = `
+        <button class="btn btn-ghost" onclick="previewEscalate('${r.id}')">Notify requester</button>
+      `;
+    } else if(isPending && isReviewer){
+      primary = `<button class="btn btn-ghost" onclick="toast('Reassign — would require eligible reviewer picker in production')">Reassign reviewer</button>`;
+    } else if(isEffectiveCurrent && isResolved){
+      primary = `<button class="btn btn-ghost" onclick="previewDecision('${r.id}','revoke')">Revoke approval</button>`;
+    }
+  }
+
+  const hasActions = primary || secondary;
+  return `
+    ${hasActions || readonly ? `
+      <div class="packet-actions">
+        <div class="actions-primary">${primary}</div>
+        <div class="actions-secondary">${secondary}</div>
+      </div>
+    ` : ''}
+    ${readonly}
+  `;
+}
+
+/* ═══════════════════════════════════════════════
+   PREVIEW MODALS — honest contract
+   ═══════════════════════════════════════════════ */
+
+function previewDecision(id, kind){
+  const r = REQUESTS.find(x => x.id === id);
+  if(!r) return;
+
+  const configs = {
+    'approve': {
+      title: 'Approve as scoped',
+      sub: 'This is a preview. In production, this opens a signed decision dialog requiring role verification, SoD check, digest-bound decision, and an append-only record.',
+      body: `
+        <div class="preview-warning">
+          <strong>Not executed in this demo</strong>
+          Approving is a deliberate act with operational consequences. In production it requires authenticated human action, re-verification of the digest, and produces a signed append-only record.
+        </div>
+        <div class="decision-field">
+          <div class="decision-field-label">Request</div>
+          <div class="decision-field-value mono">${esc(r.id)}</div>
+        </div>
+        <div class="decision-field">
+          <div class="decision-field-label">Operation</div>
+          <div class="decision-field-value">${esc(r.operation)}</div>
+        </div>
+        <div class="decision-field">
+          <div class="decision-field-label">Scope being approved</div>
+          <div class="decision-field-value" style="font-size:12.5px;line-height:1.6;white-space:pre-line;">${esc(r.allowed.join('\n'))}</div>
+        </div>
+        <div class="decision-field">
+          <div class="decision-field-label">Policy digest bound</div>
+          <div class="decision-field-value mono">${esc(r.policyDigest)}</div>
+        </div>
+        <div class="decision-field">
+          <div class="decision-field-label">Expiry</div>
+          <div class="decision-field-value mono">2026-10-24 09:14 UTC (7 days)</div>
+        </div>
+        <div class="decision-field">
+          <div class="decision-field-label">Rationale (required in production)</div>
+          <textarea class="decision-textarea" disabled placeholder="Rationale required before approval — this field is disabled in the demo."></textarea>
+        </div>
+      `
+    },
+    'conditional': {
+      title: 'Approve with conditions',
+      sub: 'This is a preview. In production, conditional approval requires specifying exact conditions, due dates, and consequence of condition failure.',
+      body: `
+        <div class="preview-warning">
+          <strong>Not executed in this demo</strong>
+          Conditional approvals are strictly weaker than full approval. Conditions must be specific, time-bound, and monitored. Failure invalidates the approval automatically.
+        </div>
+        <div class="decision-field">
+          <div class="decision-field-label">Request</div>
+          <div class="decision-field-value mono">${esc(r.id)}</div>
+        </div>
+        <div class="decision-field">
+          <div class="decision-field-label">Conditions you would specify (disabled in demo)</div>
+          <textarea class="decision-textarea" disabled placeholder="Each condition requires: specific measurable criterion, due date, and consequence of failure."></textarea>
+        </div>
+      `
+    },
+    'reject': {
+      title: 'Reject request',
+      sub: 'This is a preview. In production, rejection requires a structured rationale that is delivered to the requester.',
+      body: `
+        <div class="preview-warning">
+          <strong>Not executed in this demo</strong>
+          Rejection is a decision with consequences. A structured rationale is required and delivered to the requester. Rejection is not a failure — it is the correct outcome when a request should not be approved.
+        </div>
+        <div class="decision-field">
+          <div class="decision-field-label">Request</div>
+          <div class="decision-field-value mono">${esc(r.id)}</div>
+        </div>
+        <div class="decision-field">
+          <div class="decision-field-label">Rationale (required)</div>
+          <textarea class="decision-textarea" disabled placeholder="Explain why this request cannot be approved. Be specific — the requester will see this."></textarea>
+        </div>
+      `
+    },
+    'request-changes': {
+      title: 'Request changes',
+      sub: 'This is a preview. Requesting changes returns the request to the requester for revision without approving or rejecting it.',
+      body: `
+        <div class="preview-warning">
+          <strong>Not executed in this demo</strong>
+          Requesting changes preserves the request but signals that the current version cannot be approved. The requester can revise and resubmit.
+        </div>
+        <div class="decision-field">
+          <div class="decision-field-label">Request</div>
+          <div class="decision-field-value mono">${esc(r.id)}</div>
+        </div>
+        <div class="decision-field">
+          <div class="decision-field-label">What needs to change</div>
+          <textarea class="decision-textarea" disabled placeholder="Describe the specific changes required."></textarea>
+        </div>
+      `
+    },
+    'revoke': {
+      title: 'Revoke approval',
+      sub: 'This is a preview. Revocation is immediate and irreversible. It is used when the approval basis has become invalid.',
+      body: `
+        <div class="preview-warning">
+          <strong>Not executed in this demo</strong>
+          Revocation makes the approval immediately invalid. Any operations currently authorized by this approval would no longer be authorized. A new request is required to re-approve.
+        </div>
+        <div class="decision-field">
+          <div class="decision-field-label">Request being revoked</div>
+          <div class="decision-field-value mono">${esc(r.id)}</div>
+        </div>
+        <div class="decision-field">
+          <div class="decision-field-label">Reason for revocation</div>
+          <textarea class="decision-textarea" disabled placeholder="Reason required. Common reasons: policy change, evidence invalidation, security finding, or operational incident."></textarea>
+        </div>
+      `
+    }
+  };
+
+  const config = configs[kind] || configs['approve'];
+
+  openModal({
+    title: config.title,
+    sub: config.sub,
+    body: config.body,
+    buttons: [
+      { label: 'Cancel', style: 'ghost', action: closeModal },
+      { label: 'Preview only — not executed', style: 'primary', disabled: true }
+    ]
+  });
+}
+
+function previewAssign(id){
+  const r = REQUESTS.find(x => x.id === id);
+  if(!r) return;
+  openModal({
+    title: 'Assign a reviewer',
+    sub: 'This is a preview. In production, reviewer assignment requires an eligible org member with an appropriate role, and SoD validation (reviewer ≠ requester).',
+    body: `
+      <div class="preview-warning">
+        <strong>Not executed in this demo</strong>
+        Assignment notifies the reviewer and starts the SLA clock. The list below is disabled — a real assignment requires authenticated admin action.
+      </div>
+      <div class="decision-field">
+        <div class="decision-field-label">Request</div>
+        <div class="decision-field-value mono">${esc(r.id)}</div>
+      </div>
+      <div class="decision-field">
+        <div class="decision-field-label">Requester</div>
+        <div class="decision-field-value">${esc(r.requester)}</div>
+      </div>
+      <div class="decision-field">
+        <div class="decision-field-label">Eligible reviewers (SoD filtered)</div>
+        <div class="reviewer-list">
+          <div class="reviewer-option">
+            <div class="avatar">${initials(USERS.bob)}</div>
+            <div class="body">
+              <div class="name">bob.kumar@example.com</div>
+              <div class="role">Approver · Engineering</div>
+            </div>
+          </div>
+          <div class="reviewer-option">
+            <div class="avatar">${initials('dana.wu@example.com')}</div>
+            <div class="body">
+              <div class="name">dana.wu@example.com</div>
+              <div class="role">Approver · Engineering</div>
+            </div>
+          </div>
+          <div class="reviewer-option">
+            <div class="avatar">${initials('sam.lee@example.com')}</div>
+            <div class="body">
+              <div class="name">sam.lee@example.com</div>
+              <div class="role">Approver · Security</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    `,
+    buttons: [
+      { label: 'Cancel', style: 'ghost', action: closeModal },
+      { label: 'Assign reviewer (preview)', style: 'primary', disabled: true }
+    ]
+  });
+}
+
+function previewEscalate(id){
+  const r = REQUESTS.find(x => x.id === id);
+  if(!r) return;
+  openModal({
+    title: 'Escalate to admin',
+    sub: 'This is a preview. In production, escalation notifies org admins and logs the escalation with the reason.',
+    body: `
+      <div class="preview-warning">
+        <strong>Not executed in this demo</strong>
+        Escalation does not change the request state — it notifies admins that attention is needed.
+      </div>
+      <div class="decision-field">
+        <div class="decision-field-label">Request</div>
+        <div class="decision-field-value mono">${esc(r.id)}</div>
+      </div>
+      <div class="decision-field">
+        <div class="decision-field-label">Reason for escalation</div>
+        <textarea class="decision-textarea" disabled placeholder="Why does this request need admin attention?"></textarea>
+      </div>
+    `,
+    buttons: [
+      { label: 'Cancel', style: 'ghost', action: closeModal },
+      { label: 'Escalate (preview)', style: 'primary', disabled: true }
+    ]
+  });
+}
+
+function previewNavigate(label){
+  toast(`Would navigate to "${label}" — preview only`);
+}
+
+/* ═══════════════════════════════════════════════
+   MODAL & MOBILE
+   ═══════════════════════════════════════════════ */
+
+function openModal({title, sub, body, buttons}){
+  document.getElementById('modal-title').textContent = title;
+  document.getElementById('modal-sub').textContent = sub;
+  document.getElementById('modal-body').innerHTML = body;
+  document.getElementById('modal-foot').innerHTML = buttons.map(b =>
+    `<button class="btn btn-${b.style === 'primary' ? 'primary' : b.style === 'ghost' ? 'ghost' : 'secondary'}" ${b.disabled ? 'disabled' : ''} onclick="${b.disabled ? '' : (b.action === closeModal ? 'closeModal()' : b.action)}">${esc(b.label)}</button>`
+  ).join('');
+  document.getElementById('modal-backdrop').classList.add('open');
+}
+
+function closeModal(){
+  document.getElementById('modal-backdrop').classList.remove('open');
+}
+
+function applyMobileVisibility(){
+  if(window.innerWidth <= 1100){
+    document.getElementById('queue-pane').classList.toggle('hidden-on-mobile', !!state.selectedId);
+    document.getElementById('packet-pane').classList.toggle('hidden-on-mobile', !state.selectedId);
+  } else {
+    document.getElementById('queue-pane').classList.remove('hidden-on-mobile');
+    document.getElementById('packet-pane').classList.remove('hidden-on-mobile');
+  }
+}
+
+function backToQueue(){
+  state.selectedId = null;
+  render();
+}
+
+window.addEventListener('resize', applyMobileVisibility);
+
+document.addEventListener('keydown', e => {
+  if(e.key === 'Escape' && document.getElementById('modal-backdrop').classList.contains('open')){
+    closeModal();
+  }
+});
+
+/* ═══════════════════════════════════════════════
+   INIT
+   ═══════════════════════════════════════════════ */
+
+(function init(){
+  state.filter = roleFilterDefault('approver');
+  document.querySelectorAll('.role-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.role === state.role);
+  });
+  render();
+})();
+</script>
+</body>
+</html>
