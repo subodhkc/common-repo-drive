@@ -102,3 +102,43 @@ Use one coherent PR if safe, respect required reviews/gates, merge to HAIEC `Mai
 ### E6 handoff note
 
 E6 unifies per-system customer case + U5/U6 + decisions + authority + telemetry + qualified protection into evidence-bound navigation/reporting — the E5 `operationStatus` ladder is the protection-truth input. Then E7 remote MCP discovery, then gated Kestrel external acceptance.
+
+---
+
+## Implementation record — E5.1 enforcement-truth remediation deployed (2026-10-17)
+
+**Status: `DEPLOYED_VERIFIED` (corrected read model; live provider still `NOT_WIRED`).** An independent source review of the E5 read model found operational status could be promoted beyond its supporting evidence. HAIEC PR [#2226](https://github.com/subodhkc/haiec-website/pull/2226) merged to `Main` at `638d135ba`; branch `fix/e5.1-enforcement-truth-20261017` @ `ba40cf53b`. Vercel production deployment verified on the merge SHA — see DEVIN-HANDOFF for the deployment id.
+
+### Root cause (supersedes parts of the E5 record above)
+
+The first E5 read model graded four different evidence facts as a single promotion ladder, so:
+
+- `highestEstablished` reached `AUTHORIZED` on an APPROVED envelope alone, and on a `CURRENT` decision without checking that the decision's request key was the same scope being authorized.
+- A declared `AUTHORITATIVE_CONTROL_BOUNDARY` binder counted as `DISPATCH_ELIGIBLE` — an evidence-source declaration treated as an operational seam.
+- A persisted dispatch-type evidence record counted as `ACCEPTED` — a recorded request treated as target acknowledgement.
+- Guardrail `ENFORCEMENT_APPLIED` probe rungs fed the applied rung — probe-level observation treated as target-enforced proof.
+- Applied/effect rungs accepted DECLARED-only and uncorrelated outcome records — self-report and unrelated history treated as qualified evidence.
+
+### Corrected semantics (locks now enforced in the read model)
+
+- `POLICY_APPROVED != EXECUTION_AUTHORIZED` — `AUTHORIZED` requires a `CURRENT` requestKey-scoped decision bound to the current envelope version/digest, or an envelope-declared `approvalRequirements` entry with `requiresApproval=false` for the exact operation. An absent decision never infers "approval not required" (`humanApprovalRequired: 'UNKNOWN'`).
+- `DECLARED_SOURCE != OPERATIONAL_SEAM` — binders surface as `SEAM_DECLARED`; `DISPATCH_ELIGIBLE` requires a registered non-fixture adapter verified `installed()` + `authorized()` + operation support + policy-digest match. Fixture adapters are permanently `eligible:false`.
+- `DISPATCH_RECORDED != TARGET_ACCEPTED` — dispatch rows are `REQUESTED`; `ACCEPTED`/`REJECTED` require control-boundary role + `AUTHENTICATED` attestation + explicit outcome.
+- `GUARDRAIL_PROBE_APPLIED != TARGET_ENFORCED` — probe ladder moved to a separate `guardrailEvidence` plane.
+- `applied` requires `AUTHENTICATED` boundary outcome records; `EFFECT_VERIFIED` requires `V2_PAYLOAD_BOUND` + `AUTHENTICATED` + exact kind/namespace/value correlation to a request in scope + temporal validity. Unrelated historical outcomes stay `NOT_VERIFIED`.
+- `HISTORICAL_OUTCOME != CURRENT_PROTECTION` — `latestAt` + `historicalNotice` surfaced; `readDegraded` reports `UNKNOWN` rather than confident `NONE` when a backing read fails.
+
+### Validation — `TEST_VERIFIED`
+
+26/26 focused read-model tests covering every lock + tenant binding + fixture boundary; 15/15 system-evidence-projections regression; `tsc --noEmit` clean; changed-file ESLint clean; CI profile identical to E5 (TypeScript, New-Violations Gate, U6 static + PostgreSQL integration, px0-product-truth PASS; baseline ESLint + Vercel-preview unchanged).
+
+### Still `NOT_WIRED` / `NOT_VERIFIED`
+
+- No live target integration is wired — `DISPATCH_ELIGIBLE` requires a registered production adapter and none exists.
+- Per-system kill-switch binding remains `NOT_ESTABLISHED` (org-scoped `kill_switch_systems`, no `aiSystemId` column).
+- No production dispatch/outcome evidence exists; `applied`/`effect` remain `NONE`/`NOT_VERIFIED` on real systems.
+- `MCP_TO_SAAS_EVIDENCE_INGESTION_HOLD` preserved; zero customer-impacting actions.
+
+### E6 safety verdict
+
+**E6 is safe to proceed** — the projection no longer asserts authority, eligibility, acceptance, application, or verified effect beyond evidence. `highestEstablished` remains for backward compatibility but every rung is now backed by a per-fact field (`policy`/`authority`/`targetSeam`/`dispatch`/`guardrailEvidence`/`applied`/`effect`) that E6 should render independently rather than as a single progression.
