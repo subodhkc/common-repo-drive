@@ -107,7 +107,7 @@ E6 unifies per-system customer case + U5/U6 + decisions + authority + telemetry 
 
 ## Implementation record — E5.1 enforcement-truth remediation deployed (2026-10-17)
 
-**Status: `DEPLOYED_VERIFIED` (corrected read model; live provider still `NOT_WIRED`).** An independent source review of the E5 read model found operational status could be promoted beyond its supporting evidence. HAIEC PR [#2226](https://github.com/subodhkc/haiec-website/pull/2226) merged to `Main` at `638d135ba`; branch `fix/e5.1-enforcement-truth-20261017` @ `ba40cf53b`. Vercel production deployment verified on the merge SHA — see DEVIN-HANDOFF for the deployment id.
+**Status: `DEPLOYED_VERIFIED` (corrected read model; live provider still `NOT_WIRED`).** An independent source review of the E5 read model found operational status could be promoted beyond its supporting evidence. HAIEC PR [#2226](https://github.com/subodhkc/haiec-website/pull/2226) merged to `Main` at `638d135ba`; branch `fix/e5.1-enforcement-truth-20261017` @ `ba40cf53b`. Vercel production deployment verified on the merge SHA — deployment `7adJUwfMMP429K1Z82H1DbQDHTSc` SUCCESS.
 
 ### Root cause (supersedes parts of the E5 record above)
 
