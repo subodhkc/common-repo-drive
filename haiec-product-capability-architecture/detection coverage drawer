@@ -1,0 +1,1345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Detection coverage — HAIEC Assurance Engine</title>
+<style>
+:root {
+  --bg: #fafbfc; --card: #ffffff; --border: #e7e9ee; --border-hover: #d0d4dd;
+  --text: #101828; --text-muted: #667085; --text-dim: #98a2b3;
+  --primary: #4f46e5; --primary-hover: #4338ca; --primary-light: #f0f1ff; --primary-border: #c7d2fe;
+  --success: #067647; --success-bg: #ecfdf3; --success-border: #abefc6;
+  --amber: #b54708; --amber-bg: #fffaeb; --amber-border: #fedf89;
+  --danger: #b42318; --danger-bg: #fef3f2; --danger-border: #fecdca;
+  --gray-bg: #f2f4f7;
+  --radius-sm: 8px; --radius-md: 12px; --radius-lg: 16px;
+  --shadow-sm: 0 1px 2px rgba(16,24,40,0.04);
+  --shadow-md: 0 4px 12px rgba(16,24,40,0.07);
+  --shadow-lg: 0 24px 56px rgba(16,24,40,0.2);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  font-size: 14.5px; line-height: 1.55; color: var(--text); background: var(--bg);
+  -webkit-font-smoothing: antialiased; overflow: hidden;
+}
+button { font-family: inherit; cursor: pointer; }
+code, .mono { font-family: ui-monospace, 'SF Mono', Monaco, monospace; }
+
+/* Host backdrop */
+.host {
+  position: fixed; inset: 0;
+  background: linear-gradient(135deg, #f8f9fc 0%, #eef1f6 100%);
+  display: flex; align-items: center; justify-content: center;
+}
+.host-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); box-shadow: var(--shadow-md);
+  padding: 32px; max-width: 640px; margin: 0 24px; opacity: 0.5;
+}
+.host-crumb { font-size: 12px; color: var(--text-dim); margin-bottom: 12px; }
+.host-title { font-size: 22px; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 6px; }
+.host-sub { color: var(--text-muted); font-size: 14px; margin-bottom: 20px; }
+.host-mini { display: flex; flex-direction: column; gap: 8px; }
+.host-mini-row {
+  display: flex; align-items: center; gap: 12px; padding: 12px 14px;
+  background: var(--bg); border: 1px solid var(--border);
+  border-radius: var(--radius-sm); font-size: 13px;
+}
+.dot-tag { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+
+/* Drawer */
+.drawer-backdrop {
+  position: fixed; inset: 0; background: rgba(16,24,40,0.42);
+  opacity: 0; pointer-events: none; transition: opacity 0.28s ease; z-index: 40;
+}
+.drawer-backdrop.open { opacity: 1; pointer-events: auto; }
+.drawer {
+  position: fixed; top: 0; right: 0; bottom: 0; width: min(1080px, calc(100vw - 40px));
+  background: var(--card); box-shadow: var(--shadow-lg);
+  transform: translateX(100%); transition: transform 0.34s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex; flex-direction: column; z-index: 50;
+}
+.drawer.open { transform: translateX(0); }
+
+.drawer-header {
+  padding: 18px 28px 14px; border-bottom: 1px solid var(--border);
+  display: flex; justify-content: space-between; align-items: flex-start;
+  gap: 20px; flex-shrink: 0; background: var(--card);
+}
+.drawer-header-left { flex: 1; min-width: 0; }
+.drawer-crumb {
+  font-size: 12px; color: var(--text-muted);
+  display: flex; align-items: center; gap: 6px;
+  margin-bottom: 6px; flex-wrap: wrap;
+}
+.drawer-crumb .sep { color: var(--text-dim); }
+.drawer-title {
+  font-size: 19px; font-weight: 600; letter-spacing: -0.015em;
+  margin-bottom: 4px; display: flex; align-items: center;
+  gap: 10px; flex-wrap: wrap;
+}
+.drawer-sub { font-size: 13px; color: var(--text-muted); }
+.drawer-toolbar { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+.icon-btn {
+  width: 32px; height: 32px; border-radius: var(--radius-sm);
+  border: 1px solid var(--border); background: transparent;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; color: var(--text-muted); font-size: 16px;
+  transition: all 0.15s;
+}
+.icon-btn:hover { background: var(--gray-bg); color: var(--text); }
+
+/* Scenario tabs */
+.scenario-tabs {
+  padding: 12px 28px; border-bottom: 1px solid var(--border);
+  display: flex; gap: 6px; flex-shrink: 0; overflow-x: auto;
+  background: var(--bg); scrollbar-width: none;
+}
+.scenario-tabs::-webkit-scrollbar { display: none; }
+.scenario-tab {
+  padding: 8px 14px; border-radius: 8px; border: 1px solid var(--border);
+  background: var(--card); font-size: 13px; font-weight: 500;
+  cursor: pointer; color: var(--text-muted); transition: all 0.15s;
+  display: inline-flex; align-items: center; gap: 8px;
+  white-space: nowrap; font-family: inherit;
+}
+.scenario-tab:hover { border-color: var(--border-hover); color: var(--text); }
+.scenario-tab.active { background: var(--primary); color: white; border-color: var(--primary); }
+.scenario-tab .tab-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+.scenario-tab .tab-dot.success { background: var(--success); }
+.scenario-tab .tab-dot.amber { background: var(--amber); }
+.scenario-tab .tab-dot.danger { background: var(--danger); }
+.scenario-tab .tab-dot.neutral { background: var(--text-dim); }
+.scenario-tab.active .tab-dot { background: white; }
+
+/* Drawer body */
+.drawer-body {
+  flex: 1; overflow-y: auto; padding: 20px 28px 28px;
+  background: var(--bg); scroll-behavior: smooth;
+}
+.drawer-body::-webkit-scrollbar { width: 8px; }
+.drawer-body::-webkit-scrollbar-thumb { background: var(--border-hover); border-radius: 4px; }
+
+/* Info callout */
+.info-callout {
+  background: var(--primary-light); border: 1px solid var(--primary-border);
+  border-radius: var(--radius-md); padding: 14px 18px;
+  font-size: 13px; color: var(--text); line-height: 1.55; margin-bottom: 18px;
+}
+.info-callout strong { font-weight: 600; color: var(--primary); }
+.info-callout .mono {
+  font-family: ui-monospace, monospace; font-size: 11px;
+  background: rgba(255,255,255,0.5); padding: 1px 5px; border-radius: 3px;
+}
+
+/* Scenario explanation card */
+.scenario-card {
+  background: var(--card); border: 1.5px solid var(--border);
+  border-radius: var(--radius-md); padding: 18px 22px; margin-bottom: 18px;
+  border-left: 4px solid var(--border);
+}
+.scenario-card.success { border-left-color: var(--success); }
+.scenario-card.amber { border-left-color: var(--amber); }
+.scenario-card.danger { border-left-color: var(--danger); }
+.scenario-card.neutral { border-left-color: var(--text-dim); }
+.scenario-card-top {
+  display: flex; align-items: flex-start; justify-content: space-between;
+  gap: 16px; margin-bottom: 12px; flex-wrap: wrap;
+}
+.scenario-card-eyebrow {
+  font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em;
+  color: var(--text-dim); font-weight: 600; margin-bottom: 3px;
+}
+.scenario-card-title {
+  font-size: 16px; font-weight: 600; letter-spacing: -0.01em;
+  line-height: 1.35; color: var(--text);
+}
+.scenario-card-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 11.5px; font-weight: 600; padding: 5px 12px;
+  border-radius: 6px; white-space: nowrap;
+}
+.scenario-card-badge.success { background: var(--success-bg); color: var(--success); border: 1px solid var(--success-border); }
+.scenario-card-badge.amber { background: var(--amber-bg); color: var(--amber); border: 1px solid var(--amber-border); }
+.scenario-card-badge.danger { background: var(--danger-bg); color: var(--danger); border: 1px solid var(--danger-border); }
+.scenario-card-badge.neutral { background: var(--gray-bg); color: var(--text-muted); border: 1px solid var(--border); }
+.scenario-card-desc {
+  font-size: 13px; color: var(--text-muted); line-height: 1.55; margin-bottom: 12px;
+}
+.scenario-card-facts {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 12px 20px; padding-top: 14px; border-top: 1px solid var(--border);
+}
+.scenario-fact-label {
+  font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.05em;
+  color: var(--text-dim); font-weight: 600; margin-bottom: 2px;
+}
+.scenario-fact-value {
+  font-size: 13px; color: var(--text); font-weight: 500;
+}
+.scenario-fact-value.mono { font-family: ui-monospace, monospace; font-size: 12px; }
+
+/* Coverage matrix — 8 cards */
+.matrix-wrap {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius-md); padding: 18px 20px; margin-bottom: 18px;
+}
+.matrix-header {
+  display: flex; align-items: baseline; justify-content: space-between;
+  gap: 12px; margin-bottom: 14px; flex-wrap: wrap;
+}
+.matrix-title {
+  font-size: 12px; font-weight: 600; text-transform: uppercase;
+  letter-spacing: 0.05em; color: var(--text-muted);
+}
+.matrix-legend {
+  display: flex; gap: 12px; font-size: 11px; color: var(--text-muted);
+  flex-wrap: wrap;
+}
+.legend-item { display: inline-flex; align-items: center; gap: 5px; }
+.legend-swatch {
+  width: 9px; height: 9px; border-radius: 2px;
+}
+.legend-swatch.full { background: var(--success); }
+.legend-swatch.partial { background: var(--amber); }
+.legend-swatch.none { background: var(--danger); }
+.legend-swatch.na { background: var(--text-dim); }
+
+.matrix {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px;
+}
+.matrix-item {
+  background: var(--bg); border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm); padding: 12px 14px;
+  text-align: left; transition: all 0.15s;
+  display: flex; flex-direction: column; gap: 4px;
+  cursor: pointer; position: relative; min-height: 104px;
+  border-left: 3px solid var(--border);
+}
+.matrix-item:hover { border-color: var(--border-hover); }
+.matrix-item.full { border-left-color: var(--success); }
+.matrix-item.partial { border-left-color: var(--amber); }
+.matrix-item.none { border-left-color: var(--danger); }
+.matrix-item.na { border-left-color: var(--text-dim); }
+.matrix-item.pulse { animation: matrixPulse 1.2s ease; }
+@keyframes matrixPulse {
+  0% { box-shadow: 0 0 0 0 rgba(79,70,229,0.4); }
+  70% { box-shadow: 0 0 0 10px rgba(79,70,229,0); }
+  100% { box-shadow: 0 0 0 0 rgba(79,70,229,0); }
+}
+.matrix-item-icon { font-size: 16px; margin-top: 2px; }
+.matrix-item-label {
+  font-size: 12px; font-weight: 600; color: var(--text);
+  line-height: 1.3;
+}
+.matrix-item-status {
+  font-size: 10.5px; font-weight: 600; padding: 2px 7px;
+  border-radius: 3px; display: inline-block; margin-top: 3px;
+  align-self: flex-start;
+}
+.matrix-item-status.full { background: var(--success-bg); color: var(--success); }
+.matrix-item-status.partial { background: var(--amber-bg); color: var(--amber); }
+.matrix-item-status.none { background: var(--danger-bg); color: var(--danger); }
+.matrix-item-status.na { background: var(--gray-bg); color: var(--text-muted); }
+.matrix-item-count {
+  font-size: 10.5px; color: var(--text-dim);
+  font-family: ui-monospace, monospace; margin-top: auto;
+}
+
+/* Facet accordion */
+.facet-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 18px; }
+.facet {
+  background: var(--card); border: 1.5px solid var(--border);
+  border-radius: var(--radius-md); transition: all 0.2s;
+  overflow: hidden; scroll-margin-top: 20px;
+  border-left: 3px solid var(--border);
+}
+.facet.full { border-left-color: var(--success); }
+.facet.partial { border-left-color: var(--amber); }
+.facet.none { border-left-color: var(--danger); }
+.facet.na { border-left-color: var(--text-dim); }
+.facet.open { box-shadow: var(--shadow-sm); }
+.facet.pulse { animation: matrixPulse 1.2s ease; }
+
+.facet-header {
+  width: 100%; padding: 16px 20px; background: transparent;
+  border: none; text-align: left; font: inherit; color: inherit;
+  display: flex; align-items: center; gap: 14px;
+  transition: background 0.15s;
+}
+.facet-header:hover { background: var(--bg); }
+.facet-num {
+  font-family: ui-monospace, monospace; font-size: 11px;
+  color: var(--text-dim); font-weight: 600; flex-shrink: 0;
+  width: 20px;
+}
+.facet-icon { font-size: 18px; flex-shrink: 0; }
+.facet-meta { flex: 1; min-width: 0; }
+.facet-label {
+  font-size: 14.5px; font-weight: 600; color: var(--text);
+  margin-bottom: 1px;
+}
+.facet-sub {
+  font-size: 12px; color: var(--text-muted);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.facet-state {
+  font-size: 11px; font-weight: 600; padding: 3px 10px;
+  border-radius: 5px; white-space: nowrap; flex-shrink: 0;
+}
+.facet-state.full { background: var(--success-bg); color: var(--success); border: 1px solid var(--success-border); }
+.facet-state.partial { background: var(--amber-bg); color: var(--amber); border: 1px solid var(--amber-border); }
+.facet-state.none { background: var(--danger-bg); color: var(--danger); border: 1px solid var(--danger-border); }
+.facet-state.na { background: var(--gray-bg); color: var(--text-muted); border: 1px solid var(--border); }
+.facet-chevron {
+  color: var(--text-dim); font-size: 12px; flex-shrink: 0;
+  transition: transform 0.2s;
+}
+.facet.open .facet-chevron { transform: rotate(180deg); }
+
+.facet-body { padding: 0 20px 20px 54px; display: none; }
+.facet.open .facet-body { display: block; }
+
+.facet-summary {
+  font-size: 13px; color: var(--text); line-height: 1.55;
+  margin-bottom: 16px; padding: 10px 14px;
+  background: var(--bg); border-radius: var(--radius-sm);
+}
+
+/* Analyzer participation table */
+.analyzers-title {
+  font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.05em;
+  color: var(--text-dim); font-weight: 600; margin-bottom: 8px;
+  display: flex; align-items: center; gap: 8px;
+}
+.analyzer-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+.analyzer {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius-sm); padding: 12px 14px;
+  border-left: 2px solid var(--border);
+  transition: all 0.15s;
+}
+.analyzer.ran { border-left-color: var(--success); }
+.analyzer.partial { border-left-color: var(--amber); }
+.analyzer.not-run { border-left-color: var(--danger); }
+.analyzer.held { border-left-color: var(--text-dim); }
+.analyzer-head {
+  display: flex; align-items: flex-start; justify-content: space-between;
+  gap: 12px; margin-bottom: 6px; flex-wrap: wrap;
+}
+.analyzer-name {
+  font-weight: 600; font-size: 13px; color: var(--text);
+  display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+}
+.analyzer-version {
+  font-family: ui-monospace, monospace; font-size: 10.5px;
+  color: var(--text-dim); font-weight: 500;
+  padding: 1px 5px; background: var(--gray-bg); border-radius: 3px;
+}
+.analyzer-status {
+  font-size: 10.5px; font-weight: 600; padding: 2px 8px;
+  border-radius: 4px; white-space: nowrap;
+}
+.analyzer-status.ran { background: var(--success-bg); color: var(--success); }
+.analyzer-status.partial { background: var(--amber-bg); color: var(--amber); }
+.analyzer-status.not-run { background: var(--danger-bg); color: var(--danger); }
+.analyzer-status.held { background: var(--gray-bg); color: var(--text-muted); }
+.analyzer-facts {
+  display: grid; grid-template-columns: repeat(2, 1fr);
+  gap: 4px 20px; font-size: 12px;
+  padding-top: 8px; border-top: 1px solid var(--border);
+}
+.analyzer-fact { display: flex; gap: 8px; align-items: baseline; }
+.analyzer-fact-label {
+  color: var(--text-muted); font-size: 11.5px;
+  min-width: 100px; flex-shrink: 0;
+}
+.analyzer-fact-value {
+  color: var(--text); font-weight: 500; word-break: break-word;
+}
+.analyzer-fact-value.mono { font-family: ui-monospace, monospace; font-size: 11px; }
+.analyzer-note {
+  margin-top: 8px; font-size: 11.5px; color: var(--amber);
+  background: var(--amber-bg); border: 1px solid var(--amber-border);
+  padding: 6px 10px; border-radius: 5px; line-height: 1.45;
+}
+.analyzer.none .analyzer-note {
+  background: var(--danger-bg); border-color: var(--danger-border);
+  color: var(--danger);
+}
+
+/* Established / not established */
+.est-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+  margin-bottom: 14px;
+}
+.est-block {
+  padding: 12px 14px; border-radius: var(--radius-sm);
+}
+.est-block.established { background: var(--success-bg); border: 1px solid var(--success-border); }
+.est-block.not-established { background: var(--amber-bg); border: 1px solid var(--amber-border); }
+.est-block-title {
+  font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em;
+  font-weight: 600; margin-bottom: 6px;
+}
+.est-block.established .est-block-title { color: var(--success); }
+.est-block.not-established .est-block-title { color: var(--amber); }
+.est-list {
+  list-style: none; display: flex; flex-direction: column; gap: 5px;
+}
+.est-list li {
+  font-size: 12px; color: var(--text); line-height: 1.45;
+  padding-left: 16px; position: relative;
+}
+.est-block.established .est-list li::before {
+  content: '✓'; position: absolute; left: 0;
+  color: var(--success); font-weight: 700; font-size: 11px; top: 1px;
+}
+.est-block.not-established .est-list li::before {
+  content: '○'; position: absolute; left: 2px;
+  color: var(--amber); font-size: 10px; top: 1px;
+}
+
+.facet-gap-action {
+  padding: 10px 14px; background: var(--primary-light);
+  border: 1px dashed var(--primary-border);
+  border-radius: var(--radius-sm); font-size: 12.5px;
+  color: var(--text); line-height: 1.5;
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+}
+.facet-gap-action strong { color: var(--primary); font-weight: 600; }
+.facet-gap-action .btn-link {
+  margin-left: auto; font-size: 12px; color: var(--primary);
+  text-decoration: underline; text-underline-offset: 2px;
+  background: transparent; border: none; padding: 0;
+  font-weight: 500; cursor: pointer;
+}
+
+/* Overall "what this does not establish" callout */
+.not-establish-callout {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius-md); padding: 18px 20px; margin-bottom: 16px;
+}
+.not-establish-title {
+  font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em;
+  color: var(--text-muted); font-weight: 600; margin-bottom: 10px;
+}
+.not-establish-items {
+  display: flex; flex-direction: column; gap: 8px;
+}
+.not-establish-item {
+  display: flex; gap: 10px; align-items: flex-start;
+  font-size: 12.5px; line-height: 1.5; color: var(--text-muted);
+}
+.not-establish-item .icon {
+  color: var(--text-dim); font-weight: 700; font-size: 12px;
+  flex-shrink: 0; margin-top: 1px;
+}
+
+/* Footer */
+.drawer-footer {
+  padding: 16px 28px; border-top: 1px solid var(--border);
+  display: flex; justify-content: space-between; align-items: center;
+  gap: 12px; flex-shrink: 0; background: var(--card);
+}
+.footer-info { font-size: 12px; color: var(--text-muted); }
+.footer-info strong { color: var(--text); font-weight: 500; }
+.footer-actions { display: flex; gap: 8px; }
+
+.btn {
+  padding: 8px 16px; border-radius: var(--radius-sm); font-size: 13px;
+  font-weight: 500; cursor: pointer; border: 1px solid transparent;
+  transition: all 0.15s; display: inline-flex; align-items: center;
+  gap: 6px; font-family: inherit;
+}
+.btn-primary { background: var(--primary); color: white; }
+.btn-primary:hover { background: var(--primary-hover); }
+.btn-ghost { background: transparent; color: var(--text-muted); border-color: var(--border); }
+.btn-ghost:hover { background: var(--gray-bg); color: var(--text); }
+
+/* Toast */
+.toast {
+  position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+  background: var(--text); color: white; padding: 10px 18px;
+  border-radius: 8px; font-size: 13px; font-weight: 500;
+  z-index: 100; box-shadow: var(--shadow-md);
+  opacity: 0; transition: opacity 0.2s; pointer-events: none;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .drawer { width: 100vw; max-width: none; }
+  .drawer-header, .scenario-tabs, .drawer-body, .drawer-footer { padding-left: 16px; padding-right: 16px; }
+  .scenario-card-facts { grid-template-columns: repeat(2, 1fr); }
+  .matrix { grid-template-columns: repeat(2, 1fr); }
+  .analyzer-facts { grid-template-columns: 1fr; }
+  .est-grid { grid-template-columns: 1fr; }
+  .facet-body { padding-left: 20px; }
+}
+@media (max-width: 600px) {
+  .drawer-title { font-size: 16px; }
+  .matrix { grid-template-columns: 1fr; }
+  .matrix-item { min-height: 88px; }
+  .scenario-card-facts { grid-template-columns: 1fr; gap: 8px; }
+  .facet-sub { display: none; }
+  .facet-state { font-size: 10px; padding: 2px 7px; }
+  .footer-actions { flex-direction: column-reverse; width: 100%; }
+  .footer-actions .btn { width: 100%; justify-content: center; }
+  .drawer-footer { flex-direction: column; align-items: stretch; }
+}
+</style>
+</head>
+<body>
+
+<!-- Host backdrop -->
+<div class="host" id="host">
+  <div class="host-card">
+    <div class="host-crumb">AI Estate · Support Agent v2 · Assurance Case</div>
+    <div class="host-title">Detection coverage</div>
+    <div class="host-sub">What was analyzed in this evaluation — per source mode, per analyzer.</div>
+    <div class="host-mini">
+      <div class="host-mini-row"><span class="dot-tag" style="background:var(--success)"></span>Code / AppSec · <strong style="margin-left:auto;">full</strong></div>
+      <div class="host-mini-row"><span class="dot-tag" style="background:var(--amber)"></span>Prompt / RAG · <strong style="margin-left:auto;">partial</strong></div>
+      <div class="host-mini-row"><span class="dot-tag" style="background:var(--success)"></span>Tool / MCP · <strong style="margin-left:auto;">full</strong></div>
+      <div class="host-mini-row"><span class="dot-tag" style="background:var(--amber)"></span>Identity & Access · <strong style="margin-left:auto;">partial</strong></div>
+      <div class="host-mini-row"><span class="dot-tag" style="background:var(--success)"></span>Supply chain · <strong style="margin-left:auto;">full</strong></div>
+      <div class="host-mini-row"><span class="dot-tag" style="background:var(--danger)"></span>Runtime test · <strong style="margin-left:auto;">not run</strong></div>
+      <div class="host-mini-row"><span class="dot-tag" style="background:var(--success)"></span>Telemetry · <strong style="margin-left:auto;">full</strong></div>
+      <div class="host-mini-row"><span class="dot-tag" style="background:var(--success)"></span>Governance · <strong style="margin-left:auto;">full</strong></div>
+    </div>
+  </div>
+</div>
+
+<div class="drawer-backdrop open" id="drawer-backdrop"></div>
+
+<aside class="drawer open" id="drawer" role="dialog" aria-modal="true">
+  <header class="drawer-header">
+    <div class="drawer-header-left">
+      <div class="drawer-crumb" id="drawer-crumb">
+        <span>Support Agent v2</span><span class="sep">›</span>
+        <span>Assurance Case</span><span class="sep">›</span>
+        <span>Detection coverage</span>
+      </div>
+      <h1 class="drawer-title">Detection coverage</h1>
+      <div class="drawer-sub" id="drawer-sub"></div>
+    </div>
+    <div class="drawer-toolbar">
+      <button class="icon-btn" id="copy-btn" title="Copy link">⧉</button>
+      <button class="icon-btn" id="close-btn" title="Close">×</button>
+    </div>
+  </header>
+
+  <div class="scenario-tabs" id="scenario-tabs"></div>
+
+  <div class="drawer-body" id="drawer-body"></div>
+
+  <footer class="drawer-footer" id="drawer-footer"></footer>
+</aside>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ═══════════════════════════════════════════════════════════════
+   DATA — four source modes × eight facets × per-analyzer detail
+   ═══════════════════════════════════════════════════════════════ */
+
+const FACETS = [
+  { id: 'code',       icon: '📦', label: 'Code / AppSec',          sub: 'Static analysis · secret scan · tenant isolation' },
+  { id: 'prompt',     icon: '💬', label: 'Prompt / RAG',           sub: 'Prompt-injection rules · RAG boundary · retrieval events' },
+  { id: 'tool',       icon: '🔧', label: 'Tool / MCP',             sub: 'Tool-call sinks · MCP registry · schema validation' },
+  { id: 'identity',   icon: '🪪', label: 'Identity & Access',      sub: 'IAM observer · OAuth mapping · SPIFFE · delegation chain' },
+  { id: 'supply',     icon: '📁', label: 'Supply chain',           sub: 'SBOM diff · lockfile · build provenance · registry' },
+  { id: 'runtime',    icon: '🧪', label: 'Runtime test',           sub: 'Prompt injection · RAG poisoning · tool forcing · cost attack' },
+  { id: 'telemetry',  icon: '📊', label: 'Telemetry',              sub: 'OTLP gen_ai.* · mcp.* · log parser · gateway events' },
+  { id: 'governance', icon: '📜', label: 'Governance / Controls',  sub: 'Operating Envelope · control test · human decision · framework' }
+];
+
+const SCENARIOS = {
+
+  /* ─── 1. Full remote static + IAM + telemetry ─── */
+  'full-remote': {
+    id: 'full-remote',
+    tabLabel: 'Full remote scan',
+    tone: 'success',
+    title: 'Full remote static analysis + IAM + telemetry',
+    description: 'GitHub App full executor on authorized linked installation, plus live AWS IAM observer and OTLP collector. This is the broadest coverage profile HAIEC supports today.',
+    sourceMode: 'GitHub App · full executor',
+    facts: [
+      { label: 'Source mode', value: 'GitHub App · full' },
+      { label: 'Evaluation', value: 'eval-2f4a-9d3b', mono: true },
+      { label: 'As-of', value: '2026-10-17 10:42 UTC' },
+      { label: 'Analyzers run', value: '14 of 16' }
+    ],
+    facets: {
+      code: {
+        participation: 'full',
+        summary: 'Full remote static executor ran against the authorized linked installation. All code-side analyzers participated.',
+        analyzers: [
+          { name: 'HAIEC static analyzer', version: 'v2.4', status: 'ran', rules: '47 rules · 4 families', findings: '6', established: 'Reachable tool/API paths, secrets, dependency manifest, tenant-isolation boundaries', limitations: null },
+          { name: 'Secret scanner', version: 'v1.8', status: 'ran', rules: 'allowlisted secret IDs', findings: '2', established: 'Source-visible secret locations', limitations: null },
+          { name: 'Dependency analyzer', version: 'v3.1', status: 'ran', rules: 'lockfile + manifest', findings: '2', established: 'Drifted transitive dependencies', limitations: null },
+          { name: 'Tenant isolation analyzer', version: 'v1.6', status: 'ran', rules: '12 rules', findings: '0', established: 'Multi-tenant query boundaries', limitations: null }
+        ],
+        established: [
+          'Source-visible weaknesses across 47 rules',
+          'Reachable tool and API paths (12)',
+          'Secret locations (2 allowlisted)',
+          'Dependency manifest and drift',
+          'Tenant-isolation boundaries'
+        ],
+        notEstablished: [],
+        gapAction: null
+      },
+      prompt: {
+        participation: 'partial',
+        summary: 'Prompt-injection rules R1 and R4 executed via the static path. The full remote executor carries the complete rule set, but RAG poisoning and unsafe-MCP-tool detections remain absent from the PR policy pack only — this full path has them.',
+        analyzers: [
+          { name: 'Prompt-injection analyzer', version: 'v2.2', status: 'ran', rules: 'R1 · R4 · 8 additional', findings: '1', established: 'Static prompt-injection exposure rules', limitations: null },
+          { name: 'RAG boundary analyzer', version: 'v1.4', status: 'ran', rules: '4 rules', findings: '0', established: 'RAG retrieval boundary analysis', limitations: null },
+          { name: 'Runtime prompt event analyzer', version: '—', status: 'not-run', rules: '—', findings: '—', established: 'Observed prompt content — requires OTLP trace with gen_ai.prompt.* attributes', limitations: 'No OTLP prompt events present in this run' }
+        ],
+        established: [
+          'Static prompt-injection exposure rules (R1, R4 + 8)',
+          'RAG retrieval boundary analysis (4 rules)'
+        ],
+        notEstablished: [
+          'Observed prompt content and turn position — requires OTLP gen_ai.* attributes',
+          'Observed RAG retrieval events and session ids'
+        ],
+        gapAction: { text: 'Add OTLP traces with gen_ai.prompt.* and retrieval attributes to complete observed prompt/RAG coverage.', sourceId: 'runtime-traces' }
+      },
+      tool: {
+        participation: 'full',
+        summary: 'Tool-call analysis and MCP registry comparison both ran. Tool schema validation matched the declared registry.',
+        analyzers: [
+          { name: 'Tool-call sink analyzer', version: 'v2.0', status: 'ran', rules: '18 rules', findings: '3', established: 'Reachable tool/API sinks, unsafe tool paths', limitations: null },
+          { name: 'MCP registry comparator', version: 'v1.3', status: 'ran', rules: '4 rules', findings: '3', established: 'Undeclared tool paths, server registry mismatches', limitations: null },
+          { name: 'Tool schema validator', version: 'v1.1', status: 'ran', rules: '4 rules', findings: '0', established: 'Tool schema version match', limitations: null }
+        ],
+        established: [
+          'Reachable tool/API sinks (18 paths)',
+          'Undeclared tool paths (3)',
+          'MCP server registry mismatches (3)',
+          'Tool schema version match'
+        ],
+        notEstablished: [],
+        gapAction: null
+      },
+      identity: {
+        participation: 'partial',
+        summary: 'Live AWS IAM observer ran and produced candidate grants. Effective per-action permission is not established because SCP, resource policies and session boundaries are not fully resolved — this is an explicit, documented limitation of the IAM evaluator, not a missing analyzer.',
+        analyzers: [
+          { name: 'AWS IAM observer', version: 'v1.2', status: 'ran', rules: 'identity + policy read', findings: '2', established: 'Declared grants, candidate dangerous permissions', limitations: null },
+          { name: 'IAM evaluator', version: 'v1.0', status: 'partial', rules: 'effective-grant resolution', findings: '—', established: 'Candidate grant observation', limitations: 'SCP, resource policies, session boundaries not fully resolved — no per-action EFFECTIVELY_GRANTED declaration emitted' },
+          { name: 'OAuth client mapping', version: '—', status: 'not-run', rules: '—', findings: '—', established: '—', limitations: 'No OAuth client mapping supplied' },
+          { name: 'SPIFFE expectation check', version: '—', status: 'not-run', rules: '—', findings: '—', established: '—', limitations: 'No SPIFFE expectations declared' }
+        ],
+        established: [
+          'Declared IAM grants and policy scope',
+          'Candidate dangerous permissions (2)'
+        ],
+        notEstablished: [
+          'Effective per-action permission — requires SCP, resource policy and session context resolution',
+          'OAuth client mapping — no mapping supplied',
+          'SPIFFE identity expectations — none declared'
+        ],
+        gapAction: { text: 'Attach OAuth client mapping or SPIFFE expectations to complete identity coverage.', sourceId: 'iam-policy' }
+      },
+      supply: {
+        participation: 'full',
+        summary: 'CycloneDX SBOM diff, lockfile comparison and registry metadata all ran. Two transitive dependencies drifted; one unapproved registry hit.',
+        analyzers: [
+          { name: 'SBOM diff', version: 'v1.4', status: 'ran', rules: 'CycloneDX JSON 1.4–1.6', findings: '2', established: 'Dependency drift, known vulnerabilities', limitations: null },
+          { name: 'Lockfile comparator', version: 'v1.2', status: 'ran', rules: 'lockfile vs manifest', findings: '1', established: 'Unapproved registry hits', limitations: null },
+          { name: 'Registry metadata', version: 'v1.0', status: 'ran', rules: 'publisher / maintainer', findings: '0', established: 'Publisher / maintainer continuity', limitations: null }
+        ],
+        established: [
+          'Dependency drift (2 transitive)',
+          'Unapproved registry hit (1)',
+          'Publisher / maintainer continuity'
+        ],
+        notEstablished: [
+          'VEX / CSAF consumption — not supported via this path'
+        ],
+        gapAction: { text: 'VEX/CSAF records require a separate typed intake path — not available via CycloneDX.', sourceId: null }
+      },
+      runtime: {
+        participation: 'none',
+        summary: 'Empirical runtime attack simulation did not run in this evaluation. Runtime testing is a separate, opt-in capability requiring an authorized endpoint and operator approval.',
+        analyzers: [
+          { name: 'Prompt injection test runner', version: '—', status: 'not-run', rules: '—', findings: '—', established: '—', limitations: 'No runtime authorization supplied for this evaluation' },
+          { name: 'RAG poisoning probe', version: '—', status: 'not-run', rules: '—', findings: '—', established: '—', limitations: 'BETA — requires endpoint authorization' },
+          { name: 'Tool forcing simulator', version: '—', status: 'not-run', rules: '—', findings: '—', established: '—', limitations: 'Requires operator approval' }
+        ],
+        established: [],
+        notEstablished: [
+          'Empirical prompt-injection resistance under test',
+          'RAG poisoning resistance',
+          'Tool-forcing resistance',
+          'Cost / agent attack simulation'
+        ],
+        gapAction: { text: 'Run an authorized runtime test against the endpoint. This is separate from passive telemetry.', sourceId: 'runtime-test' }
+      },
+      telemetry: {
+        participation: 'full',
+        summary: 'OTLP collector is fresh and reported qualified events. Observed tool calls, handoffs and memory access are present in this evaluation.',
+        analyzers: [
+          { name: 'OTLP receiver', version: 'v2.1', status: 'ran', rules: 'gen_ai.*, mcp.*, haiec.*', findings: '8', established: 'Observed tool calls, handoffs, memory access, retrieval events', limitations: null },
+          { name: 'Log parser', version: 'v1.5', status: 'ran', rules: 'RFC5424 / common web / JSONL', findings: '4', established: 'Sign-in, API, data-access patterns', limitations: null },
+          { name: 'Model gateway events', version: 'v1.0', status: 'ran', rules: 'gateway call events', findings: '6', established: 'Model-call surfaces, token usage', limitations: null }
+        ],
+        established: [
+          'Observed tool calls and handoffs',
+          'Memory access and retrieval events',
+          'Log-derived access patterns',
+          'Model gateway call events'
+        ],
+        notEstablished: [
+          'Sampling completeness — tool calls at 1:1, prompt events at 1:100'
+        ],
+        gapAction: { text: 'Increase prompt event sampling if full prompt observation is required for this evaluation.', sourceId: null }
+      },
+      governance: {
+        participation: 'full',
+        summary: 'Operating Envelope v12 approved by a named human. Control test executed with TestSpec, approval and receipt.',
+        analyzers: [
+          { name: 'Envelope approval workflow', version: 'v1.3', status: 'ran', rules: 'human approval + digest', findings: '1', established: 'Human-approved scope with version and digest', limitations: null },
+          { name: 'Control test runner', version: 'v1.2', status: 'ran', rules: 'TestSpec + approval + replay', findings: '0', established: 'Test execution with receipt', limitations: null },
+          { name: 'Framework mapping', version: 'v1.0', status: 'ran', rules: 'OWASP / MITRE / NIST', findings: '—', established: 'Mapping context only — not certification', limitations: null }
+        ],
+        established: [
+          'Operating Envelope v12 human-approved',
+          'Control test executed with frozen receipt',
+          'Framework mapping context'
+        ],
+        notEstablished: [
+          'Compliance certification — mapping is not certification'
+        ],
+        gapAction: null
+      }
+    },
+    notEstablishedOverall: [
+      'Runtime empirical attack results — not part of this run',
+      'Effective per-action cloud permission — IAM evaluator emits candidate grants only',
+      'Full five-plane proof — planes remain independently qualified'
+    ]
+  },
+
+  /* ─── 2. GitHub App PR diff path ─── */
+  'pr-diff': {
+    id: 'pr-diff',
+    tabLabel: 'PR diff path',
+    tone: 'amber',
+    title: 'GitHub App PR diff path',
+    description: 'The PR-time policy pack is intentionally narrower than the full remote executor. Several RAG, MCP and SSRF detections are absent or partial by design. A static rule existing in another analyzer does not prove this path exercises it.',
+    sourceMode: 'GitHub App · PR policy pack',
+    facts: [
+      { label: 'Source mode', value: 'PR diff' },
+      { label: 'Evaluation', value: 'eval-2f4a-8c1a', mono: true },
+      { label: 'As-of', value: '2026-10-16 22:15 UTC' },
+      { label: 'Analyzers run', value: '7 of 16' }
+    ],
+    facets: {
+      code: {
+        participation: 'full',
+        summary: 'PR diff static executor ran against the changed files in this PR. Code-side coverage is complete for the diff scope.',
+        analyzers: [
+          { name: 'HAIEC PR diff executor', version: 'v2.3', status: 'ran', rules: '47 rules · diff scope', findings: '3', established: 'Changed-file reachable paths, secrets, dependencies', limitations: 'Only changed files — full tree not re-scanned' },
+          { name: 'Secret scanner (PR pack)', version: 'v1.8', status: 'ran', rules: 'allowlisted secret IDs', findings: '1', established: 'Source-visible secret locations in diff', limitations: null }
+        ],
+        established: [
+          'Changed-file weaknesses within diff scope',
+          'Reachable tool/API paths in diff',
+          'Secret locations in diff'
+        ],
+        notEstablished: [
+          'Full-tree reachability — use full remote scan for complete picture'
+        ],
+        gapAction: { text: 'Run a full remote scan if complete codebase coverage is required.', sourceId: 'source-code' }
+      },
+      prompt: {
+        participation: 'partial',
+        summary: 'R1 and R4 prompt-injection rules are present in the PR policy pack, but RAG poisoning and unsafe-MCP-tool detections documented as absent or partial in the PR pack do not run here. This is a design gap, not a missing source.',
+        analyzers: [
+          { name: 'Prompt-injection analyzer (PR pack)', version: 'v2.2', status: 'partial', rules: 'R1 · R4 only', findings: '1', established: 'Static prompt-injection exposure rules', limitations: 'Full rule set (8 additional) available only via full remote executor' },
+          { name: 'RAG boundary analyzer', version: '—', status: 'not-run', rules: '—', findings: '—', established: '—', limitations: 'RAG poisoning and unsafe-MCP-tool detections absent from PR policy pack' }
+        ],
+        established: [
+          'Static prompt-injection exposure rules (R1, R4)'
+        ],
+        notEstablished: [
+          'RAG poisoning detection — absent from PR policy pack',
+          'Unsafe MCP tool detection — absent from PR policy pack',
+          'SSRF through tool paths — absent from PR policy pack',
+          'Observed prompt/RAG events — requires OTLP'
+        ],
+        gapAction: { text: 'Run the full remote executor to exercise the complete RAG/MCP/SSRF detection set.', sourceId: 'source-code' }
+      },
+      tool: {
+        participation: 'partial',
+        summary: 'Tool-call sink analysis ran on the diff. MCP registry comparison and schema validation are not part of the PR policy pack.',
+        analyzers: [
+          { name: 'Tool-call sink analyzer (PR pack)', version: 'v2.0', status: 'ran', rules: '12 of 18 rules', findings: '1', established: 'Tool-call sinks in changed files', limitations: '6 rules not in PR pack' },
+          { name: 'MCP registry comparator', version: '—', status: 'not-run', rules: '—', findings: '—', established: '—', limitations: 'Not part of PR policy pack' }
+        ],
+        established: [
+          'Tool-call sinks in diff scope'
+        ],
+        notEstablished: [
+          'MCP server registry comparison',
+          'Tool schema version validation',
+          'Undeclared tool paths across full tree'
+        ],
+        gapAction: { text: 'Run the full remote executor to include MCP registry and schema comparison.', sourceId: 'source-code' }
+      },
+      identity: {
+        participation: 'none',
+        summary: 'IAM observation is not available in PR-time context. Identity coverage requires a separate IAM source connected to the system.',
+        analyzers: [
+          { name: 'AWS IAM observer', version: '—', status: 'not-run', rules: '—', findings: '—', established: '—', limitations: 'No IAM source connected to this PR evaluation' }
+        ],
+        established: [],
+        notEstablished: [
+          'Declared IAM grants',
+          'Candidate dangerous permissions',
+          'OAuth client mapping',
+          'SPIFFE expectations'
+        ],
+        gapAction: { text: 'Connect a live AWS IAM observer or submit an IAM JSON export to the system.', sourceId: 'iam-policy' }
+      },
+      supply: {
+        participation: 'partial',
+        summary: 'Lockfile comparator ran on the diff. SBOM diff and registry metadata are not part of the PR policy pack.',
+        analyzers: [
+          { name: 'Lockfile comparator (PR pack)', version: 'v1.2', status: 'ran', rules: 'lockfile vs manifest', findings: '1', established: 'Unapproved registry hits in diff', limitations: null },
+          { name: 'SBOM diff', version: '—', status: 'not-run', rules: '—', findings: '—', established: '—', limitations: 'Not part of PR policy pack' }
+        ],
+        established: [
+          'Unapproved registry hits in diff scope'
+        ],
+        notEstablished: [
+          'CycloneDX SBOM comparison',
+          'Transitive dependency drift',
+          'Publisher / maintainer changes'
+        ],
+        gapAction: { text: 'Run the full remote executor or attach a CycloneDX SBOM for complete supply-chain coverage.', sourceId: 'sbom' }
+      },
+      runtime: {
+        participation: 'none',
+        summary: 'Runtime testing is never part of PR-time evaluation. It is a separate authorized capability.',
+        analyzers: [
+          { name: 'Runtime test runner', version: '—', status: 'not-run', rules: '—', findings: '—', established: '—', limitations: 'Runtime testing is opt-in and requires endpoint authorization' }
+        ],
+        established: [],
+        notEstablished: [
+          'Empirical prompt-injection resistance',
+          'RAG poisoning resistance',
+          'Tool-forcing resistance'
+        ],
+        gapAction: { text: 'Run an authorized runtime test separately from PR evaluation.', sourceId: 'runtime-test' }
+      },
+      telemetry: {
+        participation: 'none',
+        summary: 'No telemetry source is bound to this PR evaluation. OTLP and log ingestion are separate from PR-time scanning.',
+        analyzers: [
+          { name: 'OTLP receiver', version: '—', status: 'not-run', rules: '—', findings: '—', established: '—', limitations: 'No OTLP collector bound to this evaluation' }
+        ],
+        established: [],
+        notEstablished: [
+          'Observed tool calls and handoffs',
+          'Memory access events',
+          'Retrieval events',
+          'Model gateway call events'
+        ],
+        gapAction: { text: 'Bind an OTLP collector or upload a JSONL/OTLP export to the system.', sourceId: 'runtime-traces' }
+      },
+      governance: {
+        participation: 'partial',
+        summary: 'No Operating Envelope or control test ran in PR context. PR-time findings are advisory, not a policy comparison.',
+        analyzers: [
+          { name: 'Envelope approval workflow', version: '—', status: 'not-run', rules: '—', findings: '—', established: '—', limitations: 'No Operating Envelope bound to PR evaluation' },
+          { name: 'Control test runner', version: '—', status: 'not-run', rules: '—', findings: '—', established: '—', limitations: 'Control tests require separate activation' }
+        ],
+        established: [],
+        notEstablished: [
+          'Policy comparison within approved scope',
+          'Control test execution and receipt',
+          'Human deployment decision'
+        ],
+        gapAction: { text: 'Connect an approved Operating Envelope and run a control test on the system.', sourceId: 'user-policy' }
+      }
+    },
+    notEstablishedOverall: [
+      'RAG poisoning, unsafe MCP tool, SSRF detections — absent from PR policy pack by design',
+      'IAM authority — not available in PR context',
+      'Runtime empirical results — opt-in only',
+      'Observed telemetry — no source bound'
+    ]
+  },
+
+  /* ─── 3. Local bundle ─── */
+  'local-bundle': {
+    id: 'local-bundle',
+    tabLabel: 'Local bundle',
+    tone: 'amber',
+    title: 'Local static bundle (preview)',
+    description: 'A source bundle uploaded or submitted from CI. Analysis is bounded to the bundle; no remote source verification, no IAM, no telemetry.',
+    sourceMode: 'Local bundle · bounded',
+    facts: [
+      { label: 'Source mode', value: 'Local bundle' },
+      { label: 'Evaluation', value: 'eval-2f4a-7b09', mono: true },
+      { label: 'As-of', value: '2026-10-16 14:30 UTC' },
+      { label: 'Analyzers run', value: '4 of 16' }
+    ],
+    facets: {
+      code: {
+        participation: 'partial',
+        summary: 'Bounded local static analysis ran. Coverage is limited to the uploaded bundle; no branch identity, no remote verification.',
+        analyzers: [
+          { name: 'Local static analyzer', version: 'v2.2', status: 'partial', rules: '32 of 47 rules', findings: '4', established: 'Source-visible weaknesses within bundle', limitations: 'Bounded coverage — 15 rules require full remote executor; no branch/commit identity' }
+        ],
+        established: [
+          'Source-visible weaknesses within bundle (32 rules)',
+          'Reachable paths within bundle'
+        ],
+        notEstablished: [
+          'Full remote rule set (15 additional)',
+          'Branch and commit identity',
+          'Remote source verification'
+        ],
+        gapAction: { text: 'Connect GitHub App for full remote execution and branch verification.', sourceId: 'source-code' }
+      },
+      prompt: {
+        participation: 'none',
+        summary: 'Prompt and RAG analysis require the full remote executor or OTLP — not available in a local bundle.',
+        analyzers: [
+          { name: 'Prompt-injection analyzer', version: '—', status: 'not-run', rules: '—', findings: '—', established: '—', limitations: 'Prompt/RAG rules not available in local bundle path' }
+        ],
+        established: [],
+        notEstablished: ['Static prompt-injection rules', 'RAG boundary analysis', 'Observed prompt/RAG events'],
+        gapAction: { text: 'Connect GitHub App or submit a full scan bundle to enable prompt/RAG rules.', sourceId: 'source-code' }
+      },
+      tool: {
+        participation: 'partial',
+        summary: 'Basic tool-call sink analysis ran within the bundle. MCP registry comparison needs remote execution.',
+        analyzers: [
+          { name: 'Tool-call sink analyzer (local)', version: 'v1.9', status: 'partial', rules: '8 of 18 rules', findings: '1', established: 'Tool-call sinks within bundle', limitations: 'MCP registry comparison not available locally' }
+        ],
+        established: ['Tool-call sinks within bundle'],
+        notEstablished: ['MCP registry comparison', 'Undeclared tool path detection across full tree'],
+        gapAction: { text: 'Connect GitHub App for MCP registry comparison.', sourceId: 'source-code' }
+      },
+      identity: { participation: 'none', summary: 'No IAM source connected to a local bundle evaluation.', analyzers: [{ name: 'AWS IAM observer', version: '—', status: 'not-run', rules: '—', findings: '—', established: '—', limitations: 'No IAM source in local bundle mode' }], established: [], notEstablished: ['Declared grants', 'Candidate dangerous permissions', 'OAuth mapping', 'SPIFFE expectations'], gapAction: { text: 'Connect live IAM or submit IAM JSON export.', sourceId: 'iam-policy' } },
+      supply: { participation: 'none', summary: 'SBOM diff requires a separate SBOM source; not bundled here.', analyzers: [{ name: 'SBOM diff', version: '—', status: 'not-run', rules: '—', findings: '—', established: '—', limitations: 'No SBOM in bundle' }], established: [], notEstablished: ['SBOM comparison', 'Transitive drift', 'Registry metadata'], gapAction: { text: 'Upload CycloneDX JSON 1.4–1.6 as a separate source.', sourceId: 'sbom' } },
+      runtime: { participation: 'none', summary: 'Runtime testing not part of local bundle mode.', analyzers: [{ name: 'Runtime test runner', version: '—', status: 'not-run', rules: '—', findings: '—', established: '—', limitations: 'Runtime testing is opt-in' }], established: [], notEstablished: ['All runtime empirical results'], gapAction: { text: 'Run an authorized runtime test separately.', sourceId: 'runtime-test' } },
+      telemetry: { participation: 'none', summary: 'No telemetry source bound to local bundle.', analyzers: [{ name: 'OTLP receiver', version: '—', status: 'not-run', rules: '—', findings: '—', established: '—', limitations: 'No telemetry source' }], established: [], notEstablished: ['Observed tool calls', 'Memory access', 'Retrieval events'], gapAction: { text: 'Bind OTLP collector or upload JSONL export.', sourceId: 'runtime-traces' } },
+      governance: { participation: 'none', summary: 'No envelope or control test in local bundle mode.', analyzers: [{ name: 'Envelope approval workflow', version: '—', status: 'not-run', rules: '—', findings: '—', established: '—', limitations: 'No envelope bound' }], established: [], notEstablished: ['Policy comparison', 'Control test', 'Human decision'], gapAction: { text: 'Connect an approved Operating Envelope.', sourceId: 'user-policy' } }
+    },
+    notEstablishedOverall: [
+      'Branch and commit identity — local bundle is not verified against a repository',
+      'Full static rule set — 15 rules require remote execution',
+      'All IAM, telemetry and runtime facets'
+    ]
+  },
+
+  /* ─── 4. Runtime-first ─── */
+  'runtime-first': {
+    id: 'runtime-first',
+    tabLabel: 'Runtime-first',
+    tone: 'danger',
+    title: 'Runtime + telemetry only',
+    description: 'No code source connected. Analysis is runtime-observation and empirical test only. Code-visible reachability and supply-chain context are not available.',
+    sourceMode: 'Runtime + telemetry',
+    facts: [
+      { label: 'Source mode', value: 'Runtime only' },
+      { label: 'Evaluation', value: 'eval-2f4a-6a8f', mono: true },
+      { label: 'As-of', value: '2026-10-15 09:14 UTC' },
+      { label: 'Analyzers run', value: '5 of 16' }
+    ],
+    facets: {
+      code: { participation: 'none', summary: 'No code source connected. Source-visible reachability is not available in a runtime-only evaluation.', analyzers: [{ name: 'HAIEC static analyzer', version: '—', status: 'not-run', rules: '—', findings: '—', established: '—', limitations: 'No source code connected' }], established: [], notEstablished: ['Source-visible weaknesses', 'Reachable tool/API paths', 'Secret locations', 'Dependency manifest'], gapAction: { text: 'Connect a source code repository or upload a source bundle.', sourceId: 'source-code' } },
+      prompt: { participation: 'partial', summary: 'Observed prompt and RAG events are present in the OTLP telemetry. Static prompt-injection rules did not run — no code source.', analyzers: [{ name: 'Runtime prompt event analyzer', version: 'v1.8', status: 'ran', rules: 'observed prompt events', findings: '2', established: 'Observed prompt content and turn position', limitations: 'Static prompt-injection rules not available without a code source' }], established: ['Observed prompt events with turn position', 'Observed RAG retrieval events'], notEstablished: ['Static prompt-injection rules R1/R4', 'Static RAG boundary analysis'], gapAction: { text: 'Connect a code source to enable static prompt/RAG rules.', sourceId: 'source-code' } },
+      tool: { participation: 'partial', summary: 'Observed tool calls and MCP server interactions are present. Static tool-call sink analysis did not run.', analyzers: [{ name: 'Observed tool-call analyzer', version: 'v1.7', status: 'ran', rules: 'observed mcp.* events', findings: '3', established: 'Observed tool calls, servers, schema versions', limitations: 'Static sink analysis not available without code source' }], established: ['Observed tool calls', 'Observed MCP server interactions', 'Tool schema versions from runtime'], notEstablished: ['Static tool-call sink analysis', 'Full-tree undeclared path detection'], gapAction: { text: 'Connect a code source for static tool/MCP analysis.', sourceId: 'source-code' } },
+      identity: { participation: 'partial', summary: 'Delegation chain and observed identity events are present in telemetry. No IAM source connected, so effective permission is not established.', analyzers: [{ name: 'Delegation chain analyzer', version: 'v1.4', status: 'ran', rules: 'delegation records', findings: '1', established: 'Observed delegation chains', limitations: null }, { name: 'AWS IAM observer', version: '—', status: 'not-run', rules: '—', findings: '—', established: '—', limitations: 'No IAM source connected' }], established: ['Observed delegation chains', 'Observed agent identities in runtime'], notEstablished: ['Declared IAM grants', 'Effective permission context'], gapAction: { text: 'Connect live IAM or submit an IAM JSON export.', sourceId: 'iam-policy' } },
+      supply: { participation: 'none', summary: 'No SBOM or build provenance source connected.', analyzers: [{ name: 'SBOM diff', version: '—', status: 'not-run', rules: '—', findings: '—', established: '—', limitations: 'No SBOM source' }], established: [], notEstablished: ['All supply-chain analysis'], gapAction: { text: 'Upload CycloneDX SBOM.', sourceId: 'sbom' } },
+      runtime: { participation: 'full', summary: 'Authorized runtime attack simulation ran against the endpoint. Prompt injection, RAG poisoning and tool forcing were all exercised.', analyzers: [{ name: 'Runtime test runner', version: 'v1.2', status: 'ran', rules: 'prompt injection · RAG poisoning · tool forcing', findings: '2', established: 'Empirical resistance results against authorized endpoint', limitations: null }], established: ['Empirical prompt-injection resistance', 'RAG poisoning resistance', 'Tool-forcing resistance'], notEstablished: [], gapAction: null },
+      telemetry: { participation: 'full', summary: 'OTLP collector fresh, log parser running, model gateway events present.', analyzers: [{ name: 'OTLP receiver', version: 'v2.1', status: 'ran', rules: 'gen_ai.*, mcp.*, haiec.*', findings: '12', established: 'Full runtime observation', limitations: null }, { name: 'Log parser', version: 'v1.5', status: 'ran', rules: 'RFC5424 / JSONL', findings: '5', established: 'Access patterns', limitations: null }], established: ['Observed tool calls and handoffs', 'Memory access', 'Retrieval events', 'Model gateway calls', 'Access patterns'], notEstablished: [], gapAction: null },
+      governance: { participation: 'partial', summary: 'Operating Envelope present, but no control test executed in this evaluation.', analyzers: [{ name: 'Envelope approval workflow', version: 'v1.3', status: 'ran', rules: 'human approval', findings: '1', established: 'Approved envelope', limitations: null }, { name: 'Control test runner', version: '—', status: 'not-run', rules: '—', findings: '—', established: '—', limitations: 'No control test executed in this evaluation' }], established: ['Operating Envelope approval'], notEstablished: ['Control test execution and receipt'], gapAction: { text: 'Run a control test against the approved envelope.', sourceId: null } }
+    },
+    notEstablishedOverall: [
+      'Source-visible reachability — no code source connected',
+      'Static rule coverage — requires code source',
+      'Supply-chain context — no SBOM connected',
+      'Effective cloud permission — no IAM source'
+    ]
+  }
+};
+
+/* ═══════════════════════════════════════════════════════════════
+   STATE
+   ═══════════════════════════════════════════════════════════════ */
+const state = {
+  scenario: 'full-remote',
+  openFacets: new Set(['prompt', 'identity'])
+};
+
+function currentScenario() { return SCENARIOS[state.scenario]; }
+
+/* ═══════════════════════════════════════════════════════════════
+   HELPERS
+   ═══════════════════════════════════════════════════════════════ */
+
+const PARTICIPATION_LABELS = {
+  full: 'Full',
+  partial: 'Partial',
+  none: 'Not run',
+  na: 'N/A'
+};
+
+function scenarioTone(s) {
+  const f = s.facets;
+  const full = Object.values(f).filter(x => x.participation === 'full').length;
+  const none = Object.values(f).filter(x => x.participation === 'none').length;
+  if (full >= 6) return 'success';
+  if (none >= 4) return 'danger';
+  return 'amber';
+}
+
+function matrixCount(s) {
+  const full = Object.values(s.facets).filter(f => f.participation === 'full').length;
+  const partial = Object.values(s.facets).filter(f => f.participation === 'partial').length;
+  const none = Object.values(s.facets).filter(f => f.participation === 'none').length;
+  return `${full} full · ${partial} partial · ${none} not run`;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   RENDER
+   ═══════════════════════════════════════════════════════════════ */
+
+function renderHeader() {
+  const s = currentScenario();
+  document.getElementById('drawer-sub').textContent =
+    `${s.sourceMode} · ${s.facts.find(f => f.label === 'Analyzers run')?.value || ''}`;
+}
+
+function renderTabs() {
+  const el = document.getElementById('scenario-tabs');
+  el.innerHTML = Object.values(SCENARIOS).map(s => {
+    const tone = scenarioTone(s);
+    return `
+      <button class="scenario-tab ${s.id === state.scenario ? 'active' : ''}" data-scenario="${s.id}">
+        <span class="tab-dot ${tone}"></span>${s.tabLabel}
+      </button>`;
+  }).join('');
+  el.querySelectorAll('.scenario-tab').forEach(btn => {
+    btn.addEventListener('click', () => {
+      state.scenario = btn.dataset.scenario;
+      // Auto-open first non-full facet
+      state.openFacets = new Set();
+      const firstGap = FACETS.find(f => currentScenario().facets[f.id]?.participation !== 'full');
+      if (firstGap) state.openFacets.add(firstGap.id);
+      render();
+      document.getElementById('drawer-body').scrollTop = 0;
+    });
+  });
+}
+
+function renderInfoCallout() {
+  return `
+    <div class="info-callout">
+      <strong>Analyzer coverage differs by source mode.</strong>
+      A static rule existing in another analyzer does not prove this path exercises it.
+      The facets below show <em>which analyzers actually ran</em> in this evaluation,
+      what each established, and what remains uncovered. Missing source category ≠ clean result.
+      <span class="mono">HTTP_200 ≠ QUALIFIED ≠ DETECTOR_EXECUTED</span>
+    </div>
+  `;
+}
+
+function renderScenarioCard() {
+  const s = currentScenario();
+  const tone = scenarioTone(s);
+  return `
+    <div class="scenario-card ${tone}">
+      <div class="scenario-card-top">
+        <div>
+          <div class="scenario-card-eyebrow">Source mode</div>
+          <div class="scenario-card-title">${s.title}</div>
+        </div>
+        <span class="scenario-card-badge ${tone}">${matrixCount(s)}</span>
+      </div>
+      <div class="scenario-card-desc">${s.description}</div>
+      <div class="scenario-card-facts">
+        ${s.facts.map(f => `
+          <div>
+            <div class="scenario-fact-label">${f.label}</div>
+            <div class="scenario-fact-value ${f.mono ? 'mono' : ''}">${f.value}</div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `;
+}
+
+function renderMatrix() {
+  const s = currentScenario();
+  return `
+    <div class="matrix-wrap">
+      <div class="matrix-header">
+        <span class="matrix-title">Coverage matrix</span>
+        <div class="matrix-legend">
+          <span class="legend-item"><span class="legend-swatch full"></span>Full</span>
+          <span class="legend-item"><span class="legend-swatch partial"></span>Partial</span>
+          <span class="legend-item"><span class="legend-swatch none"></span>Not run</span>
+          <span class="legend-item"><span class="legend-swatch na"></span>N/A</span>
+        </div>
+      </div>
+      <div class="matrix">
+        ${FACETS.map((f, i) => {
+          const facet = s.facets[f.id] || { participation: 'none' };
+          const p = facet.participation;
+          const analyzers = (facet.analyzers || []).filter(a => a.status === 'ran' || a.status === 'partial').length;
+          const total = (facet.analyzers || []).length;
+          return `
+            <button class="matrix-item ${p}" data-jump-facet="${f.id}">
+              <span class="matrix-item-icon">${f.icon}</span>
+              <span class="matrix-item-label">${f.label}</span>
+              <span class="matrix-item-status ${p}">${PARTICIPATION_LABELS[p]}</span>
+              <span class="matrix-item-count">${analyzers}/${total} analyzers</span>
+            </button>
+          `;
+        }).join('')}
+      </div>
+    </div>
+  `;
+}
+
+function renderAnalyzer(a) {
+  const statusClass = a.status === 'ran' ? 'ran' :
+                      a.status === 'partial' ? 'partial' :
+                      a.status === 'not-run' ? 'not-run' : 'held';
+  return `
+    <div class="analyzer ${statusClass}">
+      <div class="analyzer-head">
+        <div class="analyzer-name">
+          ${a.name}
+          <span class="analyzer-version">${a.version}</span>
+        </div>
+        <span class="analyzer-status ${statusClass}">${a.status === 'ran' ? 'RAN' : a.status === 'partial' ? 'PARTIAL' : a.status === 'not-run' ? 'NOT RUN' : 'HELD'}</span>
+      </div>
+      <div class="analyzer-facts">
+        <div class="analyzer-fact">
+          <span class="analyzer-fact-label">Rules</span>
+          <span class="analyzer-fact-value">${a.rules}</span>
+        </div>
+        <div class="analyzer-fact">
+          <span class="analyzer-fact-label">Findings</span>
+          <span class="analyzer-fact-value">${a.findings}</span>
+        </div>
+        <div class="analyzer-fact" style="grid-column: 1 / -1;">
+          <span class="analyzer-fact-label">Established</span>
+          <span class="analyzer-fact-value">${a.established}</span>
+        </div>
+      </div>
+      ${a.limitations ? `<div class="analyzer-note">${a.limitations}</div>` : ''}
+    </div>
+  `;
+}
+
+function renderFacet(f, i) {
+  const s = currentScenario();
+  const facet = s.facets[f.id] || { participation: 'none', analyzers: [], established: [], notEstablished: [], summary: '', gapAction: null };
+  const p = facet.participation;
+  const isOpen = state.openFacets.has(f.id);
+
+  return `
+    <div class="facet ${p} ${isOpen ? 'open' : ''}" id="facet-${f.id}">
+      <button class="facet-header" data-toggle-facet="${f.id}">
+        <span class="facet-num">${String(i+1).padStart(2,'0')}</span>
+        <span class="facet-icon">${f.icon}</span>
+        <span class="facet-meta">
+          <span class="facet-label">${f.label}</span>
+          <span class="facet-sub">${f.sub}</span>
+        </span>
+        <span class="facet-state ${p}">${PARTICIPATION_LABELS[p]}</span>
+        <span class="facet-chevron">▼</span>
+      </button>
+      <div class="facet-body">
+        <div class="facet-summary">${facet.summary}</div>
+
+        <div class="analyzers-title">Analyzers & participation</div>
+        <div class="analyzer-list">
+          ${(facet.analyzers || []).map(renderAnalyzer).join('')}
+        </div>
+
+        <div class="est-grid">
+          <div class="est-block established">
+            <div class="est-block-title">What this established (${facet.established.length})</div>
+            <ul class="est-list">
+              ${facet.established.length
+                ? facet.established.map(x => `<li>${x}</li>`).join('')
+                : '<li style="color:var(--text-muted);font-style:italic;padding-left:0;">Nothing in this run</li>'}
+            </ul>
+          </div>
+          <div class="est-block not-established">
+            <div class="est-block-title">What this did not establish (${facet.notEstablished.length})</div>
+            <ul class="est-list">
+              ${facet.notEstablished.length
+                ? facet.notEstablished.map(x => `<li>${x}</li>`).join('')
+                : '<li style="color:var(--success);font-style:italic;padding-left:0;">No coverage gap in this facet</li>'}
+            </ul>
+          </div>
+        </div>
+
+        ${facet.gapAction ? `
+          <div class="facet-gap-action">
+            <strong>Close this gap:</strong>
+            <span>${facet.gapAction.text}</span>
+            ${facet.gapAction.sourceId ? `<button class="btn-link" data-add-source="${facet.gapAction.sourceId}">+ Add source →</button>` : ''}
+          </div>
+        ` : ''}
+      </div>
+    </div>
+  `;
+}
+
+function renderFacets() {
+  const s = currentScenario();
+  return `
+    <div class="facet-list">
+      ${FACETS.map((f, i) => renderFacet(f, i)).join('')}
+    </div>
+  `;
+}
+
+function renderOverallNotEstablished() {
+  const s = currentScenario();
+  return `
+    <div class="not-establish-callout">
+      <div class="not-establish-title">What this evaluation does not establish overall</div>
+      <div class="not-establish-items">
+        ${s.notEstablishedOverall.map(item => `
+          <div class="not-establish-item">
+            <span class="icon">·</span>
+            <span>${item}</span>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `;
+}
+
+function renderFooter() {
+  const s = currentScenario();
+  const fullCount = Object.values(s.facets).filter(f => f.participation === 'full').length;
+  const partialCount = Object.values(s.facets).filter(f => f.participation === 'partial').length;
+  const noneCount = Object.values(s.facets).filter(f => f.participation === 'none').length;
+  return `
+    <div class="footer-info">
+      <strong>${s.sourceMode}</strong> · ${fullCount} full · ${partialCount} partial · ${noneCount} not run
+    </div>
+    <div class="footer-actions">
+      <button class="btn btn-ghost" id="footer-add-source">+ Add source</button>
+      <button class="btn btn-ghost" id="footer-export">Export coverage receipt</button>
+      <button class="btn btn-primary" id="footer-done">Done</button>
+    </div>
+  `;
+}
+
+function render() {
+  renderHeader();
+  renderTabs();
+  const body = document.getElementById('drawer-body');
+  body.innerHTML =
+    renderInfoCallout() +
+    renderScenarioCard() +
+    renderMatrix() +
+    renderFacets() +
+    renderOverallNotEstablished();
+  document.getElementById('drawer-footer').innerHTML = renderFooter();
+
+  body.querySelectorAll('[data-toggle-facet]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = btn.dataset.toggleFacet;
+      if (state.openFacets.has(id)) state.openFacets.delete(id);
+      else state.openFacets.add(id);
+      const el = document.getElementById('facet-' + id);
+      if (el) el.classList.toggle('open', state.openFacets.has(id));
+    });
+  });
+
+  body.querySelectorAll('[data-jump-facet]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = btn.dataset.jumpFacet;
+      state.openFacets.add(id);
+      const el = document.getElementById('facet-' + id);
+      if (el) {
+        el.classList.add('open');
+        el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        el.classList.remove('pulse');
+        void el.offsetWidth;
+        el.classList.add('pulse');
+        setTimeout(() => el.classList.remove('pulse'), 1300);
+      }
+    });
+  });
+
+  body.querySelectorAll('[data-add-source]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const sourceId = btn.dataset.addSource;
+      showToast(`Would open Navigator drawer · pre-select ${sourceId}`);
+    });
+  });
+
+  document.getElementById('footer-add-source').addEventListener('click', () => {
+    showToast('Opening Navigator drawer');
+  });
+  document.getElementById('footer-export').addEventListener('click', () => {
+    showToast('Coverage receipt exported · includes per-analyzer participation');
+  });
+  document.getElementById('footer-done').addEventListener('click', closeDrawer);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   CHROME
+   ═══════════════════════════════════════════════════════════════ */
+
+function openDrawer() {
+  document.getElementById('drawer').classList.add('open');
+  document.getElementById('drawer-backdrop').classList.add('open');
+}
+function closeDrawer() {
+  document.getElementById('drawer').classList.remove('open');
+  document.getElementById('drawer-backdrop').classList.remove('open');
+}
+
+document.getElementById('close-btn').addEventListener('click', closeDrawer);
+document.getElementById('drawer-backdrop').addEventListener('click', closeDrawer);
+document.getElementById('host').addEventListener('click', openDrawer);
+
+document.getElementById('copy-btn').addEventListener('click', () => {
+  const btn = document.getElementById('copy-btn');
+  btn.textContent = '✓';
+  setTimeout(() => { btn.textContent = '⧉'; }, 1200);
+});
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeDrawer();
+});
+
+function showToast(msg) {
+  const toast = document.getElementById('toast');
+  toast.textContent = msg;
+  toast.style.opacity = '1';
+  clearTimeout(toast._t);
+  toast._t = setTimeout(() => { toast.style.opacity = '0'; }, 2400);
+}
+
+/* Init */
+render();
+</script>
+</body>
+</html>
