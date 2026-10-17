@@ -1,5 +1,8 @@
 # HAIEC — Product Entry, Consequence Ontology, Customer Jobs and Inspector Interaction Decision
 
+> **UX delivery sequence (one page per session):** [Page-by-Page UX Design and Validation Program](HAIEC-PAGE-BY-PAGE-UX-DESIGN-AND-VALIDATION-PROGRAM-2026-10-17.md) scopes UX-P01 **Start Here** first, followed in separate implementations by Dashboard Overview, AI Estate, System Assurance Case, action maps, Sources, evaluation, Controls, My Work, Monitoring, Reports, Usage and shell. Do not spread UX-P01 edits into later pages.
+
+
 **Decision date:** 2026-10-17. **Status:** **ACCEPTED PRODUCT/UX DESIGN RECOMMENDATION — NOT SHIPPED OR RUNTIME VERIFIED.**  
 **Application source checked:** [HAIEC `Main` `8880e17f7f45145801561f6de4cd174490a76fcb`](https://github.com/subodhkc/haiec-website/commit/8880e17f7f45145801561f6de4cd174490a76fcb) (E6.1). Latest external MCP/production browser confirmation and in-progress E6.2 are not independently verified by this review.  
 **Ownership:** HAIEC application owns canonical facts, status, permissions and screen routes; Common Repo owns design decisions and developer handoff. No HAIEC application files were changed.  
