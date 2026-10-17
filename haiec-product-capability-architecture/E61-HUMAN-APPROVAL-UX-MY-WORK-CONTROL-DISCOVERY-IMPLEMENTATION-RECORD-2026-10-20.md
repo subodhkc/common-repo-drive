@@ -1,6 +1,6 @@
 # E6.1 — Human Approval UX, My Work Inbox & Control Discovery
 
-**Status:** MERGED → `Main` `8880e17f7` (PR [#2229](https://github.com/subodhkc/haiec-website/pull/2229))
+**Status:** MERGED → `Main` `8880e17f7` (PR [#2229](https://github.com/subodhkc/haiec-website/pull/2229)); Vercel production deployment `6SNayKstw8EhDX6AnYKqAz7PQ5RT` — SUCCESS on merge SHA
 **Branch:** `feat/e61-human-approval-ux` @ `a33dec944`
 **Date:** 2026-10-20
 **Continues:** E6 PR #2227 (`14b6b1912`) per `E6-ENTERPRISE-UX-ROLE-OPERATIONS-CONTROL-EVIDENCE-DEPENDENCY-DESIGN-REVIEW-2026-10-17.md`
