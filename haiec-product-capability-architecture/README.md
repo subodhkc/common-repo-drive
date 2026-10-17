@@ -1,4 +1,6 @@
 # HAIEC Product Capability & Workflow Architecture
+> **Partial DeepSeek unified atlas review:** [Syntax and UI validation; additive enterprise UX adoption by page](HAIEC-DEEPSEEK-UNIFIED-ATLAS-PARTIAL-OUTPUT-REVIEW-AND-ADDITIVE-UX-PLAN-2026-10-17.md). The uploaded atlas is not a runnable release. Preserve current HAIEC capability and page ownership; UX-P02 uses only the relevant organization-dashboard patterns.
+
 > **Detection Coverage design validation (2026-10-17):** [DeepSeek drawer review, exact-run analyzer provenance requirements and UX-P01 follow-up findings](UX-P07-DETECTION-COVERAGE-DRAWER-REFERENCE-VALIDATION-AND-UX-P01-REVIEW-2026-10-17.md); integrate selectively in **UX-P07**. UX-P02 Dashboard Overview remains next; in-progress DeepSeek unified atlas must not be overwritten.
 
 
