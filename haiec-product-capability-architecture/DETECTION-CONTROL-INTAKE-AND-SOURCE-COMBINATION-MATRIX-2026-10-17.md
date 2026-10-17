@@ -5,6 +5,8 @@
 **Registry extraction:** 176 catalog rules / 31 families (157 registered EXECUTABLE, 19 REGISTER_ONLY); 45 control catalog entries (11 listed in visibility projection); 26 registered typed intake profiles, including `log`. Counts are code-registration facts, **not** universal customer availability, independent detections or proof of executed tests.
 
 
+> **Latest UX positioning clarification (2026-10-17):** [Product Entry, Consequence Ontology, Six Jobs and Shared Inspector Contract](HAIEC-PRODUCT-ENTRY-CONSEQUENCE-ONTOLOGY-JOBS-AND-INSPECTOR-UX-DECISION-2026-10-17.md) refines the sequence described below. **"What can this AI system cause?" is the analysis result HAIEC establishes**, not a required input question. Support three alternative starting points: choose the system, choose the goal, or connect/provide existing evidence. Keep technical consequence relationships and source qualifications authoritative; patterns are optional navigation examples. Minimum sources, output contracts and unknowns derive from E1/E2/MCP capability owners, not an additional intake engine. This note does not change the detector/control catalog snapshot.
+
 ## 2026-10-17 correction and expansion — Evidence intake, assurance, operational controls, CI, admin usage, runtime and delegation
 
 **Current review basis:** HAIEC `Main` source inspection at commit `8880e17f7f45145801561f6de4cd174490a76fcb`. This dated addendum supersedes broad claims in the prior source-intake introductory sections; original 176-rule / 45-control / 26-profile appendix stays intact as a catalog snapshot. **Do not infer production deployment or a working tenant feed from source existence.**
