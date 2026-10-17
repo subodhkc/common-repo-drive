@@ -75,3 +75,40 @@ PR #2220 is a source-level P0 security/product-truth correction for **legacy sim
 At last check `common-repo-drive` is public. These general security controls, owner boundaries and PR states are acceptable as planning notes. **Do not commit exploit-ready private source details, unremediated reproduction steps, credentials or customer evidence here until GitHub access is intentionally restricted and verified.** A private repo is not a secret manager.
 
 **No HAIEC production code changed by this review; no external Kestrel acceptance performed.**
+
+---
+
+## E3 implementation record — PR #2220 reconciled and merged (2026-10-17)
+
+**`DEPLOYED_VERIFIED`.** PR [#2220](https://github.com/subodhkc/haiec-website/pull/2220) (`fix/product-truth-workflow-audit-20261016`) was reconciled in place — `Main` merged into the PR branch cleanly (zero filename overlap with #2222/#2223) — plus focused corrections, merged at `c3de967e62615c3bf669527a1ec79e2d90e2c814` (2026-10-17). Vercel production deployment `DPLkCjVSfFyjgBKkNGigFFm2jFXU` commit status **SUCCESS**.
+
+### What was corrected (before → after)
+
+| Boundary | Before | After |
+|---|---|---|
+| Kill Switch trigger tenant check | `POST /api/kill-switch/trigger` verified the key but performed RBAC/SoD/cooldown/writes on a `kill_switch_systems` row belonging to another org | Org binding checked before any side effect; foreign system returns the same 404 as a missing one (`recover` already had this check on Main — verified, no change needed) |
+| Browser credential storage | Dashboard persisted the privileged kill-switch API key in `localStorage` | Key held in component memory only; legacy stored keys are purged on load; copy says reloading clears it |
+| Legacy simulated providers | `aws-scanner`, `azure-scanner`, `gcp-scanner`, `jira-confluence-scanner`, `multi-source-orchestrator` returned fabricated affirmative compliance controls | All exports fail closed with `LEGACY_SIMULATED_PROVIDER_DISABLED`; typed interfaces retained for compatibility; zero callers outside `lib/integrations/` (verified by grep) |
+| Human-only step eligibility | `resolveWritePermission` treated any non-viewer session as `writeAuthorized` for assigned-reviewer / privileged-operator steps | `humanRestricted` — session members/owners see the surface (READY_TO_OPEN) but the action is `permitted:false` with an explicit reviewer/operator reason; eligibility stays request-scoped at the owning route |
+| Non-permitted CTAs | `permitted:false` steps rendered as muted but clickable action links | Lock icon + reason + separate "View details" read-only link — mutation no longer presented as executable |
+| `latestHumanDecisionStatus` | Could read as universal current approval | Documented as latest-observed decision across request keys; never a universal deployment approval |
+| Marketing/product claims | "5-layer emergency shutdown", "<1 second", "EU AI Act Article 14 compliant", "instant deactivation" | Scoped execution-control language; integration-dependent; configured ≠ applied ≠ observed; monitoring page disclaimer added |
+
+### Verified unchanged (no gaps found — source-checked)
+
+- Decision routes (`deployment-decisions/[decisionId]/decide|assign|revoke`) already delegate to `deployment-decision-persistence` with `requireOrganizationAccess` + `verifyAISystemOrgBinding`; the owner enforces assigned reviewer, SoD, request digest, CAS transitions, supersession.
+- Trigger-route ordering after patch: auth → rate limit → body parse → **tenant check** → RBAC → SoD → L3-manual guard → cooldown → idempotency → writes/audit/notifications.
+- Other kill-switch routes (`systems`, `rules`, `audit`, `metrics`) already check `organizationId` binding.
+
+### Validation
+
+- `vitest run` on 4 focused suites — **72/72 pass** (goal-availability 37, source-onboarding 17, provider quarantine 17, kill-switch cross-tenant 1).
+- `tsc --noEmit` clean; ESLint clean on all changed files.
+- CI on reconciled #2220: TypeScript **PASS**, **ESLint New-Violations Gate PASS** (previously failing — the 58 introduced violations are cleared); repo-baseline ESLint fail + Vercel preview block are the same pre-existing conditions as #2221–#2223.
+
+### Remaining limitations
+
+- No live end-to-end privileged-operation test against deployed infra — source + unit-level only.
+- Kill Switch "actual blocking" still requires verified target integration + operational receipt — the UI/API now say so; no universal enforcement claim.
+- Team-RBAC branch in the trigger route is unreachable for API keys (`VerifiedApiKey` has no `userId`) — noted in code; role/scope fallback still gates.
+- E4 owns producer freshness/lag/health and action→effect receipts — untouched.
