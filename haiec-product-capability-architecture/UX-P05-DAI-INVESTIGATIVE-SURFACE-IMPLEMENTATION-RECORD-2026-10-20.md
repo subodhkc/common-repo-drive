@@ -1,5 +1,8 @@
 # UX-P05 — Agent Action & Delegated Action Integrity (DAI) — Implementation Record (2026-10-20)
 
+> **2026-10-17 independent verifier addendum (preserves original developer report):** [MCP-investigation alignment and P05 source findings](UX-P05-MCP-AGENT-EVIDENCE-INVESTIGATION-PARITY-AND-CONTEXTUAL-DASHBOARD-PLAN-2026-10-17.md). The reported numeric Vercel deployment `7143846554` did not resolve through the authenticated deployment lookup. Independently verified actual deployment is [`dpl_DkMtmB622orQLmNdggGqFf5S6HvZ`](https://vercel.com/suvodkc-7643s-projects/haiec-website-vercel/DkMtmB622orQLmNdggGqFf5S6HvZ), `READY`, production, exact commit `67b95cb2cdfa71b7fd2d3d0aa2604df3e3bb8d1c`, with both GitHub CI workflows successful. P05 adds no MCP DAI tool; original 14 test locks and browser checks are Devin-reported, not independently rerun. **DAI `evaluationId` is a semantic digest, NOT a persisted frozen U5 Evaluation id.** New scoped read-only DAI parity and context-bound existing `UseWithAiAgent` affordances are proposed future work and must not be claimed released.
+
+
 Status: `DEPLOYED_VERIFIED`
 HAIEC branch: `feat/uxp05-dai-investigation` @ `e4c5c625c`
 Base: `Main` @ `0fdf0f2f8` (UX-P04.1, PR #2238)
