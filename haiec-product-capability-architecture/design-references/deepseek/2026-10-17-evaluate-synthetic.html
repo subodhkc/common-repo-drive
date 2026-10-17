@@ -1,0 +1,1487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Evaluate · Support Agent v2 — HAIEC Assurance Engine</title>
+<style>
+:root{
+  --bg:#FAFBFC; --card:#FFFFFF; --card-soft:#F5F7FA;
+  --border:#E7E9EE; --border-hover:#D0D4DD; --border-strong:#B8BFCC;
+  --text:#0F1729; --text-secondary:#414A5E; --text-muted:#667085; --text-dim:#98A2B3;
+  --primary:#4338CA; --primary-hover:#3730A3; --primary-light:#EEF2FF; --primary-border:#C7D2FE; --primary-ring:rgba(67,56,202,0.12);
+  --success:#067647; --success-bg:#ECFDF3; --success-border:#ABEFC6;
+  --amber:#B54708; --amber-bg:#FFFAEB; --amber-border:#FEDF89;
+  --danger:#B42318; --danger-bg:#FEF3F2; --danger-border:#FECDCA;
+  --info:#175CD3; --info-bg:#EFF8FF; --info-border:#B2DDFF;
+  --r-xs:6px; --r-sm:8px; --r-md:12px; --r-lg:16px; --r-xl:20px;
+  --sh-1:0 1px 2px rgba(16,24,40,0.04);
+  --sh-2:0 2px 6px rgba(16,24,40,0.06),0 1px 2px rgba(16,24,40,0.04);
+  --sh-3:0 8px 24px rgba(16,24,40,0.08);
+  --sh-4:0 24px 56px rgba(16,24,40,0.18);
+  --sans:-apple-system,BlinkMacSystemFont,'Inter','Segoe UI',system-ui,sans-serif;
+  --mono:ui-monospace,'SF Mono','Cascadia Code','Roboto Mono',monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{height:100%;}
+body{font-family:var(--sans);font-size:14.5px;line-height:1.55;color:var(--text);background:var(--bg);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit;}
+a{color:var(--primary);text-decoration:none;}
+a:hover{text-decoration:underline;text-underline-offset:2px;}
+code,.mono{font-family:var(--mono);font-size:0.92em;}
+::-webkit-scrollbar{width:10px;height:10px;}
+::-webkit-scrollbar-thumb{background:var(--border-hover);border-radius:5px;border:2px solid var(--bg);}
+::-webkit-scrollbar-thumb:hover{background:var(--border-strong);}
+
+/* PAGE */
+.page{max-width:1400px;margin:0 auto;padding:24px 32px 80px;}
+
+/* SLIM HEADER */
+.page-header{display:flex;align-items:center;gap:16px;padding-bottom:20px;border-bottom:1px solid var(--border);margin-bottom:28px;flex-wrap:wrap;}
+.crumb{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text-muted);flex-wrap:wrap;}
+.crumb .org{font-weight:500;color:var(--text);}
+.crumb .sep{color:var(--text-dim);}
+.crumb .current{font-weight:600;color:var(--text);}
+.crumb .env{font-size:10px;padding:1px 6px;border-radius:4px;background:var(--success-bg);color:var(--success);border:1px solid var(--success-border);font-weight:600;letter-spacing:0.03em;text-transform:uppercase;}
+.header-right{margin-left:auto;display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.synthetic-chip{font-size:10.5px;font-weight:600;padding:3px 8px;border-radius:5px;background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-border);letter-spacing:0.02em;text-transform:uppercase;}
+.basis-control{display:flex;align-items:center;border:1px solid var(--border);border-radius:var(--r-sm);overflow:hidden;background:var(--card);}
+.basis-btn{padding:5px 12px;font-size:12px;font-weight:500;color:var(--text-muted);}
+.basis-btn.active{background:var(--text);color:white;}
+.basis-asof{padding:0 10px;font-size:11px;color:var(--text-muted);font-family:var(--mono);border-left:1px solid var(--border);background:var(--card);}
+
+/* TYPOGRAPHY */
+h1{font-size:24px;font-weight:600;letter-spacing:-0.02em;line-height:1.3;color:var(--text);margin-bottom:6px;}
+h2{font-size:16px;font-weight:600;letter-spacing:-0.01em;line-height:1.4;color:var(--text);margin-bottom:4px;}
+h3{font-size:13px;font-weight:600;color:var(--text);}
+.eyebrow{font-size:11px;font-weight:600;letter-spacing:0.06em;color:var(--text-muted);text-transform:uppercase;margin-bottom:8px;}
+.lead{font-size:15.5px;line-height:1.6;color:var(--text-secondary);margin-bottom:4px;}
+.helper{font-size:13px;line-height:1.55;color:var(--text-muted);}
+
+/* BUTTONS */
+.btn{padding:8px 16px;border-radius:var(--r-sm);font-size:13.5px;font-weight:500;border:1px solid transparent;transition:all 0.12s;display:inline-flex;align-items:center;gap:6px;letter-spacing:-0.005em;}
+.btn-primary{background:var(--primary);color:white;box-shadow:var(--sh-1);}
+.btn-primary:hover{background:var(--primary-hover);box-shadow:var(--sh-2);}
+.btn-secondary{background:var(--card);color:var(--text);border-color:var(--border);}
+.btn-secondary:hover{background:var(--card-soft);border-color:var(--border-hover);}
+.btn-ghost{background:transparent;color:var(--text-muted);border-color:var(--border);}
+.btn-ghost:hover{background:var(--card-soft);color:var(--text);}
+.btn-sm{padding:5px 12px;font-size:12.5px;}
+.btn:disabled{opacity:0.4;cursor:not-allowed;}
+
+/* CHIPS */
+.chip{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;padding:2px 8px;border-radius:5px;letter-spacing:0.02em;white-space:nowrap;}
+.chip-success{background:var(--success-bg);color:var(--success);border:1px solid var(--success-border);}
+.chip-amber{background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-border);}
+.chip-danger{background:var(--danger-bg);color:var(--danger);border:1px solid var(--danger-border);}
+.chip-neutral{background:var(--card-soft);color:var(--text-muted);border:1px solid var(--border);}
+.chip-info{background:var(--info-bg);color:var(--info);border:1px solid var(--info-border);}
+.chip-mono{font-family:var(--mono);font-size:10.5px;letter-spacing:0;text-transform:none;}
+.chip-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
+.chip-success .chip-dot{background:var(--success);}
+.chip-amber .chip-dot{background:var(--amber);}
+.chip-danger .chip-dot{background:var(--danger);}
+.chip-neutral .chip-dot{background:var(--text-dim);}
+
+/* DISPOSITION BANNER — hero */
+.disposition-banner{background:var(--card);border:1px solid var(--border);border-radius:var(--r-lg);padding:28px 32px;margin-bottom:20px;position:relative;overflow:hidden;border-left:5px solid var(--amber);}
+.disposition-banner.allow{border-left-color:var(--success);}
+.disposition-banner.review{border-left-color:var(--amber);}
+.disposition-banner.block{border-left-color:var(--danger);}
+.disposition-top{display:flex;justify-content:space-between;align-items:flex-start;gap:24px;flex-wrap:wrap;margin-bottom:16px;}
+.disposition-left{flex:1;min-width:280px;}
+.disposition-eyebrow{font-size:11px;font-weight:600;letter-spacing:0.06em;color:var(--text-muted);text-transform:uppercase;margin-bottom:8px;}
+.disposition-main{display:flex;align-items:center;gap:14px;margin-bottom:10px;flex-wrap:wrap;}
+.disposition-badge{font-size:18px;font-weight:700;letter-spacing:0.02em;padding:6px 16px;border-radius:8px;}
+.disposition-badge.allow{background:var(--success-bg);color:var(--success);border:1.5px solid var(--success-border);}
+.disposition-badge.review{background:var(--amber-bg);color:var(--amber);border:1.5px solid var(--amber-border);}
+.disposition-badge.block{background:var(--danger-bg);color:var(--danger);border:1.5px solid var(--danger-border);}
+.disposition-meta{font-size:13px;color:var(--text-muted);font-family:var(--mono);}
+.disposition-headline{font-size:15.5px;line-height:1.6;color:var(--text-secondary);max-width:820px;}
+.disposition-headline strong{color:var(--text);font-weight:600;}
+.disposition-caveat{padding:14px 16px;background:var(--amber-bg);border:1px solid var(--amber-border);border-radius:var(--r-sm);max-width:340px;flex-shrink:0;}
+.disposition-caveat.allow{background:var(--success-bg);border-color:var(--success-border);}
+.disposition-caveat-title{font-size:10.5px;font-weight:600;letter-spacing:0.06em;color:var(--amber);text-transform:uppercase;margin-bottom:6px;}
+.disposition-caveat.allow .disposition-caveat-title{color:var(--success);}
+.disposition-caveat-body{font-size:12.5px;line-height:1.55;color:var(--text);}
+.disposition-actions{display:flex;gap:8px;flex-wrap:wrap;padding-top:16px;border-top:1px solid var(--border);}
+
+/* NOT ESTABLISHED — always visible, prominent */
+.not-established{background:var(--card);border:1.5px dashed var(--border-strong);border-radius:var(--r-md);padding:20px 24px;margin-bottom:28px;}
+.not-established-title{font-size:11px;font-weight:600;letter-spacing:0.06em;color:var(--text-muted);text-transform:uppercase;margin-bottom:12px;display:flex;align-items:center;gap:8px;}
+.not-established-title .icon{width:20px;height:20px;border-radius:50%;background:var(--card-soft);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--text-muted);}
+.not-established-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px;}
+.not-established-item{display:flex;gap:10px;align-items:flex-start;font-size:13px;line-height:1.55;color:var(--text-secondary);}
+.not-established-item .icon{color:var(--text-dim);font-weight:700;flex-shrink:0;margin-top:1px;}
+.not-established-item strong{color:var(--text);font-weight:600;}
+
+/* GRID */
+.grid-2col{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:24px;align-items:start;}
+.main-col{display:flex;flex-direction:column;gap:24px;min-width:0;}
+.side-col{display:flex;flex-direction:column;gap:16px;position:sticky;top:24px;}
+
+/* SECTION */
+.section{background:var(--card);border:1px solid var(--border);border-radius:var(--r-md);}
+.section-head{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+.section-title{font-size:13px;font-weight:600;letter-spacing:0.02em;text-transform:uppercase;color:var(--text-muted);}
+.section-sub{font-size:12.5px;color:var(--text-muted);margin-top:3px;text-transform:none;letter-spacing:0;font-weight:400;line-height:1.5;}
+.section-pad{padding:20px 22px;}
+.section-action{font-size:12.5px;color:var(--primary);font-weight:500;cursor:pointer;text-decoration:underline;text-underline-offset:2px;white-space:nowrap;}
+
+/* EVALUATED SCOPE — analyzer participation */
+.scope-summary{display:flex;gap:16px;flex-wrap:wrap;padding-bottom:18px;margin-bottom:18px;border-bottom:1px solid var(--border);}
+.scope-stat{display:flex;flex-direction:column;gap:3px;}
+.scope-stat-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-dim);}
+.scope-stat-value{font-size:14px;font-weight:500;color:var(--text);}
+.scope-stat-value.mono{font-family:var(--mono);font-size:12.5px;}
+.analyzer-list{display:flex;flex-direction:column;gap:8px;}
+.analyzer{background:var(--card-soft);border:1px solid var(--border);border-radius:var(--r-sm);padding:12px 14px;border-left:2px solid var(--border);transition:all 0.12s;}
+.analyzer.ran{border-left-color:var(--success);}
+.analyzer.partial{border-left-color:var(--amber);}
+.analyzer.not-run{border-left-color:var(--danger);background:#FEFBFA;}
+.analyzer.held{border-left-color:var(--text-dim);}
+.analyzer-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:6px;flex-wrap:wrap;}
+.analyzer-name{font-weight:600;font-size:13px;color:var(--text);display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.analyzer-version{font-family:var(--mono);font-size:10.5px;color:var(--text-dim);font-weight:500;padding:1px 5px;background:var(--card);border-radius:3px;border:1px solid var(--border);}
+.analyzer-status{font-size:10.5px;font-weight:600;padding:2px 8px;border-radius:4px;white-space:nowrap;}
+.analyzer-status.ran{background:var(--success-bg);color:var(--success);}
+.analyzer-status.partial{background:var(--amber-bg);color:var(--amber);}
+.analyzer-status.not-run{background:var(--danger-bg);color:var(--danger);}
+.analyzer-status.held{background:var(--card-soft);color:var(--text-muted);}
+.analyzer-facts{display:grid;grid-template-columns:repeat(2,1fr);gap:4px 20px;font-size:12px;padding-top:8px;border-top:1px solid var(--border);}
+.analyzer-fact{display:flex;gap:8px;align-items:baseline;}
+.analyzer-fact-label{color:var(--text-muted);font-size:11.5px;min-width:90px;flex-shrink:0;}
+.analyzer-fact-value{color:var(--text);font-weight:500;}
+.analyzer-fact-value.mono{font-family:var(--mono);font-size:11px;}
+.analyzer-note{margin-top:8px;font-size:11.5px;color:var(--amber);background:var(--amber-bg);border:1px solid var(--amber-border);padding:6px 10px;border-radius:5px;line-height:1.5;}
+.analyzer.not-run .analyzer-note{color:var(--danger);background:var(--danger-bg);border-color:var(--danger-border);}
+
+/* CLAIMS */
+.claims-list{display:flex;flex-direction:column;gap:10px;}
+.claim-card{background:var(--card);border:1.5px solid var(--border);border-radius:var(--r-md);overflow:hidden;border-left:3px solid var(--border);transition:all 0.12s;cursor:pointer;}
+.claim-card:hover{border-color:var(--primary);box-shadow:var(--sh-1);}
+.claim-card.supported{border-left-color:var(--success);}
+.claim-card.partial{border-left-color:var(--amber);}
+.claim-card.contradicted{border-left-color:var(--danger);}
+.claim-card.not-assessed{border-left-color:var(--text-dim);}
+.claim-head{padding:16px 18px;display:flex;align-items:flex-start;gap:14px;}
+.claim-status-icon{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;margin-top:1px;}
+.claim-status-icon.supported{background:var(--success-bg);color:var(--success);border:1px solid var(--success-border);}
+.claim-status-icon.partial{background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-border);}
+.claim-status-icon.contradicted{background:var(--danger-bg);color:var(--danger);border:1px solid var(--danger-border);}
+.claim-status-icon.not-assessed{background:var(--card-soft);color:var(--text-muted);border:1px solid var(--border);}
+.claim-body{flex:1;min-width:0;}
+.claim-title{font-size:14.5px;font-weight:600;color:var(--text);margin-bottom:4px;line-height:1.4;}
+.claim-summary{font-size:13px;color:var(--text-muted);line-height:1.55;margin-bottom:8px;}
+.claim-meta{display:flex;gap:10px;font-size:11px;color:var(--text-dim);flex-wrap:wrap;align-items:center;}
+.claim-meta .chip{font-size:10px;padding:1px 6px;}
+.claim-arrow{color:var(--text-dim);font-size:16px;flex-shrink:0;align-self:center;transition:transform 0.15s;}
+.claim-card:hover .claim-arrow{color:var(--primary);transform:translateX(2px);}
+
+/* FINDINGS */
+.findings-filter{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px;}
+.filter-chip{padding:4px 10px;border-radius:var(--r-sm);font-size:12px;border:1px solid var(--border);background:var(--card);color:var(--text-muted);cursor:pointer;font-weight:500;}
+.filter-chip:hover{background:var(--card-soft);color:var(--text);}
+.filter-chip.active{background:var(--primary-light);color:var(--primary);border-color:var(--primary-border);}
+.findings-list{display:flex;flex-direction:column;gap:8px;}
+.finding{background:var(--card);border:1px solid var(--border);border-radius:var(--r-sm);padding:14px 16px;display:flex;gap:12px;align-items:flex-start;transition:all 0.12s;cursor:pointer;}
+.finding:hover{border-color:var(--primary);background:var(--primary-light);}
+.sev-badge{width:22px;height:22px;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;margin-top:1px;}
+.sev-high{background:var(--danger-bg);color:var(--danger);border:1px solid var(--danger-border);}
+.sev-med{background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-border);}
+.sev-low{background:var(--card-soft);color:var(--text-muted);border:1px solid var(--border);}
+.finding-body{flex:1;min-width:0;}
+.finding-title{font-size:13.5px;font-weight:600;color:var(--text);margin-bottom:3px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.finding-id{font-family:var(--mono);font-size:10.5px;color:var(--text-dim);font-weight:500;}
+.finding-summary{font-size:12.5px;color:var(--text-muted);line-height:1.55;}
+.finding-meta{display:flex;gap:10px;font-size:11px;color:var(--text-dim);margin-top:6px;flex-wrap:wrap;align-items:center;}
+.finding-meta .chip{font-size:10px;padding:1px 6px;}
+.finding-arrow{color:var(--text-dim);font-size:16px;flex-shrink:0;align-self:center;}
+
+/* DAI IN SCOPE */
+.dai-list{display:flex;flex-direction:column;gap:8px;}
+.dai-item{background:var(--card);border:1px solid var(--border);border-radius:var(--r-sm);padding:14px 16px;cursor:pointer;transition:all 0.12s;display:flex;align-items:center;gap:14px;}
+.dai-item:hover{border-color:var(--primary);background:var(--primary-light);}
+.dai-item-body{flex:1;min-width:0;}
+.dai-item-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:4px;flex-wrap:wrap;}
+.dai-item-route{font-size:13.5px;font-weight:500;color:var(--text);}
+.dai-item-meta{display:flex;gap:10px;font-size:11px;color:var(--text-dim);flex-wrap:wrap;}
+.dai-item-dims{display:flex;gap:2px;margin-top:6px;}
+.dai-dim-dot{width:8px;height:8px;border-radius:2px;background:var(--success);}
+.dai-dim-dot.mismatch{background:var(--danger);}
+.dai-dim-dot.unknown{background:var(--border-hover);}
+
+/* MISSING EVIDENCE */
+.missing-list{display:flex;flex-direction:column;gap:8px;}
+.missing{background:var(--amber-bg);border:1px solid var(--amber-border);border-radius:var(--r-sm);padding:14px 16px;display:flex;gap:12px;align-items:flex-start;}
+.missing-icon{width:22px;height:22px;border-radius:50%;background:white;border:1px solid var(--amber-border);display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--amber);font-weight:700;flex-shrink:0;margin-top:1px;}
+.missing-body{flex:1;min-width:0;}
+.missing-title{font-size:13px;font-weight:600;color:var(--text);margin-bottom:3px;}
+.missing-detail{font-size:12px;color:var(--text-muted);line-height:1.5;}
+.missing-consequence{font-size:11.5px;color:var(--amber);margin-top:4px;font-style:italic;}
+.missing-action{font-size:12px;font-weight:500;color:var(--amber);white-space:nowrap;padding:5px 10px;border:1px solid var(--amber-border);background:white;border-radius:var(--r-xs);flex-shrink:0;transition:all 0.12s;}
+.missing-action:hover{background:var(--amber);color:white;border-color:var(--amber);}
+
+/* HISTORY */
+.history-table{width:100%;border-collapse:collapse;font-size:13px;}
+.history-table th,.history-table td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:middle;}
+.history-table th{font-size:10.5px;font-weight:600;letter-spacing:0.06em;color:var(--text-dim);text-transform:uppercase;background:var(--card-soft);padding:8px 12px;}
+.history-table tbody tr:hover{background:var(--card-soft);}
+.history-table tr.clickable{cursor:pointer;}
+.history-table tbody tr:last-child td{border-bottom:none;}
+.history-table tr.current{background:var(--primary-light);}
+.history-table .mono-cell{font-family:var(--mono);font-size:11.5px;color:var(--text-muted);}
+
+/* SIDE CARDS */
+.side-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r-md);padding:18px 20px;}
+.side-title{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-dim);margin-bottom:12px;}
+.side-actions{display:flex;flex-direction:column;gap:8px;}
+.side-action{display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid var(--border);border-radius:var(--r-sm);background:var(--card);text-align:left;transition:all 0.12s;font-size:13px;color:var(--text);}
+.side-action:hover{border-color:var(--primary);background:var(--primary-light);}
+.side-action-icon{font-size:14px;}
+.side-action-body{flex:1;}
+.side-action-title{font-weight:500;font-size:13px;}
+.side-action-detail{font-size:11.5px;color:var(--text-muted);margin-top:1px;}
+.side-action-arrow{color:var(--text-dim);font-size:13px;}
+.side-action:hover .side-action-arrow{color:var(--primary);}
+.next-action{background:linear-gradient(135deg,var(--primary-light) 0%,var(--card) 100%);border:1px solid var(--primary-border);}
+.next-action-eyebrow{font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;color:var(--primary);margin-bottom:8px;}
+.next-action-title{font-size:14px;font-weight:600;color:var(--text);margin-bottom:6px;line-height:1.35;}
+.next-action-detail{font-size:12.5px;color:var(--text-secondary);line-height:1.55;margin-bottom:12px;}
+.next-action-btn{width:100%;padding:9px 12px;background:var(--primary);color:white;border-radius:8px;font-size:13px;font-weight:500;display:flex;align-items:center;justify-content:center;gap:6px;transition:all 0.15s;}
+.next-action-btn:hover{background:var(--primary-hover);}
+
+.meta-list{display:flex;flex-direction:column;gap:10px;}
+.meta-row{display:flex;justify-content:space-between;gap:8px;font-size:12.5px;align-items:baseline;}
+.meta-label{color:var(--text-muted);flex-shrink:0;}
+.meta-value{color:var(--text);font-weight:500;text-align:right;word-break:break-word;}
+.meta-value.mono{font-family:var(--mono);font-size:11.5px;}
+
+/* INSPECTOR */
+.inspector-backdrop{position:fixed;inset:0;background:rgba(15,23,41,0.42);opacity:0;pointer-events:none;transition:opacity 0.22s;z-index:40;}
+.inspector-backdrop.open{opacity:1;pointer-events:auto;}
+.inspector{position:fixed;top:0;right:0;bottom:0;width:min(720px,calc(100vw - 40px));background:var(--card);box-shadow:var(--sh-4);transform:translateX(100%);transition:transform 0.28s cubic-bezier(0.4,0,0.2,1);display:flex;flex-direction:column;z-index:50;}
+.inspector.open{transform:translateX(0);}
+.inspector-head{padding:20px 26px 16px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:flex-start;gap:16px;}
+.inspector-crumb{font-size:11.5px;color:var(--text-muted);display:flex;align-items:center;gap:6px;margin-bottom:6px;flex-wrap:wrap;}
+.inspector-crumb .sep{color:var(--text-dim);}
+.inspector-title{font-size:18px;font-weight:600;letter-spacing:-0.015em;line-height:1.35;margin-bottom:3px;}
+.inspector-sub{font-size:12.5px;color:var(--text-muted);}
+.inspector-close{width:30px;height:30px;border-radius:6px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:16px;color:var(--text-muted);flex-shrink:0;}
+.inspector-close:hover{background:var(--card-soft);color:var(--text);}
+.inspector-body{flex:1;overflow-y:auto;padding:22px 26px;}
+.inspector-section{margin-bottom:24px;}
+.inspector-section:last-child{margin-bottom:0;}
+.inspector-section-title{font-size:10.5px;font-weight:600;letter-spacing:0.06em;color:var(--text-dim);text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:8px;}
+.inspector-section-title .badge{background:var(--card-soft);color:var(--text-muted);font-size:10px;padding:1px 6px;border-radius:8px;font-family:var(--mono);letter-spacing:0;text-transform:none;}
+.inspector-foot{padding:14px 26px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;gap:12px;background:var(--card);flex-wrap:wrap;}
+.inspector-foot-info{font-size:11.5px;color:var(--text-muted);}
+
+/* CALLOUT */
+.callout{padding:14px 18px;border-radius:var(--r-sm);font-size:13px;line-height:1.55;}
+.callout-info{background:var(--primary-light);border:1px solid var(--primary-border);color:var(--text);}
+.callout-info strong{color:var(--primary);font-weight:600;}
+.callout-warn{background:var(--amber-bg);border:1px solid var(--amber-border);color:var(--amber);}
+.callout-success{background:var(--success-bg);border:1px solid var(--success-border);color:var(--success);}
+.callout-danger{background:var(--danger-bg);border:1px solid var(--danger-border);color:var(--danger);}
+
+/* STATE BLOCK */
+.state-block{padding:12px 14px;border-radius:var(--r-sm);display:flex;flex-direction:column;gap:4px;border:1px solid var(--border);}
+.state-block.success{background:var(--success-bg);border-color:var(--success-border);}
+.state-block.amber{background:var(--amber-bg);border-color:var(--amber-border);}
+.state-block.danger{background:var(--danger-bg);border-color:var(--danger-border);}
+.state-block.neutral{background:var(--card-soft);}
+.state-block.info{background:var(--info-bg);border-color:var(--info-border);}
+.state-title{font-size:13px;font-weight:600;display:flex;align-items:center;gap:8px;}
+.state-block.success .state-title{color:var(--success);}
+.state-block.amber .state-title{color:var(--amber);}
+.state-block.danger .state-title{color:var(--danger);}
+.state-block.info .state-title{color:var(--info);}
+.state-block.neutral .state-title{color:var(--text);}
+.state-detail{font-size:12.5px;color:var(--text-muted);line-height:1.55;}
+
+/* EV LIST */
+.ev-list{display:flex;flex-direction:column;gap:8px;}
+.ev-item{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;background:var(--card-soft);border:1px solid var(--border);border-radius:var(--r-xs);}
+.ev-ref{font-family:var(--mono);font-size:10.5px;color:var(--primary);background:var(--primary-light);padding:1px 6px;border-radius:3px;flex-shrink:0;margin-top:1px;}
+.ev-summary{flex:1;font-size:12px;color:var(--text-muted);line-height:1.5;}
+
+/* MODAL */
+.modal-backdrop{position:fixed;inset:0;background:rgba(15,23,41,0.5);opacity:0;pointer-events:none;transition:opacity 0.2s;z-index:60;display:flex;align-items:center;justify-content:center;padding:20px;}
+.modal-backdrop.open{opacity:1;pointer-events:auto;}
+.modal{background:var(--card);border-radius:var(--r-lg);max-width:560px;width:100%;box-shadow:var(--sh-4);transform:scale(0.96);transition:transform 0.2s;overflow:hidden;}
+.modal-backdrop.open .modal{transform:scale(1);}
+.modal-head{padding:22px 26px 14px;}
+.modal-title{font-size:17px;font-weight:600;margin-bottom:6px;}
+.modal-sub{font-size:13px;color:var(--text-muted);line-height:1.55;}
+.modal-body{padding:18px 26px;border-top:1px solid var(--border);border-bottom:1px solid var(--border);font-size:13px;line-height:1.6;}
+.modal-foot{padding:14px 26px;display:flex;gap:8px;justify-content:flex-end;}
+
+/* TOAST */
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(8px);background:var(--text);color:white;padding:11px 20px;border-radius:var(--r-sm);font-size:13px;z-index:100;box-shadow:var(--sh-3);opacity:0;pointer-events:none;transition:all 0.2s;max-width:520px;text-align:center;line-height:1.5;}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+/* PRINT */
+@media print{
+  body{background:white;}
+  .page{padding:0;max-width:none;}
+  .header-right,.disposition-actions,.not-established,.side-col,.inspector,.inspector-backdrop,.modal-backdrop,.toast,.section-action,.missing-action{display:none !important;}
+  .section,.disposition-banner,.not-established{box-shadow:none;border-color:#ccc;page-break-inside:avoid;}
+}
+
+/* RESPONSIVE */
+@media (max-width:1100px){
+  .grid-2col{grid-template-columns:1fr;}
+  .side-col{position:static;flex-direction:row;flex-wrap:wrap;}
+  .side-col > *{flex:1;min-width:260px;}
+  .analyzer-facts{grid-template-columns:1fr;}
+}
+@media (max-width:900px){
+  .page{padding:16px;}
+  .disposition-top{flex-direction:column;gap:14px;}
+  .disposition-caveat{max-width:none;}
+  .disposition-actions{flex-direction:column;}
+  .disposition-actions .btn{width:100%;justify-content:center;}
+  .analyzer-facts{grid-template-columns:1fr;gap:6px;}
+  .scope-summary{gap:12px;}
+  .inspector{width:100vw;}
+}
+@media (max-width:600px){
+  h1{font-size:20px;}
+  .disposition-banner{padding:20px 18px;}
+  .disposition-badge{font-size:15px;padding:5px 12px;}
+  .disposition-headline{font-size:14px;}
+  .history-table{font-size:12px;}
+  .finding{padding:12px 14px;}
+  .side-col{flex-direction:column;}
+}
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- SLIM HEADER -->
+  <header class="page-header">
+    <div class="crumb">
+      <span class="org">Acme Corp</span>
+      <span class="sep">›</span>
+      <span>Support Agent v2</span>
+      <span class="env">production</span>
+      <span class="sep">›</span>
+      <span class="current">Evaluate</span>
+    </div>
+    <div class="header-right">
+      <span class="synthetic-chip">Synthetic demo</span>
+      <div class="basis-control">
+        <button class="basis-btn active" data-basis="evaluation" onclick="setBasis('evaluation')">Evaluation</button>
+        <button class="basis-btn" data-basis="current" onclick="setBasis('current')">Current</button>
+        <span class="basis-asof" id="basis-asof">10:42 UTC</span>
+      </div>
+    </div>
+  </header>
+
+  <div id="main-content"><!-- rendered by JS --></div>
+</div>
+
+<!-- INSPECTOR -->
+<div class="inspector-backdrop" id="inspector-backdrop" onclick="closeInspector()"></div>
+<aside class="inspector" id="inspector" role="dialog" aria-modal="true">
+  <div class="inspector-head">
+    <div>
+      <div class="inspector-crumb" id="inspector-crumb"></div>
+      <div class="inspector-title" id="inspector-title"></div>
+      <div class="inspector-sub" id="inspector-sub"></div>
+    </div>
+    <button class="inspector-close" onclick="closeInspector()" aria-label="Close">×</button>
+  </div>
+  <div class="inspector-body" id="inspector-body"></div>
+  <div class="inspector-foot" id="inspector-foot"></div>
+</aside>
+
+<!-- MODAL -->
+<div class="modal-backdrop" id="modal-backdrop" onclick="if(event.target===this)closeModal()">
+  <div class="modal">
+    <div class="modal-head"><div class="modal-title" id="modal-title"></div><div class="modal-sub" id="modal-sub"></div></div>
+    <div class="modal-body" id="modal-body"></div>
+    <div class="modal-foot" id="modal-foot"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ═══════════════════════════════════════════════
+   FIXTURES — evaluation snapshots
+   ═══════════════════════════════════════════════ */
+
+const EVALUATIONS = {
+  'eval-2f4a-9d3b': {
+    id: 'eval-2f4a-9d3b',
+    system: 'Support Agent v2',
+    asOf: '2026-10-17 10:42 UTC',
+    profile: 'Full five-plane',
+    profileVersion: 'v2.4',
+    disposition: 'REVIEW',
+    dispositionTone: 'review',
+    headline: 'Two consequential facts require review: <strong>1 delegation drift</strong> and <strong>3 undeclared tool paths</strong>. Neither is a block; neither is an authorization to deploy.',
+    analyzedSources: 4,
+    analyzersRun: '14 of 16',
+    windows: '24h telemetry · main branch source',
+    nextAction: {
+      title: 'Review the delegation drift on chain-7a9c-2b14',
+      detail: 'One delegated action widened DATA_CLASS on handoff. The operation completed, but authority did not cover it. Attach a target readback or request a scope review.',
+      cta: 'Open the chain',
+      kind: 'dai',
+      target: 'widened'
+    },
+    scope: {
+      sources: [
+        { name: 'GitHub App', scope: 'main branch · full executor', status: 'ran' },
+        { name: 'AWS IAM observer', scope: 'principal svc-triage', status: 'partial', note: 'SCP, resource policies, session boundaries not fully resolved' },
+        { name: 'OTLP collector', scope: '24h window', status: 'ran' },
+        { name: 'SBOM (CycloneDX 1.5)', scope: 'main branch', status: 'ran' },
+        { name: 'Runtime endpoint test', scope: 'not authorized this run', status: 'not-run', note: 'Requires endpoint authorization; opt-in' }
+      ],
+      analyzers: [
+        { name: 'Static analyzer', version: 'v2.4', status: 'ran', rules: '47 rules · 4 families', findings: '6', established: 'Reachable tool/API paths, secrets, tenant-isolation boundaries', limitations: null },
+        { name: 'Secret scanner', version: 'v1.8', status: 'ran', rules: 'allowlisted secret IDs', findings: '2', established: 'Source-visible secret locations (all commented)', limitations: null },
+        { name: 'Dependency analyzer', version: 'v3.1', status: 'ran', rules: 'lockfile + manifest', findings: '2', established: 'Drifted transitive dependencies', limitations: null },
+        { name: 'Tenant isolation analyzer', version: 'v1.6', status: 'ran', rules: '12 rules', findings: '0', established: 'Multi-tenant query boundaries', limitations: null },
+        { name: 'IAM observer', version: 'v1.2', status: 'partial', rules: 'identity + policy read', findings: '2', established: 'Candidate grants observed', limitations: 'Effective per-action IAM not resolved' },
+        { name: 'IAM evaluator', version: 'v1.0', status: 'partial', rules: 'effective-grant resolution', findings: '—', established: 'Partial effective permission context', limitations: 'SCP, resource policies, session boundaries not fully resolved · no canonical EFFECTIVELY_GRANTED emitted' },
+        { name: 'OTLP receiver', version: 'v2.1', status: 'ran', rules: 'gen_ai.*, mcp.*, haiec.*', findings: '8', established: 'Observed tool calls, handoffs, memory access, retrieval events', limitations: null },
+        { name: 'Log parser', version: 'v1.5', status: 'ran', rules: 'RFC5424 / common web / JSONL', findings: '4', established: 'Sign-in, API, data-access patterns', limitations: null },
+        { name: 'Model gateway events', version: 'v1.0', status: 'ran', rules: 'gateway call events', findings: '6', established: 'Model-call surfaces, token usage', limitations: null },
+        { name: 'SBOM diff', version: 'v1.4', status: 'ran', rules: 'CycloneDX 1.4–1.6', findings: '2', established: 'Dependency drift, known vulnerabilities', limitations: 'XML/SPDX/VEX/CSAF not consumed via this path' },
+        { name: 'Lockfile comparator', version: 'v1.2', status: 'ran', rules: 'lockfile vs manifest', findings: '1', established: 'Unapproved registry hits', limitations: null },
+        { name: 'Registry metadata', version: 'v1.0', status: 'ran', rules: 'publisher / maintainer', findings: '0', established: 'Publisher / maintainer continuity', limitations: null },
+        { name: 'Prompt-injection analyzer (static)', version: 'v2.2', status: 'ran', rules: 'R1, R4, + 8 additional', findings: '1', established: 'Static prompt-injection exposure rules', limitations: null },
+        { name: 'RAG boundary analyzer (static)', version: 'v1.4', status: 'ran', rules: '4 rules', findings: '0', established: 'Static RAG retrieval boundary analysis', limitations: null },
+        { name: 'Runtime prompt event analyzer', version: '—', status: 'not-run', rules: '—', findings: '—', established: '—', limitations: 'Sampling 1:100 for prompt events · full prompt content not captured' },
+        { name: 'Prompt injection test runner', version: '—', status: 'not-run', rules: '—', findings: '—', established: '—', limitations: 'Requires authorized endpoint for empirical test' }
+      ]
+    },
+    claims: [
+      { id: 'C-01', title: 'Undeclared executable capability', status: 'partial', tone: 'amber',
+        summary: '3 tool paths reachable from code have no MCP registry entry. Code-visible only — not observed at runtime.',
+        relatedFindings: ['F-001'], sources: ['GitHub static', 'MCP registry'], evidenceCount: 4 },
+      { id: 'C-02', title: 'Delegated actions within approved scope', status: 'contradicted', tone: 'danger',
+        summary: 'One observed delegated action (chain-7a9c-2b14) widened DATA_CLASS on handoff. Recorded as OBSERVED_OUTSIDE_SCOPE.',
+        relatedFindings: ['F-002'], sources: ['OTLP', 'DAI comparison'], evidenceCount: 6 },
+      { id: 'C-03', title: 'Secrets not present in source', status: 'supported', tone: 'success',
+        summary: '2 allowlisted secret patterns detected in comments only, not live. No active credential exposure found.',
+        relatedFindings: [], sources: ['Secret scanner'], evidenceCount: 2 },
+      { id: 'C-04', title: 'Dependencies match approved SBOM', status: 'partial', tone: 'amber',
+        summary: '2 transitive dependencies drifted from approved SBOM; 1 unapproved registry hit.',
+        relatedFindings: ['F-003'], sources: ['SBOM diff', 'Lockfile comparator'], evidenceCount: 3 },
+      { id: 'C-05', title: 'Effective cloud permission scoped', status: 'not-assessed', tone: 'neutral',
+        summary: 'IAM evaluator emitted candidate grants only. Per-action EFFECTIVELY_GRANTED not established — requires SCP, resource policy, and session context resolution.',
+        relatedFindings: ['F-005'], sources: ['IAM observer (partial)'], evidenceCount: 2 },
+      { id: 'C-06', title: 'Prompt-injection resistance established', status: 'partial', tone: 'amber',
+        summary: 'Static R1/R4 exposure rules ran and detected 1 static finding. Empirical runtime test did not run. Observed prompt content not captured (sampling 1:100).',
+        relatedFindings: [], sources: ['Static prompt rules'], evidenceCount: 2 }
+    ],
+    findings: [
+      { id: 'F-001', title: '3 undeclared tool paths', severity: 'high', tone: 'high',
+        claimRef: 'C-01',
+        summary: 'Source analysis found 3 tool paths reachable by agents that no MCP registry entry declares.',
+        source: 'GitHub static + MCP registry', firstSeen: '2026-10-17 10:42 UTC', evidenceCount: 4 },
+      { id: 'F-002', title: 'Scope widening on delegated action', severity: 'medium', tone: 'med',
+        claimRef: 'C-02',
+        summary: 'Delegated chain-7a9c-2b14 widened DATA_CLASS from "standard" to "includes_pii" at handoff. Provider accepted the dispatch; target effect readback pending.',
+        source: 'OTLP + DAI comparison', firstSeen: '2026-10-17 10:42 UTC', evidenceCount: 6 },
+      { id: 'F-003', title: '2 dependencies drifted from SBOM', severity: 'low', tone: 'low',
+        claimRef: 'C-04',
+        summary: 'Two transitive dependencies gained new permissions since last approved SBOM.',
+        source: 'SBOM diff', firstSeen: '2026-10-17 10:42 UTC', evidenceCount: 2 },
+      { id: 'F-004', title: 'Runtime guardrail (R03) target not wired', severity: 'medium', tone: 'med',
+        claimRef: 'C-02',
+        summary: 'R03 PEP installation failed 2026-10-16. Guard decisions cannot be enforced at target. Monitoring source stale 6h.',
+        source: 'Control R03', firstSeen: '2026-10-16 14:07 UTC', evidenceCount: 3 },
+      { id: 'F-005', title: 'IAM observer stale', severity: 'low', tone: 'low',
+        claimRef: 'C-05',
+        summary: 'AWS IAM observer last reported 6h ago. Effective permission context may not reflect current state.',
+        source: 'IAM observer', firstSeen: '2026-10-17 04:42 UTC', evidenceCount: 1 }
+    ],
+    daiInScope: [
+      { chainId: 'chain-7a9c-2b14', route: 'support-triage-v3 → refund-agent-v2', state: 'OBSERVED_OUTSIDE_SCOPE · EFFECT_NOT_VERIFIED', tone: 'amber', mismatches: 1, evidenceCount: 6 },
+      { chainId: 'chain-4e2b-8a11', route: 'support-triage-v3 → invoice-agent-v1', state: 'AUTHORIZED_DELEGATION_ESTABLISHED · TARGET_EFFECT_VERIFIED', tone: 'success', mismatches: 0, evidenceCount: 4 },
+      { chainId: 'chain-e1f2-9a3d', route: 'escalation-agent-v4 → refund-agent-v2', state: 'DELEGATION_UNVERIFIED · HANDOFF_OBSERVED_ONLY', tone: 'danger', mismatches: 9, evidenceCount: 4 }
+    ],
+    missingEvidence: [
+      { name: 'Runtime empirical test', reason: 'Not authorized for this evaluation',
+        consequence: 'Would establish empirical prompt-injection and tool-forcing resistance', addSource: 'runtime-test' },
+      { name: 'Fresh AWS IAM observation', reason: '6h stale · exceeds cadence tolerance',
+        consequence: 'Would complete EFFECTIVELY_GRANTED plane with current context', addSource: 'aws-iam-live' },
+      { name: 'OAuth client mapping', reason: 'Not supplied',
+        consequence: 'Would complete identity facet of IAM plane', addSource: 'iam-json' },
+      { name: 'Full prompt event capture', reason: 'Sampling 1:100 for prompt events',
+        consequence: 'Would strengthen OBSERVED prompt/RAG context', addSource: 'otlp' }
+    ],
+    notEstablished: [
+      { title: 'Operational execution authorization', detail: 'This disposition is scoped to the evidence evaluated. It is not an authorization to deploy any change.' },
+      { title: 'Compliance certification', detail: 'Framework mappings are context, not a certification of compliance against any standard.' },
+      { title: 'Target effect for delegation events', detail: 'No independent target-state readback was supplied. Provider acceptance is not effect verification.' },
+      { title: 'Full five-plane proof', detail: 'EFFECTIVELY_GRANTED remains partial; runtime empirical results are absent.' }
+    ]
+  },
+  'eval-2f4a-8c1a': {
+    id: 'eval-2f4a-8c1a',
+    system: 'Support Agent v2',
+    asOf: '2026-10-16 22:15 UTC',
+    profile: 'Full five-plane',
+    profileVersion: 'v2.4',
+    disposition: 'ALLOW',
+    dispositionTone: 'allow',
+    headline: 'All in-scope claims supported at this snapshot. <strong>Six</strong> analyzers ran; <strong>two</strong> partial. No consequential findings at this evaluation.',
+    analyzedSources: 3,
+    analyzersRun: '12 of 16',
+    windows: '24h telemetry · main branch source',
+    nextAction: null,
+    scope: {
+      sources: [
+        { name: 'GitHub App', scope: 'main branch · full executor', status: 'ran' },
+        { name: 'AWS IAM observer', scope: 'principal svc-triage', status: 'ran', note: 'Fresh at time of evaluation' },
+        { name: 'OTLP collector', scope: '24h window', status: 'ran' },
+        { name: 'SBOM (CycloneDX 1.5)', scope: 'main branch', status: 'ran' }
+      ],
+      analyzers: [
+        { name: 'Static analyzer', version: 'v2.4', status: 'ran', rules: '47 rules · 4 families', findings: '2', established: 'Reachable tool/API paths, secrets, tenant-isolation boundaries', limitations: null },
+        { name: 'Secret scanner', version: 'v1.8', status: 'ran', rules: 'allowlisted secret IDs', findings: '2', established: 'Source-visible secret locations (commented only)', limitations: null },
+        { name: 'Dependency analyzer', version: 'v3.1', status: 'ran', rules: 'lockfile + manifest', findings: '0', established: 'No dependency drift at this snapshot', limitations: null },
+        { name: 'IAM observer', version: 'v1.2', status: 'ran', rules: 'identity + policy read', findings: '0', established: 'Current grants, no dangerous permissions', limitations: null },
+        { name: 'OTLP receiver', version: 'v2.1', status: 'ran', rules: 'gen_ai.*, mcp.*, haiec.*', findings: '3', established: 'Observed tool calls, handoffs', limitations: null },
+        { name: 'Prompt-injection analyzer (static)', version: 'v2.2', status: 'ran', rules: 'R1, R4, + 8 additional', findings: '0', established: 'No static prompt-injection exposure', limitations: null },
+        { name: 'Runtime prompt event analyzer', version: '—', status: 'not-run', rules: '—', findings: '—', established: '—', limitations: 'Sampling 1:100 for prompt events' },
+        { name: 'Prompt injection test runner', version: '—', status: 'not-run', rules: '—', findings: '—', established: '—', limitations: 'Requires authorized endpoint' }
+      ]
+    },
+    claims: [
+      { id: 'C-01', title: 'Undeclared executable capability', status: 'supported', tone: 'success',
+        summary: 'No tool paths reachable outside declared registries at this snapshot.',
+        relatedFindings: [], sources: ['GitHub static', 'MCP registry'], evidenceCount: 3 },
+      { id: 'C-02', title: 'Delegated actions within approved scope', status: 'supported', tone: 'success',
+        summary: 'All observed delegated actions fell within approved DATA_CLASS, scope and magnitude.',
+        relatedFindings: [], sources: ['OTLP', 'DAI comparison'], evidenceCount: 4 },
+      { id: 'C-03', title: 'Secrets not present in source', status: 'supported', tone: 'success',
+        summary: '2 allowlisted patterns in comments only. No active credential exposure.',
+        relatedFindings: [], sources: ['Secret scanner'], evidenceCount: 2 },
+      { id: 'C-04', title: 'Dependencies match approved SBOM', status: 'supported', tone: 'success',
+        summary: 'No transitive dependency drift at this snapshot.',
+        relatedFindings: [], sources: ['SBOM diff'], evidenceCount: 1 }
+    ],
+    findings: [
+      { id: 'F-010', title: '2 allowlisted secret patterns in comments', severity: 'low', tone: 'low',
+        claimRef: 'C-03',
+        summary: 'Secret scanner matched 2 allowlisted pattern IDs in code comments. Not live credentials.',
+        source: 'Secret scanner', firstSeen: '2026-10-16 22:15 UTC', evidenceCount: 2 }
+    ],
+    daiInScope: [
+      { chainId: 'chain-4e2b-8a11', route: 'support-triage-v3 → invoice-agent-v1', state: 'AUTHORIZED_DELEGATION_ESTABLISHED · TARGET_EFFECT_VERIFIED', tone: 'success', mismatches: 0, evidenceCount: 4 }
+    ],
+    missingEvidence: [
+      { name: 'Runtime empirical test', reason: 'Not authorized for this evaluation',
+        consequence: 'Would strengthen prompt-injection resistance claim beyond static', addSource: 'runtime-test' },
+      { name: 'Full prompt event capture', reason: 'Sampling 1:100',
+        consequence: 'Would strengthen OBSERVED prompt context', addSource: 'otlp' }
+    ],
+    notEstablished: [
+      { title: 'Operational execution authorization', detail: 'Scoped disposition, not a deploy authorization.' },
+      { title: 'Compliance certification', detail: 'Framework mappings are context only.' },
+      { title: 'Target effect for delegation events', detail: 'Provider acceptance only; no independent readback for all chains.' },
+      { title: 'Full five-plane proof', detail: 'Runtime empirical results absent.' }
+    ]
+  },
+  'eval-2f4a-7b09': {
+    id: 'eval-2f4a-7b09',
+    system: 'Support Agent v2',
+    asOf: '2026-10-16 14:30 UTC',
+    profile: 'Full five-plane',
+    profileVersion: 'v2.3',
+    disposition: 'BLOCK',
+    dispositionTone: 'block',
+    headline: 'A critical IAM overreach was established. <strong>BLOCK</strong> disposition at this snapshot. Remedi​ated on 2026-10-17 at 11:15 UTC.',
+    analyzedSources: 3,
+    analyzersRun: '11 of 16',
+    windows: '24h telemetry · main branch source',
+    nextAction: null,
+    scope: {
+      sources: [
+        { name: 'GitHub App', scope: 'main branch · full executor', status: 'ran' },
+        { name: 'AWS IAM observer', scope: 'principal svc-triage', status: 'ran' },
+        { name: 'OTLP collector', scope: '24h window', status: 'ran' },
+        { name: 'SBOM (CycloneDX 1.5)', scope: 'main branch', status: 'ran' }
+      ],
+      analyzers: [
+        { name: 'Static analyzer', version: 'v2.3', status: 'ran', rules: '47 rules · 4 families', findings: '4', established: 'Reachable tool/API paths, secrets, tenant-isolation boundaries', limitations: null },
+        { name: 'IAM observer', version: 'v1.2', status: 'ran', rules: 'identity + policy read', findings: '1', established: 'A principal with excessive cross-tenant grants was identified', limitations: null },
+        { name: 'OTLP receiver', version: 'v2.1', status: 'ran', rules: 'gen_ai.*, mcp.*, haiec.*', findings: '5', established: 'Observed tool calls', limitations: null },
+        { name: 'Runtime test runner', version: '—', status: 'not-run', rules: '—', findings: '—', established: '—', limitations: 'Requires authorized endpoint' }
+      ]
+    },
+    claims: [
+      { id: 'C-01', title: 'Effective cloud permission scoped', status: 'contradicted', tone: 'danger',
+        summary: 'svc-triage held cross-tenant read permission beyond its declared grant. This is the claim that drove the BLOCK disposition.',
+        relatedFindings: ['F-020'], sources: ['IAM observer'], evidenceCount: 3 }
+    ],
+    findings: [
+      { id: 'F-020', title: 'Critical IAM overreach · cross-tenant read', severity: 'critical', tone: 'high',
+        claimRef: 'C-01',
+        summary: 'svc-triage held resource policy permitting cross-tenant S3 reads not present in its declared envelope. Remediated 2026-10-17 11:15 UTC.',
+        source: 'IAM observer', firstSeen: '2026-10-16 14:30 UTC', evidenceCount: 3 }
+    ],
+    daiInScope: [],
+    missingEvidence: [],
+    notEstablished: [
+      { title: 'Operational execution authorization', detail: 'Scoped disposition, not a deploy authorization.' },
+      { title: 'Compliance certification', detail: 'Framework mappings are context only.' }
+    ]
+  }
+};
+
+const EVAL_ORDER = ['eval-2f4a-9d3b', 'eval-2f4a-8c1a', 'eval-2f4a-7b09'];
+
+/* ═══════════════════════════════════════════════
+   STATE
+   ═══════════════════════════════════════════════ */
+
+const state = {
+  evalId: 'eval-2f4a-9d3b',
+  basis: 'evaluation',
+  findingsFilter: 'all',
+  expandedAnalyzer: null
+};
+
+function currentEval() { return EVALUATIONS[state.evalId]; }
+
+/* ═══════════════════════════════════════════════
+   UTILITIES
+   ═══════════════════════════════════════════════ */
+
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+
+function toast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;
+  t.classList.add('show');
+  clearTimeout(t._t);
+  t._t=setTimeout(()=>t.classList.remove('show'),3200);
+}
+
+function setBasis(b){
+  state.basis=b;
+  document.querySelectorAll('.basis-btn').forEach(btn=>btn.classList.toggle('active',btn.dataset.basis===b));
+  document.getElementById('basis-asof').textContent=b==='current'?'14:22 UTC':'10:42 UTC';
+  if(b==='current'){
+    toast('Current state — not an evaluation snapshot. Select a frozen evaluation below to view disposition.');
+  }
+  render();
+}
+
+function selectEval(id){
+  state.evalId=id;
+  state.findingsFilter='all';
+  render();
+  document.getElementById('main-content').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+/* ═══════════════════════════════════════════════
+   RENDER
+   ═══════════════════════════════════════════════ */
+
+function render(){
+  const el=document.getElementById('main-content');
+  el.innerHTML=renderScreen();
+  bindEvents();
+}
+
+function renderScreen(){
+  const ev=currentEval();
+  const isCurrentBasis=state.basis==='current';
+
+  if(isCurrentBasis){
+    return renderCurrentBasisPlaceholder(ev);
+  }
+
+  const filteredFindings=ev.findings.filter(f=>state.findingsFilter==='all'||f.tone===state.findingsFilter);
+
+  return `
+    <!-- DISPOSITION BANNER -->
+    <div class="disposition-banner ${ev.dispositionTone}">
+      <div class="disposition-top">
+        <div class="disposition-left">
+          <div class="disposition-eyebrow">Disposition · scoped to evaluated evidence</div>
+          <div class="disposition-main">
+            <span class="disposition-badge ${ev.dispositionTone}">${ev.disposition}</span>
+            <span class="disposition-meta">${esc(ev.id)} · ${esc(ev.asOf)}</span>
+          </div>
+          <div class="disposition-headline">${ev.headline}</div>
+        </div>
+        <div class="disposition-caveat ${ev.dispositionTone==='allow'?'allow':''}">
+          <div class="disposition-caveat-title">Not an authorization</div>
+          <div class="disposition-caveat-body">This disposition is scoped to what was evaluated. Operational execution authorization requires a separate human decision and target enforcement evidence.</div>
+        </div>
+      </div>
+      <div class="disposition-actions">
+        <button class="btn btn-primary" onclick="previewReevaluation()">Re-evaluate this system</button>
+        <button class="btn btn-secondary" onclick="openReceiptInspector()">Open receipt</button>
+        <button class="btn btn-ghost" onclick="previewCompare()">Compare with prior</button>
+        <button class="btn btn-ghost" onclick="toast('Export evaluation — would produce a signed JSON in production')">Export evaluation</button>
+      </div>
+    </div>
+
+    <!-- NOT ESTABLISHED — always visible -->
+    <div class="not-established">
+      <div class="not-established-title"><span class="icon">!</span>What this evaluation does not establish</div>
+      <div class="not-established-grid">
+        ${ev.notEstablished.map(n=>`
+          <div class="not-established-item">
+            <span class="icon">·</span>
+            <div><strong>${esc(n.title)}.</strong> ${esc(n.detail)}</div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+
+    <!-- MAIN GRID -->
+    <div class="grid-2col">
+      <div class="main-col">
+
+        <!-- EVALUATED SCOPE -->
+        <section class="section">
+          <div class="section-head">
+            <div>
+              <div class="section-title">Evaluated scope</div>
+              <div class="section-sub">The exact sources and analyzers that participated in this evaluation. Not the full registry — the participants.</div>
+            </div>
+          </div>
+          <div class="section-pad">
+            <div class="scope-summary">
+              <div class="scope-stat"><div class="scope-stat-label">Sources in scope</div><div class="scope-stat-value">${ev.scope.sources.length} connected</div></div>
+              <div class="scope-stat"><div class="scope-stat-label">Analyzers run</div><div class="scope-stat-value">${ev.analyzersRun}</div></div>
+              <div class="scope-stat"><div class="scope-stat-label">Profile</div><div class="scope-stat-value mono">${esc(ev.profile)} · ${esc(ev.profileVersion)}</div></div>
+              <div class="scope-stat"><div class="scope-stat-label">Windows</div><div class="scope-stat-value mono">${esc(ev.windows)}</div></div>
+            </div>
+
+            <div class="eyebrow" style="margin-bottom:10px;">Sources</div>
+            <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:20px;">
+              ${ev.scope.sources.map(s=>`
+                <div style="display:flex;align-items:center;gap:10px;padding:8px 12px;background:var(--card-soft);border:1px solid var(--border);border-radius:var(--r-xs);font-size:12.5px;">
+                  <span class="chip chip-${s.status==='ran'?'success':s.status==='partial'?'amber':'neutral'}" style="font-size:10px;">${s.status.toUpperCase().replace('-',' ')}</span>
+                  <strong style="color:var(--text);flex:1;">${esc(s.name)}</strong>
+                  <span style="color:var(--text-muted);font-size:11.5px;">${esc(s.scope)}</span>
+                </div>
+                ${s.note?`<div style="font-size:11.5px;color:var(--amber);padding:0 12px 6px 12px;font-style:italic;">${esc(s.note)}</div>`:''}
+              `).join('')}
+            </div>
+
+            <div class="eyebrow" style="margin-bottom:10px;">Analyzer participation <span style="color:var(--text-dim);font-weight:400;text-transform:none;letter-spacing:0;font-size:11px;">— click any to expand</span></div>
+            <div class="analyzer-list">
+              ${ev.scope.analyzers.map((a,i)=>{
+                const expanded=state.expandedAnalyzer===i;
+                const statusClass=a.status==='ran'?'ran':a.status==='partial'?'partial':a.status==='not-run'?'not-run':'held';
+                return `
+                  <div class="analyzer ${statusClass}" style="cursor:pointer;" onclick="state.expandedAnalyzer=state.expandedAnalyzer===${i}?null:${i};render()">
+                    <div class="analyzer-head">
+                      <div class="analyzer-name">${esc(a.name)} <span class="analyzer-version">${a.version==='—'?'—':esc(a.version)}</span></div>
+                      <span class="analyzer-status ${statusClass}">${a.status==='ran'?'RAN':a.status==='partial'?'PARTIAL':a.status==='not-run'?'NOT RUN':'HELD'}</span>
+                    </div>
+                    ${expanded?`
+                      <div class="analyzer-facts">
+                        <div class="analyzer-fact"><span class="analyzer-fact-label">Rules</span><span class="analyzer-fact-value">${esc(a.rules)}</span></div>
+                        <div class="analyzer-fact"><span class="analyzer-fact-label">Findings</span><span class="analyzer-fact-value">${esc(a.findings)}</span></div>
+                        <div class="analyzer-fact" style="grid-column:1/-1;"><span class="analyzer-fact-label">Established</span><span class="analyzer-fact-value">${esc(a.established)}</span></div>
+                      </div>
+                      ${a.limitations?`<div class="analyzer-note">${esc(a.limitations)}</div>`:''}
+                    `:`
+                      <div style="font-size:12px;color:var(--text-muted);line-height:1.5;">${esc(a.established)}</div>
+                    `}
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          </div>
+        </section>
+
+        <!-- CLAIMS -->
+        <section class="section">
+          <div class="section-head">
+            <div>
+              <div class="section-title">Claims & evidence</div>
+              <div class="section-sub">Each claim the profile asks about, with its support status. Click any claim to see its evidence basis.</div>
+            </div>
+            <span class="chip chip-neutral">${ev.claims.length} claims</span>
+          </div>
+          <div class="section-pad">
+            <div class="claims-list">
+              ${ev.claims.map(c=>{
+                const statusClass=c.status;
+                const icon=c.status==='supported'?'✓':c.status==='partial'?'◐':c.status==='contradicted'?'!':'·';
+                const statusLabel=c.status==='supported'?'Supported':c.status==='partial'?'Partially supported':c.status==='contradicted'?'Contradicted':'Not assessed';
+                return `
+                  <button class="claim-card ${statusClass}" onclick="openClaimInspector('${c.id}')">
+                    <div class="claim-head">
+                      <div class="claim-status-icon ${statusClass}">${icon}</div>
+                      <div class="claim-body">
+                        <div class="claim-title">${esc(c.title)}</div>
+                        <div class="claim-summary">${esc(c.summary)}</div>
+                        <div class="claim-meta">
+                          <span class="chip chip-${c.tone}">${statusLabel}</span>
+                          <span>·</span>
+                          <span>${c.evidenceCount} evidence ref${c.evidenceCount===1?'':'s'}</span>
+                          ${c.relatedFindings.length?`<span>·</span><span>${c.relatedFindings.length} related finding${c.relatedFindings.length===1?'':'s'}</span>`:''}
+                        </div>
+                      </div>
+                      <div class="claim-arrow">→</div>
+                    </div>
+                  </button>
+                `;
+              }).join('')}
+            </div>
+          </div>
+        </section>
+
+        <!-- FINDINGS -->
+        <section class="section">
+          <div class="section-head">
+            <div>
+              <div class="section-title">Findings</div>
+              <div class="section-sub">Ranked by severity. Each traces back to a claim and to evidence.</div>
+            </div>
+            <span class="chip chip-neutral">${ev.findings.length} total</span>
+          </div>
+          <div class="section-pad">
+            ${ev.findings.length?`
+              <div class="findings-filter">
+                <span class="filter-chip ${state.findingsFilter==='all'?'active':''}" onclick="state.findingsFilter='all';render()">All</span>
+                <span class="filter-chip ${state.findingsFilter==='high'?'active':''}" onclick="state.findingsFilter='high';render()">High</span>
+                <span class="filter-chip ${state.findingsFilter==='med'?'active':''}" onclick="state.findingsFilter='med';render()">Medium</span>
+                <span class="filter-chip ${state.findingsFilter==='low'?'active':''}" onclick="state.findingsFilter='low';render()">Low</span>
+              </div>
+              <div class="findings-list">
+                ${filteredFindings.length?filteredFindings.map(f=>`
+                  <div class="finding" onclick="openFindingInspector('${f.id}')">
+                    <div class="sev-badge sev-${f.tone}">${f.tone==='high'?'!':f.tone==='med'?'!':'·'}</div>
+                    <div class="finding-body">
+                      <div class="finding-title">${esc(f.title)} <span class="finding-id">${esc(f.id)}</span></div>
+                      <div class="finding-summary">${esc(f.summary)}</div>
+                      <div class="finding-meta">
+                        <span class="chip">${esc(f.source)}</span>
+                        <span>·</span>
+                        <span>${esc(f.firstSeen)}</span>
+                        <span>·</span>
+                        <span>${f.evidenceCount} evidence ref${f.evidenceCount===1?'':'s'}</span>
+                        <span>·</span>
+                        <span>Claim ${esc(f.claimRef)}</span>
+                      </div>
+                    </div>
+                    <div class="finding-arrow">→</div>
+                  </div>
+                `).join(''):'<div style="text-align:center;padding:24px;color:var(--text-muted);font-size:13px;">No findings at this severity.</div>'}
+              </div>
+            `:`<div style="text-align:center;padding:28px;color:var(--text-muted);font-size:13px;">No consequential findings at this evaluation.</div>`}
+          </div>
+        </section>
+
+        <!-- DAI IN SCOPE -->
+        ${ev.daiInScope.length?`
+          <section class="section">
+            <div class="section-head">
+              <div>
+                <div class="section-title">Delegated actions in scope</div>
+                <div class="section-sub">Each chain observed during the evaluation window, with its nine-dimension DAI comparison summary.</div>
+              </div>
+              <span class="chip chip-neutral">${ev.daiInScope.length} chains</span>
+            </div>
+            <div class="section-pad">
+              <div class="dai-list">
+                ${ev.daiInScope.map(d=>`
+                  <div class="dai-item" onclick="openDaiInspector('${d.chainId}')">
+                    <div class="dai-item-body">
+                      <div class="dai-item-head">
+                        <div class="dai-item-route">${esc(d.route)}</div>
+                        <span class="chip chip-${d.tone} chip-mono">${esc(d.state)}</span>
+                      </div>
+                      <div class="dai-item-meta">
+                        <span class="mono">${esc(d.chainId)}</span>
+                        <span>·</span>
+                        <span>${d.mismatches===0?'9/9 dimensions match':`${9-d.mismatches}/9 dimensions match`}</span>
+                        <span>·</span>
+                        <span>${d.evidenceCount} evidence ref${d.evidenceCount===1?'':'s'}</span>
+                      </div>
+                      <div class="dai-item-dims">
+                        ${Array.from({length:9}).map((_,i)=>`<span class="dai-dim-dot ${i>=9-d.mismatches?'mismatch':''}"></span>`).join('')}
+                      </div>
+                    </div>
+                    <span style="color:var(--text-dim);font-size:16px;">→</span>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+          </section>
+        `:''}
+
+        <!-- MISSING EVIDENCE -->
+        ${ev.missingEvidence.length?`
+          <section class="section">
+            <div class="section-head">
+              <div>
+                <div class="section-title">Missing evidence</div>
+                <div class="section-sub">Explicit gaps. Each would strengthen a specific claim.</div>
+              </div>
+              <span class="chip chip-amber">${ev.missingEvidence.length} gaps</span>
+            </div>
+            <div class="section-pad">
+              <div class="missing-list">
+                ${ev.missingEvidence.map(m=>`
+                  <div class="missing">
+                    <div class="missing-icon">◐</div>
+                    <div class="missing-body">
+                      <div class="missing-title">${esc(m.name)}</div>
+                      <div class="missing-detail">${esc(m.reason)}</div>
+                      <div class="missing-consequence">${esc(m.consequence)}</div>
+                    </div>
+                    <button class="missing-action" onclick="event.stopPropagation();toast('Add ${esc(m.name)} — preview. Real connection requires authenticated exchange.')">Add →</button>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+          </section>
+        `:''}
+
+        <!-- HISTORY -->
+        <section class="section">
+          <div class="section-head">
+            <div>
+              <div class="section-title">Evaluation history</div>
+              <div class="section-sub">Frozen snapshots. Click any row to switch basis to that evaluation.</div>
+            </div>
+          </div>
+          <table class="history-table">
+            <thead><tr><th>Evaluation</th><th>As-of</th><th>Disposition</th><th>Findings</th><th>Analyzers</th><th></th></tr></thead>
+            <tbody>
+              ${EVAL_ORDER.map(id=>{
+                const e=EVALUATIONS[id];
+                return `
+                  <tr class="${id===state.evalId?'current':''} clickable" onclick="selectEval('${id}')">
+                    <td class="mono-cell">${esc(e.id)}${id===state.evalId?' <span class="chip chip-info" style="font-size:9px;margin-left:4px;">viewing</span>':''}</td>
+                    <td class="mono-cell">${esc(e.asOf)}</td>
+                    <td><span class="chip chip-${e.dispositionTone==='allow'?'success':e.dispositionTone==='block'?'danger':'amber'}">${esc(e.disposition)}</span></td>
+                    <td>${e.findings.length}</td>
+                    <td class="mono-cell">${esc(e.analyzersRun)}</td>
+                    <td style="text-align:right;color:var(--text-dim);">→</td>
+                  </tr>
+                `;
+              }).join('')}
+            </tbody>
+          </table>
+        </section>
+
+      </div>
+
+      <aside class="side-col">
+
+        ${ev.nextAction?`
+          <div class="side-card next-action">
+            <div class="next-action-eyebrow">Next best action</div>
+            <div class="next-action-title">${esc(ev.nextAction.title)}</div>
+            <div class="next-action-detail">${esc(ev.nextAction.detail)}</div>
+            <button class="next-action-btn" onclick="${ev.nextAction.kind==='dai'?`openDaiInspector('${ev.nextAction.target}')`:`toast('Opening ${ev.nextAction.kind}')`}">${esc(ev.nextAction.cta)} →</button>
+          </div>
+        `:`
+          <div class="side-card next-action" style="background:linear-gradient(135deg,var(--success-bg) 0%,var(--card) 100%);border-color:var(--success-border);">
+            <div class="next-action-eyebrow" style="color:var(--success);">No action required</div>
+            <div class="next-action-title">All in-scope claims supported</div>
+            <div class="next-action-detail">No consequential findings. Continue monitoring or open the receipt to hand to review.</div>
+            <button class="next-action-btn" style="background:var(--success);" onclick="openReceiptInspector()">Open receipt →</button>
+          </div>
+        `}
+
+        <div class="side-card">
+          <div class="side-title">Actions</div>
+          <div class="side-actions">
+            <button class="side-action" onclick="previewReevaluation()">
+              <span class="side-action-icon">↻</span>
+              <div class="side-action-body"><div class="side-action-title">Re-evaluate</div><div class="side-action-detail">Preview only — no execution</div></div>
+              <span class="side-action-arrow">→</span>
+            </button>
+            <button class="side-action" onclick="openReceiptInspector()">
+              <span class="side-action-icon">◫</span>
+              <div class="side-action-body"><div class="side-action-title">Open receipt</div><div class="side-action-detail">Frozen snapshot ${esc(ev.id).slice(0,12)}</div></div>
+              <span class="side-action-arrow">→</span>
+            </button>
+            <button class="side-action" onclick="previewCompare()">
+              <span class="side-action-icon">⇄</span>
+              <div class="side-action-body"><div class="side-action-title">Compare with prior</div><div class="side-action-detail">Side-by-side delta</div></div>
+              <span class="side-action-arrow">→</span>
+            </button>
+            <button class="side-action" onclick="toast('Export — would produce a signed JSON in production')">
+              <span class="side-action-icon">↓</span>
+              <div class="side-action-body"><div class="side-action-title">Export evaluation</div><div class="side-action-detail">Signed JSON · immutable</div></div>
+              <span class="side-action-arrow">→</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="side-card">
+          <div class="side-title">Evaluation metadata</div>
+          <div class="meta-list">
+            <div class="meta-row"><span class="meta-label">Evaluation</span><span class="meta-value mono">${esc(ev.id)}</span></div>
+            <div class="meta-row"><span class="meta-label">As-of</span><span class="meta-value mono">${esc(ev.asOf)}</span></div>
+            <div class="meta-row"><span class="meta-label">Profile</span><span class="meta-value">${esc(ev.profile)} · ${esc(ev.profileVersion)}</span></div>
+            <div class="meta-row"><span class="meta-label">Disposition</span><span class="meta-value">${esc(ev.disposition)}</span></div>
+            <div class="meta-row"><span class="meta-label">Analyzers</span><span class="meta-value">${esc(ev.analyzersRun)}</span></div>
+            <div class="meta-row"><span class="meta-label">Findings</span><span class="meta-value">${ev.findings.length}</span></div>
+            <div class="meta-row"><span class="meta-label">Claims</span><span class="meta-value">${ev.claims.length}</span></div>
+            <div class="meta-row"><span class="meta-label">Chains</span><span class="meta-value">${ev.daiInScope.length}</span></div>
+          </div>
+        </div>
+
+      </aside>
+    </div>
+  `;
+}
+
+function renderCurrentBasisPlaceholder(ev){
+  return `
+    <div class="disposition-banner ${ev.dispositionTone}" style="opacity:0.85;">
+      <div class="disposition-top">
+        <div class="disposition-left">
+          <div class="disposition-eyebrow">Current basis selected</div>
+          <div class="disposition-main">
+            <span class="disposition-badge neutral" style="background:var(--card-soft);color:var(--text-muted);border-color:var(--border);">CURRENT</span>
+            <span class="disposition-meta">Live state · 2026-10-17 14:22 UTC</span>
+          </div>
+          <div class="disposition-headline">You are viewing <strong>current state</strong>, not a frozen evaluation. The disposition below belongs to the last frozen evaluation snapshot (${esc(ev.id)} · ${esc(ev.asOf)}).</div>
+        </div>
+        <div class="disposition-caveat">
+          <div class="disposition-caveat-title">What current means</div>
+          <div class="disposition-caveat-body">Current state shows what HAIEC has connected right now. It is <em>not</em> an evaluation. To see a disposition or claims, switch to a frozen evaluation below.</div>
+        </div>
+      </div>
+      <div class="disposition-actions">
+        <button class="btn btn-primary" onclick="setBasis('evaluation')">Switch to evaluation →</button>
+        <button class="btn btn-ghost" onclick="previewReevaluation()">Run a new evaluation (preview)</button>
+      </div>
+    </div>
+
+    <div class="not-established">
+      <div class="not-established-title"><span class="icon">!</span>Current state vs evaluation</div>
+      <div class="not-established-grid">
+        <div class="not-established-item"><span class="icon">·</span><div><strong>Current</strong> reflects what is connected and observed <em>now</em>. It changes with each new source event and each new scan.</div></div>
+        <div class="not-established-item"><span class="icon">·</span><div><strong>Evaluation</strong> is a frozen snapshot: claims, findings, disposition, and evidence basis, sealed with a digest.</div></div>
+        <div class="not-established-item"><span class="icon">·</span><div><strong>Dispositions only exist</strong> on frozen evaluations. Current state has no disposition.</div></div>
+        <div class="not-established-item"><span class="icon">·</span><div><strong>Neither is</strong> an operational execution authorization. Deployment approval is a separate human decision.</div></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-head"><div><div class="section-title">Frozen evaluations for this system</div><div class="section-sub">Switch to one to see its full evaluation.</div></div></div>
+      <table class="history-table">
+        <thead><tr><th>Evaluation</th><th>As-of</th><th>Disposition</th><th>Findings</th><th></th></tr></thead>
+        <tbody>
+          ${EVAL_ORDER.map(id=>{
+            const e=EVALUATIONS[id];
+            return `<tr class="clickable" onclick="setBasis('evaluation');selectEval('${id}')">
+              <td class="mono-cell">${esc(e.id)}</td>
+              <td class="mono-cell">${esc(e.asOf)}</td>
+              <td><span class="chip chip-${e.dispositionTone==='allow'?'success':e.dispositionTone==='block'?'danger':'amber'}">${esc(e.disposition)}</span></td>
+              <td>${e.findings.length}</td>
+              <td style="text-align:right;color:var(--text-dim);">→</td>
+            </tr>`;
+          }).join('')}
+        </tbody>
+      </table>
+    </div>
+  `;
+}
+
+/* ═══════════════════════════════════════════════
+   INSPECTORS
+   ═══════════════════════════════════════════════ */
+
+function openClaimInspector(claimId){
+  const ev=currentEval();
+  const claim=ev.claims.find(c=>c.id===claimId);
+  if(!claim)return;
+  const relatedFindings=ev.findings.filter(f=>claim.relatedFindings.includes(f.id));
+  const statusLabel=claim.status==='supported'?'Supported':claim.status==='partial'?'Partially supported':claim.status==='contradicted'?'Contradicted':'Not assessed';
+  const body=`
+    <div class="callout callout-${claim.status==='supported'?'success':claim.status==='contradicted'?'danger':'info'}" style="margin-bottom:18px;">
+      <strong>${claim.status==='supported'?'✓':claim.status==='contradicted'?'⚠':'◐'} ${esc(statusLabel)}</strong>
+      <div style="margin-top:6px;font-size:12.5px;line-height:1.55;">${esc(claim.summary)}</div>
+    </div>
+
+    <div class="inspector-section">
+      <div class="inspector-section-title">Evidence basis <span class="badge">${claim.evidenceCount}</span></div>
+      <div class="ev-list">
+        ${claim.sources.map((src,i)=>`
+          <div class="ev-item">
+            <span class="ev-ref">${esc(src).toLowerCase().replace(/\s+/g,'.')}</span>
+            <span class="ev-summary">Evidence from ${esc(src)} contributing to this claim's support status.</span>
+          </div>
+        `).join('')}
+        ${claim.evidenceCount>claim.sources.length?`
+          <div style="font-size:11.5px;color:var(--text-muted);font-style:italic;padding-left:8px;">+ ${claim.evidenceCount-claim.sources.length} additional reference${claim.evidenceCount-claim.sources.length===1?'':'s'} in full evidence packet</div>
+        `:''}
+      </div>
+    </div>
+
+    ${relatedFindings.length?`
+      <div class="inspector-section">
+        <div class="inspector-section-title">Related findings <span class="badge">${relatedFindings.length}</span></div>
+        <div style="display:flex;flex-direction:column;gap:6px;">
+          ${relatedFindings.map(f=>`
+            <div style="padding:10px 12px;background:var(--card-soft);border:1px solid var(--border);border-radius:var(--r-xs);font-size:12.5px;">
+              <strong style="color:var(--text);">${esc(f.id)} · ${esc(f.title)}</strong>
+              <div style="color:var(--text-muted);margin-top:2px;">${esc(f.summary)}</div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    `:''}
+
+    <div class="inspector-section">
+      <div class="inspector-section-title">What would strengthen this claim</div>
+      ${claim.status==='supported'?`
+        <div class="state-block success">
+          <div class="state-title"><span>✓</span>Fully supported at this evaluation</div>
+          <div class="state-detail">All in-scope evidence supports this claim. No specific enrichment required.</div>
+        </div>
+      `:claim.status==='partial'?`
+        <div class="state-block amber">
+          <div class="state-title"><span>◐</span>Partially supported</div>
+          <div class="state-detail">Add evidence to close remaining gaps. See the "Missing evidence" section on the evaluation.</div>
+        </div>
+      `:claim.status==='contradicted'?`
+        <div class="state-block danger">
+          <div class="state-title"><span>!</span>Contradicted by evidence</div>
+          <div class="state-detail">This claim is contradicted by evidence. Consider a scope review, remediation, or updating the Operating Envelope.</div>
+        </div>
+      `:`
+        <div class="state-block neutral">
+          <div class="state-title"><span>·</span>Not assessed</div>
+          <div class="state-detail">This claim was not evaluated. Add the source listed in "Missing evidence" to include it in the next evaluation.</div>
+        </div>
+      `}
+    </div>
+  `;
+  setInspector({
+    crumb:`Support Agent v2 › Evaluate › Claims`,
+    title:`${esc(claim.id)} · ${esc(claim.title)}`,
+    sub:`${statusLabel} · ${claim.evidenceCount} evidence ref${claim.evidenceCount===1?'':'s'}`,
+    body,
+    foot:`<div class="inspector-foot-info">Claim ${esc(claim.id)} · ${esc(ev.id)}</div>
+      <div style="display:flex;gap:8px;">
+        <button class="btn btn-ghost btn-sm" onclick="toast('View full evidence packet — would open in stage 2')">Full evidence packet</button>
+        <button class="btn btn-primary btn-sm" onclick="closeInspector()">Done</button>
+      </div>`
+  });
+}
+
+function openFindingInspector(findingId){
+  const ev=currentEval();
+  const finding=ev.findings.find(f=>f.id===findingId);
+  if(!finding)return;
+  const claim=ev.claims.find(c=>c.id===finding.claimRef);
+  const sevLabel=finding.tone==='high'?'HIGH':finding.tone==='med'?'MEDIUM':'LOW';
+  const body=`
+    <div class="callout callout-${finding.tone==='high'?'danger':finding.tone==='med'?'warn':'info'}" style="margin-bottom:18px;">
+      <strong>${sevLabel} · ${esc(finding.title)}</strong>
+      <div style="margin-top:6px;font-size:12.5px;line-height:1.55;">${esc(finding.summary)}</div>
+    </div>
+
+    <div class="inspector-section">
+      <div class="inspector-section-title">Finding details</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;font-size:12.5px;">
+        <div><div style="font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-dim);margin-bottom:2px;">Finding ID</div><div style="font-family:var(--mono);">${esc(finding.id)}</div></div>
+        <div><div style="font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-dim);margin-bottom:2px;">Severity</div><div>${sevLabel}</div></div>
+        <div><div style="font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-dim);margin-bottom:2px;">Source</div><div>${esc(finding.source)}</div></div>
+        <div><div style="font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-dim);margin-bottom:2px;">First seen</div><div style="font-family:var(--mono);font-size:11.5px;">${esc(finding.firstSeen)}</div></div>
+      </div>
+    </div>
+
+    ${claim?`
+      <div class="inspector-section">
+        <div class="inspector-section-title">Traces to claim</div>
+        <div style="padding:10px 12px;background:var(--card-soft);border:1px solid var(--border);border-radius:var(--r-xs);font-size:12.5px;">
+          <strong>${esc(claim.id)} · ${esc(claim.title)}</strong>
+          <div style="color:var(--text-muted);margin-top:3px;">${esc(claim.summary)}</div>
+        </div>
+      </div>
+    `:''}
+
+    <div class="inspector-section">
+      <div class="inspector-section-title">Evidence <span class="badge">${finding.evidenceCount}</span></div>
+      <div class="ev-list">
+        <div class="ev-item"><span class="ev-ref">finding.${esc(finding.id.toLowerCase())}</span><span class="ev-summary">Primary evidence record for this finding from ${esc(finding.source)}</span></div>
+        ${finding.evidenceCount>1?`<div style="font-size:11.5px;color:var(--text-muted);font-style:italic;padding-left:8px;">+ ${finding.evidenceCount-1} additional reference${finding.evidenceCount-1===1?'':'s'}</div>`:''}
+      </div>
+    </div>
+
+    <div class="inspector-section">
+      <div class="inspector-section-title">What to do</div>
+      <div class="state-block ${finding.tone==='high'?'danger':finding.tone==='med'?'amber':'neutral'}">
+        <div class="state-title"><span>${finding.tone==='high'?'!':finding.tone==='med'?'!':'·'}</span>${finding.tone==='high'?'High severity — review promptly':finding.tone==='med'?'Medium severity — review on next cycle':'Low severity — track, no urgent action'}</div>
+        <div class="state-detail">${finding.tone==='high'?'Prioritize this finding for investigation. Consider a scope review or control review before the next evaluation.':finding.tone==='med'?'Track this finding and address during the next planned review cycle.':'Note for next review cycle. No immediate action required.'}</div>
+      </div>
+    </div>
+  `;
+  setInspector({
+    crumb:`Support Agent v2 › Evaluate › Findings`,
+    title:`${esc(finding.id)} · ${esc(finding.title)}`,
+    sub:`${sevLabel} · ${esc(finding.source)} · ${esc(finding.firstSeen)}`,
+    body,
+    foot:`<div class="inspector-foot-info">Finding ${esc(finding.id)} · claim ${esc(finding.claimRef)}</div>
+      <div style="display:flex;gap:8px;">
+        <button class="btn btn-ghost btn-sm" onclick="toast('Acknowledge finding — requires authenticated write in production')">Acknowledge</button>
+        <button class="btn btn-primary btn-sm" onclick="closeInspector()">Done</button>
+      </div>`
+  });
+}
+
+function openDaiInspector(chainId){
+  const ev=currentEval();
+  const chain=ev.daiInScope.find(c=>c.chainId===chainId);
+  if(!chain)return;
+  const mismatches=chain.mismatches;
+  const body=`
+    <div class="callout callout-${chain.tone==='success'?'success':chain.tone==='danger'?'danger':'info'}" style="margin-bottom:18px;">
+      <strong>${chain.tone==='success'?'✓':chain.tone==='danger'?'⚠':'⚠'} ${esc(chain.state)}</strong>
+      <div style="margin-top:6px;font-family:var(--mono);font-size:11px;">${esc(chain.chainId)}</div>
+    </div>
+
+    <div class="inspector-section">
+      <div class="inspector-section-title">Chain</div>
+      <div style="padding:12px 14px;background:var(--card-soft);border:1px solid var(--border);border-radius:var(--r-sm);font-size:13px;">
+        <strong>${esc(chain.route)}</strong>
+      </div>
+    </div>
+
+    <div class="inspector-section">
+      <div class="inspector-section-title">DAI nine-dimension comparison <span class="badge">${9-mismatches}/9 match</span></div>
+      <div style="display:flex;gap:2px;margin-bottom:8px;">
+        ${Array.from({length:9}).map((_,i)=>`<span style="flex:1;height:6px;border-radius:2px;background:${i>=9-mismatches?'var(--danger)':'var(--success)'};"></span>`).join('')}
+      </div>
+      <div style="font-size:12.5px;color:var(--text-muted);line-height:1.55;">
+        ${mismatches===0?'All nine DAI dimensions matched at the delegation boundary.':mismatches===9?'No parent scope exists to compare against — the delegation itself is unverified.':`${mismatches} dimension${mismatches===1?'':'s'} widened or diverged.`}
+      </div>
+    </div>
+
+    <div class="inspector-section">
+      <div class="inspector-section-title">Evidence <span class="badge">${chain.evidenceCount}</span></div>
+      <div class="ev-list">
+        <div class="ev-item"><span class="ev-ref">otlp.handoff</span><span class="ev-summary">Handoff span from trusted collector</span></div>
+        <div class="ev-item"><span class="ev-ref">dai.comparison</span><span class="ev-summary">Nine-dimension comparison at the delegation boundary</span></div>
+        ${chain.evidenceCount>2?`<div style="font-size:11.5px;color:var(--text-muted);font-style:italic;padding-left:8px;">+ ${chain.evidenceCount-2} additional reference${chain.evidenceCount-2===1?'':'s'}</div>`:''}
+      </div>
+    </div>
+
+    <div class="inspector-section">
+      <div class="inspector-section-title">Open full chain view</div>
+      <div style="padding:12px 14px;background:var(--card-soft);border:1px solid var(--border);border-radius:var(--r-sm);font-size:12.5px;color:var(--text-muted);line-height:1.55;">
+        The full DAI chain drawer shows every hop (root → handoff → child → tool → dispatch → effect), per-hop evidence expansion, and the complete "what is unverified" section.
+      </div>
+      <button class="btn btn-secondary btn-sm" style="margin-top:10px;width:100%;justify-content:center;" onclick="toast('Open full chain — would open DAI drawer (separate screen)')">Open full chain view →</button>
+    </div>
+  `;
+  setInspector({
+    crumb:`Support Agent v2 › Evaluate › Delegated actions`,
+    title:`Chain · ${esc(chain.route)}`,
+    sub:`${esc(chain.chainId)} · ${esc(chain.state)}`,
+    body,
+    foot:`<div class="inspector-foot-info">${chain.evidenceCount} evidence refs · ${9-mismatches}/9 dimensions match</div>
+      <div style="display:flex;gap:8px;">
+        <button class="btn btn-primary btn-sm" onclick="closeInspector()">Done</button>
+      </div>`
+  });
+}
+
+function openReceiptInspector(){
+  const ev=currentEval();
+  const body=`
+    <div class="callout callout-info" style="margin-bottom:18px;">
+      <strong>This is a frozen receipt.</strong> The digest below identifies the exact evidence basis that was evaluated. Changing any byte of the underlying evidence would invalidate this digest.
+    </div>
+    <div class="inspector-section">
+      <div class="inspector-section-title">Receipt identity</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;font-size:12.5px;margin-bottom:12px;">
+        <div><div style="font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-dim);margin-bottom:2px;">Receipt</div><div style="font-family:var(--mono);">rcpt-${esc(ev.id).slice(5)}</div></div>
+        <div><div style="font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-dim);margin-bottom:2px;">Issued to</div><div style="font-family:var(--mono);">auditor@acme.example</div></div>
+      </div>
+      <div style="font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-dim);margin-bottom:4px;">Digest</div>
+      <div style="font-family:var(--mono);font-size:11px;color:var(--text-muted);word-break:break-all;line-height:1.5;background:var(--card-soft);padding:8px 10px;border-radius:var(--r-xs);border:1px solid var(--border);">sha256:4c8b2e1f9a3d7b6c5e4a2f8d1c9b7a6e5d4c3b2a1f9e8d7c6b5a4f3e2d1c0b9a</div>
+    </div>
+    <div class="inspector-section">
+      <div class="inspector-section-title">Evidence sources <span class="badge">${ev.scope.sources.length}</span></div>
+      ${ev.scope.sources.map(s=>`<div class="state-block ${s.status==='ran'?'success':s.status==='partial'?'amber':'neutral'}" style="margin-bottom:6px;"><div class="state-title"><span>${s.status==='ran'?'✓':s.status==='partial'?'◐':'·'}</span>${esc(s.name)}</div><div class="state-detail">${esc(s.scope)}</div></div>`).join('')}
+    </div>
+    ${ev.missingEvidence.length?`
+      <div class="inspector-section">
+        <div class="inspector-section-title">Missing evidence <span class="badge">${ev.missingEvidence.length}</span></div>
+        ${ev.missingEvidence.map(m=>`<div class="state-block amber" style="margin-bottom:6px;"><div class="state-title"><span>◐</span>${esc(m.name)}</div><div class="state-detail">${esc(m.reason)}</div></div>`).join('')}
+      </div>
+    `:''}
+    <div class="inspector-section">
+      <div class="inspector-section-title">Human review attestations</div>
+      <div class="state-block info" style="margin-bottom:6px;">
+        <div class="state-title"><span>✍</span>alice.chen@example.com</div>
+        <div class="state-detail">Reviewed the evidence basis and scope · ${esc(ev.asOf)}</div>
+      </div>
+      <div class="callout callout-warn" style="margin-top:10px;font-size:12px;">
+        <strong>Review ≠ verification.</strong> These signatures attest to review of the evidence basis. They are not a technical verification of the systems evaluated.
+      </div>
+    </div>
+    <div class="inspector-section">
+      <div class="inspector-section-title">Framework mappings <span class="badge">context only</span></div>
+      <div style="padding:10px 12px;background:var(--card-soft);border:1px solid var(--border);border-radius:var(--r-xs);margin-bottom:6px;">
+        <strong style="font-size:12.5px;">OWASP LLM/Agentic</strong>
+        <div style="font-family:var(--mono);font-size:11px;color:var(--text-muted);margin-top:2px;">LLM06, AAI-04</div>
+        <div style="font-size:11.5px;color:var(--text-dim);font-style:italic;margin-top:3px;">Mapped — not a certification</div>
+      </div>
+      <div style="padding:10px 12px;background:var(--card-soft);border:1px solid var(--border);border-radius:var(--r-xs);">
+        <strong style="font-size:12.5px;">NIST AI RMF</strong>
+        <div style="font-family:var(--mono);font-size:11px;color:var(--text-muted);margin-top:2px;">MEASURE 2.6</div>
+        <div style="font-size:11.5px;color:var(--text-dim);font-style:italic;margin-top:3px;">Mapped — context only</div>
+      </div>
+    </div>
+  `;
+  setInspector({
+    crumb:`Support Agent v2 › Receipts`,
+    title:`Assurance Receipt · rcpt-${esc(ev.id).slice(5)}`,
+    sub:`${esc(ev.system)} · ${esc(ev.asOf)} · ${esc(ev.disposition)}`,
+    body,
+    foot:`<div class="inspector-foot-info">Frozen · ${esc(ev.asOf)}</div>
+      <div style="display:flex;gap:8px;">
+        <button class="btn btn-ghost btn-sm" onclick="toast('Verify — would recompute digest in production')">Verify digest</button>
+        <button class="btn btn-ghost btn-sm" onclick="toast('Export PDF — would produce a signed receipt in production')">Export PDF</button>
+        <button class="btn btn-primary btn-sm" onclick="closeInspector()">Done</button>
+      </div>`
+  });
+}
+
+/* ═══════════════════════════════════════════════
+   MODALS — honest preview
+   ═══════════════════════════════════════════════ */
+
+function previewReevaluation(){
+  openModal({
+    title:'Re-evaluate this system?',
+    sub:'This is a preview. In production, re-evaluation would run the HAIEC Assurance Engine against currently qualified sources and produce a new frozen evaluation snapshot.',
+    body:`
+      <div style="font-size:13px;">
+        <strong>Sources that would be evaluated:</strong>
+        <ul style="padding-left:18px;line-height:1.6;margin-top:8px;">
+          <li>GitHub App · main branch</li>
+          <li>AWS IAM observer · principal svc-triage</li>
+          <li>OTLP collector · 24h window</li>
+          <li>SBOM · CycloneDX 1.5</li>
+        </ul>
+        <div style="padding-top:10px;border-top:1px solid var(--border);color:var(--text-muted);font-size:12px;margin-top:10px;">
+          <strong>Note:</strong> A stale source would limit its contribution to the disposition. Re-evaluation is a fresh read of what's currently connected — not a fix. To improve future evaluations, add missing evidence first.
+        </div>
+      </div>
+    `,
+    buttons:[
+      {label:'Cancel',style:'ghost',action:closeModal},
+      {label:'Preview only — not executed',style:'primary',disabled:true}
+    ]
+  });
+}
+
+function previewCompare(){
+  const currentIdx=EVAL_ORDER.indexOf(state.evalId);
+  const priorId=EVAL_ORDER[currentIdx+1];
+  if(!priorId){
+    toast('No prior evaluation to compare with');
+    return;
+  }
+  const cur=EVALUATIONS[state.evalId];
+  const prior=EVALUATIONS[priorId];
+  const added=cur.findings.filter(f=>!prior.findings.find(pf=>pf.title===f.title)).length;
+  const resolved=prior.findings.filter(f=>!cur.findings.find(cf=>cf.title===f.title)).length;
+  const persisted=cur.findings.filter(f=>prior.findings.find(pf=>pf.title===f.title)).length;
+
+  openModal({
+    title:`Compare ${cur.id.slice(0,12)} with ${prior.id.slice(0,12)}`,
+    sub:`${cur.asOf} vs ${prior.asOf}`,
+    body:`
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;font-size:13px;">
+        <div>
+          <div style="font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-dim);margin-bottom:4px;">Current</div>
+          <div style="font-family:var(--mono);font-size:12px;margin-bottom:8px;">${esc(cur.id)}</div>
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;"><span class="chip chip-${cur.dispositionTone==='allow'?'success':cur.dispositionTone==='block'?'danger':'amber'}">${cur.disposition}</span><span style="color:var(--text-muted);">${esc(cur.asOf)}</span></div>
+          <div style="color:var(--text-muted);">${cur.findings.length} findings · ${cur.claims.length} claims</div>
+        </div>
+        <div>
+          <div style="font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-dim);margin-bottom:4px;">Prior</div>
+          <div style="font-family:var(--mono);font-size:12px;margin-bottom:8px;">${esc(prior.id)}</div>
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;"><span class="chip chip-${prior.dispositionTone==='allow'?'success':prior.dispositionTone==='block'?'danger':'amber'}">${prior.disposition}</span><span style="color:var(--text-muted);">${esc(prior.asOf)}</span></div>
+          <div style="color:var(--text-muted);">${prior.findings.length} findings · ${prior.claims.length} claims</div>
+        </div>
+      </div>
+      <div style="margin-top:16px;padding:14px;background:var(--card-soft);border-radius:var(--r-sm);">
+        <div style="display:flex;justify-content:space-between;margin-bottom:6px;font-size:13px;"><span style="color:var(--text-muted);">Added</span><strong style="color:var(--amber);">+${added}</strong></div>
+        <div style="display:flex;justify-content:space-between;margin-bottom:6px;font-size:13px;"><span style="color:var(--text-muted);">Resolved</span><strong style="color:var(--success);">−${resolved}</strong></div>
+        <div style="display:flex;justify-content:space-between;font-size:13px;"><span style="color:var(--text-muted);">Persisted</span><strong>${persisted}</strong></div>
+      </div>
+      <div style="margin-top:14px;padding:10px 12px;background:var(--amber-bg);border:1px solid var(--amber-border);border-radius:var(--r-xs);font-size:12px;color:var(--amber);line-height:1.55;">
+        <strong>Note:</strong> A delta between two evaluations is not an aggregate score — it is a comparison of specific facts at two frozen moments. Different source availability can affect comparability.
+      </div>
+    `,
+    buttons:[
+      {label:'Close',style:'ghost',action:closeModal},
+      {label:'Open side-by-side (preview)',style:'primary',disabled:true}
+    ]
+  });
+}
+
+function setInspector({crumb,title,sub,body,foot}){
+  document.getElementById('inspector-crumb').innerHTML=crumb;
+  document.getElementById('inspector-title').textContent=title;
+  document.getElementById('inspector-sub').textContent=sub;
+  document.getElementById('inspector-body').innerHTML=body;
+  document.getElementById('inspector-foot').innerHTML=foot||'';
+  document.getElementById('inspector').classList.add('open');
+  document.getElementById('inspector-backdrop').classList.add('open');
+}
+
+function closeInspector(){
+  document.getElementById('inspector').classList.remove('open');
+  document.getElementById('inspector-backdrop').classList.remove('open');
+}
+
+function openModal({title,sub,body,buttons}){
+  document.getElementById('modal-title').textContent=title;
+  document.getElementById('modal-sub').textContent=sub;
+  document.getElementById('modal-body').innerHTML=body;
+  document.getElementById('modal-foot').innerHTML=buttons.map(b=>`<button class="btn btn-${b.style==='primary'?'primary':b.style==='ghost'?'ghost':'secondary'}" ${b.disabled?'disabled style="opacity:0.5;cursor:not-allowed;"':''} onclick="${b.disabled?'':(b.action===closeModal?'closeModal()':b.action)}">${esc(b.label)}</button>`).join('');
+  document.getElementById('modal-backdrop').classList.add('open');
+}
+
+function closeModal(){
+  document.getElementById('modal-backdrop').classList.remove('open');
+}
+
+/* ═══════════════════════════════════════════════
+   BIND & INIT
+   ═══════════════════════════════════════════════ */
+
+function bindEvents(){}
+
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){
+    if(document.getElementById('inspector').classList.contains('open'))closeInspector();
+    else if(document.getElementById('modal-backdrop').classList.contains('open'))closeModal();
+  }
+});
+
+(function init(){
+  document.querySelectorAll('.basis-btn').forEach(btn=>btn.classList.toggle('active',btn.dataset.basis===state.basis));
+  document.getElementById('basis-asof').textContent='10:42 UTC';
+  render();
+})();
+</script>
+</body>
+</html>
