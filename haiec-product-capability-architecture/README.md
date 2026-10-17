@@ -7,6 +7,8 @@
 
 > **2026-10-17 product entry and consequence positioning:** [Product Entry, Consequence Ontology, Jobs and Contextual Inspector decision](HAIEC-PRODUCT-ENTRY-CONSEQUENCE-ONTOLOGY-JOBS-AND-INSPECTOR-UX-DECISION-2026-10-17.md) validates the technical consequence ontology, rejects consequence-as-required-customer-input, specifies three peer starting routes, per-job input/output/unknowns, example-pattern navigation and a single consistent inspector convention. Planning-only; newer than older E6 conceptual sequence.
 
+> **Updated mock and design-review reference (2026-10-17):** [Three-path, progressive HAIEC entry mock](sample-light%20entry%20additional) · [Validated UX feedback and nine-enhancement decision](HAIEC-LIGHT-ENTRY-DEEPSEEK-MOCK-REVIEW-AND-V2-IMPLEMENTATION-CONTRACT-2026-10-17.md). Preserves original DeepSeek mock separately and distinguishes illustrative source-choice previews from actual detection proof. Design-only, no HAIEC app deploy claim.
+
 **Concurrent Sprint 28 correction:** [Sprint 28 status](./SPRINT-28-DECISION-INTEGRITY-STATUS-2026-10-16.md) records a **simulated** PO partial-mutation defect repaired at the shared commit boundary. GitHub manufacturing `main` `1fa4c640` is a code-merge observation, not Vercel runtime verification. See the [full audit](./COMMON-REPO-FULL-52-FILE-ALIGNMENT-AUDIT-2026-10-16.md) for versioned caveats.
 
 ## Start here — current work order and 52-file audit
