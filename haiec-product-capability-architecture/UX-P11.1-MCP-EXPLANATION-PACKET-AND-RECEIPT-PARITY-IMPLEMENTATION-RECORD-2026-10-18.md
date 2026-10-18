@@ -1,5 +1,8 @@
 # UX-P11.1 MCP Agent-Readable Reports, Explanation Artifacts & Receipt Parity — Implementation Record
 
+> **2026-10-18 INDEPENDENT POST-MERGE ACCEPTANCE AND NEXT PAGE HANDOFF:** [Verified exact Vercel READY, CI and P11.1 source, qualified future agent-output notes, P12 usage/cost source-truth gaps](UX-P11.1-INDEPENDENT-ACCEPTANCE-AND-UX-P12-PROVIDER-USAGE-COST-SOURCE-TRUTH-HANDOFF-2026-10-18.md). PR #2261 merged Main **ec6f50aaf27330c4885fc98abcf856f178e901d4**. Independently authenticated Vercel production **dpl_3DSJhHsACGRDddSUA6DbHLuoGSZ5** READY on exact commit; CI Lint Baseline and Consolidated both success; developer test/browser assertions not independently rerun. No real external MCP client, live PUBLIC/REVOKED and viewer/multi-org. The new `haiec_explain_evaluation` output is versioned canonical read projection, not a second verdict/receipt. Minor copy/completeness note: packet public link can refer to a revoked but publicly resolvable ID, despite MCP description 'only PUBLIC'; reconcile wording in a later scoped owner. Executive depth suppresses verificationItems and marks truncated; explain depth filtering vs missing source. Next P12 fix read-data truth (sample-based totals and provider billing snapshots incorrectly counted as API calls), then P13; preserve this implementation record and all historic test results.
+
+
 **Status: DEPLOYED_VERIFIED** — 2026-10-18
 
 - **PR:** [#2261](https://github.com/subodhkc/haiec-website/pull/2261) → `Main` **`ec6f50aaf27330c4885fc98abcf856f178e901d4`**
