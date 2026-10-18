@@ -1,5 +1,6 @@
 # HAIEC Enterprise Architecture & Evidence Explorer — V3 (Twelve Views)
 
+> **V4 successor (October 18):** The polished [12-view interactive explorer](../interactive-v4/HAIEC-Enterprise-Architecture-Explorer-V4-Polished.html) and [editable source/QA contract](../interactive-v4/README.md) are in a parallel versioned folder. Preserve this V3 baseline as the historical reference. V4 remains **undeployed**.\n\n
 **Date:** 2026-10-18 · **Status:** Shareable self-contained educational HTML + editable split assets, synced to Common Repo. **NOT deployed** to HAIEC.com. **NOT live tenant evidence.**
 
 > **Open [V3 standalone self-contained HTML](haiec-enterprise-architecture-and-evidence-explorer-v3.html)** for client-side review. Working split assets: [index.html](index.html), [architecture-explorer.css](architecture-explorer.css), [architecture-explorer.js](architecture-explorer.js). Older D1–D3 and V2 HTML references remain for design provenance only; V3 is the current shareable review version.
