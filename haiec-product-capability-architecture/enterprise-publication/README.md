@@ -1,5 +1,8 @@
 # HAIEC Enterprise Publication Kit — Ready for Devin Website Integration
 
+> **Interactive light-theme D1–D3 prototype (2026-10-18):** [Open standalone interactive HTML](interactive/haiec-d1-d3-architecture-explorer.html) · [Design/QA/source notes and Devin handoff](interactive/README.md). Three selectable light views, click-to-inspect explanations, pauseable guided tour, executive value copy and explicit synthetic/evidence limitations. Source committed; not yet on HAIEC.com.
+
+
 > **D1–D3 diagram masters now built (2026-10-18):** [D1 Platform](diagrams/D1-enterprise-ai-assurance-platform.svg) · [D2 Technical Trust Architecture](diagrams/D2-enterprise-evidence-trust-architecture.svg) · [D3 Agent Authority Proof Map](diagrams/D3-agent-action-authority-proof-map.svg). [Source/QA/Devin manifest](D1-D3-DIAGRAM-ASSET-MANIFEST-2026-10-18.md). Static source checks passed; browser screenshot/print review and haiec.com integration remain open. Original six SVGs preserved.
 
 
