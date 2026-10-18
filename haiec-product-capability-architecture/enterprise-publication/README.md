@@ -1,5 +1,8 @@
 # HAIEC Enterprise Publication Kit — Ready for Devin Website Integration
 
+> **D1–D3 diagram masters now built (2026-10-18):** [D1 Platform](diagrams/D1-enterprise-ai-assurance-platform.svg) · [D2 Technical Trust Architecture](diagrams/D2-enterprise-evidence-trust-architecture.svg) · [D3 Agent Authority Proof Map](diagrams/D3-agent-action-authority-proof-map.svg). [Source/QA/Devin manifest](D1-D3-DIAGRAM-ASSET-MANIFEST-2026-10-18.md). Static source checks passed; browser screenshot/print review and haiec.com integration remain open. Original six SVGs preserved.
+
+
 
 > **Architecture diagram build plan (2026-10-18):** [Eight reusable architecture masters and two scoped case-proof visuals](ARCHITECTURE-DIAGRAM-BUILD-PLAN-2026-10-18.md). Reuse the six existing corrected SVGs; phase D1–D3 and manufacturing case before D4–D8; no new engine, deployment, or live protection claims.
 
