@@ -1,5 +1,8 @@
 # UX-P07 — Assurance Engine Evaluation & Results — Implementation Record (2026-10-20)
 
+> **2026-10-18 INDEPENDENT POST-MERGE ACCEPTANCE ADDENDUM (original developer record preserved):** [Verification, bounded P2 backlog and P08 handoff](UX-P07-INDEPENDENT-ACCEPTANCE-AND-UX-P08-CONTROLS-OPERATIONS-HANDOFF-2026-10-18.md). Actual exact Main SHA **`c2512558480574ec9cf26a3040cd85fad15a2493`**; independently verified Vercel production deployment **`dpl_6rQfbDp92DggK8GGMqNjM5CEG8bJ`** READY, primary GitHub CI gates success. Numeric shorthand `7150717634` is not the independently resolved Vercel ID. Source confirms persisted `bundle.buildProvenance.analyzerBuildIdentity`, bounded U5, no catalog denominator and scoped MCP exact eval. Developer 14/14, 207 regression and browser-width claims **not reviewer-rerun**; real MCP client/viewer/multi-org/EVIDENCE_ONLY/NOT_EXECUTED live remain NOT_RUN. P2-only caveats: UI calls heterogeneous persisted execution components `analyzers`; exact report response ID/org switch stale-bundle suppression needs behavioral proof beyond static `loadSeq` check; SCAN_BACKED source mode is not automatically `Static repository scan`, absent exactScanId not necessarily evidence-only; `syntheticClassification:UNKNOWN` is not visibly surfaced. No proven cross-tenant leak, fabricated engine verdict or prod regression. Accept P07; P08 follows, no automatic P07.1.
+
+
 Status: `DEPLOYED_VERIFIED`
 HAIEC branch: `feat/uxp07-evaluation-results` @ `e2eecda96`
 Base: `Main` @ `d3db5ddc6` (UX-P06.1, PR #2251)
