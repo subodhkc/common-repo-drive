@@ -1,5 +1,8 @@
 # HAIEC Enterprise Publication — Architecture Diagram System and Build Plan
 
+> **Interactive design update (2026-10-18):** [D1–D3 light architecture explorer](interactive/haiec-d1-d3-architecture-explorer.html) and [implementation/QA manifest](interactive/README.md) now complement the three original source SVG masters. Three tabs, click detail, gentle guided animation, first proof frontier and executive outcome explanations. This is a presentation reference only; the dark SVG originals and canonical HAIEC graph engine remain unchanged. Website deployment still outstanding.
+
+
 > **Implementation update (2026-10-18):** D1, D2 and D3 master SVGs have been created as versioned derived assets in [diagrams/](diagrams/) under this plan's own directory; [source, QA, and next-site integration manifest](D1-D3-DIAGRAM-ASSET-MANIFEST-2026-10-18.md). Earlier originals unchanged. Static source QA passed. Browser pixel/render/accessibility/print review, website insertion and live tenant proof remain outstanding. D4–D8/C1–C2 are still planned.
 
 
