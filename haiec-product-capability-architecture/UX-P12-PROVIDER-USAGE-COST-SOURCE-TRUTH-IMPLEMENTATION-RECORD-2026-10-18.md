@@ -1,5 +1,8 @@
 # UX-P12 Provider Usage & Cost — Source-Truth Implementation Record
 
+> **2026-10-18 INDEPENDENT P12 ACCEPTANCE ADDENDUM / CONFIRMED P12.1-G01:** [Exact prod CI, provider cost attribution defect with $10 counterexample and narrow P12.1 test/fix scope](UX-P12-INDEPENDENT-ACCEPTANCE-P12.1-COST-ATTRIBUTION-CORRECTION-AND-UX-P13-SHELL-HANDOFF-2026-10-18.md). PR #2262 Main full SHA `cfdc20f6b229986c01db7a347576c8a3877aa00e`; authenticated Vercel production **dpl_222Bckjn4xJdhZNL5pkakWucQHvu** READY exact SHA; both primary GitHub CI workflows success. Tests 13/13, route 100, UI 1440/390 as claimed by Devin **not independently rerun**; live populated provider/SDK source, viewer/multi-org NOT_RUN. Code confirms G01/G02/G03/G04 data-truth improvements. **One P1 residual found:** `loadAdminSnapshotCosts` includes workspace-attributed rows in `byProject(projectId=null -> default)` and then adds them again via `byWorkspace(workspaceId)`, inflating category sums while top total stays correct. Fix only provider-qualified single mutually exclusive project/workspace attribution (or equivalent) plus 5 focused invariant tests; then P13. P2 overlap from different keys/periods unverified, do not call admin DB sum provider invoice; standard org switch full-page reload observed in source. Original Devin record preserved.
+
+
 **Status: DEPLOYED_VERIFIED** — 2026-10-18
 
 - **PR:** [#2262](https://github.com/subodhkc/haiec-website/pull/2262) → `Main` **`cfdc20f6b229986c01db7a347576c8a3877aa00e`**
