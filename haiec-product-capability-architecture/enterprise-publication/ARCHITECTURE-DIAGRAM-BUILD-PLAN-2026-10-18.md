@@ -1,5 +1,8 @@
 # HAIEC Enterprise Publication — Architecture Diagram System and Build Plan
 
+> **Implementation update (2026-10-18):** D1, D2 and D3 master SVGs have been created as versioned derived assets in [diagrams/](diagrams/) under this plan's own directory; [source, QA, and next-site integration manifest](D1-D3-DIAGRAM-ASSET-MANIFEST-2026-10-18.md). Earlier originals unchanged. Static source QA passed. Browser pixel/render/accessibility/print review, website insertion and live tenant proof remain outstanding. D4–D8/C1–C2 are still planned.
+
+
 **Prepared:** 2026-10-18 (America/Chicago)  
 **Status:** DESIGN/EDITORIAL PLAN ONLY · NOT A NEW IMPLEMENTATION CLAIM · NO DIAGRAMS GENERATED IN THIS CHANGE  
 **Scope:** The 12-slide enterprise brief, 20-slide technical capability/control annex, technical reference tables A–F and optional reuse on `/enterprise`.  
