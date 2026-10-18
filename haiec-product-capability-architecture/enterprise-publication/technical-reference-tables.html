@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HAIEC Technical Reference Tables A-F · 2026</title>
+<style>
+:root{
+  --bg:#FAFBFC; --card:#FFFFFF; --card-soft:#F5F7FA;
+  --border:#E7E9EE; --border-hover:#D0D4DD;
+  --text:#0F1729; --text-secondary:#414A5E; --text-muted:#667085; --text-dim:#98A2B3;
+  --primary:#4338CA; --primary-hover:#3730A3; --primary-light:#EEF2FF; --primary-border:#C7D2FE;
+  --success:#067647; --success-bg:#ECFDF3; --success-border:#ABEFC6;
+  --amber:#B54708; --amber-bg:#FFFAEB; --amber-border:#FEDF89;
+  --danger:#B42318; --danger-bg:#FEF3F2; --danger-border:#FECDCA;
+  --info:#175CD3; --info-bg:#EFF8FF; --info-border:#B2DDFF;
+  --purple:#6941C6; --purple-bg:#F4F3FF; --purple-border:#D9D6FE;
+  --mono:ui-monospace,'SF Mono','Cascadia Code','Roboto Mono',monospace;
+  --sans:-apple-system,BlinkMacSystemFont,'Inter','Segoe UI',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{height:100%;}
+body{font-family:var(--sans);font-size:15px;line-height:1.6;color:var(--text);background:var(--bg);-webkit-font-smoothing:antialiased;}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit;}
+.mono{font-family:var(--mono);font-size:0.92em;}
+code{font-family:var(--mono);font-size:0.9em;background:var(--card-soft);padding:2px 6px;border-radius:4px;border:1px solid var(--border);}
+a{color:var(--primary);text-decoration:none;}
+a:hover{text-decoration:underline;text-underline-offset:2px;}
+
+/* SHELL */
+.shell{display:grid;grid-template-columns:280px 1fr;min-height:100vh;}
+
+/* HEADER */
+.header{position:sticky;top:0;z-index:40;background:var(--card);border-bottom:1px solid var(--border);padding:14px 28px;display:flex;align-items:center;gap:18px;grid-column:1/-1;}
+.header-brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--text);}
+.header-brand:hover{text-decoration:none;}
+.header-mark{width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,#4338CA,#6366F1);color:white;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;letter-spacing:-0.02em;}
+.header-title{font-size:15px;font-weight:600;letter-spacing:-0.01em;}
+.header-sub{font-size:12px;color:var(--text-muted);margin-left:4px;font-weight:400;}
+.header-meta{margin-left:auto;display:flex;gap:12px;align-items:center;font-size:12px;color:var(--text-muted);}
+.header-rev{font-family:var(--mono);font-size:11px;padding:3px 8px;background:var(--card-soft);border:1px solid var(--border);border-radius:5px;}
+.header-badge{font-size:11px;font-weight:600;padding:3px 10px;border-radius:5px;background:var(--success-bg);color:var(--success);border:1px solid var(--success-border);letter-spacing:0.03em;}
+.print-btn{padding:7px 14px;border:1px solid var(--border);background:var(--card);border-radius:6px;font-size:12.5px;font-weight:500;display:flex;align-items:center;gap:6px;transition:all 0.12s;}
+.print-btn:hover{background:var(--card-soft);border-color:var(--border-hover);}
+
+/* SIDEBAR */
+.sidebar{position:sticky;top:60px;height:calc(100vh - 60px);overflow-y:auto;background:var(--card);border-right:1px solid var(--border);padding:24px 14px;}
+.sidebar-section{margin-bottom:24px;}
+.sidebar-title{font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-dim);padding:0 12px 8px;}
+.sidebar-link{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:7px;font-size:13.5px;font-weight:500;color:var(--text-secondary);cursor:pointer;text-decoration:none;margin-bottom:3px;transition:all 0.12s;}
+.sidebar-link:hover{background:var(--card-soft);color:var(--text);text-decoration:none;}
+.sidebar-link.active{background:var(--primary-light);color:var(--primary);font-weight:600;}
+.sidebar-code{width:28px;height:28px;border-radius:6px;background:var(--card-soft);color:var(--text-muted);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:11px;font-weight:700;flex-shrink:0;}
+.sidebar-link.active .sidebar-code{background:var(--primary);color:white;}
+.sidebar-desc{display:none;font-size:11.5px;color:var(--text-dim);margin-left:40px;line-height:1.5;margin-bottom:10px;margin-top:2px;}
+.sidebar-link.active + .sidebar-desc{display:block;color:var(--primary);}
+
+/* MAIN */
+.main{padding:28px 36px 80px;max-width:1440px;width:100%;overflow-x:hidden;}
+
+/* SECTIONS */
+.section{display:none;animation:fade 0.2s ease;}
+.section.active{display:block;}
+@keyframes fade{from{opacity:0;transform:translateY(4px);}to{opacity:1;transform:translateY(0);}}
+
+/* DOC INTRO */
+.doc-intro{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:20px 24px;margin-bottom:24px;}
+.doc-intro-title{font-size:16px;font-weight:600;color:var(--text);margin-bottom:8px;}
+.doc-intro-text{font-size:14px;line-height:1.65;color:var(--text-secondary);}
+.doc-intro-text strong{color:var(--text);font-weight:600;}
+
+/* SECTION HEADER */
+.section-header{margin-bottom:22px;}
+.section-eyebrow{font-size:11px;font-weight:700;letter-spacing:0.1em;color:var(--primary);text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:10px;}
+.section-eyebrow .tag{background:var(--primary);color:white;padding:3px 10px;border-radius:5px;font-family:var(--mono);font-size:11px;letter-spacing:0;font-weight:700;}
+h1{font-size:28px;font-weight:600;letter-spacing:-0.02em;line-height:1.25;color:var(--text);margin-bottom:12px;}
+h2{font-size:19px;font-weight:600;letter-spacing:-0.01em;color:var(--text);margin:24px 0 12px;}
+.lead{font-size:15.5px;color:var(--text-secondary);line-height:1.65;max-width:900px;margin-bottom:12px;}
+.lead strong{color:var(--text);font-weight:600;}
+
+/* EXEC VALUE BOX */
+.exec-value{background:linear-gradient(135deg,#EEF2FF 0%,#FFFFFF 100%);border:1px solid var(--primary-border);border-radius:10px;padding:16px 20px;margin-bottom:18px;}
+.exec-value-label{font-size:10.5px;font-weight:700;letter-spacing:0.08em;color:var(--primary);text-transform:uppercase;margin-bottom:6px;display:flex;align-items:center;gap:8px;}
+.exec-value-label::before{content:'◆';font-size:10px;}
+.exec-value-text{font-size:14px;line-height:1.65;color:var(--text);}
+.exec-value-text strong{color:var(--primary);font-weight:600;}
+
+.source-line{font-size:12px;color:var(--text-muted);line-height:1.55;padding:10px 14px;background:var(--card-soft);border:1px solid var(--border);border-radius:7px;margin-bottom:16px;}
+.source-line strong{color:var(--text);font-weight:600;}
+
+/* CALLOUT */
+.callout{padding:14px 18px;border-radius:8px;font-size:13.5px;line-height:1.6;margin-bottom:16px;}
+.callout-info{background:var(--primary-light);border:1px solid var(--primary-border);color:var(--text);}
+.callout-info strong{color:var(--primary);font-weight:600;}
+.callout-warn{background:var(--amber-bg);border:1px solid var(--amber-border);color:var(--text);}
+.callout-warn strong{color:var(--amber);font-weight:600;}
+
+/* CHIPS */
+.chip{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:600;padding:3px 9px;border-radius:4px;letter-spacing:0.02em;white-space:nowrap;}
+.chip-success{background:var(--success-bg);color:var(--success);border:1px solid var(--success-border);}
+.chip-amber{background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-border);}
+.chip-danger{background:var(--danger-bg);color:var(--danger);border:1px solid var(--danger-border);}
+.chip-neutral{background:var(--card-soft);color:var(--text-muted);border:1px solid var(--border);}
+.chip-info{background:var(--info-bg);color:var(--info);border:1px solid var(--info-border);}
+.chip-purple{background:var(--purple-bg);color:var(--purple);border:1px solid var(--purple-border);}
+.chip-mono{font-family:var(--mono);font-size:10.5px;letter-spacing:0;}
+
+/* FILTER BAR */
+.filter-bar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:16px;padding:12px 16px;background:var(--card);border:1px solid var(--border);border-radius:8px;}
+.filter-label{font-size:11px;font-weight:700;letter-spacing:0.06em;color:var(--text-dim);text-transform:uppercase;margin-right:6px;}
+.filter-chip{padding:5px 12px;border-radius:5px;font-size:12.5px;border:1px solid var(--border);background:var(--card-soft);color:var(--text-secondary);cursor:pointer;font-weight:500;transition:all 0.12s;}
+.filter-chip:hover{background:var(--card);color:var(--text);}
+.filter-chip.active{background:var(--primary);color:white;border-color:var(--primary);}
+.filter-search{margin-left:auto;padding:6px 12px;border:1px solid var(--border);border-radius:6px;font-size:13px;font-family:inherit;background:var(--card);color:var(--text);width:260px;}
+.filter-search:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px var(--primary-light);}
+.filter-count{font-size:11.5px;color:var(--text-dim);font-family:var(--mono);margin-left:10px;}
+
+/* TABLES */
+.tbl-wrap{background:var(--card);border:1px solid var(--border);border-radius:8px;overflow:hidden;overflow-x:auto;}
+table{width:100%;border-collapse:collapse;font-size:13px;line-height:1.5;}
+table th,table td{padding:11px 14px;text-align:left;border-bottom:1px solid var(--border);vertical-align:top;}
+table th{font-size:10.5px;font-weight:700;letter-spacing:0.06em;color:var(--text-dim);text-transform:uppercase;background:var(--card-soft);position:sticky;top:0;z-index:2;}
+table tbody tr:hover{background:var(--card-soft);}
+table tbody tr:last-child td{border-bottom:none;}
+table td strong{color:var(--text);font-weight:600;}
+table td.mono-cell{font-family:var(--mono);font-size:11.5px;color:var(--text);}
+table td.dim-cell{font-family:var(--mono);font-size:11.5px;color:var(--text-muted);}
+table td.num-cell{font-family:var(--mono);font-size:12.5px;font-weight:600;color:var(--text);text-align:right;}
+table td.center{text-align:center;}
+
+.family-head td{background:var(--card-soft);font-weight:700;color:var(--text);font-size:11px;text-transform:uppercase;letter-spacing:0.04em;padding:8px 14px;}
+
+/* MINI STATS */
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:18px;}
+.stat-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px 18px;}
+.stat-label{font-size:10.5px;font-weight:700;letter-spacing:0.06em;color:var(--text-dim);text-transform:uppercase;margin-bottom:4px;}
+.stat-value{font-size:26px;font-weight:600;color:var(--text);font-family:var(--mono);line-height:1.1;}
+.stat-desc{font-size:12px;color:var(--text-muted);line-height:1.45;margin-top:4px;}
+
+/* LEGEND */
+.legend-row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;padding:10px 14px;background:var(--card-soft);border:1px solid var(--border);border-radius:7px;margin-bottom:14px;font-size:12px;color:var(--text-muted);}
+.legend-row-title{font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-dim);margin-right:6px;font-size:11px;}
+
+/* TABLE FOOTER */
+.tbl-footer{padding:14px 18px;background:var(--card-soft);border-top:1px solid var(--border);font-size:13px;color:var(--text-secondary);line-height:1.6;}
+.tbl-footer strong{color:var(--text);font-weight:600;}
+
+/* SECTION NOTES */
+.section-notes{margin-top:20px;padding:18px 20px;background:var(--card-soft);border:1px solid var(--border);border-radius:8px;font-size:13.5px;line-height:1.6;color:var(--text-secondary);}
+.section-notes strong{color:var(--text);font-weight:600;}
+.section-notes ul{list-style:none;padding:0;margin-top:8px;}
+.section-notes li{padding-left:18px;position:relative;margin-bottom:6px;}
+.section-notes li::before{content:'·';position:absolute;left:6px;color:var(--primary);font-weight:700;font-size:16px;line-height:1.1;}
+
+/* TABLE A */
+.control-id{font-family:var(--mono);font-size:12px;font-weight:700;color:var(--text);}
+.family-tag{font-family:var(--mono);font-size:10px;padding:2px 7px;border-radius:4px;background:var(--card-soft);color:var(--text-muted);border:1px solid var(--border);font-weight:600;}
+.family-tag.A{background:var(--primary-light);color:var(--primary);border-color:var(--primary-border);}
+.family-tag.R{background:var(--amber-bg);color:var(--amber);border-color:var(--amber-border);}
+.family-tag.E{background:var(--info-bg);color:var(--info);border-color:var(--info-border);}
+.family-tag.L{background:var(--purple-bg);color:var(--purple);border-color:var(--purple-border);}
+.family-tag.S{background:var(--success-bg);color:var(--success);border-color:var(--success-border);}
+
+/* TABLE C */
+.ref-block{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px 18px;margin-bottom:16px;}
+.ref-block-title{font-size:13px;font-weight:600;color:var(--text);margin-bottom:8px;display:flex;align-items:center;gap:10px;}
+.ref-block-title .chip{font-size:10px;}
+.ref-block-desc{font-size:13px;color:var(--text-muted);line-height:1.55;margin-bottom:10px;}
+
+/* TABLE E */
+.claim-status{display:inline-flex;align-items:center;gap:4px;font-size:10.5px;font-weight:600;padding:2px 8px;border-radius:4px;text-transform:uppercase;letter-spacing:0.03em;white-space:nowrap;}
+.claim-status.demonstrated{background:var(--success-bg);color:var(--success);border:1px solid var(--success-border);}
+.claim-status.supported{background:var(--info-bg);color:var(--info);border:1px solid var(--info-border);}
+.claim-status.evidence{background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-border);}
+.claim-status.preview{background:var(--card-soft);color:var(--text-muted);border:1px solid var(--border);}
+.claim-status.simulated{background:var(--purple-bg);color:var(--purple);border:1px solid var(--purple-border);}
+.claim-status.cataloged{background:var(--card-soft);color:var(--text-muted);border:1px solid var(--border);}
+.claim-status.notest{background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-border);}
+
+/* TABLE F */
+.case-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:18px 20px;margin-bottom:14px;}
+.case-card-title{font-size:15px;font-weight:600;color:var(--text);margin-bottom:6px;}
+.case-card-sub{font-size:13px;color:var(--text-muted);line-height:1.55;margin-bottom:12px;}
+.case-kv{display:grid;grid-template-columns:220px 1fr;gap:8px 16px;font-size:13px;line-height:1.55;}
+.case-kv-label{color:var(--text-muted);}
+.case-kv-value{color:var(--text);font-family:var(--mono);font-size:12px;word-break:break-word;}
+
+/* RESPONSIVE */
+@media (max-width:1024px){
+  .shell{grid-template-columns:1fr;}
+  .sidebar{position:static;height:auto;border-right:none;border-bottom:1px solid var(--border);padding:16px;}
+  .main{padding:20px;}
+  .stats-row{grid-template-columns:1fr 1fr;}
+  .filter-search{width:100%;margin-left:0;margin-top:8px;}
+  .case-kv{grid-template-columns:1fr;gap:4px;}
+}
+@media (max-width:600px){
+  .header{padding:10px 16px;flex-wrap:wrap;}
+  .header-meta{gap:8px;font-size:11px;}
+  .header-sub{display:none;}
+  .stats-row{grid-template-columns:1fr;}
+  table{font-size:12px;}
+  table th,table td{padding:9px 10px;}
+  .sidebar-link{font-size:13px;}
+}
+
+/* PRINT */
+@page{size:letter landscape;margin:0.5in 0.4in;}
+@media print{
+  .shell{display:block;}
+  .sidebar,.header,.filter-bar,.sidebar-section,.print-btn,.exec-value-label::before{display:none!important;}
+  .main{padding:0;max-width:none;}
+  .section{display:block!important;page-break-before:always;page-break-inside:auto;}
+  .section:first-of-type{page-break-before:auto;}
+  body{background:white;font-size:11px;}
+  .tbl-wrap{border-color:#ccc;box-shadow:none;page-break-inside:auto;}
+  table th,table td{padding:6px 8px;font-size:10px;}
+  table thead{display:table-header-group;}
+  table tr{page-break-inside:avoid;}
+  h1{font-size:20px;} h2{font-size:14px;}
+  .lead,.exec-value-text{font-size:12px;}
+  .section-notes,.source-line,.callout,.case-card,.ref-block,.stats-row,.exec-value{page-break-inside:avoid;}
+  .section-header{margin-bottom:12px;}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <a href="#" class="header-brand">
+    <div class="header-mark">H</div>
+    <div>
+      <div class="header-title">HAIEC Technical Reference Tables<span class="header-sub">A to F</span></div>
+    </div>
+  </a>
+  <div class="header-meta">
+      <a href="/enterprise/resources/enterprise-capability-brief.html">Executive brief ↗</a>
+      <a href="/enterprise/resources/technical-capability-control-annex.html">Technical annex ↗</a>
+      <a href="https://www.haiec.com/enterprise#qualify">Enterprise POC ↗</a>
+    <span class="header-rev">Rev 2026-10-18</span>
+    <span class="header-badge">Source-checked</span>
+    <button class="print-btn" onclick="window.print()">Print all</button>
+  </div>
+</header>
+
+<div class="shell">
+
+  <aside class="sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-title">Reference tables</div>
+      <a class="sidebar-link active" data-section="A" onclick="showSection('A')">
+        <span class="sidebar-code">A</span><span>Control catalog</span>
+      </a>
+      <div class="sidebar-desc">Complete 45-control catalog. Every objective, its evidence basis, and its current availability.</div>
+
+      <a class="sidebar-link" data-section="B" onclick="showSection('B')">
+        <span class="sidebar-code">B</span><span>Detection families</span>
+      </a>
+      <div class="sidebar-desc">176 detection rules across 31 families. Live detections and rules reserved for a future release.</div>
+
+      <a class="sidebar-link" data-section="C" onclick="showSection('C')">
+        <span class="sidebar-code">C</span><span>Framework crosswalks</span>
+      </a>
+      <div class="sidebar-desc">OWASP, ISO, NIST, and SOC 2 crosswalks. Every mapping traced to a specific HAIEC mechanism.</div>
+
+      <a class="sidebar-link" data-section="D" onclick="showSection('D')">
+        <span class="sidebar-code">D</span><span>Integration schema</span>
+      </a>
+      <div class="sidebar-desc">Integration matrix. What every supported path delivers and the evidence it requires to extend coverage.</div>
+
+      <a class="sidebar-link" data-section="E" onclick="showSection('E')">
+        <span class="sidebar-code">E</span><span>Verification ledger</span>
+      </a>
+      <div class="sidebar-desc">Every customer claim traced to its source, revision, and verification date.</div>
+
+      <a class="sidebar-link" data-section="F" onclick="showSection('F')">
+        <span class="sidebar-code">F</span><span>Evidence manifest</span>
+      </a>
+      <div class="sidebar-desc">Verified manufacturing corpus and TM Forum control test archive. Inspectable by auditors.</div>
+    </div>
+  </aside>
+
+  <main class="main">
+
+    <!-- ═══════════════════════════════════════════════
+         TABLE A
+         ═══════════════════════════════════════════════ -->
+    <section class="section active" data-section="A">
+      <div class="section-header">
+        <div class="section-eyebrow"><span class="tag">A</span>Control catalog</div>
+        <h1>45-control catalog with objectives, evidence, and availability</h1>
+        <p class="lead">The complete inventory of what HAIEC's assurance program tracks. 45 control objectives across eight families, each with a documented evidence basis and a clear availability state.</p>
+      </div>
+
+      <div class="exec-value">
+        <div class="exec-value-label">Executive value</div>
+        <div class="exec-value-text"><strong>When your board or auditors ask "what are we actually assuring", this table is the answer.</strong> 45 control objectives, each with the evidence basis your security team uses to verify it, and each in one of three availability states: projection active, specialist test ready, or objective defined. Audit preparation moves from weeks to a single reference.</div>
+      </div>
+
+      <div class="source-line">
+        <strong>Source.</strong> lib/control-visibility/catalog.ts at Main, snapshot 2026-10-18. 45 total: 42 general objectives plus 3 specialist controls (C7, C9, C16). 11 with an active projection. 3 with a bounded specialist test. 15 prioritized for the launch release.
+      </div>
+
+      <div class="stats-row">
+        <div class="stat-card"><div class="stat-label">Total objectives</div><div class="stat-value">45</div><div class="stat-desc">Across eight control families</div></div>
+        <div class="stat-card"><div class="stat-label">Projection active</div><div class="stat-value">11</div><div class="stat-desc">Live dashboard coverage</div></div>
+        <div class="stat-card"><div class="stat-label">Specialist test ready</div><div class="stat-value">3</div><div class="stat-desc">C7, C9, C16 bounded tests</div></div>
+        <div class="stat-card"><div class="stat-label">Objective defined</div><div class="stat-value">34</div><div class="stat-desc">Ready to activate with evidence</div></div>
+      </div>
+
+      <div class="legend-row">
+        <span class="legend-row-title">Availability states</span>
+        <span class="chip chip-success">Projection active</span>
+        <span class="chip chip-amber">Specialist test ready</span>
+        <span class="chip chip-neutral">Objective defined</span>
+        <span style="margin-left:auto;">11 projection plus 3 specialist plus 34 defined equals 45</span>
+      </div>
+
+      <div class="filter-bar">
+        <span class="filter-label">Family</span>
+        <button class="filter-chip active" data-filter="family" data-value="all">All (45)</button>
+        <button class="filter-chip" data-filter="family" data-value="A">A. Agent authority (8)</button>
+        <button class="filter-chip" data-filter="family" data-value="R">R. Runtime (7)</button>
+        <button class="filter-chip" data-filter="family" data-value="S">S. Security (7)</button>
+        <button class="filter-chip" data-filter="family" data-value="G">G. Governance (7)</button>
+        <button class="filter-chip" data-filter="family" data-value="L">L. LLM (5)</button>
+        <button class="filter-chip" data-filter="family" data-value="E">E. Evidence (5)</button>
+        <button class="filter-chip" data-filter="family" data-value="P">P. People (3)</button>
+        <button class="filter-chip" data-filter="family" data-value="TMF">TMF. Specialist (3)</button>
+        <input class="filter-search" placeholder="Search ID or objective" oninput="filterTableA(this.value)">
+        <span class="filter-count" id="count-a">45 shown</span>
+      </div>
+
+      <div class="tbl-wrap">
+        <table id="tbl-a">
+          <thead>
+            <tr>
+              <th style="width:65px;">ID</th>
+              <th style="width:60px;">Family</th>
+              <th style="min-width:240px;">Objective</th>
+              <th style="min-width:220px;">Evidence basis</th>
+              <th style="width:150px;">Availability</th>
+              <th style="width:180px;">Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="family-head"><td colspan="6">TMF. Audit trail, duration, token control (specialist evaluated)</td></tr>
+            <tr data-family="TMF"><td class="control-id">C7</td><td><span class="family-tag">TMF</span></td><td><strong>Audit trail completeness</strong></td><td>Frozen run with required event categories and policy</td><td><span class="chip chip-amber">Specialist test ready</span></td><td>Bounded evaluated test with a qualified case</td></tr>
+            <tr data-family="TMF"><td class="control-id">C9</td><td><span class="family-tag">TMF</span></td><td><strong>Duration anomaly threshold</strong></td><td>Frozen qualified timing bundle and threshold</td><td><span class="chip chip-amber">Specialist test ready</span></td><td>Bounded evaluated test with a qualified case</td></tr>
+            <tr data-family="TMF"><td class="control-id">C16</td><td><span class="family-tag">TMF</span></td><td><strong>Token expenditure cap</strong></td><td>Frozen qualified run and usage bundle with policy</td><td><span class="chip chip-amber">Specialist test ready</span></td><td>Bounded evaluated test with a qualified case</td></tr>
+
+            <tr class="family-head"><td colspan="6">G. Governance and accountability</td></tr>
+            <tr data-family="G"><td class="control-id">G01</td><td><span class="family-tag">G</span></td><td><strong>AI estate inventory completeness</strong></td><td>Inventory and source discovery</td><td><span class="chip chip-neutral">Objective defined</span></td><td>Ready to activate with an inventory source</td></tr>
+            <tr data-family="G"><td class="control-id">G02</td><td><span class="family-tag">G</span></td><td><strong>Accountable ownership and responsibility</strong></td><td>Governance records</td><td><span class="chip chip-neutral">Objective defined</span></td><td>Ready to activate with governance records</td></tr>
+            <tr data-family="G"><td class="control-id">G03</td><td><span class="family-tag">G</span></td><td><strong>AI acceptable use and approval</strong></td><td>Approved use policy</td><td><span class="chip chip-neutral">Objective defined</span></td><td>Catalog entry; availability depends on evaluation and qualified evidence</td></tr>
+            <tr data-family="G"><td class="control-id">G04</td><td><span class="family-tag">G</span></td><td><strong>AI risk and impact assessment</strong></td><td>Risk registry</td><td><span class="chip chip-neutral">Objective defined</span></td><td>Ready to activate with a risk registry</td></tr>
+            <tr data-family="G"><td class="control-id">G05</td><td><span class="family-tag">G</span></td><td><strong>Regulatory applicability and obligations</strong></td><td>Framework mappings</td><td><span class="chip chip-neutral">Objective defined</span></td><td>Framework mapping available in Table C</td></tr>
+            <tr data-family="G"><td class="control-id">G06</td><td><span class="family-tag">G</span></td><td><strong>Third-party AI and vendor assurance</strong></td><td>Vendor inventory</td><td><span class="chip chip-neutral">Objective defined</span></td><td>Ready to activate with a vendor inventory</td></tr>
+            <tr data-family="G"><td class="control-id">G07</td><td><span class="family-tag">G</span></td><td><strong>Change and lifecycle governance</strong></td><td>Build provenance and CI</td><td><span class="chip chip-neutral">Objective defined</span></td><td>Ready to activate with CI evidence</td></tr>
+
+            <tr class="family-head"><td colspan="6">S. Application security</td></tr>
+            <tr data-family="S"><td class="control-id">S01</td><td><span class="family-tag S">S</span></td><td><strong>Privileged tool authorization paths</strong></td><td>Static security analysis</td><td><span class="chip chip-neutral">Objective defined</span></td><td>Uses AI AppSec package</td></tr>
+            <tr data-family="S"><td class="control-id">S02</td><td><span class="family-tag S">S</span></td><td><strong>Multi-tenant isolation</strong></td><td>Tenant isolation analyzer</td><td><span class="chip chip-neutral">Objective defined</span></td><td>Uses the 57-rule tenant isolation package</td></tr>
+            <tr data-family="S"><td class="control-id">S03</td><td><span class="family-tag S">S</span></td><td><strong>MCP and tool exposure</strong></td><td>MCP and AI AppSec analysis</td><td><span class="chip chip-neutral">Objective defined</span></td><td>Static detection identifies candidates for runtime confirmation</td></tr>
+            <tr data-family="S"><td class="control-id">S04</td><td><span class="family-tag S">S</span></td><td><strong>Secrets and credential protection</strong></td><td>Static and LLM heuristics</td><td><span class="chip chip-neutral">Objective defined</span></td><td>Ready to activate with a source scan</td></tr>
+            <tr data-family="S"><td class="control-id">S05</td><td><span class="family-tag S">S</span></td><td><strong>Prompt and input trust boundaries</strong></td><td>Static and runtime probes</td><td><span class="chip chip-neutral">Objective defined</span></td><td>Runtime probes are opt-in</td></tr>
+            <tr data-family="S"><td class="control-id">S06</td><td><span class="family-tag S">S</span></td><td><strong>RAG retrieval and exfiltration paths</strong></td><td>RAG and dataflow analysis</td><td><span class="chip chip-neutral">Objective defined</span></td><td>Ready to activate with source and registry</td></tr>
+            <tr data-family="S"><td class="control-id">S07</td><td><span class="family-tag S">S</span></td><td><strong>Secure AI SDLC and build provenance</strong></td><td>CI and SARIF provenance</td><td><span class="chip chip-neutral">Objective defined</span></td><td>Ready to activate with CI evidence</td></tr>
+
+            <tr class="family-head"><td colspan="6">A. Agent authority and delegation</td></tr>
+            <tr data-family="A"><td class="control-id">A01</td><td><span class="family-tag A">A</span></td><td><strong>Excessive effective authority</strong></td><td>Five-plane IAM and policy</td><td><span class="chip chip-neutral">Objective defined</span></td><td>Launch-priority set</td></tr>
+            <tr data-family="A"><td class="control-id">A02</td><td><span class="family-tag A">A</span></td><td><strong>Undeclared executable capability</strong></td><td>Five-plane plus static source</td><td><span class="chip chip-success">Projection active</span></td><td>Visibility plus launch-priority</td></tr>
+            <tr data-family="A"><td class="control-id">A03</td><td><span class="family-tag A">A</span></td><td><strong>Delegated Action Integrity</strong></td><td>DAI nine dimensions</td><td><span class="chip chip-success">Projection active</span></td><td>Visibility plus launch-priority</td></tr>
+            <tr data-family="A"><td class="control-id">A04</td><td><span class="family-tag A">A</span></td><td><strong>Observed action outside approved policy</strong></td><td>Qualified action witness</td><td><span class="chip chip-success">Projection active</span></td><td>Visibility plus launch-priority</td></tr>
+            <tr data-family="A"><td class="control-id">A05</td><td><span class="family-tag A">A</span></td><td><strong>Agent and principal identity continuity</strong></td><td>Identity continuity</td><td><span class="chip chip-success">Projection active</span></td><td>Visibility plus launch-priority</td></tr>
+            <tr data-family="A"><td class="control-id">A06</td><td><span class="family-tag A">A</span></td><td><strong>Human approval and mediation integrity</strong></td><td>Approval and mediation</td><td><span class="chip chip-success">Projection active</span></td><td>Visibility plus launch-priority</td></tr>
+            <tr data-family="A"><td class="control-id">A07</td><td><span class="family-tag A">A</span></td><td><strong>Least privilege and unused grants</strong></td><td>IAM plus capability</td><td><span class="chip chip-neutral">Objective defined</span></td><td>Launch-priority set</td></tr>
+            <tr data-family="A"><td class="control-id">A08</td><td><span class="family-tag A">A</span></td><td><strong>Cross-agent delegation propagation</strong></td><td>Delegation lineage</td><td><span class="chip chip-success">Projection active</span></td><td>Visibility plus launch-priority</td></tr>
+
+            <tr class="family-head"><td colspan="6">R. Runtime enforcement and response</td></tr>
+            <tr data-family="R"><td class="control-id">R01</td><td><span class="family-tag R">R</span></td><td><strong>Action lifecycle and side-effect traceability</strong></td><td>Action lifecycle witness</td><td><span class="chip chip-neutral">Objective defined</span></td><td>Ready to activate with action witness evidence</td></tr>
+            <tr data-family="R"><td class="control-id">R02</td><td><span class="family-tag R">R</span></td><td><strong>Consequential effect envelope</strong></td><td>Effect bound comparator</td><td><span class="chip chip-success">Projection active</span></td><td>Visibility plus launch-priority</td></tr>
+            <tr data-family="R"><td class="control-id">R03</td><td><span class="family-tag R">R</span></td><td><strong>Runtime guardrail enforcement evidence</strong></td><td>Decision and denial witness</td><td><span class="chip chip-success">Projection active</span></td><td>Visibility plus launch-priority</td></tr>
+            <tr data-family="R"><td class="control-id">R04</td><td><span class="family-tag R">R</span></td><td><strong>Emergency intervention effectiveness</strong></td><td>Kill-switch witnesses</td><td><span class="chip chip-neutral">Objective defined</span></td><td>Activates with a native enforcement adapter</td></tr>
+            <tr data-family="R"><td class="control-id">R05</td><td><span class="family-tag R">R</span></td><td><strong>Recovery and resumption authorization</strong></td><td>Recovery audit</td><td><span class="chip chip-neutral">Objective defined</span></td><td>Ready to activate with recovery evidence</td></tr>
+            <tr data-family="R"><td class="control-id">R06</td><td><span class="family-tag R">R</span></td><td><strong>AI incident response and recovery</strong></td><td>Incident workflow</td><td><span class="chip chip-neutral">Objective defined</span></td><td>Ready to activate with incident workflow</td></tr>
+            <tr data-family="R"><td class="control-id">R07</td><td><span class="family-tag R">R</span></td><td><strong>Continuous runtime monitoring</strong></td><td>OTel and source continuity</td><td><span class="chip chip-neutral">Objective defined</span></td><td>Activates with a connected collector and cadence</td></tr>
+
+            <tr class="family-head"><td colspan="6">L. LLM behavior and output safety</td></tr>
+            <tr data-family="L"><td class="control-id">L01</td><td><span class="family-tag L">L</span></td><td><strong>Prompt-injection resistance under test</strong></td><td>Runtime or LLMVerify</td><td><span class="chip chip-neutral">Objective defined</span></td><td>Activates with LLMVerify or an authorized probe</td></tr>
+            <tr data-family="L"><td class="control-id">L02</td><td><span class="family-tag L">L</span></td><td><strong>Sensitive output leakage</strong></td><td>PII and secret signals</td><td><span class="chip chip-neutral">Objective defined</span></td><td>Ready to activate with output evidence</td></tr>
+            <tr data-family="L"><td class="control-id">L03</td><td><span class="family-tag L">L</span></td><td><strong>Hallucination risk and grounding</strong></td><td>LLMVerify heuristics</td><td><span class="chip chip-neutral">Objective defined</span></td><td>Ready to activate with LLMVerify</td></tr>
+            <tr data-family="L"><td class="control-id">L04</td><td><span class="family-tag L">L</span></td><td><strong>Unsafe output risk</strong></td><td>LLM risk indicator</td><td><span class="chip chip-neutral">Objective defined</span></td><td>Ready to activate with output evidence</td></tr>
+            <tr data-family="L"><td class="control-id">L05</td><td><span class="family-tag L">L</span></td><td><strong>Structured output and consistency</strong></td><td>Schema and consistency checks</td><td><span class="chip chip-neutral">Objective defined</span></td><td>Ready to activate with schema evidence</td></tr>
+
+            <tr class="family-head"><td colspan="6">E. Evidence integrity and verification</td></tr>
+            <tr data-family="E"><td class="control-id">E01</td><td><span class="family-tag E">E</span></td><td><strong>Evidence integrity and provenance</strong></td><td>Evidence Core</td><td><span class="chip chip-success">Projection active</span></td><td>Visibility plus launch-priority</td></tr>
+            <tr data-family="E"><td class="control-id">E02</td><td><span class="family-tag E">E</span></td><td><strong>Event stream coverage and continuity</strong></td><td>OTel continuity</td><td><span class="chip chip-neutral">Objective defined</span></td><td>Activates with connected telemetry</td></tr>
+            <tr data-family="E"><td class="control-id">E03</td><td><span class="family-tag E">E</span></td><td><strong>Source authority and plane correlation</strong></td><td>Environment binder</td><td><span class="chip chip-success">Projection active</span></td><td>Visibility plus launch-priority</td></tr>
+            <tr data-family="E"><td class="control-id">E04</td><td><span class="family-tag E">E</span></td><td><strong>Contradiction and source reconciliation</strong></td><td>Evidence projections</td><td><span class="chip chip-neutral">Objective defined</span></td><td>Ready to activate with multiple source planes</td></tr>
+            <tr data-family="E"><td class="control-id">E05</td><td><span class="family-tag E">E</span></td><td><strong>Independent deterministic replay</strong></td><td>Replay manifest</td><td><span class="chip chip-success">Projection active</span></td><td>Visibility plus launch-priority</td></tr>
+
+            <tr class="family-head"><td colspan="6">P. People, transparency and data governance</td></tr>
+            <tr data-family="P"><td class="control-id">P01</td><td><span class="family-tag">P</span></td><td><strong>Bias and fairness evaluation coverage</strong></td><td>Bias testing</td><td><span class="chip chip-neutral">Objective defined</span></td><td>Ready to activate with bias test evidence</td></tr>
+            <tr data-family="P"><td class="control-id">P02</td><td><span class="family-tag">P</span></td><td><strong>Transparency and explainability</strong></td><td>Documentation review</td><td><span class="chip chip-neutral">Objective defined</span></td><td>Ready to activate with documentation</td></tr>
+            <tr data-family="P"><td class="control-id">P03</td><td><span class="family-tag">P</span></td><td><strong>Training data governance and lineage</strong></td><td>ISAF lineage</td><td><span class="chip chip-neutral">Objective defined</span></td><td>ISAF v1 published, v2 in research</td></tr>
+          </tbody>
+        </table>
+        <div class="tbl-footer">
+          <strong>Reading this table.</strong> Three availability states, each useful. <strong>Projection active</strong>: a live data projection is implemented, giving your team real-time visibility into the objective. <strong>Specialist test ready</strong>: a bounded evaluated test can run against a qualified case to produce a formal verdict. <strong>Objective defined</strong>: the objective is documented and citable in audits, ready to activate the moment the relevant evidence path is connected.
+        </div>
+      </div>
+
+      <div class="section-notes">
+        <strong>The full scope of the program.</strong>
+        <ul>
+          <li>45 objectives form the documented scope of the assurance program.</li>
+          <li>Each objective's availability depends on the evidence and configuration your environment supplies.</li>
+          <li>11 projection-active objectives give your team immediate dashboard visibility on day one.</li>
+          <li>15 launch-priority objectives are prioritized for the launch release.</li>
+          <li>The 221-question Agent Audit catalog is a complementary artifact for interviews and workshops, used alongside these 45 objectives.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════
+         TABLE B
+         ═══════════════════════════════════════════════ -->
+    <section class="section" data-section="B">
+      <div class="section-header">
+        <div class="section-eyebrow"><span class="tag">B</span>Detection families</div>
+        <h1>176 detection rules across 31 families</h1>
+        <p class="lead">HAIEC's detection depth, documented family by family. 157 rule registrations identify executable producers across 31 families; 19 registrations are held. Actual execution requires qualifying source inputs and tenant readiness.</p>
+      </div>
+
+      <div class="exec-value">
+        <div class="exec-value-label">Executive value</div>
+        <div class="exec-value-text"><strong>Procurement and security teams can quantify what the product detects on day one.</strong> 157 producer-backed rule registrations across 31 families, not 157 checks proven to run in a specific tenant or assessment. The 19 reserved rules are documented openly so buyers can see the roadmap and plan integrations. Every family lists the exact source data required, so evidence strategy is planned with real numbers.</div>
+      </div>
+
+      <div class="source-line">
+        <strong>Source.</strong> lib/ai-security/risk-registry/detection-rule-catalog.ts, snapshot 2026-10-17. 176 total rules across 31 families: 157 with a registered producer, 19 reserved for a future release.
+      </div>
+
+      <div class="stats-row">
+        <div class="stat-card"><div class="stat-label">Total rules</div><div class="stat-value">176</div><div class="stat-desc">Across 31 families</div></div>
+        <div class="stat-card"><div class="stat-label">Executable today</div><div class="stat-value">157</div><div class="stat-desc">Live detection at activation</div></div>
+        <div class="stat-card"><div class="stat-label">Reserved rules</div><div class="stat-value">19</div><div class="stat-desc">Documented roadmap</div></div>
+        <div class="stat-card"><div class="stat-label">Reserved families</div><div class="stat-value">4</div><div class="stat-desc">CERT, TIME, CICD, AI_AGENT (partial)</div></div>
+      </div>
+
+      <div class="callout callout-info">
+        <strong>19 rules across 4 families are reserved for a future release.</strong> CERT (5), TIME (5), CICD (5), and 4 of 10 in AI_AGENT. Each is documented here so buyers see the roadmap clearly. Activation requires a specific evidence producer, which is documented per family below.
+      </div>
+
+      <div class="filter-bar">
+        <span class="filter-label">Filter</span>
+        <button class="filter-chip active" data-filter="b" data-value="all">All families (31)</button>
+        <button class="filter-chip" data-filter="b" data-value="full">Fully executable</button>
+        <button class="filter-chip" data-filter="b" data-value="partial">Partially reserved</button>
+        <button class="filter-chip" data-filter="b" data-value="register">Reserved</button>
+        <input class="filter-search" placeholder="Search family or source" oninput="filterTableB(this.value)">
+        <span class="filter-count" id="count-b">31 shown</span>
+      </div>
+
+      <div class="tbl-wrap">
+        <table id="tbl-b">
+          <thead>
+            <tr>
+              <th style="width:180px;">Family</th>
+              <th style="width:90px;">Executable</th>
+              <th style="width:90px;">Reserved</th>
+              <th style="width:70px;">Total</th>
+              <th style="min-width:320px;">Source data required</th>
+              <th style="width:130px;">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr data-b="full"><td><strong>K8S</strong></td><td class="num-cell">7</td><td class="num-cell">0</td><td class="num-cell">7</td><td>Kubernetes pod spec, RBAC bindings, manifests, audit log</td><td><span class="chip chip-success">Executable</span></td></tr>
+            <tr data-b="full"><td><strong>API_AUTH</strong></td><td class="num-cell">6</td><td class="num-cell">0</td><td class="num-cell">6</td><td>API access logs, gateway logs</td><td><span class="chip chip-success">Executable</span></td></tr>
+            <tr data-b="full"><td><strong>DNS</strong></td><td class="num-cell">5</td><td class="num-cell">0</td><td class="num-cell">5</td><td>DNS logs, DNS zone data</td><td><span class="chip chip-success">Executable</span></td></tr>
+            <tr data-b="register"><td><strong>CERT</strong></td><td class="num-cell">0</td><td class="num-cell">5</td><td class="num-cell">5</td><td>TLS inspection, CRL and OCSP</td><td><span class="chip chip-amber">Reserved</span></td></tr>
+            <tr data-b="register"><td><strong>TIME</strong></td><td class="num-cell">0</td><td class="num-cell">5</td><td class="num-cell">5</td><td>NTP config, time sync telemetry, event timestamps</td><td><span class="chip chip-amber">Reserved</span></td></tr>
+            <tr data-b="full"><td><strong>MSG_BUS</strong></td><td class="num-cell">6</td><td class="num-cell">0</td><td class="num-cell">6</td><td>Message bus logs, metrics, schema registry, queue metrics</td><td><span class="chip chip-success">Executable</span></td></tr>
+            <tr data-b="full"><td><strong>SECRETS</strong></td><td class="num-cell">5</td><td class="num-cell">0</td><td class="num-cell">5</td><td>Static source scan, repo file inventory, log inspection, secret metadata</td><td><span class="chip chip-success">Executable</span></td></tr>
+            <tr data-b="full"><td><strong>CONFIG_DRIFT</strong></td><td class="num-cell">4</td><td class="num-cell">0</td><td class="num-cell">4</td><td>Config history, config versus runtime read, flag audit log</td><td><span class="chip chip-success">Executable</span></td></tr>
+            <tr data-b="full"><td><strong>DATA_ACCESS</strong></td><td class="num-cell">5</td><td class="num-cell">0</td><td class="num-cell">5</td><td>Data access logs, query telemetry, export logs</td><td><span class="chip chip-success">Executable</span></td></tr>
+            <tr data-b="partial"><td><strong>AI_AGENT</strong></td><td class="num-cell">6</td><td class="num-cell">4</td><td class="num-cell">10</td><td>Agent runtime telemetry, tool-call telemetry, memory access logs, delegation records</td><td><span class="chip chip-amber">Partially reserved</span></td></tr>
+            <tr data-b="full"><td><strong>SUPPLY_CHAIN</strong></td><td class="num-cell">8</td><td class="num-cell">0</td><td class="num-cell">8</td><td>Lockfile and SBOM diff, SBOM versus vulnerability feed, build provenance</td><td><span class="chip chip-success">Executable</span></td></tr>
+            <tr data-b="register"><td><strong>CICD</strong></td><td class="num-cell">0</td><td class="num-cell">5</td><td class="num-cell">5</td><td>Pipeline config history, run logs, audit logs, deploy records</td><td><span class="chip chip-amber">Reserved</span></td></tr>
+            <tr data-b="full"><td><strong>PROMPT</strong></td><td class="num-cell">5</td><td class="num-cell">0</td><td class="num-cell">5</td><td>GenAI prompt events with gen_ai.* attributes, turn position, context size</td><td><span class="chip chip-success">Executable</span></td></tr>
+            <tr data-b="full"><td><strong>RAG</strong></td><td class="num-cell">4</td><td class="num-cell">0</td><td class="num-cell">4</td><td>Retrieval events, chunk text, embedding signature, session ids and declared registry</td><td><span class="chip chip-success">Executable</span></td></tr>
+            <tr data-b="full"><td><strong>MEMORY</strong></td><td class="num-cell">2</td><td class="num-cell">0</td><td class="num-cell">2</td><td>Memory operations with declared channel and scope list</td><td><span class="chip chip-success">Executable</span></td></tr>
+            <tr data-b="full"><td><strong>MULTI_AGENT</strong></td><td class="num-cell">4</td><td class="num-cell">0</td><td class="num-cell">4</td><td>Agent handoff records per session with declared handoff and registration flags</td><td><span class="chip chip-success">Executable</span></td></tr>
+            <tr data-b="full"><td><strong>MCP_TOOL</strong></td><td class="num-cell">4</td><td class="num-cell">0</td><td class="num-cell">4</td><td>Agent tool calls with declared tool, server, agent registry and schemas</td><td><span class="chip chip-success">Executable</span></td></tr>
+            <tr data-b="full"><td><strong>EXFIL</strong></td><td class="num-cell">4</td><td class="num-cell">0</td><td class="num-cell">4</td><td>Agent output events, tool payloads with signature and egress allowlist</td><td><span class="chip chip-success">Executable</span></td></tr>
+            <tr data-b="full"><td><strong>COST</strong></td><td class="num-cell">4</td><td class="num-cell">0</td><td class="num-cell">4</td><td>Agent usage metrics with baselines, handoff records, declared surfaces</td><td><span class="chip chip-success">Executable</span></td></tr>
+            <tr data-b="full"><td><strong>AGENT_AUTH</strong></td><td class="num-cell">3</td><td class="num-cell">0</td><td class="num-cell">3</td><td>Delegation records versus declared chains and scopes, tool calls versus chains</td><td><span class="chip chip-success">Executable</span></td></tr>
+            <tr data-b="full"><td><strong>RAPP_A1</strong></td><td class="num-cell">5</td><td class="num-cell">0</td><td class="num-cell">5</td><td>A1 policy events with approved baseline, app registry, distributions and threshold</td><td><span class="chip chip-success">Executable</span></td></tr>
+            <tr data-b="full"><td><strong>SBI</strong></td><td class="num-cell">8</td><td class="num-cell">0</td><td class="num-cell">8</td><td>SBI call events with NF profiles, baseline flows, message validation, registration registry</td><td><span class="chip chip-success">Executable</span></td></tr>
+            <tr data-b="full"><td><strong>SLICE</strong></td><td class="num-cell">6</td><td class="num-cell">0</td><td class="num-cell">6</td><td>Slice traffic events, attachment events with RAN subnets, usage metrics and quota, SLA</td><td><span class="chip chip-success">Executable</span></td></tr>
+            <tr data-b="full"><td><strong>AML</strong></td><td class="num-cell">10</td><td class="num-cell">0</td><td class="num-cell">10</td><td>ML inference records with approved version and hash, drift baseline, variance, OOD scores</td><td><span class="chip chip-success">Executable</span></td></tr>
+            <tr data-b="full"><td><strong>DELEGATION</strong></td><td class="num-cell">8</td><td class="num-cell">0</td><td class="num-cell">8</td><td>Delegation chain events with declared scopes and actions, response text, token claims</td><td><span class="chip chip-success">Executable</span></td></tr>
+            <tr data-b="full"><td><strong>IDENTITY</strong></td><td class="num-cell">10</td><td class="num-cell">0</td><td class="num-cell">10</td><td>Identity records with agent registry, client mapping, SPIFFE, chain state, attestation</td><td><span class="chip chip-success">Executable</span></td></tr>
+            <tr data-b="full"><td><strong>TOWER</strong></td><td class="num-cell">5</td><td class="num-cell">0</td><td class="num-cell">5</td><td>Handover records with declared cell scope, chain baseline, session window, topology</td><td><span class="chip chip-success">Executable</span></td></tr>
+            <tr data-b="full"><td><strong>RAPP_SC</strong></td><td class="num-cell">5</td><td class="num-cell">0</td><td class="num-cell">5</td><td>Onboarding manifest with artifact hash, pipeline signature, SBOM manifest, runtime integrity</td><td><span class="chip chip-success">Executable</span></td></tr>
+            <tr data-b="full"><td><strong>RAPP_EX</strong></td><td class="num-cell">4</td><td class="num-cell">0</td><td class="num-cell">4</td><td>Egress metrics with baseline, egress logs with allowlist, query logs with declared selection, access-control logs</td><td><span class="chip chip-success">Executable</span></td></tr>
+            <tr data-b="full"><td><strong>RAPP_LM</strong></td><td class="num-cell">4</td><td class="num-cell">0</td><td class="num-cell">4</td><td>Service-mesh logs with baseline peers, identity logs with credential ids, network flow logs, runtime authorization</td><td><span class="chip chip-success">Executable</span></td></tr>
+            <tr data-b="full"><td><strong>MANUFACTURING</strong></td><td class="num-cell">10</td><td class="num-cell">0</td><td class="num-cell">10</td><td>Scenario-phase records, pinned static capability with approved policy, observed dispatch with native readback, collector continuity</td><td><span class="chip chip-success">Executable</span></td></tr>
+          </tbody>
+        </table>
+        <div class="tbl-footer">
+          <strong>Family totals verified.</strong> 157 producer-backed registrations plus 19 register-only entries equals 176. Reserved families: CERT (5), TIME (5), CICD (5), AI_AGENT (4 of 10). Executable registration means a producer is registered. The requested scoped DetectionEvidenceBatch class is supplied at activation, which is what makes the rule produce a qualified finding.
+        </div>
+      </div>
+
+      <div class="section-notes">
+        <strong>Each count describes a different category.</strong>
+        <ul>
+          <li>176 detection rules, 45 control objectives, 26 intake profiles, 11 projection-active controls, 15 launch-priority controls, and 221 audit questions are six separate denominators. Each describes a different part of the platform.</li>
+          <li>Separate security packages: AI AppSec (122 detectors, 79 checks), MCP tenant isolation (57 rules), and LLMVerify (38 rules) are their own products. They are documented separately from the 176-rule core registry.</li>
+          <li>Refer to Table C for the OWASP crosswalk that maps these families to the threats your board and auditors recognize.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════
+         TABLE C
+         ═══════════════════════════════════════════════ -->
+    <section class="section" data-section="C">
+      <div class="section-header">
+        <div class="section-eyebrow"><span class="tag">C</span>Framework crosswalks</div>
+        <h1>Framework crosswalks by implementation state</h1>
+        <p class="lead">How HAIEC's technical evidence connects to the frameworks your board, auditors, and regulators care about. Every framework your team cites is mapped here, with the specific HAIEC mechanism addressing each row.</p>
+      </div>
+
+      <div class="exec-value">
+        <div class="exec-value-label">Executive value</div>
+        <div class="exec-value-text"><strong>When a CISO answers "is this aligned to NIST" or "how do we evidence OWASP coverage", this table provides the answer in one click.</strong> Every row shows the specific HAIEC mechanism, the evidence it produces, and the honest alignment state. External reviewers confirm final alignment. HAIEC produces the evidence basis that makes that review fast.</div>
+      </div>
+
+      <div class="source-line">
+        <strong>Sources.</strong> OWASP LLM Top 10 (2026; current edition published Aug 4) and OWASP Agentic Top 10 (2026). MITRE ATLAS. HAIEC capability matrix, detection registry, control catalog, and evidence intake matrix.
+      </div>
+
+      <div class="callout callout-info">
+        <strong>How to read these tables.</strong> Each row names a specific HAIEC mechanism and the alignment state of that mapping. <strong>Alignment available</strong>: HAIEC produces technical evidence your reviewer can cite. <strong>Partial alignment</strong>: some scope is covered, some requires additional evidence. <strong>Reserved</strong>: the framework is recognized and mapping is planned. An external reviewer or auditor confirms final alignment. HAIEC provides the evidence basis that makes the review defensible and fast.
+      </div>
+
+      <div class="callout callout-warn">
+        <strong>OWASP LLM Top 10 2026 update.</strong> The 2026 release (Aug 4, 2026) renumbered categories. Excessive Agency moved from LLM06 in 2025 to LLM03 in 2026. The table below uses the official 2026 numbering and categories. These are possible evidence contributions, not claims that HAIEC tests every risk or proves mitigation.
+      </div>
+
+      <h2>C1. OWASP LLM Top 10 (2026)</h2>
+      <div class="tbl-wrap">
+        <table>
+          <thead>
+            <tr><th style="width:80px;">ID</th><th style="min-width:240px;">Threat</th><th style="min-width:240px;">HAIEC mechanism</th><th style="width:150px;">Alignment</th><th style="width:200px;">Additional evidence for full coverage</th></tr>
+          </thead>
+          <tbody>
+        <tr><td class="dim-cell">LLM01</td><td><strong>Prompt Injection</strong></td><td>Selected static checks and consented probes</td><td><span class="chip chip-amber">Opt-in / source-dependent</span></td><td>Requires exact test scope and qualified input-output evidence.</td></tr>
+        <tr><td class="dim-cell">LLM02</td><td><strong>Sensitive Information Disclosure</strong></td><td>Sensitive-output or data-exposure signals</td><td><span class="chip chip-amber">Evidence-dependent</span></td><td>A content pattern flag alone does not establish a breach.</td></tr>
+        <tr><td class="dim-cell">LLM03</td><td><strong>Excessive Agency</strong></td><td>Five evidence planes and DAI authority comparison</td><td><span class="chip chip-amber">Evidence-dependent</span></td><td>Requires approved policy, relevant grant or execution witnesses.</td></tr>
+        <tr><td class="dim-cell">LLM04</td><td><strong>Supply Chain</strong></td><td>Repository, dependency and SBOM provenance</td><td><span class="chip chip-amber">Partial</span></td><td>Manifest presence does not prove runtime component loading.</td></tr>
+        <tr><td class="dim-cell">LLM05</td><td><strong>Data and Model Poisoning</strong></td><td>Training/source provenance and poison-test producers</td><td><span class="chip chip-neutral">Not established</span></td><td>Do not claim an executable poison detector without source proof.</td></tr>
+        <tr><td class="dim-cell">LLM06</td><td><strong>Unbounded Consumption</strong></td><td>Qualified usage telemetry, caps and comparisons</td><td><span class="chip chip-amber">Evidence-dependent</span></td><td>Threshold breach is not proof that a provider denied a request.</td></tr>
+        <tr><td class="dim-cell">LLM07</td><td><strong>Misinformation</strong></td><td>Grounding or response-quality indicators in specialized workflows</td><td><span class="chip chip-amber">Partial</span></td><td>No guarantee of factual correctness; separate LLMVerify status.</td></tr>
+        <tr><td class="dim-cell">LLM08</td><td><strong>Hidden Context Exposure</strong></td><td>Scoped prompt/output/context checks</td><td><span class="chip chip-amber">Partial</span></td><td>Must distinguish disclosure, attempted extraction and actual exposure.</td></tr>
+        <tr><td class="dim-cell">LLM09</td><td><strong>Vector and Embedding Weaknesses</strong></td><td>RAG analysis and qualified retrieval evidence</td><td><span class="chip chip-amber">Partial</span></td><td>Instrumented retrieval needed for observed behavior.</td></tr>
+        <tr><td class="dim-cell">LLM10</td><td><strong>Improper Output Handling</strong></td><td>AI AppSec static sink and unsafe-execution checks</td><td><span class="chip chip-amber">Evidence-dependent</span></td><td>Code-capable sinks do not establish actual execution.</td></tr>
+      </tbody>
+        </table>
+      </div>
+
+      <h2>C2. OWASP Agentic Top 10 (2026)</h2>
+      <div class="tbl-wrap">
+        <table>
+          <thead>
+            <tr><th style="width:80px;">ID</th><th style="min-width:240px;">Threat</th><th style="min-width:240px;">HAIEC mechanism</th><th style="width:150px;">Alignment</th><th style="width:200px;">Additional evidence for full coverage</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="dim-cell">ASI01</td><td><strong>Agent Goal Hijack</strong></td><td>Runtime probes plus static prompt-injection rules</td><td><span class="chip chip-success">Alignment available</span></td><td>Coverage is bounded by the test scope you authorize.</td></tr>
+            <tr><td class="dim-cell">ASI02</td><td><strong>Tool Misuse and Exploitation</strong></td><td>MCP package (57 rules) plus reachability plus DAI</td><td><span class="chip chip-success">Alignment available</span></td><td>Static detection identifies candidates that runtime evidence confirms.</td></tr>
+            <tr><td class="dim-cell">ASI03</td><td><strong>Identity and Privilege Abuse</strong></td><td>Five-plane comparison plus IAM observation</td><td><span class="chip chip-success">Alignment available</span></td><td>Per-action grant truth is partial until session context resolves.</td></tr>
+            <tr><td class="dim-cell">ASI04</td><td><strong>Agentic Supply Chain</strong></td><td>Repo lockfile plus CycloneDX SBOM plus build provenance</td><td><span class="chip chip-amber">Partial alignment</span></td><td>Covers a focused subset of the agentic supply chain surface.</td></tr>
+            <tr><td class="dim-cell">ASI05</td><td><strong>Unexpected Code Execution</strong></td><td>Reachability analysis plus tool-call sinks</td><td><span class="chip chip-success">Alignment available</span></td><td>Reachable identifies the path. Runtime evidence confirms exercise.</td></tr>
+            <tr><td class="dim-cell">ASI06</td><td><strong>Memory and Context Poisoning</strong></td><td>Memory rules plus bounded adversarial probes</td><td><span class="chip chip-amber">Partial alignment</span></td><td>Requires instrumented memory telemetry for full coverage.</td></tr>
+            <tr><td class="dim-cell">ASI07</td><td><strong>Inter-Agent Communications</strong></td><td>DAI nine dimensions plus handoff observation</td><td><span class="chip chip-success">Alignment available</span></td><td>Cross-system verification is planned for a future release.</td></tr>
+            <tr><td class="dim-cell">ASI08</td><td><strong>Cascading Failures</strong></td><td>Drift signals plus operational scope checks</td><td><span class="chip chip-amber">Partial alignment</span></td><td>Requires a qualified monitoring source for full signal.</td></tr>
+            <tr><td class="dim-cell">ASI09</td><td><strong>Human Trust Manipulation</strong></td><td>Output checks plus PII and unsafe output patterns</td><td><span class="chip chip-amber">Partial alignment</span></td><td>Pattern-based identification. Additional depth with semantic review.</td></tr>
+            <tr><td class="dim-cell">ASI10</td><td><strong>Overreliance and Rogue Behavior</strong></td><td>Scope checks plus boundary comparison</td><td><span class="chip chip-amber">Partial alignment</span></td><td>Depends on runtime evidence from connected sources.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>C3. Governance and privacy frameworks</h2>
+      <div class="tbl-wrap">
+        <table>
+          <thead>
+            <tr><th style="width:200px;">Framework</th><th style="min-width:300px;">HAIEC evidence contribution</th><th style="width:150px;">Alignment</th><th style="width:220px;">Who confirms final alignment</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>ISO/IEC 42001</strong></td><td>AI management system evidence: control mapping, decision records, evidence provenance, change history</td><td><span class="chip chip-info">Supporting evidence</span></td><td>Your auditor confirms management-system alignment</td></tr>
+            <tr><td><strong>ISO/IEC 27001</strong></td><td>AI-specific information security control evidence: authorization, monitoring, incident records</td><td><span class="chip chip-info">Supporting evidence</span></td><td>Your ISMS auditor confirms alignment</td></tr>
+            <tr><td><strong>NIST AI RMF</strong></td><td>Govern, Map, Measure, Manage evidence artifacts plus Measure 2.6 monitoring evidence</td><td><span class="chip chip-info">Supporting evidence</span></td><td>Your risk team confirms framework alignment</td></tr>
+            <tr><td><strong>NIST CSF</strong></td><td>Identify, Protect, Detect, Respond, Recover evidence for AI systems</td><td><span class="chip chip-info">Supporting evidence</span></td><td>Your security team confirms maturity alignment</td></tr>
+            <tr><td><strong>SOC 2</strong></td><td>CC-series evidence where AI systems affect trust services criteria</td><td><span class="chip chip-neutral">Framework mapped</span></td><td>Your auditor produces the SOC 2 attestation</td></tr>
+            <tr><td><strong>EU AI Act</strong></td><td>Applicability context for high-risk classification plus documentation evidence</td><td><span class="chip chip-neutral">Context reference</span></td><td>Legal counsel confirms applicability</td></tr>
+            <tr><td><strong>GDPR</strong></td><td>Privacy-control evidence for AI actions touching personal data</td><td><span class="chip chip-info">Supporting evidence</span></td><td>Your DPO confirms legal alignment</td></tr>
+            <tr><td><strong>HIPAA</strong></td><td>Privacy and security control evidence for AI actions touching health data</td><td><span class="chip chip-info">Supporting evidence</span></td><td>Your compliance officer confirms alignment</td></tr>
+            <tr><td><strong>NYC Local Law 144</strong></td><td>Specialized hiring-regulation workflow evidence where applicable</td><td><span class="chip chip-amber">Workflow available</span></td><td>Confirms alignment only for automated employment decision tools in NYC</td></tr>
+            <tr><td><strong>MITRE ATLAS</strong></td><td>Threat taxonomy reference for adversarial AI techniques</td><td><span class="chip chip-neutral">Taxonomy reference</span></td><td>Provides threat framing for internal review</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section-notes">
+        <strong>How alignment and certification differ.</strong>
+        <ul>
+          <li>HAIEC produces the technical evidence artifacts relevant to each framework's obligations.</li>
+          <li>An external reviewer or auditor makes the certification or attestation decision. HAIEC provides the evidence basis that makes their review fast and defensible.</li>
+          <li>Framework alignment describes the technical state. Compliance certification is a separate external process.</li>
+          <li>Applicability, implementation, evidence, and attestation are four separate stages. Each is valuable on its own. HAIEC accelerates the evidence stage so the attestation stage runs cleanly.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════
+         TABLE D
+         ═══════════════════════════════════════════════ -->
+    <section class="section" data-section="D">
+      <div class="section-header">
+        <div class="section-eyebrow"><span class="tag">D</span>Integration schema</div>
+        <h1>Integration matrix: paths, states, and evidence value</h1>
+        <p class="lead">Every supported intake path, its readiness state, its authentication requirements, and the specific evidence value it delivers. Integration teams use this table to plan their evidence strategy. Procurement uses it to understand exactly what each path provides.</p>
+      </div>
+
+      <div class="exec-value">
+        <div class="exec-value-label">Executive value</div>
+        <div class="exec-value-text"><strong>Integration teams can compare the documented paths and prerequisites before committing to an onboarding plan.</strong> Every path shows its readiness, the auth it requires, and the evidence value it delivers. Procurement should verify each listed path against current tenant readiness, permission scopes and supported integrations.</div>
+      </div>
+
+      <div class="source-line">
+        <strong>Sources.</strong> lib/developer-integration-source-status.ts, lib/evidence/adapters/intake-profiles.ts, app/api route handlers at Main, snapshot 2026-10-18.
+      </div>
+
+      <div class="callout callout-info">
+        <strong>Three stages per path.</strong> <strong>Receipt</strong> confirms the payload reached HAIEC. <strong>Qualification</strong> authenticates the source and validates it against a registered binder. <strong>Evaluation</strong> runs the detector against qualified evidence. Only qualified and evaluated evidence feeds an Assurance result. This staging keeps the assurance chain defensible at every step.
+      </div>
+
+      <div class="filter-bar">
+        <span class="filter-label">State</span>
+        <button class="filter-chip active" data-filter="d" data-value="all">All paths (11)</button>
+        <button class="filter-chip" data-filter="d" data-value="ready">Ready today</button>
+        <button class="filter-chip" data-filter="d" data-value="held">Release pending</button>
+        <button class="filter-chip" data-filter="d" data-value="beta">Beta</button>
+        <input class="filter-search" placeholder="Search path or capability" oninput="filterTableD(this.value)">
+        <span class="filter-count" id="count-d">11 shown</span>
+      </div>
+
+      <div class="tbl-wrap">
+        <table id="tbl-d">
+          <thead>
+            <tr>
+              <th style="width:170px;">Path</th>
+              <th style="width:130px;">State</th>
+              <th style="min-width:220px;">Auth and scope</th>
+              <th style="min-width:220px;">Establishes</th>
+              <th style="min-width:220px;">Extend with additional evidence</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr data-d="ready"><td><strong>GitHub App</strong></td><td><span class="chip chip-success">Ready today</span></td><td>OAuth install. Scopes: <code>contents:read</code>, <code>pull_requests:write</code>, <code>metadata:read</code>, <code>checks:write</code>.</td><td>Full static analysis on authorized repos, PR findings, and qualified scan evidence.</td><td>Runtime observations, effective IAM, and target effect come from additional sources.</td></tr>
+            <tr data-d="held"><td><strong>CI Action (v2)</strong></td><td><span class="chip chip-amber">Release pending</span></td><td>Pending reconciliation of the distributable action identity. The v1 PAT flow is deprecated.</td><td>PR diff and scan results when v2 releases.</td><td>The GitHub App path provides CI-adjacent analysis today.</td></tr>
+            <tr data-d="ready"><td><strong>Local source ZIP or tar.gz</strong></td><td><span class="chip chip-neutral">Preview / enterprise POC</span></td><td>Scoped credential and qualified local evidence submission; check current tenant/tool availability.</td><td>Bounded static analysis within the bundle, with qualified scan evidence.</td><td>Full static depth requires the complete source tree in the bundle.</td></tr>
+            <tr data-d="ready"><td><strong>Structured ingest API</strong></td><td><span class="chip chip-success">Ready today</span></td><td>Bearer token with <code>write:ingest</code> scope.</td><td>Typed evidence events mapped to a registered binder with full provenance.</td><td>Unrecognized files stay as evidence-only records. A registered binder extends coverage.</td></tr>
+            <tr data-d="ready"><td><strong>SARIF import</strong></td><td><span class="chip chip-success">Ready today</span></td><td>Bearer token with <code>write:scans</code> scope.</td><td>Third-party scan findings with tool identity preserved.</td><td>Imported findings remain as imported. HAIEC-verified findings come from HAIEC analyzers.</td></tr>
+            <tr data-d="ready"><td><strong>CycloneDX SBOM</strong></td><td><span class="chip chip-success">Ready today</span></td><td>Bearer token with <code>write:ingest</code> scope.</td><td>Supply-chain context: dependency drift and known CVE mapping.</td><td>Accepts JSON 1.4 to 1.6. XML, SPDX, VEX, and CSAF route through a separate intake path.</td></tr>
+            <tr data-d="ready"><td><strong>OTLP receiver</strong></td><td><span class="chip chip-success">Ready today</span></td><td>Bearer token with <code>write:ingest</code> scope plus recognized span attributes.</td><td>Traces with gen_ai.*, mcp.*, and haiec.* attributes feed agent rules and observed-action evidence.</td><td>Trace provides observation. Effect confirmation comes from an independent target readback.</td></tr>
+            <tr data-d="ready"><td><strong>MCP surface</strong></td><td><span class="chip chip-success">Ready today</span></td><td>Bearer token with <code>read:systems</code> and <code>read:evidence</code> scopes.</td><td>Read access to cases, chains, and receipts from AI coding environments.</td><td>Human actions (approval, kill-switch, revocation) run through browser-authenticated flows by design.</td></tr>
+            <tr data-d="ready"><td><strong>AWS IAM observer (live)</strong></td><td><span class="chip chip-success">Ready today</span></td><td>Bound AWS credential plus <code>read:systems</code> scope.</td><td>Candidate grants observed with partial effective-permission context.</td><td>SCP, resource policies, and session boundaries require additional policy intake for full resolution.</td></tr>
+            <tr data-d="ready"><td><strong>IAM JSON export</strong></td><td><span class="chip chip-success">Ready today</span></td><td>Bearer token with <code>write:ingest</code> scope.</td><td>Declared policy contents and conditions mapped to the five-plane comparison.</td><td>Effective grant state extends with a live IAM observer connected to the same system.</td></tr>
+            <tr data-d="beta"><td><strong>Runtime endpoint test</strong></td><td><span class="chip chip-info">Beta</span></td><td>Authorized endpoint plus operator consent, with scope pre-declared.</td><td>Empirical prompt-injection, jailbreak, and tool-forcing findings against an authorized endpoint.</td><td>Model claim and tool execution are separate facts. External effect requires independent readback.</td></tr>
+          </tbody>
+        </table>
+        <div class="tbl-footer">
+          <strong>Canonical binding plus deterministic receipt per intake.</strong> Every path produces a receipt that identifies the exact evidence basis and its digest. The receipt confirms what was received. The qualified result confirms what was established. Both are preserved and inspectable.
+        </div>
+      </div>
+
+      <div class="section-notes">
+        <strong>Additional intake paths (26 registered typed profiles).</strong>
+        <ul>
+          <li>Registered profiles include: generic, log, api_transaction, alarm, kpi, policy, oran_wg11, a1_policy, o1, ran_handover, slice_flow, sbi_transaction, tmf, oam_topology, cyclonedx, logsense_bundle, otel, model_gateway, digital_twin, scenario_run, manufacturing_source, servicenow_aict, servicenow_agent_execution, servicenow_table, aws_agentcore, and aws_cloudwatch.</li>
+          <li>26 profiles represent 26 registered binders. Each binder is available to your tenant on request.</li>
+          <li>The 20-page Technical Annex documents the exhaustive intake matrix with per-profile schemas and examples.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════
+         TABLE E
+         ═══════════════════════════════════════════════ -->
+    <section class="section" data-section="E">
+      <div class="section-header">
+        <div class="section-eyebrow"><span class="tag">E</span>Verification ledger</div>
+        <h1>Claim-evidence ledger: inspected source and explicit maturity</h1>
+        <p class="lead">A curated claim ledger for the brief and annex, recording source anchors and outstanding validation. Each included assertion points to a source anchor and review date; code inspection does not by itself establish tenant acceptance.</p>
+      </div>
+
+      <div class="exec-value">
+        <div class="exec-value-label">Executive value</div>
+        <div class="exec-value-text"><strong>This is the accountability ledger.</strong> The selected claims in these materials trace here, subject to the stated evidence scope. When a CISO verifies a statement, they find the source, the revision, and the verification date in one row. Buyer trust is earned by making this ledger inspectable, not by asserting claims that cannot be sourced.</div>
+      </div>
+
+      <div class="source-line">
+        <strong>Statuses.</strong> Demonstrated, Supported, Evidence-gated, Release pending, Simulated, Mapped, and Open for qualification.
+      </div>
+
+      <div class="legend-row">
+        <span class="legend-row-title">Status legend</span>
+        <span class="claim-status demonstrated">Demonstrated</span>
+        <span class="claim-status supported">Supported</span>
+        <span class="claim-status evidence">Evidence-gated</span>
+        <span class="claim-status preview">Release pending</span>
+        <span class="claim-status simulated">Simulated</span>
+        <span class="claim-status cataloged">Mapped</span>
+        <span class="claim-status notest">Open for qualification</span>
+      </div>
+
+      <div class="filter-bar">
+        <span class="filter-label">Status</span>
+        <button class="filter-chip active" data-filter="e" data-value="all">All claims (18)</button>
+        <button class="filter-chip" data-filter="e" data-value="demonstrated">Demonstrated</button>
+        <button class="filter-chip" data-filter="e" data-value="supported">Supported</button>
+        <button class="filter-chip" data-filter="e" data-value="held">Release pending</button>
+        <input class="filter-search" placeholder="Search claim or owner" oninput="filterTableE(this.value)">
+        <span class="filter-count" id="count-e">18 shown</span>
+      </div>
+
+      <div class="tbl-wrap">
+        <table id="tbl-e">
+          <thead>
+            <tr>
+              <th style="width:75px;">Claim</th>
+              <th style="min-width:260px;">Customer sentence</th>
+              <th style="width:140px;">Owner</th>
+              <th style="width:160px;">Status</th>
+              <th style="min-width:220px;">Evidence reference</th>
+              <th style="width:110px;">Reviewed</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr data-e="demonstrated"><td class="mono-cell">CL-01</td><td>Deterministic evaluation produces the same findings and digest from the same evidence</td><td>Assurance Engine</td><td><span class="claim-status demonstrated">Demonstrated</span></td><td><code>lib/assurance/assurance-evaluator.ts</code> with replay verified</td><td class="dim-cell">2026-10-18</td></tr>
+            <tr data-e="demonstrated"><td class="mono-cell">CL-02</td><td>Five independent evidence planes compare without collapsing into one score</td><td>Assurance Engine</td><td><span class="claim-status demonstrated">Demonstrated</span></td><td>Evidence plane comparison in <code>assurance-evaluator.ts</code>, persists independently</td><td class="dim-cell">2026-10-18</td></tr>
+            <tr data-e="demonstrated"><td class="mono-cell">CL-03</td><td>DAI compares nine orthogonal dimensions: operation, target, scope, magnitude, duration, approval, data_class, environment, geography</td><td>Assurance Engine</td><td><span class="claim-status demonstrated">Demonstrated</span></td><td><code>lib/assurance/dai-evaluation.ts</code> persists comparison state</td><td class="dim-cell">2026-10-18</td></tr>
+            <tr data-e="demonstrated"><td class="mono-cell">CL-04</td><td>Assurance receipts carry SHA-256 digests over evidence basis and result, replayable</td><td>Evidence Core</td><td><span class="claim-status demonstrated">Demonstrated</span></td><td>Receipt emission in <code>lib/assurance</code>, digest over canonical scope JSON</td><td class="dim-cell">2026-10-18</td></tr>
+            <tr data-e="demonstrated"><td class="mono-cell">CL-05</td><td>GitHub App full executor runs static analysis on authorized linked installations</td><td>Source intake</td><td><span class="claim-status demonstrated">Demonstrated</span></td><td><code>lib/github-app/pr-static-executor.ts</code> tested on fixtures</td><td class="dim-cell">2026-10-18</td></tr>
+            <tr data-e="supported"><td class="mono-cell">CL-06</td><td>MCP surface exposes read tools for cases, chains, and receipts</td><td>Developer surface</td><td><span class="claim-status supported">Supported</span></td><td><code>lib/mcp/capability-guide.ts</code> tool definitions documented</td><td class="dim-cell">2026-10-18</td></tr>
+            <tr data-e="supported"><td class="mono-cell">CL-07</td><td>MCP routes human actions (approval, kill-switch, revocation) through browser-authenticated flows</td><td>Developer surface</td><td><span class="claim-status supported">Supported</span></td><td>Human actions require browser-authenticated session. No MCP write path exists for these by design.</td><td class="dim-cell">2026-10-18</td></tr>
+            <tr data-e="held"><td class="mono-cell">CL-08</td><td>GitHub Action v2 will submit scan results from CI pipelines</td><td>Source intake</td><td><span class="claim-status preview">Release pending</span></td><td>v1 PAT flow deprecated. v2 pending reconciliation of distributable identity.</td><td class="dim-cell">2026-10-18</td></tr>
+            <tr data-e="held"><td class="mono-cell">CL-09</td><td>Cross-system delegation verification requires issuer-qualified identities and independent readback</td><td>Assurance Engine</td><td><span class="claim-status preview">Release pending</span></td><td>Gated by separate engineering contract, wired at a future release</td><td class="dim-cell">2026-10-18</td></tr>
+            <tr data-e="evidence"><td class="mono-cell">CL-10</td><td>Kill-switch dispatch requires per-target native enforcement adapter binding</td><td>Protection</td><td><span class="claim-status evidence">Evidence-gated</span></td><td><code>lib/kill-switch/native-enforcement-adapter.ts</code> registry per provider</td><td class="dim-cell">2026-10-18</td></tr>
+            <tr data-e="evidence"><td class="mono-cell">CL-11</td><td>Runtime endpoint testing is opt-in and requires authorized endpoint plus operator consent</td><td>Runtime</td><td><span class="claim-status evidence">Evidence-gated</span></td><td><code>docs/how-to/04-runtime-security.md</code> with Beta designation</td><td class="dim-cell">2026-10-18</td></tr>
+            <tr data-e="supported"><td class="mono-cell">CL-12</td><td>AI AppSec package provides 122 detectors across 79 security checks</td><td>AI AppSec (separate)</td><td><span class="claim-status supported">Separate package</span></td><td>AI AppSec package documentation, separate from core registry</td><td class="dim-cell">2026-10-18</td></tr>
+            <tr data-e="supported"><td class="mono-cell">CL-13</td><td>MCP tenant isolation package provides 57 rules: 42 multi-tenant and 15 MCP</td><td>MCP isolation (separate)</td><td><span class="claim-status supported">Separate package</span></td><td>Tenant isolation package documentation, separate from core registry</td><td class="dim-cell">2026-10-18</td></tr>
+            <tr data-e="supported"><td class="mono-cell">CL-14</td><td>LLMVerify provides 38-rule CSM6 control set for LLM output quality and safety</td><td>LLMVerify (separate)</td><td><span class="claim-status supported">Separate package</span></td><td>LLMVerify package documentation, separate from core registry</td><td class="dim-cell">2026-10-18</td></tr>
+            <tr data-e="demonstrated"><td class="mono-cell">CL-15</td><td>Manufacturing corpus holds 45 current canonical evaluations of synthetic evidence</td><td>Case evidence</td><td><span class="claim-status demonstrated">Demonstrated</span></td><td>See Table F. Manufacturing repository: 45 current plus 27 historical.</td><td class="dim-cell">2026-10-18</td></tr>
+            <tr data-e="demonstrated"><td class="mono-cell">CL-16</td><td>TM Forum 2026 archive contains C7, C9, C16 control test evidence with stated limitations</td><td>Case evidence</td><td><span class="claim-status demonstrated">Demonstrated</span></td><td>See Table F. <code>tmf-2026-evidence</code> release v7a0bb5f3.</td><td class="dim-cell">2026-10-18</td></tr>
+            <tr data-e="cataloged"><td class="mono-cell">CL-17</td><td>OWASP LLM 2025 and Agentic 2026 threat categories are mapped to HAIEC mechanisms</td><td>Framework crosswalk</td><td><span class="claim-status cataloged">Framework mapped</span></td><td>See Table C with honest per-row alignment states</td><td class="dim-cell">2026-10-18</td></tr>
+            <tr data-e="notest"><td class="mono-cell">CL-18</td><td>Every OWASP LLM 2026 category is fully covered</td><td>Framework crosswalk</td><td><span class="claim-status notest">Open for qualification</span></td><td>LLM04 reserved, LLM09 out of scope, several partials. Full coverage is a roadmap item.</td><td class="dim-cell">2026-10-18</td></tr>
+          </tbody>
+        </table>
+        <div class="tbl-footer">
+          <strong>Every customer-facing claim traces to a row here.</strong> A claim advances to Supported or Demonstrated only with an evidence reference in the owning repository. Release-pending and Open-for-qualification rows are the honest current state, which is what preserves buyer credibility with a serious CISO.
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════
+         TABLE F
+         ═══════════════════════════════════════════════ -->
+    <section class="section" data-section="F">
+      <div class="section-header">
+        <div class="section-eyebrow"><span class="tag">F</span>Evidence manifest</div>
+        <h1>Case evidence: manufacturing evaluations and the TM Forum archive</h1>
+        <p class="lead">The independent evidence section. Two corpora that CISOs, auditors, and security architects can inspect independently. Every claim in customer material about manufacturing or TM Forum evidence traces here.</p>
+      </div>
+
+      <div class="exec-value">
+        <div class="exec-value-label">Executive value</div>
+        <div class="exec-value-text"><strong>Real HAIEC evaluations of synthetic manufacturing evidence, alongside a separately archived workshop evidence package.</strong> A CISO can inspect supported HAIEC claims without relying on marketing. Two corpora: a persisted manufacturing evaluation corpus over synthetic evidence, and a participant-published TM Forum control-test archive. Every claim traces to a specific record a reviewer can independently examine.</div>
+      </div>
+
+      <div class="source-line">
+        <strong>Sources.</strong> github.com/subodhkc/manufacturing-ai-assurance-haiec and github.com/subodhkc/tmf-2026-evidence, snapshot 2026-10-18.
+      </div>
+
+      <h2>F1. Manufacturing corpus</h2>
+      <div class="case-card">
+        <div class="case-card-title">Manufacturing Station 217: synthetic evidence, real evaluation</div>
+        <div class="case-card-sub">A persisted evaluation corpus of 45 current canonical cases across nine synthetic AI systems. Every current case resolves to REVIEW. Later operating behaviors (kill-switch, dashboard holds) are browser-local simulation, labeled as such.</div>
+        <div class="case-kv">
+          <div class="case-kv-label">Repository</div><div class="case-kv-value">github.com/subodhkc/manufacturing-ai-assurance-haiec</div>
+          <div class="case-kv-label">Public demo</div><div class="case-kv-value">haiec-manufacturing-demo.vercel.app</div>
+          <div class="case-kv-label">Synthetic AI systems</div><div class="case-kv-value">9 systems, numbered SYS-2xx</div>
+          <div class="case-kv-label">Current canonical evaluations</div><div class="case-kv-value">45, all RESULT: REVIEW</div>
+          <div class="case-kv-label">Historical evaluations</div><div class="case-kv-value">27</div>
+          <div class="case-kv-label">Wrong-target findings</div><div class="case-kv-value">9 MFG-EFF-001 mismatches, one per system</div>
+          <div class="case-kv-label">Receipt-bound R01 witnesses</div><div class="case-kv-value">18 effect-evidence records</div>
+          <div class="case-kv-label">Judge guide</div><div class="case-kv-value">docs/hackfw/JUDGE-GUIDE.md</div>
+          <div class="case-kv-label">Showcase contract</div><div class="case-kv-value">docs/product-story/HAIEC-MASTER-SHOWCASE-CONTRACT.md</div>
+          <div class="case-kv-label">Screens</div><div class="case-kv-value">docs/hackfw/screens-v29</div>
+          <div class="case-kv-label">Judge video</div><div class="case-kv-value">113.8 seconds, local repository artifact</div>
+          <div class="case-kv-label">Scope</div><div class="case-kv-value">Synthetic evidence with persisted evaluated results. Simulation of the operating response is clearly labeled.</div>
+        </div>
+      </div>
+
+      <div class="callout callout-warn">
+        <strong>Two clearly labeled lanes.</strong> A persisted, digest-verified evaluation of synthetic evidence followed by a separate, browser-local illustration of a subsequent demo hold. The evaluation is real. The operating response is clearly labeled as a demonstration of what could be wired next. When citing this corpus, always include the label: "Synthetic demonstration, real HAIEC evaluation." This is what makes the corpus trustworthy to an auditor.
+      </div>
+
+      <h2>F2. TM Forum archive</h2>
+      <div class="case-card">
+        <div class="case-card-title">TM Forum 2026 Evidence Package: participant-published, integrity-verifiable</div>
+        <div class="case-card-sub">A workshop event evidence archive containing C7, C9, and C16 control test results, monitoring evidence, and enforcement pathway documentation. Participant-published and independently integrity-verifiable by any reviewer with the release hash.</div>
+        <div class="case-kv">
+          <div class="case-kv-label">Repository</div><div class="case-kv-value">github.com/subodhkc/tmf-2026-evidence</div>
+          <div class="case-kv-label">Release</div><div class="case-kv-value">v7a0bb5f3</div>
+          <div class="case-kv-label">Register file</div><div class="case-kv-value">register.yaml</div>
+          <div class="case-kv-label">Gap file</div><div class="case-kv-value">gap-list.md</div>
+          <div class="case-kv-label">Provenance file</div><div class="case-kv-value">SUBMISSION_PROVENANCE_AND_VERIFICATION.md</div>
+          <div class="case-kv-label">Status</div><div class="case-kv-value">Participant-published and integrity-verifiable by any reviewer</div>
+          <div class="case-kv-label">Pre-event thesis</div><div class="case-kv-value">subodhkc.com/tm-forum/haiec-agentic-assurance-deck.html (architecture thesis, separate from the event record)</div>
+        </div>
+      </div>
+
+      <h2>F3. Control test evidence detail</h2>
+      <div class="tbl-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th style="width:100px;">Control</th>
+              <th style="min-width:180px;">Purpose</th>
+              <th style="min-width:320px;">Recorded evidence</th>
+              <th style="width:150px;">Verdict</th>
+              <th style="min-width:220px;">Extends with additional evidence</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="dim-cell">C7</td>
+              <td><strong>Audit trail completeness</strong></td>
+              <td>9 of 10 required coverage. One negotiation event missing from the frozen window.</td>
+              <td><span class="chip chip-amber">Partial coverage</span></td>
+              <td>The missing event extends the record to full coverage. Partial coverage today is a valid operational state.</td>
+            </tr>
+            <tr>
+              <td class="dim-cell">C9</td>
+              <td><strong>Duration and performance control</strong></td>
+              <td>Two assessed runs against frozen v2 thresholds. Both satisfied. No live breach in archive.</td>
+              <td><span class="chip chip-success">Satisfied</span></td>
+              <td>A live event within the tested window would produce a breach-of-boundary record.</td>
+            </tr>
+            <tr>
+              <td class="dim-cell">C16 SAT</td>
+              <td><strong>Token consumption cap, within</strong></td>
+              <td>35,559 tokens against 60,000-token cap. Satisfied run.</td>
+              <td><span class="chip chip-success">Satisfied</span></td>
+              <td>Run-level verdict for a specific scoped run within the frozen cap.</td>
+            </tr>
+            <tr>
+              <td class="dim-cell">C16 NOT-SAT</td>
+              <td><strong>Token consumption cap, exceeded</strong></td>
+              <td>106,829 tokens against 60,000-token cap. NOT_SATISFIED run.</td>
+              <td><span class="chip chip-danger">Not satisfied</span></td>
+              <td>The archive records the verdict. Target-side blocking requires a native enforcement adapter for this specific provider.</td>
+            </tr>
+            <tr>
+              <td class="dim-cell">MON</td>
+              <td><strong>Monitoring</strong></td>
+              <td>OTLP ingestion, detector canary, alert delivery records. Clean real-telemetry negative plus labeled synthetic canary.</td>
+              <td><span class="chip chip-info">Observed</span></td>
+              <td>Detector-to-alert wiring confirmed. Full control-test-verdict-to-alert wiring extends with the additional integration.</td>
+            </tr>
+            <tr>
+              <td class="dim-cell">KILL</td>
+              <td><strong>Kill switch pathway</strong></td>
+              <td>Organizer environment pause and recovery record. HAIEC engine was not invoked for this action.</td>
+              <td><span class="chip chip-neutral">External</span></td>
+              <td>External enforcement pathway verified. HAIEC native adapter extends the same path into HAIEC's unified response workflow.</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="tbl-footer">
+          <strong>Measured verdict reflects what ran.</strong> The C16 run exceeded the cap. The archive records the verdict. Target-side blocking requires a native enforcement adapter for that specific provider and is documented per control. This distinction between measured verdict and physical enforcement is what makes the archive credible to an auditor.
+        </div>
+      </div>
+
+      <div class="section-notes">
+        <strong>What the case evidence establishes.</strong>
+        <ul>
+          <li>HAIEC produced deterministic evaluated results over qualified evidence, and the corpus is persisted, digest-verifiable, and inspectable.</li>
+          <li>Every finding traces to a specific record with a specific verdict, a specific scope, and a specific digest.</li>
+          <li>Every limitation is named openly, so an auditor sees exactly what was established and what extends with additional evidence.</li>
+          <li>Both corpora are available to any customer or auditor for independent review. The verification path is documented in the provenance file.</li>
+          <li>Customer material citing these corpora includes the label: "Synthetic demonstration, real HAIEC evaluation" or "Participant-published archive" as appropriate.</li>
+        </ul>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script>
+function showSection(id){
+  document.querySelectorAll('.section').forEach(s => {
+    s.classList.toggle('active', s.dataset.section === id);
+  });
+  document.querySelectorAll('.sidebar-link').forEach(l => {
+    l.classList.toggle('active', l.dataset.section === id);
+  });
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+let filterA = { family: 'all', search: '' };
+function filterTableA(search){ filterA.search = search.toLowerCase(); applyFilterA(); }
+document.querySelectorAll('[data-filter="family"]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('[data-filter="family"]').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    filterA.family = btn.dataset.value;
+    applyFilterA();
+  });
+});
+function applyFilterA(){
+  const rows = document.querySelectorAll('#tbl-a tbody tr');
+  let count = 0;
+  rows.forEach(row => {
+    if (row.classList.contains('family-head')) { row.style.display = ''; return; }
+    const family = row.dataset.family || '';
+    const text = row.textContent.toLowerCase();
+    const familyMatch = filterA.family === 'all' || family === filterA.family;
+    const searchMatch = !filterA.search || text.includes(filterA.search);
+    const show = familyMatch && searchMatch;
+    row.style.display = show ? '' : 'none';
+    if (show) count++;
+  });
+  document.querySelectorAll('#tbl-a tbody tr.family-head').forEach(head => {
+    let next = head.nextElementSibling;
+    let hasVisible = false;
+    while (next && !next.classList.contains('family-head')) {
+      if (next.style.display !== 'none') hasVisible = true;
+      next = next.nextElementSibling;
+    }
+    head.style.display = hasVisible ? '' : 'none';
+  });
+  document.getElementById('count-a').textContent = count + ' shown';
+}
+
+let filterB = { type: 'all', search: '' };
+function filterTableB(search){ filterB.search = search.toLowerCase(); applyFilterB(); }
+document.querySelectorAll('[data-filter="b"]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('[data-filter="b"]').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    filterB.type = btn.dataset.value;
+    applyFilterB();
+  });
+});
+function applyFilterB(){
+  const rows = document.querySelectorAll('#tbl-b tbody tr');
+  let count = 0;
+  rows.forEach(row => {
+    const type = row.dataset.b || 'full';
+    const text = row.textContent.toLowerCase();
+    const typeMatch = filterB.type === 'all' || type === filterB.type;
+    const searchMatch = !filterB.search || text.includes(filterB.search);
+    const show = typeMatch && searchMatch;
+    row.style.display = show ? '' : 'none';
+    if (show) count++;
+  });
+  document.getElementById('count-b').textContent = count + ' shown';
+}
+
+let filterD = { type: 'all', search: '' };
+function filterTableD(search){ filterD.search = search.toLowerCase(); applyFilterD(); }
+document.querySelectorAll('[data-filter="d"]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('[data-filter="d"]').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    filterD.type = btn.dataset.value;
+    applyFilterD();
+  });
+});
+function applyFilterD(){
+  const rows = document.querySelectorAll('#tbl-d tbody tr');
+  let count = 0;
+  rows.forEach(row => {
+    const type = row.dataset.d || 'ready';
+    const text = row.textContent.toLowerCase();
+    const typeMatch = filterD.type === 'all' || type === filterD.type;
+    const searchMatch = !filterD.search || text.includes(filterD.search);
+    const show = typeMatch && searchMatch;
+    row.style.display = show ? '' : 'none';
+    if (show) count++;
+  });
+  document.getElementById('count-d').textContent = count + ' shown';
+}
+
+let filterE = { type: 'all', search: '' };
+function filterTableE(search){ filterE.search = search.toLowerCase(); applyFilterE(); }
+document.querySelectorAll('[data-filter="e"]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('[data-filter="e"]').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    filterE.type = btn.dataset.value;
+    applyFilterE();
+  });
+});
+function applyFilterE(){
+  const rows = document.querySelectorAll('#tbl-e tbody tr');
+  let count = 0;
+  rows.forEach(row => {
+    const type = row.dataset.e || 'demonstrated';
+    const text = row.textContent.toLowerCase();
+    const typeMatch = filterE.type === 'all' || type === filterE.type;
+    const searchMatch = !filterE.search || text.includes(filterE.search);
+    const show = typeMatch && searchMatch;
+    row.style.display = show ? '' : 'none';
+    if (show) count++;
+  });
+  document.getElementById('count-e').textContent = count + ' shown';
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight') {
+    const current = document.querySelector('.sidebar-link.active');
+    const next = current && current.nextElementSibling && current.nextElementSibling.classList.contains('sidebar-link') ? current.nextElementSibling : null;
+    if (next) next.click();
+  } else if (e.key === 'ArrowLeft') {
+    const current = document.querySelector('.sidebar-link.active');
+    const prev = current && current.previousElementSibling && current.previousElementSibling.classList.contains('sidebar-link') ? current.previousElementSibling : null;
+    if (prev) prev.click();
+  }
+});
+</script>
+</body>
+</html>
