@@ -1,4 +1,61 @@
-# HAIEC D1–D3 — Interactive Light Architecture Explorer
+# HAIEC Enterprise Architecture & Evidence Explorer — V3 (Twelve Views)
+
+**Date:** 2026-10-18 · **Status:** Shareable self-contained educational HTML + editable split assets, synced to Common Repo. **NOT deployed** to HAIEC.com. **NOT live tenant evidence.**
+
+> **Open [V3 standalone self-contained HTML](haiec-enterprise-architecture-and-evidence-explorer-v3.html)** for client-side review. Working split assets: [index.html](index.html), [architecture-explorer.css](architecture-explorer.css), [architecture-explorer.js](architecture-explorer.js). Older D1–D3 and V2 HTML references remain for design provenance only; V3 is the current shareable review version.
+
+## Design review and product decision
+
+The original **eight** architecture masters D1–D8 and **two** bounded evidence cases C1/C2 already cover security and detection (including applicable OWASP mapping), authority/DAI, CI/CD, monitoring/drift/usage, governance/compliance/control effectiveness, conditional protection and verified source/test outputs. **Do not add a ninth OWASP, kill-switch or scanner-count architecture master.** Their presence would crowd buyer navigation and may inflate production claims.
+
+Two customer-value **reading views** were added instead:
+
+- **E0: Executive Decision Guide (NEW, entry).** Five persona/decision questions: business exposure; security exposure; release readiness; operating change; risk and audit defensibility. Click-through details name value, technical basis and proof boundary without invented ROI.
+- **E1: Evidence, Deliverables & Adoption (NEW, exit).** Scoped POC: define one consequential action/owner, connect eligible data, execute applicable checks, make review decisions. Four conditioned artifacts: inventory/action map, findings and authority, human governance, evidence package. Link to actual public case methodology/archived register and the canonical HAIEC Enterprise POC page.
+
+The total is **12 educational views** (E0 + D1–D8 + C1/C2 + E1), not 12 product modules. Existing eight diagram master plan and 45-control taxonomy remain unchanged.
+
+## Shareability and user experience
+
+- **Light theme**, source-informed DeepSeek design patterns (adapted layout, information hierarchy, context inspector, small restrained transitions), not copied synthetic tenant statuses, screenshots, fake approvals or unsafe controls.
+- **Four reading routes** near top: executive, technical, real assessed synthetic case, and POC/adoption; 12 labeled tabs remain navigable by keyboard and on phones.
+- Per-view deep links `#e0`, `#d1` through `#d8`, `#c1`, `#c2`, `#e1` are updated by tab and shortcut clicks. A hash is a client-side navigation hint only.
+- Detail inspector includes **what / why leadership cares / HAIEC support / what not proved**. On mobile clicking a node scrolls to its inspector with a Back to diagram control.
+- Tour is real play/pause. Reduced-motion users do not receive looping animation; D6 scenario selector changes only explicitly fictional example text.
+- **Print selected** and **Print all** buttons included. Inspectors for all 12 views initialize at page load so print-all does not leave empty offscreen inspect panels.
+- Standalone file is intentionally self-contained with inline CSS and JS for easy distribution; split version uses local JS/CSS so Devin can adapt it to website CSP without globally weakening CSP.
+
+## Content provenance and non-negotiable boundaries
+
+- Real platform-source references: HAIEC capability status, source-bound deterministic ActionMap/AgentTrace, five independent planes, nine DAI dimensions, human-policy/decision owners, telemetry coverage, per-target native guard adapter contract.
+- C1 manufacturing: HAIEC persisted evaluation of **synthetic manufacturing source records**, overall REVIEW; later gateway holds and business reviewers are **fictional browser simulation**. No customer factory or native MES/ERP production enforcement claimed.
+- C2 TM Forum: participant-published frozen control register; C16 assessed 35,559 SATISFIED and 106,829 NOT_SATISFIED vs frozen 60K cap, C9 two satisfied tests, C7 9/10 partial coverage. Alert canary is synthetic. Organizer proof, universal monitoring, and HAIEC-native target action prevention not established.
+- A registered detector is not an executed check; an OWASP control mapping is not comprehensive validated coverage; source ingestion is not qualified evidence; human authorization does not by itself enforce target action; `BLOCK` assessment does not physically deny deployment; a digest is not certification or signature.
+- **No live API or network request**, no dynamic customer identities, no auth tokens, no backend mutation, no tool invocation and no kill-switch call exist in the HTML.
+
+## Tested, and still required before broad public posting
+
+**Focused tested:** Chromium at 1440, 1024, 768 and 390 widths; 12 views, inspector activation, quick routes, tab semantics, D6 scenario changes, keyboard view switching on desktop, guided tour play/pause, zero console JS errors, no page-level horizontal overflow. Generated selected-view print PDF for smoke validation. Syntax check of standalone JS, XML/HTML structure inspection. Minor mobile behavior improved to reveal updated inspector; print initializations corrected.
+
+**Not fully qualified:** real screen-reader/AT matrix, page-by-page print-all clipping, Safari/iOS/Android device tests, source/legal redistribution clearance for third-party TM Forum material, renewed HEAD capability/product-status and external URL checks before distributing at scale. It is **shareable for editorial/customer preview**, not independently production-certified software or a finished website deployment.
+
+## Integration handoff, no deployment
+
+Do not deploy until explicitly requested. When later authorized, replace or add a small **Explore the interactive architecture** resource link on existing `/enterprise`; preserve existing pricing/timing, lead capture and document links. Reuse the V3 split HTML/CSS/JS or React adaptation; no new engine, no extra DAI evidence store, no new live topology. Check site CSP, semantic keyboard behavior, mobile, print and exact claims before Main deployment.
+
+## Related plans and source documents
+
+- [Eight-master diagram plan](../ARCHITECTURE-DIAGRAM-BUILD-PLAN-2026-10-18.md)
+- [Enterprise publication kit and technical annex](../README.md)
+- [Original D1–D3 SVG source manifest](../D1-D3-DIAGRAM-ASSET-MANIFEST-2026-10-18.md)
+- [DeepSeek visual-only archive](../../design-references/deepseek/README.md)
+- [Manufacturing judge guide](https://github.com/subodhkc/manufacturing-ai-assurance-haiec/blob/main/docs/hackfw/JUDGE-GUIDE.md)
+- [TM Forum evidence register](https://github.com/subodhkc/tmf-2026-evidence/blob/main/register.yaml)
+
+---
+
+## Archived V2 reference (historical, not the current deliverable)
+
 
 > **2026-10-18 D4–D8 + C1/C2 extension completed as a local interactive source package (not deployed).** Seven additional responsive light-theme views use the D1–D3 DeepSeek-inspired visual grammar: dedicated security/detection, release/CI, monitoring, governance/compliance, conditional runtime protection, Station 217 and TM Forum. The [new panel markup](remaining-panels.html) and [source/claims and QA handoff](D4-D8-C1-C2-HANDOFF.md) are archived here. **Important:** The full combined updated HTML/CSS/JS source bundle is a separately generated conversation artifact, not yet copied into this repository's original `index.html` / JS / CSS. Existing D1–D3 hosted source is unchanged; do not claim the GitHub page includes the seven new interactive views until the bundle is imported. No haiec.com deployment was requested or performed.
 
