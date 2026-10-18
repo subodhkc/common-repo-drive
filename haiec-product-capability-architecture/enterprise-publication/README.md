@@ -1,5 +1,8 @@
 # HAIEC Enterprise Publication Kit — Ready for Devin Website Integration
 
+
+> **Architecture diagram build plan (2026-10-18):** [Eight reusable architecture masters and two scoped case-proof visuals](ARCHITECTURE-DIAGRAM-BUILD-PLAN-2026-10-18.md). Reuse the six existing corrected SVGs; phase D1–D3 and manufacturing case before D4–D8; no new engine, deployment, or live protection claims.
+
 **Publication editorial snapshot:** 2026-10-18. **Status:** Source-qualified editorial candidates committed to common repo; **NOT YET LIVE on HAIEC.com**. This directory is public. No customer, private HAIEC, token, or confidential organizer evidence may be added.
 
 ## Purpose and decision
