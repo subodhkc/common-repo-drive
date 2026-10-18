@@ -1,5 +1,8 @@
 # MCP Investigation Bridge — Contextual AI-Agent Assistance + Canonical DAI MCP Parity — Implementation Record (2026-10-20)
 
+> **2026-10-17 INDEPENDENT POST-MERGE ACCEPTANCE ADDENDUM (original Devin implementation record preserved):** [Independent verification, P1 historical DAI input time-boundary and P06 plan](UX-P05-MCP-BRIDGE-INDEPENDENT-REVIEW-TEMPORAL-BOUNDARY-AND-P06-HANDOFF-2026-10-17.md). `Main` `6532e75cbca360777ece6736de251a4e50667b53` / Vercel `dpl_7hnZ3Y6uZWK8VsnLiThw8BxsXTgG` independently `READY`, CI workflows verified success. MCP and dashboard bridge code shipped as developer reported, but no actual external MCP client round-trip or bundled Master Report Agent Audit visual. Historical optional `assuranceEvaluationId` **does not yet freeze all policy/delegation inputs**: assembler uses latest approved operating envelope and unbounded-by-snapshot delegation evidence even on EVALUATION_BOUND path. Identity scoping is fixed, historical time-basis parity is not yet proven. Treat this as an *open P1 source-level correctness risk*, not a reported production incident. Narrow completion guard/as-of qualification required before claiming full frozen historical DAI parity. Current assembled DAI path unaffected by this claim. Original 17 tests/browser results are developer-reported and do not exercise before/after temporal facts.
+
+
 Status: `DEPLOYED_VERIFIED`
 HAIEC branch: `feat/mcp-investigation-bridge` @ `001027da3`
 Base: `Main` @ `67b95cb2c` (UX-P05, PR #2239)
