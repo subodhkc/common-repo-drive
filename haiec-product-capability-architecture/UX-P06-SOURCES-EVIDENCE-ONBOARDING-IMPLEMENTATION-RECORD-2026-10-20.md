@@ -1,5 +1,8 @@
 # UX-P06 — System Sources, Connections & Evidence Onboarding — Implementation Record (2026-10-20)
 
+> **2026-10-17 independent post-merge acceptance addendum (original developer record preserved):** [Exact production/CI verification and P06.1 corrective findings](UX-P06-INDEPENDENT-POST-MERGE-REVIEW-SOURCE-TRUTH-GAPS-AND-P06.1-P07-HANDOFF-2026-10-17.md). PR #2250 merged exact `Main` `c3598decf0b7072d7b9425217a24b74b37b3ad91`; verified Vercel production **`dpl_HaA7zy6KjemKbbM6fuC8U5EE5TkF`** `READY` (developer's numeric `7150019445` not API-resolvable) and both CI workflows success. Sources tab remains implemented. **P1 source-truth defect**: `CONNECTED_VERIFIED.established` is true for configured binder or mere endpoint registration, contradicting label and even basis text; P06 tests currently assert those false positives. P2: UI calls inactive `NOT_CONFIGURED` source-health `configured without signal`; four agent disclosures share identical input DOM ids; fourth stage's mere completed evaluation count overstates specific evidence membership. Scope a small P06.1, not new page/engine. Detailed 17 tests/browser claims remain developer-reported (not independently rerun); viewer/multi-org, real binder freshness and degraded-read live NOT_RUN. Existing current pages and MCP scope remain intact.
+
+
 Status: `DEPLOYED_VERIFIED`
 HAIEC branch: `feat/uxp06-sources-evidence-onboarding` @ `f5944960b`
 Base: `Main` @ `13c09ba65` (DAI temporal correction, PR #2249)
