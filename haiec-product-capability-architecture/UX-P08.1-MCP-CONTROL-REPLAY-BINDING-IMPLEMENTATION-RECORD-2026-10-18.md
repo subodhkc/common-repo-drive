@@ -1,5 +1,8 @@
 # UX-P08.1 — MCP Control Result and Replay Identity Integrity — Implementation Record (2026-10-18)
 
+> **2026-10-18 INDEPENDENT SOURCE/PRODUCTION ACCEPTANCE ADDENDUM (preserve original):** [Exact Vercel/CI, G01/G02 accepted and P09 security-first read entitlement discovery](UX-P08.1-INDEPENDENT-ACCEPTANCE-AND-P09-DECISION-READ-AUTHORIZATION-HANDOFF-2026-10-18.md). [PR #2256](https://github.com/subodhkc/haiec-website/pull/2256) merged full `Main` SHA `5cd6875cddceed56cab4bb2b07a76583f88a5735`; actual authenticated **Vercel** `dpl_G6qoCXpoNKtbG56aHn23ibV3ZcLu` **READY** production, both GitHub CI workflows success. Numeric GitHub deployment `7151938851` is a valid different-system deploy reference but not the Vercel `dpl_` ID. P08.1 G01 copied result and replay prompt now explicitly scopes exact IDs; G02 MCP replay first qualifies verified native result.aiSystemId against requested owned system and withholds foreign/absent. Source tests include same-org A/B negative, same-system positive, foreign tenant, unknown result. Developer test counts were not rerun independently; external real MCP client and production/UI role clickthrough still NOT_RUN. **P08.1 accepted.** Independent next-page audit found new **P09-G01 P1** *same-org decision packet privacy* risk: `GET /api/inventory/systems/{id}/deployment-decisions` and `GET .../{decisionId}` return complete decision records/history to any org member, bypassing `/api/inventory/my-work` per-request detailRestricted. P09 must secure those read routes before master-detail UI; no evidence of live exploitation or cross-tenant access.
+
+
 Status: `DEPLOYED_VERIFIED`
 HAIEC branch: `fix/uxp081-replay-binding` @ `1df548ce8`
 Base: `Main` @ `99465e853` (UX-P08, PR #2254)
