@@ -1,5 +1,8 @@
 # UX-P08 — Controls & Operations — Implementation Record (2026-10-18)
 
+> **2026-10-18 INDEPENDENT POST-MERGE ACCEPTANCE ADDENDUM — P08 UI ACCEPTED, P08.1 MCP exact-system proof gate OPEN:** [Release/CI verification, scope defect and P09 ownership](UX-P08-INDEPENDENT-ACCEPTANCE-MCP-CONTROL-REPLAY-BINDING-GAP-AND-P09-HANDOFF-2026-10-18.md). Exact PR #2254 `Main` SHA `99465e8536cd6d8477e643cd97a59593d38e3f65`; actual authenticated Vercel production **`dpl_3FyW8DyXYAfshpQTwJHUaNqMF7d2`** READY, GitHub Lint Baseline Gate and Consolidated CI/CD both successful. Source confirms summary-first/lenses/system context and limited copy-only `control_proof` tool prompt; developer 14 new tests and 1440–390 dev browser **not independently rerun**. Reviewer found (P1) prompt's `haiec_control_results` instructions lack exact `aiSystemId` argument (tool can query all org), and (P1) preexisting `haiec_control_replay` checks AI System org but replays only by organization + resultId, omitting exact result-to-system match. Same-org misattribution potential, no evidence of cross-tenant leak or observed attack. Required small P08.1 follow-up, not rollback, modify read prompt and replay MCP boundary, add two-systems-one-org negative tests. Real external client/test org and viewer authorization still NOT_RUN. P09 My Work next dedicated UI after this correction; no new engine.
+
+
 Status: `DEPLOYED_VERIFIED`
 HAIEC branch: `feat/uxp08-controls-operations` @ `6b75047ab`
 Base: `Main` @ `c25125584` (UX-P07, PR #2252)
