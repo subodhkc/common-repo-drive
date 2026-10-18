@@ -1,5 +1,8 @@
 # UX-P06.1 — Sources Evidence-Truth & Accessibility Corrections — Implementation Record (2026-10-20)
 
+> **2026-10-17 independent post-merge acceptance addendum (preserves original developer report):** [Verified exact release and P07 source/route contract](UX-P06.1-INDEPENDENT-ACCEPTANCE-AND-UX-P07-EVALUATION-RESULTS-HANDOFF-2026-10-17.md). PR #2251 merged SHA `d3db5ddc637974ec3e757fead3ae1c86322d29e7`; independently verified production `dpl_48TYX3Vk7KRWnQoAP11SSpzxgW4h` READY and both CI workflows success. Developer shorthand `7150331134` did not resolve as deployment ID; use `dpl_48TYX3Vk7KRWnQoAP11SSpzxgW4h` for acceptance. All G01–G04 source-level changes and tests are in the four-file PR; developer 19/19, 247/248 and 1440/390 browser results were not reviewer-rerun. Live inactive-binder, viewer/multi-org and real-client MCP NOT_RUN. No P06.2 needed. UX-P07 owns exact evaluation report at `/dashboard/assurance/evaluations/[evaluationId]`, preserving separate run monitor and existing Master Report, historical participation and MCP reads.
+
+
 Status: `DEPLOYED_VERIFIED`
 HAIEC branch: `fix/uxp061-source-truth-corrections` @ `397eeb6fc`
 Base: `Main` @ `c3598decf` (UX-P06, PR #2250)
