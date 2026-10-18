@@ -1,5 +1,8 @@
 # DAI Evaluation-Bound Temporal Basis Correction — Implementation Record (2026-10-20)
 
+> **2026-10-17 independent verifier addendum:** [P05 temporal correction acceptance, residual historical-membership nuance and P06 handoff](UX-P05-DAI-TEMPORAL-CORRECTION-INDEPENDENT-ACCEPTANCE-AND-UX-P06-SOURCE-ONBOARDING-HANDOFF-2026-10-17.md). Exact `Main` `13c09ba6533d66b3076b65d53b3d1ee4e572d99a` production Vercel ID **`dpl_Cwso4SYoKpJprcBcP5GyDeJRUK4u`** `READY` and verified CI success. The developer's numeric `7149603001` is not an API-resolvable deployment ID; verified identifier above. Original P1 silent latest-approved-policy/post-snapshot delegation join is closed at source, with historical envelope/digest, completed bound-eval guard and chronological cutoff. **Caution:** `EVALUATION_BOUND` still recomputes some DAI evidence from time-filtered document rows rather than retrieving one immutable historical DAI fact set; don't claim the entire current DAI payload was the exact original U5 evaluated membership absent a frozen evidence-set reference. No verified production leak or additional P1 incident. New local test numbers in Devin's record are developer-reported and have not been independently rerun. External MCP client read still NOT_RUN. Proceed UX-P06 separately.
+
+
 Status: `DEPLOYED_VERIFIED`
 HAIEC branch: `fix/dai-eval-bound-temporal-basis` @ `9dfe4b07a`
 Base: `Main` @ `6532e75cb` (MCP Investigation Bridge, PR #2248)
