@@ -1,5 +1,8 @@
 # UX-P10 — Monitoring / Operational Visibility — Implementation Record (2026-10-18)
 
+> **2026-10-18 INDEPENDENT POST-MERGE ACCEPTANCE (P10 CLOSED, P11 NEXT):** [Exact prod SHA and Vercel deployment confirmation; detailed reports/receipts/public verification design review](UX-P10-INDEPENDENT-ACCEPTANCE-AND-P11-REPORT-RECEIPT-PUBLIC-VERIFICATION-DESIGN-HANDOFF-2026-10-18.md). P10 PR #2259 Main SHA **fc284d5cda14d1cb6e6bd5062bb0b11c75ac216f** authenticated Vercel production **dpl_8VMfibLozu2g96eaSik2fdLEkYtD**, READY exact SHA. CI Lint Baseline Gate + Consolidated CI both SUCCESS. 7 source files preserve original monitoring read owners, add derived source-qualified DELIVERING/STALE, first-viewport independent testing/policy/native proof and refresh-request time. Developer reported 8/8 new tests, regression, TS/lint and browser 1440/1280/390; reviewer inspected diff/CI/prod but did not rerun; fresh qualified LIVE, viewer/multi-org, alert-history LIVE, MCP/keyboard remain NOT_RUN. No P10.1. **Separate P11 critical UI truth discovered:** canonical public verification API sends INTEGRITY_VERIFIED_AGAINST_HAIEC_RECORD on valid published packages but public UI checks INTERNALLY_CONSISTENT, and its H1 says 'Decision Receipt Verified' for INVALID_PACKAGE. Correct in P11 before design changes; new P11 plan and DeepSeek review in linked doc.
+
+
 Status: `DEPLOYED_VERIFIED`
 HAIEC branch: `feat/uxp10-monitoring-truth` @ `4f2d23df2`
 Base: `Main` @ `cef737258` (post-P09 + marketing PR #2258)
