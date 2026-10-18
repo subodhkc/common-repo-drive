@@ -4,6 +4,14 @@
 **Status:** Functional source design prototype in shared repository. **NOT DEPLOYED to HAIEC.com; NOT HAIEC application code.** Existing six original SVGs and D1/D2/D3 dark source masters remain preserved.  
 **Interactive deliverable:** [Open source — standalone HTML](haiec-d1-d3-architecture-explorer.html)
 
+
+## Editable source files
+
+- [index.html](index.html) — recommended entry for Devin; loads CSS and JavaScript from sibling files and is the version to adapt to existing website CSP.
+- [architecture-explorer.css](architecture-explorer.css) — light-theme cards, layout, focus states, responsive and reduced-motion styling.
+- [architecture-explorer.js](architecture-explorer.js) — authored explainer data, node inspectors, accessible tab navigation and guided-tour behavior.
+- [haiec-d1-d3-architecture-explorer.html](haiec-d1-d3-architecture-explorer.html) — self-contained preview for offline stakeholder review only; do not embed unchanged if inline styles/scripts violate production CSP.
+
 ## Editorial decision
 
 Improve the three architecture masters as **one coordinated, navigable product explanation**, not three disconnected marketing posters. Use a light system inspired by the archived DeepSeek Unified UX Atlas (neutral canvas, white cards, indigo focus, informative detail inspector, compact review notes). Reuse **visual interaction patterns only**; none of the archived synthetic customer identities, simulated protection outcomes, fabricated receipts, risk counts or incomplete click handlers are transplanted.
