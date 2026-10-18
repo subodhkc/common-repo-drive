@@ -1,0 +1,1478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HAIEC — Technical Capability & Control Annex 2026</title>
+<style>
+:root{
+  --bg:#FAFBFC; --card:#FFFFFF; --card-soft:#F5F7FA;
+  --border:#E7E9EE; --border-hover:#D0D4DD;
+  --text:#0F1729; --text-secondary:#414A5E; --text-muted:#667085; --text-dim:#98A2B3;
+  --primary:#4338CA; --primary-hover:#3730A3; --primary-light:#EEF2FF; --primary-border:#C7D2FE;
+  --success:#067647; --success-bg:#ECFDF3; --success-border:#ABEFC6;
+  --amber:#B54708; --amber-bg:#FFFAEB; --amber-border:#FEDF89;
+  --danger:#B42318; --danger-bg:#FEF3F2; --danger-border:#FECDCA;
+  --info:#175CD3; --info-bg:#EFF8FF; --info-border:#B2DDFF;
+  --purple:#6941C6; --purple-bg:#F4F3FF; --purple-border:#D9D6FE;
+  --mono:ui-monospace,'SF Mono','Cascadia Code','Roboto Mono',monospace;
+  --sans:-apple-system,BlinkMacSystemFont,'Inter','Segoe UI',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-snap-type:y mandatory;scroll-behavior:smooth;}
+body{font-family:var(--sans);font-size:14px;line-height:1.5;color:var(--text);background:var(--bg);-webkit-font-smoothing:antialiased;}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit;}
+.mono{font-family:var(--mono);font-size:0.92em;}
+
+/* SLIDES */
+.slide{min-height:100vh;scroll-snap-align:start;padding:40px 56px 40px;display:flex;flex-direction:column;position:relative;background:var(--bg);}
+.slide-inner{max-width:1160px;margin:0 auto;width:100%;flex:1;display:flex;flex-direction:column;}
+.slide-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;font-size:10px;font-weight:600;letter-spacing:0.1em;color:var(--text-dim);text-transform:uppercase;padding-bottom:12px;border-bottom:1px solid var(--border);}
+.slide-head .section-tag{color:var(--primary);font-weight:700;}
+.slide-footer{display:flex;justify-content:space-between;align-items:center;margin-top:auto;padding-top:16px;font-size:10px;color:var(--text-dim);letter-spacing:0.04em;border-top:1px solid var(--border);}
+.eyebrow{font-size:10px;font-weight:700;letter-spacing:0.1em;color:var(--primary);text-transform:uppercase;margin-bottom:10px;}
+h1{font-size:38px;font-weight:600;letter-spacing:-0.025em;line-height:1.1;color:var(--text);margin-bottom:14px;}
+h2{font-size:26px;font-weight:600;letter-spacing:-0.02em;line-height:1.2;color:var(--text);margin-bottom:12px;max-width:900px;}
+h3{font-size:15px;font-weight:600;letter-spacing:-0.005em;line-height:1.35;color:var(--text);margin-bottom:6px;}
+h4{font-size:12px;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;color:var(--text-muted);margin-bottom:8px;}
+p{font-size:13.5px;line-height:1.6;color:var(--text-secondary);margin-bottom:10px;}
+p.lead{font-size:15px;line-height:1.55;max-width:820px;}
+p strong{color:var(--text);font-weight:600;}
+
+/* NAV */
+.nav-rail{position:fixed;right:16px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:5px;z-index:100;max-height:80vh;overflow-y:auto;padding:6px;background:rgba(255,255,255,0.85);backdrop-filter:blur(8px);border-radius:20px;border:1px solid var(--border);}
+.nav-dot{width:6px;height:6px;border-radius:50%;background:var(--border-hover);transition:all 0.2s;border:none;cursor:pointer;padding:0;flex-shrink:0;}
+.nav-dot:hover{background:var(--text-muted);}
+.nav-dot.active{background:var(--primary);height:16px;border-radius:3px;}
+.page-counter{position:fixed;bottom:16px;right:16px;font-size:10px;font-family:var(--mono);color:var(--text-dim);letter-spacing:0.04em;background:var(--card);padding:5px 10px;border-radius:16px;border:1px solid var(--border);z-index:100;}
+
+/* COVER */
+.cover{background:linear-gradient(160deg,#FAFBFC 0%,#F0F1F8 50%,#EEF2FF 100%);position:relative;overflow:hidden;}
+.cover::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(67,56,202,0.05) 1px,transparent 1px),linear-gradient(90deg,rgba(67,56,202,0.05) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;mask-image:radial-gradient(ellipse at 60% 40%,black 0%,transparent 70%);}
+.cover .slide-inner{justify-content:center;position:relative;z-index:1;}
+.cover-brand{display:flex;align-items:center;gap:10px;margin-bottom:40px;}
+.cover-mark{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,#4338CA,#6366F1);color:white;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;}
+.cover-brand-text{font-size:14px;font-weight:600;}
+.cover-brand-sub{font-size:10px;font-weight:600;letter-spacing:0.1em;color:var(--text-muted);text-transform:uppercase;margin-left:auto;}
+.cover h1{font-size:54px;line-height:1.04;letter-spacing:-0.035em;max-width:1000px;margin-bottom:20px;}
+.cover .lead{font-size:17px;color:var(--text-secondary);max-width:780px;line-height:1.55;}
+.cover-meta{margin-top:48px;display:flex;gap:14px;flex-wrap:wrap;}
+.cover-meta-item{padding:10px 16px;background:rgba(255,255,255,0.75);backdrop-filter:blur(8px);border:1px solid var(--border);border-radius:8px;font-size:11px;color:var(--text-muted);}
+.cover-meta-item strong{color:var(--text);display:block;font-size:12px;margin-bottom:1px;}
+
+/* STATUS LEGEND */
+.legend-bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;padding:8px 12px;background:var(--card-soft);border:1px solid var(--border);border-radius:6px;font-size:10px;color:var(--text-muted);}
+.legend-bar-title{font-weight:700;text-transform:uppercase;letter-spacing:0.06em;margin-right:4px;color:var(--text-dim);}
+.legend-tag{display:inline-flex;align-items:center;gap:4px;padding:1px 6px;border-radius:3px;font-weight:600;font-size:9.5px;letter-spacing:0.02em;text-transform:uppercase;}
+.legend-tag.demonstrated{background:var(--success-bg);color:var(--success);border:1px solid var(--success-border);}
+.legend-tag.supported{background:var(--info-bg);color:var(--info);border:1px solid var(--info-border);}
+.legend-tag.evidence{background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-border);}
+.legend-tag.preview{background:var(--card-soft);color:var(--text-muted);border:1px solid var(--border);}
+.legend-tag.simulated{background:var(--purple-bg);color:var(--purple);border:1px solid var(--purple-border);}
+.legend-tag.cataloged{background:var(--card-soft);color:var(--text-muted);border:1px solid var(--border);}
+.legend-tag.notest{background:var(--danger-bg);color:var(--danger);border:1px solid var(--danger-border);}
+.legend-tag::before{content:'●';font-size:8px;}
+
+/* STATUS CHIPS */
+.status-chip{display:inline-flex;align-items:center;gap:4px;font-size:9.5px;font-weight:600;padding:2px 7px;border-radius:4px;letter-spacing:0.02em;text-transform:uppercase;white-space:nowrap;}
+.status-chip.demonstrated{background:var(--success-bg);color:var(--success);border:1px solid var(--success-border);}
+.status-chip.supported{background:var(--info-bg);color:var(--info);border:1px solid var(--info-border);}
+.status-chip.evidence{background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-border);}
+.status-chip.preview{background:var(--card-soft);color:var(--text-muted);border:1px solid var(--border);}
+.status-chip.simulated{background:var(--purple-bg);color:var(--purple);border:1px solid var(--purple-border);}
+.status-chip.cataloged{background:var(--card-soft);color:var(--text-muted);border:1px solid var(--border);}
+.status-chip.notest{background:var(--danger-bg);color:var(--danger);border:1px solid var(--danger-border);}
+.status-chip::before{content:'●';font-size:7px;}
+
+/* CARDS */
+.card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px 18px;}
+.card-soft{background:var(--card-soft);border:1px solid var(--border);border-radius:8px;padding:14px 16px;}
+.card-tight{padding:12px 14px;}
+.callout{padding:12px 16px;border-radius:6px;font-size:12.5px;line-height:1.55;}
+.callout-info{background:var(--primary-light);border:1px solid var(--primary-border);color:var(--text);}
+.callout-info strong{color:var(--primary);font-weight:600;}
+.callout-warn{background:var(--amber-bg);border:1px solid var(--amber-border);color:var(--text);}
+.callout-warn strong{color:var(--amber);font-weight:600;}
+.callout-danger{background:var(--danger-bg);border:1px solid var(--danger-border);color:var(--text);}
+.callout-danger strong{color:var(--danger);font-weight:600;}
+.callout-success{background:var(--success-bg);border:1px solid var(--success-border);color:var(--text);}
+.callout-success strong{color:var(--success);font-weight:600;}
+
+/* TABLES */
+.tbl{width:100%;border-collapse:collapse;font-size:11.5px;background:var(--card);border:1px solid var(--border);border-radius:6px;overflow:hidden;}
+.tbl th,.tbl td{padding:8px 10px;text-align:left;border-bottom:1px solid var(--border);vertical-align:top;line-height:1.45;}
+.tbl th{font-size:9px;font-weight:700;letter-spacing:0.06em;color:var(--text-dim);text-transform:uppercase;background:var(--card-soft);}
+.tbl tbody tr:last-child td{border-bottom:none;}
+.tbl tbody tr:hover{background:var(--card-soft);}
+.tbl td strong{color:var(--text);font-weight:600;}
+.tbl .mono-cell{font-family:var(--mono);font-size:10.5px;color:var(--text-muted);}
+.tbl .num-cell{font-family:var(--mono);font-size:11px;font-weight:600;color:var(--text);text-align:right;}
+
+/* TWO COLUMN */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:20px;flex:1;align-items:start;}
+.two-col-1-2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:20px;align-items:start;}
+.three-col{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+
+/* PAGE 2 — PILLARS */
+.pillars-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px;}
+.pillar-sm{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px 16px;border-top:3px solid var(--primary);}
+.pillar-sm-num{font-family:var(--mono);font-size:10px;font-weight:600;color:var(--primary);margin-bottom:4px;letter-spacing:0.04em;}
+.pillar-sm h3{font-size:14px;margin-bottom:4px;}
+.pillar-sm p{font-size:11.5px;color:var(--text-muted);line-height:1.5;margin:0;}
+
+.jobs-row{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin-bottom:16px;}
+.job-tile{background:var(--card);border:1px solid var(--border);border-radius:6px;padding:10px 8px;text-align:center;}
+.job-tile-icon{font-size:16px;margin-bottom:3px;}
+.job-tile-name{font-size:10px;font-weight:600;color:var(--text);letter-spacing:0.02em;}
+
+.arch-flow{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px 18px;margin-top:8px;}
+.arch-flow-title{font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-dim);margin-bottom:10px;}
+.arch-layers{display:grid;grid-template-columns:1fr 1fr 1fr 1fr 1fr;gap:6px;}
+.arch-layer{background:var(--card-soft);border:1px solid var(--border);border-radius:5px;padding:8px 6px;text-align:center;position:relative;}
+.arch-layer:not(:last-child)::after{content:'→';position:absolute;right:-8px;top:50%;transform:translateY(-50%);color:var(--text-dim);font-size:11px;z-index:1;}
+.arch-layer-name{font-size:10.5px;font-weight:600;color:var(--text);margin-bottom:2px;}
+.arch-layer-desc{font-size:9px;color:var(--text-muted);line-height:1.35;}
+
+/* PAGE 3 — SOURCE MATRIX */
+.source-matrix{display:flex;flex-direction:column;gap:6px;}
+.source-row{display:grid;grid-template-columns:150px 100px 1fr 130px;gap:10px;padding:8px 12px;background:var(--card);border:1px solid var(--border);border-radius:5px;font-size:11px;align-items:center;}
+.source-row-name{font-weight:600;color:var(--text);}
+.source-row-mode{font-family:var(--mono);font-size:10px;color:var(--text-muted);}
+.source-row-desc{color:var(--text-secondary);line-height:1.4;}
+.source-row-status{text-align:right;}
+
+/* PAGE 4 — TOPOLOGY */
+.topo-mini{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px;position:relative;height:280px;overflow:hidden;}
+.topo-node-mini{position:absolute;padding:6px 10px;border:1.5px solid var(--border);border-radius:5px;font-size:10px;font-weight:600;background:white;white-space:nowrap;z-index:1;}
+.topo-node-mini.agent{border-color:var(--primary);background:var(--primary-light);color:var(--primary);}
+.topo-node-mini.cap{border-color:var(--info);background:var(--info-bg);color:var(--info);}
+.topo-node-mini.tool{border-color:var(--success);background:var(--success-bg);color:var(--success);}
+.topo-node-mini.target{border-color:var(--amber);background:var(--amber-bg);color:var(--amber);}
+.topo-node-mini.unknown{border-style:dashed;border-color:var(--text-dim);color:var(--text-muted);background:var(--card-soft);}
+
+/* PAGE 5 — FIVE PLANES */
+.planes-row{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:16px;}
+.plane-card{background:var(--card);border:1px solid var(--border);border-radius:6px;padding:10px 12px;border-top:2px solid var(--border);}
+.plane-card:nth-child(1){border-top-color:var(--primary);}
+.plane-card:nth-child(2){border-top-color:var(--info);}
+.plane-card:nth-child(3){border-top-color:var(--amber);}
+.plane-card:nth-child(4){border-top-color:var(--purple);}
+.plane-card:nth-child(5){border-top-color:var(--success);}
+.plane-num{font-family:var(--mono);font-size:9px;font-weight:600;color:var(--text-dim);letter-spacing:0.04em;margin-bottom:3px;}
+.plane-title{font-size:11px;font-weight:600;color:var(--text);line-height:1.3;margin-bottom:3px;}
+.plane-desc{font-size:10px;color:var(--text-muted);line-height:1.4;}
+
+/* PAGE 6 — ENGINE */
+.chain-flow{display:flex;flex-direction:column;gap:6px;margin-bottom:14px;}
+.chain-step{display:flex;align-items:center;gap:10px;padding:8px 12px;background:var(--card);border:1px solid var(--border);border-radius:5px;font-size:11px;}
+.chain-step-num{width:20px;height:20px;border-radius:50%;background:var(--primary-light);color:var(--primary);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;}
+.chain-step.done .chain-step-num{background:var(--success);color:white;}
+.chain-step-body{flex:1;}
+.chain-step-title{font-size:11px;font-weight:600;color:var(--text);}
+.chain-step-desc{font-size:10px;color:var(--text-muted);line-height:1.4;}
+.chain-step-arrow{color:var(--text-dim);font-size:10px;flex-shrink:0;}
+
+/* PAGE 7 — PACKAGE */
+.package-stat{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;}
+.package-stat-num{padding:14px 16px;background:var(--card);border:1px solid var(--border);border-radius:6px;}
+.package-stat-label{font-size:9.5px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-dim);margin-bottom:3px;}
+.package-stat-value{font-size:26px;font-weight:600;color:var(--text);font-family:var(--mono);}
+.package-stat-desc{font-size:10px;color:var(--text-muted);line-height:1.4;margin-top:2px;}
+
+/* PAGE 8 — TENANT */
+.tenant-diagram{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px;margin-bottom:14px;}
+.tenant-lane{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:var(--card-soft);border:1px solid var(--border);border-radius:5px;margin-bottom:6px;font-size:11px;}
+.tenant-lane-name{font-weight:600;color:var(--text);}
+.tenant-lane-boundary{font-family:var(--mono);font-size:10px;color:var(--amber);}
+
+/* PAGE 10 — DENOMINATORS */
+.denom-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px;}
+.denom-card{padding:12px 14px;background:var(--card);border:1px solid var(--border);border-radius:6px;}
+.denom-card-highlight{border-left:3px solid var(--primary);}
+.denom-label{font-size:9px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-dim);margin-bottom:3px;}
+.denom-num{font-family:var(--mono);font-size:22px;font-weight:600;color:var(--text);line-height:1.1;}
+.denom-desc{font-size:10px;color:var(--text-muted);line-height:1.4;margin-top:2px;}
+
+/* PAGE 11 — CONTROL PASSPORT */
+.passport{background:var(--card);border:1px solid var(--border);border-radius:8px;overflow:hidden;}
+.passport-head{padding:10px 14px;background:var(--card-soft);border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;}
+.passport-id{font-family:var(--mono);font-size:11px;font-weight:600;color:var(--text);}
+.passport-title{font-size:11.5px;font-weight:600;color:var(--text);}
+.passport-facets{padding:10px 12px;display:grid;grid-template-columns:1fr 1fr;gap:5px;}
+.passport-facet{display:flex;align-items:center;gap:6px;padding:5px 8px;border-radius:4px;font-size:10px;background:var(--card-soft);}
+.passport-facet-icon{width:12px;height:12px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:7px;font-weight:700;flex-shrink:0;}
+.passport-facet.success .passport-facet-icon{background:var(--success-bg);color:var(--success);border:1px solid var(--success-border);}
+.passport-facet.amber .passport-facet-icon{background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-border);}
+.passport-facet.neutral .passport-facet-icon{background:var(--card);color:var(--text-dim);border:1px solid var(--border);}
+.passport-facet-label{color:var(--text);font-weight:500;}
+.passport-facet-state{margin-left:auto;font-family:var(--mono);font-size:9px;color:var(--text-muted);}
+
+/* PAGE 12 — CI SWIMLANE */
+.swimlane{display:flex;flex-direction:column;gap:4px;margin-bottom:14px;}
+.swim-stage{display:grid;grid-template-columns:100px 1fr;gap:10px;align-items:center;padding:8px 10px;background:var(--card);border:1px solid var(--border);border-radius:5px;font-size:10.5px;}
+.swim-stage-name{font-weight:600;color:var(--text);font-size:11px;}
+.swim-stage-content{color:var(--text-secondary);line-height:1.4;}
+.swim-note{font-size:9.5px;color:var(--text-dim);font-style:italic;margin-top:2px;}
+
+/* PAGE 15 — INTERVENTION */
+.intervention{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin-bottom:14px;}
+.intervention-step{background:var(--card);border:1px solid var(--border);border-radius:5px;padding:8px 6px;text-align:center;font-size:9.5px;position:relative;}
+.intervention-step:not(:last-child)::after{content:'→';position:absolute;right:-6px;top:50%;transform:translateY(-50%);color:var(--text-dim);font-size:9px;z-index:1;}
+.intervention-icon{font-size:14px;margin-bottom:2px;}
+.intervention-label{font-weight:600;color:var(--text);font-size:9.5px;line-height:1.2;}
+.intervention-state{margin-top:3px;font-family:var(--mono);font-size:8px;padding:1px 4px;border-radius:2px;display:inline-block;}
+.intervention-state.dotted{background:var(--card-soft);color:var(--text-dim);}
+.intervention-state.solid{background:var(--success-bg);color:var(--success);}
+
+/* PAGE 19 — TWO LANE */
+.two-lane{background:var(--card);border:1px solid var(--border);border-radius:8px;overflow:hidden;}
+.lane-head{display:grid;grid-template-columns:1fr 1fr;}
+.lane-head-cell{padding:8px 14px;font-size:10px;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;}
+.lane-head-cell.lane-a{background:var(--success-bg);color:var(--success);border-right:1px solid var(--border);}
+.lane-head-cell.lane-b{background:var(--purple-bg);color:var(--purple);}
+.lane-body{display:grid;grid-template-columns:1fr 1fr;}
+.lane-body-cell{padding:10px 14px;font-size:10.5px;line-height:1.5;border-top:1px solid var(--border);}
+.lane-body-cell.lane-a{border-right:1px solid var(--border);}
+.lane-step{display:flex;gap:8px;margin-bottom:8px;align-items:flex-start;}
+.lane-step:last-child{margin-bottom:0;}
+.lane-step-icon{width:16px;height:16px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;flex-shrink:0;margin-top:1px;}
+.lane-a .lane-step-icon{background:var(--success);color:white;}
+.lane-b .lane-step-icon{background:var(--purple);color:white;}
+
+/* PAGE 20 — TEST EVIDENCE */
+.evidence-block{background:var(--card);border:1px solid var(--border);border-radius:6px;padding:10px 12px;margin-bottom:8px;}
+.evidence-label{font-family:var(--mono);font-size:10px;font-weight:600;color:var(--primary);margin-bottom:3px;}
+.evidence-value{font-size:11px;color:var(--text);line-height:1.5;}
+.evidence-meta{font-size:9.5px;color:var(--text-dim);margin-top:3px;font-family:var(--mono);}
+
+/* POC CARD */
+.poc-accept{background:linear-gradient(135deg,#EEF2FF 0%,#FFFFFF 100%);border:1px solid var(--primary-border);border-radius:8px;padding:16px 20px;margin-top:14px;}
+.poc-accept-title{font-size:13px;font-weight:600;color:var(--text);margin-bottom:8px;}
+.poc-accept-list{list-style:none;display:flex;flex-direction:column;gap:5px;}
+.poc-accept-list li{font-size:11px;line-height:1.5;color:var(--text-secondary);padding-left:16px;position:relative;}
+.poc-accept-list li::before{content:'✓';position:absolute;left:0;color:var(--primary);font-weight:700;font-size:10px;}
+
+/* KEY/NAME-VALUE */
+.kv{display:flex;justify-content:space-between;gap:8px;padding:5px 0;border-bottom:1px solid var(--border);font-size:11px;}
+.kv:last-child{border-bottom:none;}
+.kv-label{color:var(--text-muted);}
+.kv-value{color:var(--text);font-weight:500;font-family:var(--mono);font-size:10.5px;text-align:right;}
+
+/* PRINT */
+@page{size:11in 8.5in;margin:0;}
+@media print{
+  html{scroll-snap-type:none;}
+  body{background:white;-webkit-print-color-adjust:exact;print-color-adjust:exact;font-size:11px;}
+  .slide{min-height:0;height:8.5in;width:11in;page-break-after:always;page-break-inside:avoid;padding:32px 44px 28px;overflow:hidden;}
+  .nav-rail,.page-counter{display:none!important;}
+  .slide:last-child{page-break-after:auto;}
+  h2{font-size:22px;} p{font-size:11px;}
+  .tbl{font-size:10px;}
+  .tbl th,.tbl td{padding:6px 8px;}
+}
+
+/* RESPONSIVE */
+@media (max-width:1024px){
+  .slide{padding:32px 28px;}
+  h1,h2{font-size:24px;} .cover h1{font-size:36px;}
+  .two-col,.two-col-1-2,.three-col,.pillars-row,.planes-row,.denom-grid,.package-stat,.packet-grid{grid-template-columns:1fr;}
+  .jobs-row{grid-template-columns:repeat(3,1fr);}
+  .arch-layers,.intervention{grid-template-columns:1fr 1fr 1fr;}
+  .source-row{grid-template-columns:1fr;gap:2px;}
+  .source-row-status{text-align:left;}
+  .lane-head,.lane-body{grid-template-columns:1fr;}
+  .lane-head-cell.lane-a{border-right:none;border-bottom:1px solid var(--border);}
+  .lane-body-cell.lane-a{border-right:none;}
+}
+@media (max-width:600px){
+  .slide{padding:24px 16px;}
+  h1{font-size:20px;} .cover h1{font-size:24px;} h2{font-size:18px;}
+  .nav-rail{right:8px;padding:4px;} .page-counter{right:8px;bottom:8px;}
+  .jobs-row,.arch-layers,.intervention,.pillars-row{grid-template-columns:1fr 1fr;}
+  .passport-facets{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav-rail" id="nav-rail"></nav>
+<div class="page-counter" id="page-counter">01 / 20</div>
+
+<!-- ═══════════════════════════════════════════════
+     PAGE 1 — COVER
+     ═══════════════════════════════════════════════ -->
+<section class="slide cover" data-slide="1">
+  <div class="slide-inner">
+    <div class="cover-brand">
+      <div class="cover-mark">H</div>
+      <div class="cover-brand-text">HAIEC</div>
+      <div class="cover-brand-sub">Technical Capability & Control Annex · 2026</div>
+    </div>
+    <div class="eyebrow" style="color:var(--primary);">Source-backed technical annex</div>
+    <h1>What HAIEC<br>actually does,<br>and what it doesn't.</h1>
+    <p class="lead">The evidence-basis companion to the executive capability brief. Every capability labeled by readiness. Every claim traceable to a source. Every boundary named before a CISO asks.</p>
+    <div class="cover-meta">
+      <a class="cover-meta-item" href="/enterprise/resources/enterprise-capability-brief.html"><strong>Executive capability brief ↗</strong>Business value and enterprise POC</a>
+      <a class="cover-meta-item" href="/enterprise/resources/technical-reference-tables.html"><strong>Technical tables A–F ↗</strong>Control and framework crosswalks</a>
+      <a class="cover-meta-item" href="https://www.haiec.com/enterprise#qualify"><strong>Scope an enterprise POC ↗</strong>Current commercial terms on HAIEC</a>
+      <div class="cover-meta-item"><strong>20 pages</strong>Technical reference</div>
+      <div class="cover-meta-item"><strong>7 status classes</strong>No conflated counts</div>
+      <div class="cover-meta-item"><strong>Manufacturing S217</strong>Verified evaluated case</div>
+      <div class="cover-meta-item"><strong>TM Forum C7/C9/C16</strong>Archived control evidence</div>
+    </div>
+  </div>
+  <div class="slide-footer">
+    <span>HAIEC · Source-checked reference · not a production acceptance audit</span>
+    <span>01 / 20</span>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     PAGE 2 — PROPOSITION & BOUNDARY
+     ═══════════════════════════════════════════════ -->
+<section class="slide" data-slide="2">
+  <div class="slide-inner">
+    <div class="slide-head"><span class="section-tag">Architecture</span><span>02 · Technical proposition</span></div>
+    <div class="eyebrow">Technical proposition</div>
+    <h2>What HAIEC does. What it does not do. How to read the status labels.</h2>
+
+    <div class="legend-bar">
+      <span class="legend-bar-title">Status legend</span>
+      <span class="legend-tag demonstrated">Demonstrated · persisted evidence</span>
+      <span class="legend-tag supported">Supported pathway</span>
+      <span class="legend-tag evidence">Evidence-dependent</span>
+      <span class="legend-tag preview">Preview / held</span>
+      <span class="legend-tag simulated">Scenario simulation</span>
+      <span class="legend-tag cataloged">Cataloged / proposed</span>
+      <span class="legend-tag notest">Not established</span>
+    </div>
+
+    <div class="two-col">
+      <div>
+        <h4>What HAIEC does</h4>
+        <div class="card-tight" style="background:var(--success-bg);border:1px solid var(--success-border);margin-bottom:12px;">
+          <div style="font-size:11px;line-height:1.55;color:var(--text-secondary);">
+            <div style="margin-bottom:6px;"><strong style="color:var(--success);">Establishes</strong> consequential actions an AI system can cause.</div>
+            <div style="margin-bottom:6px;"><strong style="color:var(--success);">Compares</strong> requested, policy-authorized, effectively granted, code-capable and observed authority.</div>
+            <div style="margin-bottom:6px;"><strong style="color:var(--success);">Evaluates</strong> deterministic controls against qualified evidence.</div>
+            <div style="margin-bottom:6px;"><strong style="color:var(--success);">Records</strong> human decisions with digest-bound receipts.</div>
+            <div><strong style="color:var(--success);">Surfaces</strong> what remains unknown, unassessed, or held.</div>
+          </div>
+        </div>
+
+        <h4>What HAIEC does not do</h4>
+        <div class="card-tight" style="background:var(--danger-bg);border:1px solid var(--danger-border);">
+          <div style="font-size:11px;line-height:1.55;color:var(--text-secondary);">
+            <div style="margin-bottom:6px;"><strong style="color:var(--danger);">Does not replace</strong> IAM, SIEM, AppSec or GRC.</div>
+            <div style="margin-bottom:6px;"><strong style="color:var(--danger);">Does not certify</strong> compliance — framework mappings are context.</div>
+            <div style="margin-bottom:6px;"><strong style="color:var(--danger);">Does not guarantee</strong> runtime enforcement — native adapters are per-target.</div>
+            <div style="margin-bottom:6px;"><strong style="color:var(--danger);">Does not issue</strong> a safety verdict — dispositions are scoped to evidence.</div>
+            <div><strong style="color:var(--danger);">Does not silently promote</strong> uploads to detector evidence.</div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <h4>What makes HAIEC different</h4>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <div class="card-tight">
+            <div style="font-size:11px;font-weight:600;color:var(--text);margin-bottom:2px;">Deterministic, not LLM-in-the-loop</div>
+            <div style="font-size:10.5px;color:var(--text-muted);line-height:1.45;">Assurance engine evaluates fixed rules against qualified evidence. Same input, same result, same digest.</div>
+          </div>
+          <div class="card-tight">
+            <div style="font-size:11px;font-weight:600;color:var(--text);margin-bottom:2px;">Authority-to-action, not just access</div>
+            <div style="font-size:10.5px;color:var(--text-muted);line-height:1.45;">Compares what was approved, granted, code-capable, and observed. The gap is the finding.</div>
+          </div>
+          <div class="card-tight">
+            <div style="font-size:11px;font-weight:600;color:var(--text);margin-bottom:2px;">Lifecycle, not one stage</div>
+            <div style="font-size:10.5px;color:var(--text-muted);line-height:1.45;">Pre-deploy, release, runtime, and audit share the same evidence spine.</div>
+          </div>
+          <div class="card-tight">
+            <div style="font-size:11px;font-weight:600;color:var(--text);margin-bottom:2px;">Honest about gaps</div>
+            <div style="font-size:10.5px;color:var(--text-muted);line-height:1.45;">NOT_ASSESSED never downgraded. Frontier items named. Held features labeled before a CISO asks.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer"><span>HAIEC · Technical Annex</span><span>02 / 20</span></div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     PAGE 3 — OPERATING ARCHITECTURE
+     ═══════════════════════════════════════════════ -->
+<section class="slide" data-slide="3">
+  <div class="slide-inner">
+    <div class="slide-head"><span class="section-tag">Architecture</span><span>03 · Operating architecture</span></div>
+    <div class="eyebrow">Operating architecture</div>
+    <h2>Three pillars, six independent jobs, one evidence spine.</h2>
+
+    <div class="pillars-row">
+      <div class="pillar-sm">
+        <div class="pillar-sm-num">01 · UNDERSTAND</div>
+        <h3>Discover the estate</h3>
+        <p>AI systems, agents, tools, MCP servers, APIs, cloud resources. Ownership, environment, evidence modes.</p>
+      </div>
+      <div class="pillar-sm">
+        <div class="pillar-sm-num">02 · ASSURE</div>
+        <h3>Evaluate evidence</h3>
+        <p>Five evidence planes. DAI orthogonal comparison. Deterministic dispositions. Per-analyzer participation.</p>
+      </div>
+      <div class="pillar-sm">
+        <div class="pillar-sm-num">03 · GOVERN & OPERATE</div>
+        <h3>Decide and prove</h3>
+        <p>Human decisions, receipts, runtime monitoring, drift signals, response, verification.</p>
+      </div>
+    </div>
+
+    <h4 style="margin-bottom:6px;">Six independent customer jobs — not sequential stages</h4>
+    <div class="jobs-row">
+      <div class="job-tile"><div class="job-tile-icon">🔍</div><div class="job-tile-name">Discover</div></div>
+      <div class="job-tile"><div class="job-tile-icon">🛡️</div><div class="job-tile-name">Evaluate</div></div>
+      <div class="job-tile"><div class="job-tile-icon">✅</div><div class="job-tile-name">Authorize</div></div>
+      <div class="job-tile"><div class="job-tile-icon">👁️</div><div class="job-tile-name">Monitor</div></div>
+      <div class="job-tile"><div class="job-tile-icon">🛑</div><div class="job-tile-name">Protect</div></div>
+      <div class="job-tile"><div class="job-tile-icon">📋</div><div class="job-tile-name">Verify</div></div>
+    </div>
+
+    <div class="arch-flow">
+      <div class="arch-flow-title">Evidence flow</div>
+      <div class="arch-layers">
+        <div class="arch-layer"><div class="arch-layer-name">Sources</div><div class="arch-layer-desc">Repo · IAM · OTLP · SBOM · Attestation</div></div>
+        <div class="arch-layer"><div class="arch-layer-name">Qualified</div><div class="arch-layer-desc">Binder · digest · source identity</div></div>
+        <div class="arch-layer"><div class="arch-layer-name">Engine</div><div class="arch-layer-desc">Deterministic rules · 5 planes · DAI</div></div>
+        <div class="arch-layer"><div class="arch-layer-name">Decision</div><div class="arch-layer-desc">Human approval · scoped</div></div>
+        <div class="arch-layer"><div class="arch-layer-name">Receipt</div><div class="arch-layer-desc">Frozen · digest-bound · replayable</div></div>
+      </div>
+    </div>
+
+    <div class="callout callout-info" style="margin-top:14px;">
+      <strong>Key distinction:</strong> the AI assistant and the MCP surface <em>guide and query</em>. The canonical deterministic engines <em>produce evidence-bound decisions</em>. A model response is not a verdict. An uploaded file is not detector evidence until qualified.
+    </div>
+  </div>
+  <div class="slide-footer"><span>HAIEC · Technical Annex</span><span>03 / 20</span></div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     PAGE 4 — INVENTORY & SOURCE MODES
+     ═══════════════════════════════════════════════ -->
+<section class="slide" data-slide="4">
+  <div class="slide-inner">
+    <div class="slide-head"><span class="section-tag">Architecture</span><span>04 · Sources & access</span></div>
+    <div class="eyebrow">Sources & access</div>
+    <h2>Six source modes. Distinct readiness. Never collapsed.</h2>
+
+    <div class="source-matrix">
+      <div class="source-row" style="background:var(--card-soft);font-weight:700;font-size:9px;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-dim);">
+        <span>Source</span><span>Mode</span><span>What it establishes</span><span style="text-align:right;">Readiness</span>
+      </div>
+      <div class="source-row">
+        <div class="source-row-name">GitHub App</div>
+        <div class="source-row-mode">OAuth install</div>
+        <div class="source-row-desc">GitHub App remote assurance for authorized repositories. PR scanning, comments and evidence qualification depend on the actual configured workflow and source scope.</div>
+        <div class="source-row-status"><span class="status-chip demonstrated">Ready</span></div>
+      </div>
+      <div class="source-row">
+        <div class="source-row-name">IDE / MCP</div>
+        <div class="source-row-mode">Scoped read/write MCP</div>
+        <div class="source-row-desc">Inspect systems, evaluations and receipts; separately authorized scoped mutation tools also exist. Human approvals and source consent remain independently gated.</div>
+        <div class="source-row-status"><span class="status-chip supported">Ready</span></div>
+      </div>
+      <div class="source-row">
+        <div class="source-row-name">API</div>
+        <div class="source-row-mode">Org-keyed HTTP</div>
+        <div class="source-row-desc">Submit typed evidence, SARIF import, scan bundles, IAM exports. Every upload qualified before use.</div>
+        <div class="source-row-status"><span class="status-chip demonstrated">Ready</span></div>
+      </div>
+      <div class="source-row">
+        <div class="source-row-name">Structured source</div>
+        <div class="source-row-mode">Binder mapping</div>
+        <div class="source-row-desc">JSON, JSONL, CSV, logs to a registered typed profile. Field-mapped; unmapped files stay evidence-only.</div>
+        <div class="source-row-status"><span class="status-chip demonstrated">Ready</span></div>
+      </div>
+      <div class="source-row">
+        <div class="source-row-name">Local / CI bundle</div>
+        <div class="source-row-mode">ZIP or tar.gz</div>
+        <div class="source-row-desc">Preview distribution. Bundle submitted, then qualified. Full static depth requires source tree to be complete.</div>
+        <div class="source-row-status"><span class="status-chip preview">Preview</span></div>
+      </div>
+      <div class="source-row">
+        <div class="source-row-name">Runtime endpoint test</div>
+        <div class="source-row-mode">Authorized probe</div>
+        <div class="source-row-desc">Empirical attack simulation against authorized endpoint. Not passive monitoring. Requires operator consent.</div>
+        <div class="source-row-status"><span class="status-chip evidence">Available with authorization</span></div>
+      </div>
+    </div>
+
+    <div class="callout callout-warn" style="margin-top:14px;">
+      <strong>Ingest ≠ qualified ≠ evaluated.</strong> HTTP 200 means the request was received. Qualification means it was authenticated, source-bound, and schema-validated against a binder. Evaluation means a detector actually ran against it. A successful upload can stop at the first stage.
+    </div>
+  </div>
+  <div class="slide-footer"><span>HAIEC · Technical Annex</span><span>04 / 20</span></div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     PAGE 5 — CONSEQUENTIAL ACTION PATHS
+     ═══════════════════════════════════════════════ -->
+<section class="slide" data-slide="5">
+  <div class="slide-inner">
+    <div class="slide-head"><span class="section-tag">Architecture</span><span>05 · Action paths</span></div>
+    <div class="eyebrow">Consequential action paths</div>
+    <h2>Agent → capability → tool → target → consequence. With the evidence frontier drawn.</h2>
+
+    <div class="topo-mini">
+      <div class="topo-node-mini agent" style="left:20px;top:40px;">support-triage-v3</div>
+      <div class="topo-node-mini cap" style="left:200px;top:30px;">refund.create</div>
+      <div class="topo-node-mini cap" style="left:200px;top:90px;">session.read</div>
+      <div class="topo-node-mini tool" style="left:370px;top:30px;">stripe-tool</div>
+      <div class="topo-node-mini tool" style="left:370px;top:90px;">customer-db</div>
+      <div class="topo-node-mini target" style="left:540px;top:30px;">stripe-prod</div>
+      <div class="topo-node-mini target" style="left:540px;top:90px;">db-prod</div>
+      <div class="topo-node-mini cap" style="left:200px;top:190px;">undeclared ???</div>
+      <div class="topo-node-mini tool" style="left:370px;top:190px;">unreg-tool</div>
+      <div class="topo-node-mini unknown" style="left:540px;top:190px;">target ???</div>
+      <div style="position:absolute;left:20px;top:220px;font-size:9px;color:var(--text-muted);font-family:var(--mono);">
+        <div><span style="color:var(--success);">━</span> qualified path</div>
+        <div><span style="color:var(--amber);">┅</span> candidate (source-reachable, not confirmed)</div>
+        <div><span style="color:var(--text-dim);">┈</span> unknown (registry gap)</div>
+      </div>
+      <svg style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;">
+        <line x1="110" y1="52" x2="200" y2="42" stroke="#067647" stroke-width="1.5"/>
+        <line x1="110" y1="52" x2="200" y2="102" stroke="#067647" stroke-width="1.5"/>
+        <line x1="260" y1="42" x2="370" y2="42" stroke="#067647" stroke-width="1.5"/>
+        <line x1="260" y1="102" x2="370" y2="102" stroke="#067647" stroke-width="1.5"/>
+        <line x1="440" y1="42" x2="540" y2="42" stroke="#067647" stroke-width="1.5"/>
+        <line x1="440" y1="102" x2="540" y2="102" stroke="#067647" stroke-width="1.5"/>
+        <line x1="110" y1="70" x2="200" y2="200" stroke="#B54708" stroke-width="1.5" stroke-dasharray="4,3"/>
+        <line x1="260" y1="200" x2="370" y2="200" stroke="#B54708" stroke-width="1.5" stroke-dasharray="4,3"/>
+        <line x1="440" y1="200" x2="540" y2="200" stroke="#98A2B3" stroke-width="1.5" stroke-dasharray="2,4"/>
+      </svg>
+    </div>
+
+    <div class="two-col" style="margin-top:14px;">
+      <div>
+        <div class="card-tight">
+          <div style="font-size:11px;font-weight:600;color:var(--text);margin-bottom:4px;">Qualified path</div>
+          <div style="font-size:10.5px;color:var(--text-muted);line-height:1.5;">Every step backed by evidence: source, runtime observation, registry, or target readback. Can be claimed in an evaluation.</div>
+        </div>
+      </div>
+      <div>
+        <div class="card-tight" style="background:var(--amber-bg);border-color:var(--amber-border);">
+          <div style="font-size:11px;font-weight:600;color:var(--amber);margin-bottom:4px;">Candidate + unknown path</div>
+          <div style="font-size:10.5px;color:var(--text-muted);line-height:1.5;">Source reaches it, but downstream is not established. Never rendered as proven. Never asserted as absent.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout callout-info" style="margin-top:12px;">
+      <strong>Missing edge ≠ no risk.</strong> When a registry entry doesn't exist, HAIEC cannot see what the path affects. The honest state is <span class="mono" style="font-size:10px;">NOT_ESTABLISHED</span> — a reason to request further evidence, not a silent pass.
+    </div>
+  </div>
+  <div class="slide-footer"><span>HAIEC · Technical Annex</span><span>05 / 20</span></div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     PAGE 6 — FIVE PLANES + DAI
+     ═══════════════════════════════════════════════ -->
+<section class="slide" data-slide="6">
+  <div class="slide-inner">
+    <div class="slide-head"><span class="section-tag">Architecture</span><span>06 · Five planes + DAI</span></div>
+    <div class="eyebrow">The authority gap</div>
+    <h2>Five independent evidence planes. DAI as a separate comparison — not a sixth plane.</h2>
+
+    <div class="planes-row">
+      <div class="plane-card"><div class="plane-num">01</div><div class="plane-title">Requested</div><div class="plane-desc">What the AI system asks to do.</div></div>
+      <div class="plane-card"><div class="plane-num">02</div><div class="plane-title">Policy-authorized</div><div class="plane-desc">What the business permits.</div></div>
+      <div class="plane-card"><div class="plane-num">03</div><div class="plane-title">Effectively granted</div><div class="plane-desc">What credentials actually allow.</div></div>
+      <div class="plane-card"><div class="plane-num">04</div><div class="plane-title">Code-capable</div><div class="plane-desc">What code can reach.</div></div>
+      <div class="plane-card"><div class="plane-num">05</div><div class="plane-title">Observed</div><div class="plane-desc">What runtime evidence shows.</div></div>
+    </div>
+
+    <div class="two-col">
+      <div>
+        <h4>Comparison, not sequence</h4>
+        <p style="font-size:11.5px;">The five planes are independent assertions. HAIEC does not require them to be supplied in order, and does not require all five to reach a finding. A single-plane evaluation is valid — it just names fewer established facts.</p>
+
+        <div class="card-tight" style="background:var(--card-soft);margin-top:8px;">
+          <div style="font-size:10.5px;line-height:1.55;color:var(--text-secondary);">
+            <strong style="color:var(--text);">The mismatch is the finding.</strong> Requested but not policy-authorized → business policy gap. Policy-authorized but not effectively granted → provisioning gap. Effectively granted but not code-reachable → dead privilege. Code-reachable but not observed → latent exposure.
+          </div>
+        </div>
+      </div>
+      <div>
+        <h4>DAI — nine orthogonal dimensions</h4>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px 10px;font-size:10.5px;line-height:1.5;">
+          <div><span class="mono" style="color:var(--text-muted);font-size:9.5px;">OPERATION</span></div>
+          <div style="color:var(--text-secondary);">action semantics</div>
+          <div><span class="mono" style="color:var(--text-muted);font-size:9.5px;">TARGET</span></div>
+          <div style="color:var(--text-secondary);">resource or entity</div>
+          <div><span class="mono" style="color:var(--text-muted);font-size:9.5px;">SCOPE</span></div>
+          <div style="color:var(--text-secondary);">tenant, domain, boundary</div>
+          <div><span class="mono" style="color:var(--text-muted);font-size:9.5px;">MAGNITUDE</span></div>
+          <div style="color:var(--text-secondary);">amount or volume</div>
+          <div><span class="mono" style="color:var(--text-muted);font-size:9.5px;">DURATION</span></div>
+          <div style="color:var(--text-secondary);">time window</div>
+          <div><span class="mono" style="color:var(--text-muted);font-size:9.5px;">APPROVAL</span></div>
+          <div style="color:var(--text-secondary);">human authority</div>
+          <div><span class="mono" style="color:var(--text-muted);font-size:9.5px;">DATA_CLASS</span></div>
+          <div style="color:var(--text-secondary);">sensitivity tier</div>
+          <div><span class="mono" style="color:var(--text-muted);font-size:9.5px;">ENVIRONMENT</span></div>
+          <div style="color:var(--text-secondary);">prod / staging / dev</div>
+          <div><span class="mono" style="color:var(--text-muted);font-size:9.5px;">GEOGRAPHY</span></div>
+          <div style="color:var(--text-secondary);">jurisdiction or region</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout callout-warn" style="margin-top:12px;">
+      <strong>Delegation ≠ a sixth plane.</strong> DAI compares a <em>delegated chain</em> against the policy that authorized it. The five planes describe authority classes; DAI describes <em>narrowing or widening at a specific delegation hop</em>. Both are required to answer the authority question.
+    </div>
+  </div>
+  <div class="slide-footer"><span>HAIEC · Technical Annex</span><span>06 / 20</span></div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     PAGE 7 — DETERMINISTIC ENGINE
+     ═══════════════════════════════════════════════ -->
+<section class="slide" data-slide="7">
+  <div class="slide-inner">
+    <div class="slide-head"><span class="section-tag">Architecture</span><span>07 · Assurance Engine</span></div>
+    <div class="eyebrow">The deterministic engine</div>
+    <h2>Claim → evidence → finding → disposition. Nothing bypasses a step.</h2>
+
+    <div class="two-col-1-2">
+      <div>
+        <div class="chain-flow">
+          <div class="chain-step done"><div class="chain-step-num">1</div><div class="chain-step-body"><div class="chain-step-title">Claim</div><div class="chain-step-desc">A statement the profile asks about</div></div></div>
+          <div class="chain-step-arrow" style="text-align:center;">↓</div>
+          <div class="chain-step done"><div class="chain-step-num">2</div><div class="chain-step-body"><div class="chain-step-title">Evidence scope</div><div class="chain-step-desc">Which sources, analyzers, window</div></div></div>
+          <div class="chain-step-arrow" style="text-align:center;">↓</div>
+          <div class="chain-step done"><div class="chain-step-num">3</div><div class="chain-step-body"><div class="chain-step-title">Qualification</div><div class="chain-step-desc">Binder, digest, source identity</div></div></div>
+          <div class="chain-step-arrow" style="text-align:center;">↓</div>
+          <div class="chain-step done"><div class="chain-step-num">4</div><div class="chain-step-body"><div class="chain-step-title">Finding</div><div class="chain-step-desc">Rule evaluated, result persisted</div></div></div>
+          <div class="chain-step-arrow" style="text-align:center;">↓</div>
+          <div class="chain-step done"><div class="chain-step-num">5</div><div class="chain-step-body"><div class="chain-step-title">Disposition</div><div class="chain-step-desc">Scoped ALLOW / REVIEW / BLOCK</div></div></div>
+          <div class="chain-step-arrow" style="text-align:center;">↓</div>
+          <div class="chain-step done"><div class="chain-step-num">6</div><div class="chain-step-body"><div class="chain-step-title">Receipt</div><div class="chain-step-desc">Frozen, digest-bound, replayable</div></div></div>
+        </div>
+      </div>
+      <div>
+        <div class="card-tight" style="background:var(--amber-bg);border-color:var(--amber-border);margin-bottom:10px;">
+          <div style="font-size:11px;font-weight:600;color:var(--amber);margin-bottom:3px;">Disposition is not authorization</div>
+          <div style="font-size:10.5px;color:var(--text-secondary);line-height:1.5;">An assessment may produce ALLOW / REVIEW / BLOCK only within the evaluated claim and configured decision semantics. It is not permission to deploy. It is not a certification. It is not a runtime enforcement action. Each of those is a separate layer.</div>
+        </div>
+
+        <h4>Proof frontier — always visible</h4>
+        <div class="card-tight" style="border-style:dashed;border-color:var(--border-hover);margin-bottom:10px;">
+          <div style="font-size:10.5px;line-height:1.55;color:var(--text-secondary);">
+            Every evaluation ships with an explicit <span class="mono" style="font-size:9.5px;">NOT_ASSESSED</span> list. Missing evidence is never scored as zero risk. Frontier items name the exact producers, sources, or registry entries that would close them.
+          </div>
+        </div>
+
+        <h4>What "reproducible" means</h4>
+        <ul style="list-style:none;font-size:10.5px;line-height:1.5;color:var(--text-secondary);">
+          <li style="padding-left:12px;position:relative;margin-bottom:3px;"><span style="position:absolute;left:0;color:var(--success);font-weight:700;">·</span>Same input scope → same findings</li>
+          <li style="padding-left:12px;position:relative;margin-bottom:3px;"><span style="position:absolute;left:0;color:var(--success);font-weight:700;">·</span>Same findings → same digest</li>
+          <li style="padding-left:12px;position:relative;margin-bottom:3px;"><span style="position:absolute;left:0;color:var(--success);font-weight:700;">·</span>Change one byte of evidence → digest invalidates</li>
+          <li style="padding-left:12px;position:relative;"><span style="position:absolute;left:0;color:var(--success);font-weight:700;">·</span>No LLM in the verdict path</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer"><span>HAIEC · Technical Annex</span><span>07 / 20</span></div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     PAGE 8 — AI APPSEC PACKAGE
+     ═══════════════════════════════════════════════ -->
+<section class="slide" data-slide="8">
+  <div class="slide-inner">
+    <div class="slide-head"><span class="section-tag">AI security</span><span>08 · AI AppSec package</span></div>
+    <div class="eyebrow">AI AppSec — separate package</div>
+    <h2>Static analysis for AI application code. A distinct developer package, not automatic SaaS assurance.</h2>
+
+    <div class="package-stat">
+      <div class="package-stat-num">
+        <div class="package-stat-label">Detectors</div>
+        <div class="package-stat-value">122</div>
+        <div class="package-stat-desc">Rule definitions in the AI AppSec security package</div>
+      </div>
+      <div class="package-stat-num">
+        <div class="package-stat-label">Security checks</div>
+        <div class="package-stat-value">79</div>
+        <div class="package-stat-desc">Grouped into observable findings across AI-specific code patterns</div>
+      </div>
+    </div>
+
+    <div class="two-col">
+      <div>
+        <h4>What it examines</h4>
+        <ul style="list-style:none;font-size:11px;line-height:1.55;color:var(--text-secondary);">
+          <li style="padding-left:14px;position:relative;margin-bottom:5px;"><span style="position:absolute;left:0;color:var(--info);font-weight:700;">·</span><strong style="color:var(--text);">Unsafe AI-output execution</strong> — model output fed into shells, SQL, templates, or eval</li>
+          <li style="padding-left:14px;position:relative;margin-bottom:5px;"><span style="position:absolute;left:0;color:var(--info);font-weight:700;">·</span><strong style="color:var(--text);">Prompt and RAG trust boundaries</strong> — untrusted content flowing into system prompts</li>
+          <li style="padding-left:14px;position:relative;margin-bottom:5px;"><span style="position:absolute;left:0;color:var(--info);font-weight:700;">·</span><strong style="color:var(--text);">Exposed secrets</strong> — API keys, tokens, credentials in source</li>
+          <li style="padding-left:14px;position:relative;margin-bottom:5px;"><span style="position:absolute;left:0;color:var(--info);font-weight:700;">·</span><strong style="color:var(--text);">Insecure API usage</strong> — permissive CORS, weak auth, missing rate limits</li>
+          <li style="padding-left:14px;position:relative;"><span style="position:absolute;left:0;color:var(--info);font-weight:700;">·</span><strong style="color:var(--text);">AI-specific vulnerabilities</strong> — tool exposure, memory risks, output handling</li>
+        </ul>
+      </div>
+      <div>
+        <div class="callout callout-warn">
+          <strong>Separate package, not an automatic pipeline.</strong> The 122/79 AI AppSec package can operate independently of the SaaS assurance surface. It does not automatically feed the core Assurance Engine unless a qualified integration route exists. Its findings appear as AI AppSec output, not as HAIEC-verified control results.
+        </div>
+        <div class="card-tight" style="margin-top:10px;">
+          <div style="font-size:10.5px;line-height:1.55;color:var(--text-secondary);">
+            <strong style="color:var(--text);">The distinction matters.</strong> A source-code finding is a claim about a file. It becomes an <em>assurance finding</em> only when that file is part of a qualified evaluation scope. HAIEC preserves the boundary in both its API and its UI.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer"><span>HAIEC · Technical Annex</span><span>08 / 20</span></div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     PAGE 9 — MCP & TENANT ISOLATION
+     ═══════════════════════════════════════════════ -->
+<section class="slide" data-slide="9">
+  <div class="slide-inner">
+    <div class="slide-head"><span class="section-tag">AI security</span><span>09 · MCP & tenant isolation</span></div>
+    <div class="eyebrow">MCP & tenant isolation — separate package</div>
+    <h2>57 deterministic rules for the boundary between tenants. Static detection ≠ exploit proof.</h2>
+
+    <div class="package-stat">
+      <div class="package-stat-num">
+        <div class="package-stat-label">Multi-tenant rules</div>
+        <div class="package-stat-value">42</div>
+        <div class="package-stat-desc">Data, query, session, cache, and tool isolation checks</div>
+      </div>
+      <div class="package-stat-num">
+        <div class="package-stat-label">MCP-specific rules</div>
+        <div class="package-stat-value">15</div>
+        <div class="package-stat-desc">Model Context Protocol boundary and authorization checks</div>
+      </div>
+    </div>
+
+    <h4>What it examines</h4>
+    <div class="tenant-diagram">
+      <div class="tenant-lane"><div class="tenant-lane-name">Tenant A</div><div class="tenant-lane-boundary">data · query · session · cache · tools</div></div>
+      <div class="tenant-lane"><div class="tenant-lane-name">Tenant B</div><div class="tenant-lane-boundary">data · query · session · cache · tools</div></div>
+      <div style="text-align:center;font-size:10px;color:var(--amber);font-family:var(--mono);padding:6px 0;">↕ boundary checks per rule class</div>
+      <div class="tenant-lane"><div class="tenant-lane-name">MCP server</div><div class="tenant-lane-boundary">tool exposure · schema · identity · auth</div></div>
+    </div>
+
+    <div class="two-col">
+      <div>
+        <div class="card-tight">
+          <div style="font-size:11px;font-weight:600;color:var(--text);margin-bottom:3px;">What it establishes</div>
+          <div style="font-size:10.5px;color:var(--text-muted);line-height:1.5;">Source-visible weaknesses: a query path that could return cross-tenant data, a cache key that omits tenant id, a tool that a tenant can reach outside its scope.</div>
+        </div>
+      </div>
+      <div>
+        <div class="card-tight" style="background:var(--amber-bg);border-color:var(--amber-border);">
+          <div style="font-size:11px;font-weight:600;color:var(--amber);margin-bottom:3px;">What it does not establish</div>
+          <div style="font-size:10.5px;color:var(--text-muted);line-height:1.5;">That the weakness is exploitable at runtime. That requires observed telemetry or empirical endpoint testing. Static detection is a candidate risk, not a proven exploit.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout callout-info" style="margin-top:12px;">
+      <strong>SARIF in, findings out.</strong> Imported SARIF from these rules is preserved with tool identity and scan scope. It appears in coverage as "imported — <em>package</em> at <em>revision</em>," not as "HAIEC-verified." The 57 rules are part of a package boundary, not the core 176-rule detection registry.
+    </div>
+  </div>
+  <div class="slide-footer"><span>HAIEC · Technical Annex</span><span>09 / 20</span></div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     PAGE 10 — OWASP TAXONOMY
+     ═══════════════════════════════════════════════ -->
+<section class="slide" data-slide="10">
+  <div class="slide-inner">
+    <div class="slide-head"><span class="section-tag">AI security</span><span>10 · OWASP taxonomy</span></div>
+    <div class="eyebrow">Threat taxonomy mapping</div>
+    <h2>OWASP Agentic Top 10 (2026) and LLM Top 10 (2026). Mappings are not coverage claims.</h2>
+
+    <div class="two-col">
+      <div>
+        <h4>OWASP Agentic Top 10 · 2026</h4>
+        <table class="tbl">
+          <thead><tr><th>ID</th><th>Threat</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td class="mono-cell">ASI01</td><td>Agent Goal Hijack</td><td><span class="status-chip demonstrated">Runtime + static</span></td></tr>
+            <tr><td class="mono-cell">ASI02</td><td>Tool Misuse</td><td><span class="status-chip demonstrated">MCP · code</span></td></tr>
+            <tr><td class="mono-cell">ASI03</td><td>Identity & Privilege Abuse</td><td><span class="status-chip demonstrated">IAM · 5-plane</span></td></tr>
+            <tr><td class="mono-cell">ASI04</td><td>Agentic Supply Chain</td><td><span class="status-chip supported">Repo · SBOM</span></td></tr>
+            <tr><td class="mono-cell">ASI05</td><td>Unexpected Code Execution</td><td><span class="status-chip demonstrated">Reachability</span></td></tr>
+            <tr><td class="mono-cell">ASI06</td><td>Memory & Context Poisoning</td><td><span class="status-chip evidence">Bounded probes</span></td></tr>
+            <tr><td class="mono-cell">ASI07</td><td>Inter-Agent Comms</td><td><span class="status-chip demonstrated">DAI · handoff</span></td></tr>
+            <tr><td class="mono-cell">ASI08</td><td>Cascading Failures</td><td><span class="status-chip supported">Drift signals</span></td></tr>
+            <tr><td class="mono-cell">ASI09</td><td>Human Trust Manipulation</td><td><span class="status-chip evidence">Output checks</span></td></tr>
+            <tr><td class="mono-cell">ASI10</td><td>Overreliance / Rogue</td><td><span class="status-chip evidence">Scope checks</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <h4>OWASP LLM Top 10 · 2026</h4>
+        <table class="tbl">
+          <thead><tr><th>ID</th><th>Threat</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td class="mono-cell">LLM01</td><td>Prompt Injection</td><td><span class="status-chip evidence">Authorized probes + source checks</span></td></tr>
+            <tr><td class="mono-cell">LLM02</td><td>Sensitive Information Disclosure</td><td><span class="status-chip evidence">Output checks; evidence-dependent</span></td></tr>
+            <tr><td class="mono-cell">LLM03</td><td>Excessive Agency</td><td><span class="status-chip evidence">Authority planes + DAI</span></td></tr>
+            <tr><td class="mono-cell">LLM04</td><td>Supply Chain</td><td><span class="status-chip evidence">Repository + SBOM evidence</span></td></tr>
+            <tr><td class="mono-cell">LLM05</td><td>Data and Model Poisoning</td><td><span class="status-chip notest">Not established</span></td></tr>
+            <tr><td class="mono-cell">LLM06</td><td>Unbounded Consumption</td><td><span class="status-chip evidence">Qualified usage and thresholds</span></td></tr>
+            <tr><td class="mono-cell">LLM07</td><td>Misinformation</td><td><span class="status-chip notest">Application-level review</span></td></tr>
+            <tr><td class="mono-cell">LLM08</td><td>Hidden Context Exposure</td><td><span class="status-chip evidence">Scoped prompt/output checks</span></td></tr>
+            <tr><td class="mono-cell">LLM09</td><td>Vector and Embedding Weaknesses</td><td><span class="status-chip evidence">RAG source and retrieval evidence</span></td></tr>
+            <tr><td class="mono-cell">LLM10</td><td>Improper Output Handling</td><td><span class="status-chip evidence">Static sink analysis</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="callout callout-danger" style="margin-top:12px;">
+      <strong>Mapping is not coverage.</strong> HAIEC references OWASP as a taxonomy for organizing checks, not as a claim of full coverage or validated mitigation. A "demonstrated" status means an executable producer exists and runs in a qualified evaluation. A "held" status means no producer is wired. Neither is a certification.
+    </div>
+  </div>
+  <div class="slide-footer"><span>HAIEC · Technical Annex</span><span>10 / 20</span></div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     PAGE 11 — DETECTION REGISTRY & CONTROL UNIVERSE
+     ═══════════════════════════════════════════════ -->
+<section class="slide" data-slide="11">
+  <div class="slide-inner">
+    <div class="slide-head"><span class="section-tag">AI security</span><span>11 · Denominators</span></div>
+    <div class="eyebrow">What the counts actually mean</div>
+    <h2>Six separate denominators. Never added together.</h2>
+
+    <div class="callout callout-info" style="margin-bottom:10px"><strong>Inventory snapshot, not live tenant coverage.</strong> Registered executable rules and control profiles must not be presented as 157 evaluated detections or 45 enforced controls.</div>
+    <div class="denom-grid">
+      <div class="denom-card denom-card-highlight">
+        <div class="denom-label">Detection rules</div>
+        <div class="denom-num">176</div>
+        <div class="denom-desc">Registered definitions across 31 families (dated Oct-17 snapshot). 157 executable registrations, 19 register-only.</div>
+      </div>
+      <div class="denom-card denom-card-highlight">
+        <div class="denom-label">Control catalog entries</div>
+        <div class="denom-num">45</div>
+        <div class="denom-desc">Cataloged control objectives. Not 45 completed tests. Includes 3 specialist C7/C9/C16 plus 42 general.</div>
+      </div>
+      <div class="denom-card">
+        <div class="denom-label">Visibility profiles</div>
+        <div class="denom-num">11</div>
+        <div class="denom-desc">Controls with a currently implemented visibility projection. Not 11 successful tests.</div>
+      </div>
+      <div class="denom-card">
+        <div class="denom-label">Launch-priority IDs</div>
+        <div class="denom-num">15</div>
+        <div class="denom-desc">Prioritized subset for phased rollout. Not 15 certified controls.</div>
+      </div>
+      <div class="denom-card">
+        <div class="denom-label">Typed intake profiles</div>
+        <div class="denom-num">26</div>
+        <div class="denom-desc">Registered schema binders. Enables structured ingest, not a capability count.</div>
+      </div>
+      <div class="denom-card">
+        <div class="denom-label">Audit questions</div>
+        <div class="denom-num">221</div>
+        <div class="denom-desc">Agent-audit question catalog. Many require human answer; not detection rules.</div>
+      </div>
+    </div>
+
+    <div class="two-col">
+      <div>
+        <h4>EXECUTABLE vs REGISTER_ONLY</h4>
+        <div class="card-tight" style="background:var(--success-bg);border-color:var(--success-border);margin-bottom:6px;">
+          <div style="font-size:10.5px;line-height:1.5;"><strong style="color:var(--success);">157 PRODUCER-BACKED REGISTRATIONS</strong> — a producer is registered. When the requested scoped batch is supplied, the detector runs.</div>
+        </div>
+        <div class="card-tight" style="background:var(--card-soft);border-color:var(--border);">
+          <div style="font-size:10.5px;line-height:1.5;color:var(--text-secondary);"><strong style="color:var(--text);">19 REGISTER_ONLY</strong> — a rule definition exists, but no producer is wired for customer data. (CERT 5 · TIME 5 · CICD 5 · plus 4 AI_AGENT.)</div>
+        </div>
+      </div>
+      <div>
+        <h4>What not to infer</h4>
+        <div class="callout callout-danger" style="font-size:10.5px;">
+          <strong>Do not add these numbers.</strong> 176 rules + 45 controls + 26 profiles + 11 visibility + 15 launch + 221 questions ≠ anything meaningful. Each count describes a different technical category. Adding them produces a number that misleads a CISO.
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer"><span>HAIEC · Technical Annex</span><span>11 / 20</span></div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     PAGE 12 — CONTROL PASSPORT
+     ═══════════════════════════════════════════════ -->
+<section class="slide" data-slide="12">
+  <div class="slide-inner">
+    <div class="slide-head"><span class="section-tag">AI security</span><span>12 · Control effectiveness</span></div>
+    <div class="eyebrow">Control effectiveness</div>
+    <h2>A control exists in the catalog ≠ a control was exercised. Ten separate facets, no fake green.</h2>
+
+    <div class="two-col-1-2">
+      <div>
+        <div class="callout callout-warn" style="margin-bottom:10px"><strong>Illustrative control passport:</strong> R03, policy version, named reviewer, connection, monitoring and test states below are a hypothetical example, not a verified customer control result.</div>
+    <div class="passport">
+          <div class="passport-head">
+            <div>
+              <div class="passport-id">R03</div>
+              <div class="passport-title">Runtime guardrail enforcement</div>
+            </div>
+            <span class="status-chip evidence">Mixed</span>
+          </div>
+          <div class="passport-facets">
+            <div class="passport-facet success"><div class="passport-facet-icon">✓</div><div class="passport-facet-label">Cataloged</div><div class="passport-facet-state">YES</div></div>
+            <div class="passport-facet success"><div class="passport-facet-icon">✓</div><div class="passport-facet-label">Applicable</div><div class="passport-facet-state">YES</div></div>
+            <div class="passport-facet success"><div class="passport-facet-icon">✓</div><div class="passport-facet-label">Configured</div><div class="passport-facet-state">v12</div></div>
+            <div class="passport-facet success"><div class="passport-facet-icon">✓</div><div class="passport-facet-label">Policy approved</div><div class="passport-facet-state">A.CHEN</div></div>
+            <div class="passport-facet success"><div class="passport-facet-icon">✓</div><div class="passport-facet-label">Deployed</div><div class="passport-facet-state">COND.</div></div>
+            <div class="passport-facet amber"><div class="passport-facet-icon">◐</div><div class="passport-facet-label">Target wired</div><div class="passport-facet-state">NOT_WIRED</div></div>
+            <div class="passport-facet amber"><div class="passport-facet-icon">◐</div><div class="passport-facet-label">Monitored</div><div class="passport-facet-state">STALE 6H</div></div>
+            <div class="passport-facet amber"><div class="passport-facet-icon">◐</div><div class="passport-facet-label">Alert tested</div><div class="passport-facet-state">PENDING</div></div>
+            <div class="passport-facet amber"><div class="passport-facet-icon">◐</div><div class="passport-facet-label">Enforced</div><div class="passport-facet-state">NO DEC.</div></div>
+            <div class="passport-facet neutral"><div class="passport-facet-icon">·</div><div class="passport-facet-label">Effect verified</div><div class="passport-facet-state">N/A</div></div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="card-tight" style="background:var(--card-soft);margin-bottom:8px;">
+          <div style="font-size:10.5px;line-height:1.55;color:var(--text-secondary);"><strong style="color:var(--text);">5 of 10 facets qualified.</strong> This is not "50% passed." It is a specific operational state: the policy is approved, but the target is not wired. In this fictional example, the target is not wired, monitoring is stale and control testing is pending; these states are not a real tenant assessment.</div>
+        </div>
+
+        <h4>The ten facets</h4>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:2px 12px;font-size:10px;line-height:1.5;color:var(--text-secondary);">
+          <div>1. Cataloged</div><div>6. Target wired</div>
+          <div>2. Applicable</div><div>7. Monitoring fresh</div>
+          <div>3. Configured</div><div>8. Alert delivered</div>
+          <div>4. Policy approved</div><div>9. Enforced</div>
+          <div>5. Deployed</div><div>10. Effect verified</div>
+        </div>
+
+        <div class="callout callout-warn" style="margin-top:10px;font-size:10.5px;">
+          <strong>No composite "control passed" badge.</strong> Each facet is independently qualified. Do not replace these independent facets with a single overall green control badge.
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer"><span>HAIEC · Technical Annex</span><span>12 / 20</span></div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     PAGE 13 — DEVSECOPS / CI/CD
+     ═══════════════════════════════════════════════ -->
+<section class="slide" data-slide="13">
+  <div class="slide-inner">
+    <div class="slide-head"><span class="section-tag">DevSecOps</span><span>13 · CI/CD integration</span></div>
+    <div class="eyebrow">DevSecOps integration</div>
+    <h2>Four separate facts about a release. Never collapsed into one gate status.</h2>
+
+    <div class="swimlane">
+      <div class="swim-stage">
+        <div class="swim-stage-name">Code diff</div>
+        <div class="swim-stage-content"><span class="mono" style="font-size:10px;">PR opened → source analyzed</span><div class="swim-note">GitHub App static analysis on changed files. Full-tree coverage requires full scan.</div></div>
+      </div>
+      <div class="swim-stage">
+        <div class="swim-stage-name">Static evidence</div>
+        <div class="swim-stage-content"><span class="mono" style="font-size:10px;">AI AppSec · secrets · dependencies</span><div class="swim-note">Findings at scan scope. Package attribution preserved. Not automatically qualified.</div></div>
+      </div>
+      <div class="swim-stage">
+        <div class="swim-stage-name">Assurance</div>
+        <div class="swim-stage-content"><span class="mono" style="font-size:10px;">Deterministic engine · scoped disposition</span><div class="swim-note">ALLOW / REVIEW / BLOCK over the qualified evaluation scope. Not a deployment decision.</div></div>
+      </div>
+      <div class="swim-stage">
+        <div class="swim-stage-name">Human approval</div>
+        <div class="swim-stage-content"><span class="mono" style="font-size:10px;">Named reviewer · digest-bound record</span><div class="swim-note">Separation of duties. Approval is not execution. It is a decision about the scope.</div></div>
+      </div>
+      <div class="swim-stage">
+        <div class="swim-stage-name">CI gate</div>
+        <div class="swim-stage-content"><span class="mono" style="font-size:10px;">Independently configured pass/fail</span><div class="swim-note">CI gate is a pipeline policy, not the engine disposition. Requires correct integration.</div></div>
+      </div>
+    </div>
+
+    <div class="three-col" style="margin-top:10px;">
+      <div class="card-tight">
+        <div style="font-size:10px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--success);margin-bottom:3px;">Ready</div>
+        <div style="font-size:10.5px;color:var(--text-secondary);line-height:1.5;">GitHub App full executor on linked installations. Full static + PR comments + qualified evidence.</div>
+      </div>
+      <div class="card-tight">
+        <div style="font-size:10px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--amber);margin-bottom:3px;">Held</div>
+        <div style="font-size:10.5px;color:var(--text-secondary);line-height:1.5;">GitHub Action v2 pending reconciliation of distributable identity. v1 PAT flow is deprecated.</div>
+      </div>
+      <div class="card-tight">
+        <div style="font-size:10px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-muted);margin-bottom:3px;">Preview</div>
+        <div style="font-size:10.5px;color:var(--text-secondary);line-height:1.5;">Local/CI bundle path. Bounded coverage by bundle contents. Full static requires complete source tree.</div>
+      </div>
+    </div>
+
+    <div class="callout callout-danger" style="margin-top:10px;">
+      <strong>CI_RESULT ≠ ASSURANCE_ENGINE_DISPOSITION ≠ HUMAN_APPROVAL ≠ DEPLOYMENT_BLOCK.</strong> These are four separate facts. A CI gate passing does not mean the Assurance Engine approved. A disposition of REVIEW does not automatically block a pipeline. Building a release process on the wrong fact will produce the wrong outcome at exactly the wrong time.
+    </div>
+  </div>
+  <div class="slide-footer"><span>HAIEC · Technical Annex</span><span>13 / 20</span></div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     PAGE 14 — RUNTIME ADVERSARIAL TESTING
+     ═══════════════════════════════════════════════ -->
+<section class="slide" data-slide="14">
+  <div class="slide-inner">
+    <div class="slide-head"><span class="section-tag">DevSecOps</span><span>14 · Runtime adversarial testing</span></div>
+    <div class="eyebrow">Runtime adversarial testing</div>
+    <h2>Model claim ≠ tool execution ≠ external effect. Three separate statements per test.</h2>
+
+    <h4>What an authorized endpoint test can establish</h4>
+    <div class="three-col" style="margin-bottom:12px;">
+      <div class="card-tight">
+        <div style="font-size:11px;font-weight:600;color:var(--text);margin-bottom:3px;">Prompt injection</div>
+        <div style="font-size:10.5px;color:var(--text-muted);line-height:1.5;">Does the model follow injected instructions when content is treated as data? Bounded finding.</div>
+      </div>
+      <div class="card-tight">
+        <div style="font-size:11px;font-weight:600;color:var(--text);margin-bottom:3px;">Tool forcing</div>
+        <div style="font-size:10.5px;color:var(--text-muted);line-height:1.5;">Can an attacker cause a tool call the agent would not normally make? Bounded by test scope.</div>
+      </div>
+      <div class="card-tight">
+        <div style="font-size:11px;font-weight:600;color:var(--text);margin-bottom:3px;">Role confusion & leakage</div>
+        <div style="font-size:10.5px;color:var(--text-muted);line-height:1.5;">Does the model reveal context, change behavior under role framing, or expose sensitive info? Bounded by prompt set.</div>
+      </div>
+    </div>
+
+    <div class="chain-flow">
+      <div class="chain-step"><div class="chain-step-num">1</div><div class="chain-step-body"><div class="chain-step-title">Probe sent</div><div class="chain-step-desc">Authorized endpoint · operator consent · scope pre-declared</div></div></div>
+      <div class="chain-step-arrow" style="text-align:center;">↓</div>
+      <div class="chain-step"><div class="chain-step-num">2</div><div class="chain-step-body"><div class="chain-step-title">Model response</div><div class="chain-step-desc">What the model returned — a <em>claim</em>, not a fact about the tool</div></div></div>
+      <div class="chain-step-arrow" style="text-align:center;">↓</div>
+      <div class="chain-step"><div class="chain-step-num">3</div><div class="chain-step-body"><div class="chain-step-title">Tool call observed</div><div class="chain-step-desc">Did a tool get called? Would require qualified telemetry to confirm</div></div></div>
+      <div class="chain-step-arrow" style="text-align:center;">↓</div>
+      <div class="chain-step"><div class="chain-step-num">4</div><div class="chain-step-body"><div class="chain-step-title">External effect</div><div class="chain-step-desc">Did anything land at the target? Requires independent readback — separate from tool execution</div></div></div>
+    </div>
+
+    <div class="callout callout-warn" style="margin-top:12px;">
+      <strong>Not every probe is a test.</strong> Runtime endpoint testing is opt-in. It requires an authorized endpoint, operator consent, and bounded scope. It is not passive continuous monitoring. A model claiming "I will call tool X" is not evidence that the tool was called. A tool being called is not evidence that its effect landed.
+    </div>
+  </div>
+  <div class="slide-footer"><span>HAIEC · Technical Annex</span><span>14 / 20</span></div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     PAGE 15 — MONITORING, DRIFT, TELEMETRY
+     ═══════════════════════════════════════════════ -->
+<section class="slide" data-slide="15">
+  <div class="slide-inner">
+    <div class="slide-head"><span class="section-tag">DevSecOps</span><span>15 · Monitoring & drift</span></div>
+    <div class="eyebrow">Continuous monitoring</div>
+    <h2>Baseline vs current, with source health visible. An anomaly is not a breach.</h2>
+
+    <div class="two-col">
+      <div>
+        <h4>What monitoring observes</h4>
+        <ul style="list-style:none;font-size:11px;line-height:1.55;color:var(--text-secondary);">
+          <li style="padding-left:14px;position:relative;margin-bottom:4px;"><span style="position:absolute;left:0;color:var(--primary);font-weight:700;">·</span><strong style="color:var(--text);">Agent tools & permissions</strong> — new tool, changed scope, new identity</li>
+          <li style="padding-left:14px;position:relative;margin-bottom:4px;"><span style="position:absolute;left:0;color:var(--primary);font-weight:700;">·</span><strong style="color:var(--text);">Actions outside approved scope</strong> — resource, magnitude, target divergence</li>
+          <li style="padding-left:14px;position:relative;margin-bottom:4px;"><span style="position:absolute;left:0;color:var(--primary);font-weight:700;">·</span><strong style="color:var(--text);">Identity & delegation</strong> — chain continuity, credential reuse, handoff gaps</li>
+          <li style="padding-left:14px;position:relative;margin-bottom:4px;"><span style="position:absolute;left:0;color:var(--primary);font-weight:700;">·</span><strong style="color:var(--text);">Token / usage / cost</strong> — deviations against comparable baseline</li>
+          <li style="padding-left:14px;position:relative;margin-bottom:4px;"><span style="position:absolute;left:0;color:var(--primary);font-weight:700;">·</span><strong style="color:var(--text);">Guardrail & alert</strong> — decision + denial + delivery evidence</li>
+          <li style="padding-left:14px;position:relative;"><span style="position:absolute;left:0;color:var(--primary);font-weight:700;">·</span><strong style="color:var(--text);">Source health</strong> — freshness, continuity, coverage gaps</li>
+        </ul>
+      </div>
+      <div>
+        <div class="card-tight" style="background:var(--card-soft);">
+          <h4 style="margin-bottom:6px;">Baseline vs current — always paired</h4>
+          <table class="tbl" style="font-size:10px;">
+            <thead><tr><th>Signal</th><th>Baseline</th><th>Current</th></tr></thead>
+            <tbody>
+              <tr><td>Tool calls / turn</td><td class="num-cell">2.1</td><td class="num-cell" style="color:var(--amber);">2.8</td></tr>
+              <tr><td>Tokens / request</td><td class="num-cell">1.2K</td><td class="num-cell" style="color:var(--amber);">1.8K</td></tr>
+              <tr><td>DATA_CLASS mix</td><td class="mono-cell">standard</td><td class="mono-cell" style="color:var(--amber);">includes_pii</td></tr>
+              <tr><td>Tool inventory</td><td class="num-cell">12</td><td class="num-cell" style="color:var(--amber);">14</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="callout callout-info" style="margin-top:10px;font-size:10.5px;">
+          <strong>Source health is visible next to every signal.</strong> Stale evidence cannot establish detection coverage for its own source. Other connected sources may still generate alerts. Silence is never proof of safety.
+        </div>
+      </div>
+    </div>
+
+    <div class="two-col" style="margin-top:12px;">
+      <div>
+        <div class="card-tight" style="background:var(--success-bg);border-color:var(--success-border);">
+          <div style="font-size:11px;font-weight:600;color:var(--success);margin-bottom:3px;">What monitoring establishes</div>
+          <div style="font-size:10.5px;color:var(--text-secondary);line-height:1.5;">A qualified signal was observed at a specific time, from a specific source, against a specific baseline.</div>
+        </div>
+      </div>
+      <div>
+        <div class="card-tight" style="background:var(--danger-bg);border-color:var(--danger-border);">
+          <div style="font-size:11px;font-weight:600;color:var(--danger);margin-bottom:3px;">What monitoring does not establish</div>
+          <div style="font-size:10.5px;color:var(--text-secondary);line-height:1.5;">That a breach occurred. That an alert was acknowledged. That the underlying source is complete or continuous.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer"><span>HAIEC · Technical Annex</span><span>15 / 20</span></div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     PAGE 16 — PROTECT, KILL SWITCH & RECOVERY
+     ═══════════════════════════════════════════════ -->
+<section class="slide" data-slide="16">
+  <div class="slide-inner">
+    <div class="slide-head"><span class="section-tag">DevSecOps</span><span>16 · Protect & kill switch</span></div>
+    <div class="eyebrow">Protection & enforcement</div>
+    <h2>Guard code exists. Native adapters are per-target. Dotted arrows are honest.</h2>
+
+    <h4>The six-state intervention lifecycle</h4>
+    <div class="intervention">
+      <div class="intervention-step">
+        <div class="intervention-icon">🔔</div>
+        <div class="intervention-label">Alert</div>
+        <div class="intervention-state solid">SHIPPED</div>
+      </div>
+      <div class="intervention-step">
+        <div class="intervention-icon">👤</div>
+        <div class="intervention-label">Human auth</div>
+        <div class="intervention-state solid">SHIPPED</div>
+      </div>
+      <div class="intervention-step">
+        <div class="intervention-icon">📤</div>
+        <div class="intervention-label">Dispatch</div>
+        <div class="intervention-state dotted">INTEGRATION</div>
+      </div>
+      <div class="intervention-step">
+        <div class="intervention-icon">🛑</div>
+        <div class="intervention-label">Guard ack</div>
+        <div class="intervention-state dotted">PER-TARGET</div>
+      </div>
+      <div class="intervention-step">
+        <div class="intervention-icon">✓</div>
+        <div class="intervention-label">Effect witness</div>
+        <div class="intervention-state dotted">READBACK</div>
+      </div>
+      <div class="intervention-step">
+        <div class="intervention-icon">↻</div>
+        <div class="intervention-label">Recovery</div>
+        <div class="intervention-state dotted">OPERATIONAL</div>
+      </div>
+    </div>
+
+    <div class="two-col">
+      <div>
+        <div class="card-tight" style="background:var(--success-bg);border-color:var(--success-border);margin-bottom:8px;">
+          <div style="font-size:11px;font-weight:600;color:var(--success);margin-bottom:3px;">What exists in HAIEC source</div>
+          <div style="font-size:10.5px;color:var(--text-secondary);line-height:1.5;">Execution guard code. Kill-switch foundation. Intended native adapter contract. Human authorization workflow. Alerting framework. The <em>pathway</em> for a response.</div>
+        </div>
+        <div class="card-tight" style="background:var(--danger-bg);border-color:var(--danger-border);">
+          <div style="font-size:11px;font-weight:600;color:var(--danger);margin-bottom:3px;">What is not universally wired</div>
+          <div style="font-size:10.5px;color:var(--text-secondary);line-height:1.5;">Native enforcement adapters per target provider. A production-wide automatic enforcement guarantee. Universal kill-switch coverage across every AI system.</div>
+        </div>
+      </div>
+      <div>
+        <div class="callout callout-warn">
+          <strong>Assessment BLOCK ≠ physical stop.</strong> A disposition of BLOCK means the evaluation found evidence outside approved scope. It does not mean the target refused the action. It does not mean the pipeline blocked. It does not mean the API call was denied. Those are separate operational facts that require a native adapter to actually occur.
+        </div>
+        <div class="callout callout-info" style="margin-top:8px;">
+          <strong>Dotted arrows are honest arrows.</strong> Any intervention step that requires target-native integration is drawn dotted. It communicates "the pathway exists" without claiming "the pathway is wired." A CISO can see exactly where the boundary is.
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer"><span>HAIEC · Technical Annex</span><span>16 / 20</span></div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     PAGE 17 — GOVERNANCE & HUMAN DECISIONS
+     ═══════════════════════════════════════════════ -->
+<section class="slide" data-slide="17">
+  <div class="slide-inner">
+    <div class="slide-head"><span class="section-tag">Governance</span><span>17 · Human decisions</span></div>
+    <div class="eyebrow">Human governance</div>
+    <h2>Versioned authority. Named humans. Separation of duties. Digest-bound records.</h2>
+
+    <div class="two-col">
+      <div>
+        <h4>What a decision packet contains</h4>
+        <div style="display:flex;flex-direction:column;gap:5px;">
+          <div class="callout callout-warn" style="margin-bottom:10px"><strong>Illustrative human-review record:</strong> Names, scopes, timestamps, digests and reviewer outcomes on this page are fictional examples.</div>
+    <div class="kv"><span class="kv-label">Requested operation</span><span class="kv-value">refund.create</span></div>
+          <div class="kv"><span class="kv-label">Scope</span><span class="kv-value">≤ $1,000 · US · prod</span></div>
+          <div class="kv"><span class="kv-label">Requester</span><span class="kv-value">bob.kumar</span></div>
+          <div class="kv"><span class="kv-label">Assigned reviewer</span><span class="kv-value">alice.chen</span></div>
+          <div class="kv"><span class="kv-label">SoD verified</span><span class="kv-value" style="color:var(--success);">✓ PASS</span></div>
+          <div class="kv"><span class="kv-label">Policy version</span><span class="kv-value">Envelope v12</span></div>
+          <div class="kv"><span class="kv-label">Policy digest</span><span class="kv-value">sha256:8f2a…c4b1</span></div>
+          <div class="kv"><span class="kv-label">Evaluation basis</span><span class="kv-value">eval-2f4a-9d3b · REVIEW</span></div>
+          <div class="kv"><span class="kv-label">Conditions</span><span class="kv-value">none</span></div>
+          <div class="kv"><span class="kv-label">Expiry</span><span class="kv-value">2026-10-24 09:14 UTC</span></div>
+        </div>
+      </div>
+      <div>
+        <h4>What the reviewer can do</h4>
+        <div style="display:flex;flex-direction:column;gap:6px;">
+          <div class="card-tight" style="border-left:3px solid var(--success);">
+            <div style="font-size:10.5px;font-weight:600;color:var(--text);margin-bottom:2px;">Approve as scoped</div>
+            <div style="font-size:10px;color:var(--text-muted);line-height:1.4;">Binds the exact scope and digest. Expires at declared time. Reversible until revoked.</div>
+          </div>
+          <div class="card-tight" style="border-left:3px solid var(--info);">
+            <div style="font-size:10.5px;font-weight:600;color:var(--text);margin-bottom:2px;">Approve with conditions</div>
+            <div style="font-size:10px;color:var(--text-muted);line-height:1.4;">Names specific conditions, due dates, and consequences of failure. Weaker than full approval.</div>
+          </div>
+          <div class="card-tight" style="border-left:3px solid var(--danger);">
+            <div style="font-size:10.5px;font-weight:600;color:var(--text);margin-bottom:2px;">Reject with rationale</div>
+            <div style="font-size:10px;color:var(--text-muted);line-height:1.4;">Requester sees the reason. Rejection is a valid outcome, not a failure.</div>
+          </div>
+          <div class="card-tight" style="border-left:3px solid var(--amber);">
+            <div style="font-size:10.5px;font-weight:600;color:var(--text);margin-bottom:2px;">Request changes</div>
+            <div style="font-size:10px;color:var(--text-muted);line-height:1.4;">Returns to requester without approving or rejecting. Preserves the request.</div>
+          </div>
+        </div>
+
+        <div class="callout callout-info" style="margin-top:10px;font-size:10.5px;">
+          <strong>Approval ≠ authorization to deploy.</strong> It is a named human's decision about a requested scope. Deployment, target enforcement, and effect verification are separate operations with their own evidence requirements.
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer"><span>HAIEC · Technical Annex</span><span>17 / 20</span></div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     PAGE 18 — COMPLIANCE & FRAMEWORK MAPPINGS
+     ═══════════════════════════════════════════════ -->
+<section class="slide" data-slide="18">
+  <div class="slide-inner">
+    <div class="slide-head"><span class="section-tag">Governance</span><span>18 · Framework crosswalks</span></div>
+    <div class="eyebrow">Compliance & responsible AI</div>
+    <h2>Framework-oriented evidence. Mapping is not certification. Applicability is not implementation.</h2>
+
+    <table class="tbl" style="margin-bottom:12px;">
+      <thead><tr><th>Framework</th><th>HAIEC evidence contribution</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>OWASP LLM Top 10 (2026)</strong></td>
+          <td>Taxonomy for organizing AI application security checks. Per-threat mapping to executable rules where they exist.</td>
+          <td><span class="status-chip demonstrated">Mapped</span></td>
+        </tr>
+        <tr>
+          <td><strong>OWASP Agentic Top 10 (2026)</strong></td>
+          <td>Agent-specific threat taxonomy. Coverage matrix with demonstrated / partial / held labels.</td>
+          <td><span class="status-chip demonstrated">Mapped</span></td>
+        </tr>
+        <tr>
+          <td><strong>ISO/IEC 42001</strong></td>
+          <td>AI management system evidence: control mapping, decision records, evidence provenance, change history.</td>
+          <td><span class="status-chip supported">Supporting evidence</span></td>
+        </tr>
+        <tr>
+          <td><strong>ISO/IEC 27001</strong></td>
+          <td>Information security control evidence for the AI-specific layers: authorization, monitoring, incident records.</td>
+          <td><span class="status-chip supported">Supporting evidence</span></td>
+        </tr>
+        <tr>
+          <td><strong>NIST AI RMF</strong></td>
+          <td>Govern / Map / Measure / Manage evidence artifacts. Measure 2.6 monitoring evidence.</td>
+          <td><span class="status-chip supported">Supporting evidence</span></td>
+        </tr>
+        <tr>
+          <td><strong>NIST CSF</strong></td>
+          <td>Identify / Protect / Detect / Respond / Recover evidence for AI systems specifically.</td>
+          <td><span class="status-chip supported">Supporting evidence</span></td>
+        </tr>
+        <tr>
+          <td><strong>SOC 2</strong></td>
+          <td>CC-series evidence where AI systems affect the trust services criteria. Not a SOC 2 attestation.</td>
+          <td><span class="status-chip cataloged">Mapped — not certified</span></td>
+        </tr>
+        <tr>
+          <td><strong>EU AI Act</strong></td>
+          <td>Applicability context for high-risk classification, evidence artifacts for documentation obligations.</td>
+          <td><span class="status-chip cataloged">Context only</span></td>
+        </tr>
+        <tr>
+          <td><strong>GDPR · HIPAA</strong></td>
+          <td>Privacy-control evidence for AI actions touching personal or health data.</td>
+          <td><span class="status-chip supported">Supporting evidence</span></td>
+        </tr>
+        <tr>
+          <td><strong>NYC Local Law 144</strong></td>
+          <td>Specialized hiring-regulation workflow evidence where applicable.</td>
+          <td><span class="status-chip evidence">Workflow-specific</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout callout-danger">
+      <strong>Never claim certification.</strong> HAIEC provides framework-oriented evidence. It does not certify compliance with any framework. A mapping is context. Applicability is separate from implementation. Implementation is separate from evidence. Evidence is separate from a reviewer's attestation. A "Compliance Twin" preview exists but is a versioned state view, not a certification artifact.
+    </div>
+  </div>
+  <div class="slide-footer"><span>HAIEC · Technical Annex</span><span>18 / 20</span></div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     PAGE 19 — MANUFACTURING S217 CASE
+     ═══════════════════════════════════════════════ -->
+<section class="slide" data-slide="19">
+  <div class="slide-inner">
+    <div class="slide-head"><span class="section-tag">Proof</span><span>19 · Manufacturing S217</span></div>
+    <div class="eyebrow">Verified evaluated case · SYS-217</div>
+    <h2>Wrong-target divergence on a synthetic manufacturing estate — the assessment is real, the later controls are simulated.</h2>
+
+    <div class="two-lane">
+      <div class="lane-head">
+        <div class="lane-head-cell lane-a">◐ Assessed · persisted evaluated evidence</div>
+        <div class="lane-head-cell lane-b">◇ Simulated · browser-local illustration</div>
+      </div>
+      <div class="lane-body">
+        <div class="lane-body-cell lane-a">
+          <div class="lane-step"><div class="lane-step-icon">1</div><div><strong>Approved:</strong> <span class="mono" style="font-size:10px;">WO-217-4802</span> under envelope scope</div></div>
+          <div class="lane-step"><div class="lane-step-icon">2</div><div><strong>Dispatched:</strong> <span class="mono" style="font-size:10px;">mes.work_order.update</span></div></div>
+          <div class="lane-step"><div class="lane-step-icon">3</div><div><strong>Readback:</strong> effect landed on <span class="mono" style="font-size:10px;">RESOURCE:WO-217-4803</span></div></div>
+          <div class="lane-step"><div class="lane-step-icon">4</div><div><strong>Detector:</strong> <span class="mono" style="font-size:10px;">MFG-EFF-001</span> wrong-target mismatch</div></div>
+          <div class="lane-step"><div class="lane-step-icon">5</div><div><strong>Result:</strong> <span class="mono" style="font-size:10px;">OBSERVED_OUTSIDE_DELEGATION · REVIEW</span></div></div>
+          <div style="margin-top:8px;padding:6px 8px;background:var(--success-bg);border:1px solid var(--success-border);border-radius:4px;font-size:9.5px;color:var(--text-secondary);">
+            <strong style="color:var(--success);">This lane is real.</strong> Persisted evaluation, digest-verified. 45 canonical evaluations of synthetic evidence in the corpus. All 45 result as REVIEW.
+          </div>
+        </div>
+        <div class="lane-body-cell lane-b">
+          <div class="lane-step"><div class="lane-step-icon">6</div><div><strong>Attempt:</strong> <span class="mono" style="font-size:10px;">DEMO-GW-SYS-217-02</span> dispatched by agent</div></div>
+          <div class="lane-step"><div class="lane-step-icon">7</div><div><strong>Hold:</strong> synthetic demo gateway holds the write</div></div>
+          <div class="lane-step"><div class="lane-step-icon">8</div><div><strong>Review:</strong> fictional Quality approver assigned</div></div>
+          <div class="lane-step"><div class="lane-step-icon">9</div><div><strong>Advisory:</strong> permissible work continues locally</div></div>
+          <div class="lane-step"><div class="lane-step-icon">10</div><div><strong>Monitor:</strong> simulated MES / ERP / equipment state</div></div>
+          <div style="margin-top:8px;padding:6px 8px;background:var(--purple-bg);border:1px solid var(--purple-border);border-radius:4px;font-size:9.5px;color:var(--text-secondary);">
+            <strong style="color:var(--purple);">This lane is illustrative.</strong> Browser-local simulation. Fictional approver. Not proof of production MES enforcement. The demo gateway is not a customer integration.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout callout-warn" style="margin-top:12px;">
+      <strong>Do not conflate the two lanes.</strong> A real evaluated wrong-target event precedes a subsequent <em>simulated</em> hold. The assessment is genuine; the factory-enforcement behavior is illustrative. A CISO who tests this distinction will find the label accurate — and that accuracy is the point.
+    </div>
+  </div>
+  <div class="slide-footer"><span>HAIEC · Technical Annex · SYS-217 case</span><span>19 / 20</span></div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     PAGE 20 — TM FORUM + POC
+     ═══════════════════════════════════════════════ -->
+<section class="slide" data-slide="20">
+  <div class="slide-inner">
+    <div class="slide-head"><span class="section-tag">Proof</span><span>20 · TM Forum & POC</span></div>
+    <div class="eyebrow">Archived control evidence & POC</div>
+    <h2>Real control tests in a telecom workshop environment. Participant-published archive — not organizer audit.</h2>
+
+    <div class="two-col">
+      <div>
+        <h4>C16 · Token and cost control</h4>
+        <div class="evidence-block">
+          <div class="evidence-label">SATISFIED run</div>
+          <div class="evidence-value">35,559 tokens against 60,000-token cap</div>
+          <div class="evidence-meta">Measured control verdict — the run stayed within the frozen cap</div>
+        </div>
+        <div class="evidence-block">
+          <div class="evidence-label">NOT_SATISFIED run</div>
+          <div class="evidence-value">106,829 tokens against 60,000-token cap</div>
+          <div class="evidence-meta">Measured control verdict — the run exceeded the frozen cap</div>
+        </div>
+        <div class="callout callout-warn" style="margin-top:6px;font-size:10.5px;">
+          <strong>Measured verdict ≠ enforcement proof.</strong> The cap was exceeded. The archive does not prove that an over-cap call was blocked at the target.
+        </div>
+
+        <h4 style="margin-top:12px;">C9 · Performance control</h4>
+        <div class="evidence-block">
+          <div class="evidence-label">Two assessed runs</div>
+          <div class="evidence-value">SATISFIED under frozen v2 thresholds</div>
+          <div class="evidence-meta">No sanctioned assessed live breach exists in the archive</div>
+        </div>
+      </div>
+      <div>
+        <h4>C7 · Audit trail</h4>
+        <div class="evidence-block">
+          <div class="evidence-label">9 of 10 required coverage</div>
+          <div class="evidence-value">One negotiation event missing</div>
+          <div class="evidence-meta">Partial result — NOT_EVALUATED for the missing event</div>
+        </div>
+        <div class="callout callout-info" style="margin-top:6px;font-size:10.5px;">
+          <strong>Partial is a valid result.</strong> This case shows how HAIEC represents incomplete evidence: 9/10 coverage with the gap explicitly named. Not a pass, not a fail. A specific operational state.
+        </div>
+
+        <h4 style="margin-top:12px;">Monitoring + Kill switch</h4>
+        <div class="evidence-block">
+          <div class="evidence-label">Monitoring</div>
+          <div class="evidence-value">OTLP ingestion, detector canary, alert delivery recorded</div>
+          <div class="evidence-meta">Clean real-telemetry negative + separately labeled synthetic canary</div>
+        </div>
+        <div class="evidence-block">
+          <div class="evidence-label">Kill switch</div>
+          <div class="evidence-value">Organizer environment pause/recovery pathway</div>
+          <div class="evidence-meta">External enforcement — HAIEC engine not invoked for this action</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="poc-accept">
+      <div class="poc-accept-title">Scoped enterprise POC · acceptance criteria (commonly 4–8 weeks after readiness)</div>
+      <ul class="poc-accept-list">
+        <li><strong>Scope:</strong> one consequential AI system, one business owner, one technical counterpart, one named risk question.</li>
+        <li><strong>Access:</strong> source repository or archive, operating envelope or intent, IAM grants (live or export), optional 7–14 days OTLP.</li>
+        <li><strong>Deliverable:</strong> scoped disposition + proof frontier + frozen receipt + prioritized remediation list.</li>
+        <li><strong>Success:</strong> at least one confirmed authority gap; evidence coverage score across the five planes; receipt defensible to an external reviewer.</li>
+        <li><strong>Explicit:</strong> no invented ROI, no incident-reduction rate, no "we block all dangerous actions" claim until native adapter binding, guard decision, and effect witness are proved.</li>
+      </ul>
+    </div>
+
+    <div style="font-size:9.5px;color:var(--text-dim);text-align:center;margin-top:10px;line-height:1.5;">
+      Sources · <span class="mono">github.com/subodhkc/tmf-2026-evidence</span> · <span class="mono">register.yaml</span> · <span class="mono">SUBMISSION_PROVENANCE_AND_VERIFICATION.md</span> · release v7a0bb5f3 · participant-published, integrity-verifiable archive
+    </div>
+  </div>
+  <div class="slide-footer"><span>HAIEC · Technical Annex · TM Forum + POC</span><span>20 / 20</span></div>
+</section>
+
+<script>
+/* ═══════════════════════════════════════════════
+   NAVIGATION
+   ═══════════════════════════════════════════════ */
+const slides = Array.from(document.querySelectorAll('.slide'));
+const navRail = document.getElementById('nav-rail');
+const pageCounter = document.getElementById('page-counter');
+
+slides.forEach((slide, i) => {
+  const dot = document.createElement('button');
+  dot.className = 'nav-dot' + (i === 0 ? ' active' : '');
+  dot.setAttribute('aria-label', 'Go to page ' + (i + 1));
+  dot.addEventListener('click', () => slide.scrollIntoView({behavior: 'smooth'}));
+  navRail.appendChild(dot);
+});
+
+const dots = Array.from(navRail.querySelectorAll('.nav-dot'));
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting && entry.intersectionRatio > 0.5) {
+      const index = slides.indexOf(entry.target);
+      if (index >= 0) {
+        dots.forEach((d, i) => d.classList.toggle('active', i === index));
+        pageCounter.textContent = String(index + 1).padStart(2, '0') + ' / ' + String(slides.length).padStart(2, '0');
+      }
+    }
+  });
+}, { threshold: [0.5, 0.6, 0.7] });
+
+slides.forEach(s => observer.observe(s));
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowDown' || e.key === 'PageDown' || e.key === ' ') {
+    e.preventDefault();
+    const current = slides.findIndex(s => s.getBoundingClientRect().top > -100 && s.getBoundingClientRect().top < window.innerHeight / 2);
+    const next = Math.min(current + 1, slides.length - 1);
+    slides[next].scrollIntoView({behavior: 'smooth'});
+  } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+    e.preventDefault();
+    const current = slides.findIndex(s => s.getBoundingClientRect().top > -100 && s.getBoundingClientRect().top < window.innerHeight / 2);
+    const prev = Math.max(current - 1, 0);
+    slides[prev].scrollIntoView({behavior: 'smooth'});
+  }
+});
+</script>
+</body>
+</html>
