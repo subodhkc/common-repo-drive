@@ -1,5 +1,8 @@
 # E5 — Governance → Native Enforcement → Target Effect Proof
 
+> **2026-10-18 POST-E5.1 + P08.1 INDEPENDENT AUDIT ADDENDUM — E5.2 planning only:** [Production native adapter registry gap and action HOLD/revalidation implementation scope](E5.2-RUNTIME-ACTION-MEDIATION-HOLD-APPROVAL-AND-TARGET-PROOF-IMPLEMENTATION-PLAN-2026-10-18.md). This original E5 handoff says `CODE_NOT_STARTED_FOR_E5` at an **older source snapshot**. Since then E5.1 `lib/assurance/enforcement-read-model.ts`, `NativeEnforcementAdapter` contract and fixture-only adapter, local Kill Switch guard, E6.2 policy/approval and UCP TMF runtime transports have code. But **real production adapter registry is empty**; no generic customer tool-action interception, durable action HOLD/resume with revalidation, no verified bypass exclusion or target outcome, no public SDK install readiness confirmation. Do not misread the older start status as all E5 work absent or treat a read model/fixture as physically protecting customer systems. Follow new E5.2 build/reuse/integrate sequencing; separate external gateway/OPA/AgentCore native enforcement from HAIEC deterministic policy/evidence governance. Keep E62 cross-system proof gated, new protect UX descriptive only, existing P09 P1 list/detail privacy task higher immediate priority. This addendum supersedes old *current status*, not original research decisions.
+
+
 **Prepared:** 2026-10-16 America/Chicago. **Implementation status: HANDOFF_READY, CODE_NOT_STARTED_FOR_E5.**  
 **Verified HAIEC Main:** `d56db173ef8b5a839b8d124ad66ffc15f76890d9` ([E4 PR #2224](https://github.com/subodhkc/haiec-website/pull/2224), merged).  
 **Last inspected common repo:** `8bbafd51eedc4fd6ea854c411bc5407cb6c0d4b0`. Always refresh HEAD before code work.
