@@ -1,5 +1,8 @@
 # HAIEC D1–D3 — Interactive Light Architecture Explorer
 
+> **2026-10-18 D4–D8 + C1/C2 extension completed as a local interactive source package (not deployed).** Seven additional responsive light-theme views use the D1–D3 DeepSeek-inspired visual grammar: dedicated security/detection, release/CI, monitoring, governance/compliance, conditional runtime protection, Station 217 and TM Forum. The [new panel markup](remaining-panels.html) and [source/claims and QA handoff](D4-D8-C1-C2-HANDOFF.md) are archived here. **Important:** The full combined updated HTML/CSS/JS source bundle is a separately generated conversation artifact, not yet copied into this repository's original `index.html` / JS / CSS. Existing D1–D3 hosted source is unchanged; do not claim the GitHub page includes the seven new interactive views until the bundle is imported. No haiec.com deployment was requested or performed.
+
+
 **Prepared:** 2026-10-18  
 **Status:** Functional source design prototype in shared repository. **NOT DEPLOYED to HAIEC.com; NOT HAIEC application code.** Existing six original SVGs and D1/D2/D3 dark source masters remain preserved.  
 **Interactive deliverable:** [Open source — standalone HTML](haiec-d1-d3-architecture-explorer.html)
