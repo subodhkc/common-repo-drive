@@ -1,5 +1,8 @@
 # HAIEC D1–D3 Architecture Diagram Assets — Source and Website Integration Contract
 
+> **NEW LIGHT INTERACTIVE DESIGN (2026-10-18):** [Light, interactive D1–D3 architecture explorer](interactive/index.html) · [self-contained review preview](interactive/haiec-d1-d3-architecture-explorer.html) · [interaction/source/QA handoff](interactive/README.md). This is the preferred source for the next design integration, not proof of deployed behavior. The three SVGs documented below and all six prior source SVGs remain available as static variants.
+
+
 **Prepared:** 2026-10-18  
 **Status:** THREE EDITABLE SVG MASTERS COMMITTED TO COMMON REPO; STATIC SOURCE QA COMPLETE; BROWSER RENDER/PRINT QA AND PUBLIC HAIEC WEBSITE INTEGRATION NOT YET PERFORMED.  
 **Authority:** This manifest explains conceptual product illustration; it does not establish runtime/customer results or alter the application topology engine.
