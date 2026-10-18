@@ -1,5 +1,8 @@
 # P11.1 — MCP agent-readable report explanations and artifacts
 
+> **Additional independent P11 receipt read issue (2026-10-18):** `app/dashboard/assurance/evaluations/[evaluationId]/page.tsx` performs a system-bound GET to `/api/inventory/systems/[id]/reports`, then `res.data.find(assuranceEvaluationId === evaluationId)` and treats no match as `none`. The API route currently executes `findMany(... orderBy createdAt desc, take:20)` for the entire system, with no exact-evaluation filter. If a legitimate issued package is outside the top 20, P11 can display **"No Decision Receipt recorded"** falsely. This is a **source-confirmed bounded-list membership risk**, not a reproduced customer incident. Add to P11.1 as **P11.1-G07 / P1 factual reporting**: use a canonical exact `organizationId + aiSystemId + evaluationId` receipt projection (e.g. `resolveEvaluationReceipt`) or an existing authorized exact filtered route; unavailable/error must remain distinct from NO_RECEIPT. Tests: >20 system packages, exact older evaluation has PUBLIC/PRIVATE/REVOKED, no result, true no receipt, foreign system/org. Keep source API row limit valid for ordinary list browsing but never use it for an exhaustive exact-evaluation absence claim. Also select canonical representative when multiple package versions share the exact evaluation.
+
+
 **Date:** 2026-10-18. **Status:** proposed scoped work, NOT implemented. **Priority:** after P11, before P12. This record supplements the P11 implementation and does not change U5 assurance or U6 verification.
 
 ## P11 independent acceptance
