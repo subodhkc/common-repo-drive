@@ -1,5 +1,8 @@
 # Devin Implementation Handoff — HAIEC Product Architecture Convergence
 
+> **2026-10-18 post-onboarding operational catalog (planning only):** [Comprehensive client operations baseline](POST-ONBOARDING-CONTINUOUS-ASSURANCE-AND-OPERATIONS-CATALOG-2026-10-18.md) enumerates 76 recommended client activities, 14 progressive artifacts, 22 acceptance/test families, event-driven triggers, integration classes, dimensional assurance confidence and existing UI owners. Keep P10 Monitoring next and E5.2 target-PEP pilot separate. Do not invent new control engines, mandatory prerequisites, deployed MCP writes or protection claims.
+
+
 > **2026-10-18 OPERATIONAL JOIN CONTRACT BASELINE (docs only; owner-safe):** [Canonical operations graph, all 20 OP handoffs, existing UI ownership, shared action/decision/effect identifiers, five reusable baseline templates, recommended native PEP/OTel/MCP reuse and bounded QA pilot](OPERATIONAL-JOINS-CONTRACTS-UI-AND-PILOT-BASELINES-2026-10-18.md). Adds no new engine, UI route, API or MCP tool. Preserve independently accepted P09, carry forward existing P10 Monitoring source-truth/clarity as next primary UX PR; separate E5.2 customer action adapter proof. Use gate-based proof not mock-based 'enforced' claims. OP register remains canonical source status [here](E5.2-CUSTOM-INTEGRATION-POSITIONING-AND-OPERATIONS-GAP-REGISTER-2026-10-18.md).
 
 
