@@ -1,5 +1,8 @@
 # HAIEC Operational Joins: Evidence Contracts, UI Placement, Reuse and Pilot Baselines
 
+> **Companion client operating model (2026-10-18):** [76 post-onboarding recommendations, 14 artifacts, 22 test families, event triggers and monitoring/assurance confidence](POST-ONBOARDING-CONTINUOUS-ASSURANCE-AND-OPERATIONS-CATALOG-2026-10-18.md). These extend the existing 20 joins, not replace their established contracts. P10 remains next UX priority; real target protection requires a separately verified customer pilot.
+
+
 **Date:** 2026-10-18. **State:** architecture / acceptance baseline, NOT deployment certification. **Primary gap register:** [E5.2 OP-01..OP-20](E5.2-CUSTOM-INTEGRATION-POSITIONING-AND-OPERATIONS-GAP-REGISTER-2026-10-18.md). **Existing nonproduction reference:** [Action Mediation Skeleton](reference-implementations/action-mediation-skeleton/README.md). **P10 source-truth owner:** [Independent P09 acceptance / P10 handoff](UX-P09-INDEPENDENT-ACCEPTANCE-AND-UX-P10-MONITORING-HANDOFF-2026-10-18.md).
 
 ## 1. Decision and simple mental model

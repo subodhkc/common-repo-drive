@@ -1,5 +1,8 @@
 # Deterministic HAIEC Product Capability & Workflow Matrix
 
+> **2026-10-18 client-operating catalog:** [76 post-onboarding client operations, 14 artifact types and 22 optional test families](POST-ONBOARDING-CONTINUOUS-ASSURANCE-AND-OPERATIONS-CATALOG-2026-10-18.md) extends recommendation coverage beyond the original 16 handoffs. This is client activity planning, not 76 shipped HAIEC features. Existing 87-row curated implementation evidence and capability status classifications below remain unchanged.
+
+
 > **2026-10-18 NEW E5.2 capability-status addendum — customer-customizable action mediation (not a product-wide release):** [Offer + scaffold + OP-01..20 cross-operation gaps](E5.2-CUSTOM-INTEGRATION-POSITIONING-AND-OPERATIONS-GAP-REGISTER-2026-10-18.md). [Executable TypeScript reference](reference-implementations/action-mediation-skeleton/README.md) in Common Repo, test status 12/12 local, is **REFERENCE_SCAFFOLD_BUILT**; trusted app policy+human decision resolver, durable atomic claim, customer-side PEP, target effect and HAIEC production deployment all **INTEGRATION_REQUIRED / NOT_VERIFIED**. HAIEC E5.1 enforcement-read model, Kill Switch SDK source/guard and TMF specialized C16 runtime decision already exist but *do not* imply universal customer protection. Enterprise capability copy: **HAIEC Custom Runtime Action Controls — customer-specific integration feasibility and scoped pilot**; not a released feature or universal policy enforcement. The official six jobs remain independent; this is a Protect customization path. Preserve existing H046/H047 classifications and 45 controls: no new numeric control capability asserted.
 
 
