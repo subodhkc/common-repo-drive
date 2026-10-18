@@ -1,5 +1,8 @@
 # UX-P11 Reports, Decision Receipts & Public Verification — Implementation Record
 
+> **2026-10-18 INDEPENDENT P11 REVIEW AND MCP REPORTING FOLLOW-UP:** [P11 exact Vercel/CI acceptance and P11.1 proposal to improve agent-readable evidence/citations/receipts](UX-P11.1-MCP-AGENT-REPORT-EXPLANATIONS-AND-ARTIFACT-PARITY-2026-10-18.md). P11 [#2260](https://github.com/subodhkc/haiec-website/pull/2260) Main **7860d2420821860cfa68f7e3a55928e6fbdac323**, authenticated exact-SHA Vercel **dpl_8XmshfMDkkwy9ZvermEhBXhQt9Uy** READY and GitHub primary CI success; no independent local test/browser rerun. Live PUBLIC/REVOKED browser, download and external MCP NOT_RUN. Existing MCP has deterministic Agent Audit, bounded Master Report, machine JSON and package read, but **not this P11 UI design/interpretation enhancement**. Source-confirmed potential customer-facing divergence: haiec_get_package(evaluationId) chooses newest createdAt package whereas UI canonical state representative selects PUBLIC > PRIVATE > REVOKED. One scoped future P11.1 to reconcile selection or clearly label chronological status, and expose versioned compact source/claim/uncertainty/owner/artifact interpretation for MCP agents. No new U5/U6 writers or LLM verdict. Original shipped P11 record remains preserved.
+
+
 **Status: DEPLOYED_VERIFIED** — 2026-10-18
 
 - **PR:** [#2260](https://github.com/subodhkc/haiec-website/pull/2260) → `Main` **`7860d2420821860cfa68f7e3a55928e6fbdac323`**
