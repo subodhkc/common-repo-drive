@@ -1,5 +1,8 @@
 # Website Architecture Visuals and Independent Workflow Specifications
 
+> **2026-10-18 ADDENDUM — actual deterministic graph vs illustrative diagrams:** [Independent uploaded topology mock review, six SVG source checks and Mermaid API/MCP source](ACTION-TOPOLOGY-MOCK-DETERMINISTIC-ENGINE-AND-SIX-DIAGRAMS-INDEPENDENT-REVIEW-2026-10-18.md). These diagram specs and six static SVGs are **product illustrations only**; they are never graph evidence. **Actual built topology** is `buildTopologyProjection` / exact `buildEvaluatedActionMapProjection` + canonical ActionProofTrace/AgentTrace. **Shipped portable Mermaid** already exists at `GET /api/inventory/systems/{id}/agent-trace?basis=current|evaluation&evaluationId=...&format=mermaid` and MCP `haiec_get_agent_trace` with `format:'mermaid'` (`system:read`, tenant-bound). Never manufacture multi-system issuer/handoff/target/effect edges: [E62 contract](E62-CROSS-SYSTEM-DAI-DELEGATION-ENGINEERING-CONTRACT-2026-10-20.md) remains proposed. Existing six SVGs have `title`, `desc`, `aria-labelledby`, no observed script/external refs/handler/duplicate IDs in static source review; this does not replace mobile/AT screenshots. For next visual editing, normalize six customer jobs as Discover/Evaluate/Authorize/Monitor/Protect/Verify; preserve 3 pillars (V3's 4 are engineering domains, not new product pillars), and visually distinguish optional operation paths from mandatory numbered stages. No new runtime diagram or website image publication authorized by this note.
+
+
 **Goal:** Retire misleading four-stage pipeline art in favor of homepage-ready, source-qualified product and engineering diagrams. Never recreate technical producer implementations inside frontend components.
 
 ## Canonical diagram assets
