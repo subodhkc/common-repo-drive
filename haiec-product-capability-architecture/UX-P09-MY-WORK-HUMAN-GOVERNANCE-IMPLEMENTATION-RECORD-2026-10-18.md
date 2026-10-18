@@ -1,5 +1,8 @@
 # UX-P09 — My Work / Human Governance — Implementation Record (2026-10-18)
 
+> **2026-10-18 independent post-merge acceptance addendum:** [Exact-SHA Vercel and CI confirmation, P09 code-level qualifications and P10 monitoring owner map](UX-P09-INDEPENDENT-ACCEPTANCE-AND-UX-P10-MONITORING-HANDOFF-2026-10-18.md). P09 [#2257](https://github.com/subodhkc/haiec-website/pull/2257) true commit `47af59ef8a614b67e9300a7c2453d3f2cb72da0a`; independent authenticated Vercel production **`dpl_9dcxSEz6Zvwo9e3NLKSrt3Mp89v3`** READY and two primary GitHub CI success. Numeric `7152817170` is GitHub's deployment reference, not authenticated Vercel ID. Shared server entitlement read source confirms list/detail/inbox privacy, non-entitled detail history not read; request-time authorized review, stale queue sequence and `readDegraded` unknown. Developer test assertions 12/12,32/32,14/14,104/104 and browser 1440/768/390 were **not independently rerun**. Live pending request dialog, multi-org role and keyboard audit NOT_RUN. Optional P2 future test: the *review-detail fetch* itself does not have a per-request generation/org switch guard, so an in-flight old-org `setPacket` after reset is possible in source (not reproduced; no evidence of API tenant ACL failure). Keep P09 ACCEPTED and queue future regression, do not open P09.1 automatically. Next UX-P10 existing Monitoring screen source-freshness and alert-vs-response truth, not a new monitoring/enforcement backend.
+
+
 Status: `DEPLOYED_VERIFIED`
 HAIEC branch: `feat/uxp09-mywork-governance` @ `47fad8192`
 Base: `Main` @ `5cd6875cd` (UX-P08.1, PR #2256)
