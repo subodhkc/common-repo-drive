@@ -1,5 +1,8 @@
 # HAIEC — Reliable Reporting, Controlled Vocabulary, ISAF/CSM Research Alignment and 76-Activity Reconciliation
 
+> **2026-10-18 R1 CODE RESEARCH WORKSTREAM COMPLETED, FURTHER CUSTOMER ACCEPTANCE NOT_RUN:** [Current 76-row code/route/MCP mapping](reconciliation/POST-ONBOARDING-76-CODE-API-MCP-AUDIT-v0.2.csv), [audited aggregate, actual production/report gaps and next gates](reconciliation/POST-ONBOARDING-76-CODE-API-MCP-AUDIT-AND-RECOMMENDATIONS-2026-10-18.md). Current HAIEC Main 7860d242 includes P11 public status fixes; older draft below describes pre-P11 defects and is superseded for those fixes. NEW source-confirmed P11.1: evaluation receipt lookup only scans top 20 system rows, false NO_RECEIPT risk; MCP package representative mismatch. No new report engine, no customer PEP claims.
+
+
 **Review date:** 2026-10-18. **Scope:** independent planning review with targeted source inspection, research document comparison and an initialized 76-row audit register. **No HAIEC product implementation, receipt mutation, new MCP tool, public pricing or external customer effect claim in this work.**
 
 **Canonical current owners:**
