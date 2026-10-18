@@ -1,5 +1,6 @@
 # HAIEC Enterprise Publication Kit — Ready for Devin Website Integration
 
+> **Complete interactive architecture explorer — October 18, 2026 (V3):** [Open 12-view light-theme HTML](interactive/haiec-enterprise-architecture-and-evidence-explorer-v3.html) · [Read design/QA/source handoff](interactive/README.md). E0 Executive guide + D1–D8 + C1/C2 cases + E1 Evidence & Adoption. Shareable review artifact only. **No HAIEC.com deployment.** Original SVG masters preserved.\n\n
 > **Interactive light-theme D1–D3 prototype (2026-10-18):** [Open standalone interactive HTML](interactive/haiec-d1-d3-architecture-explorer.html) · [Design/QA/source notes and Devin handoff](interactive/README.md). Three selectable light views, click-to-inspect explanations, pauseable guided tour, executive value copy and explicit synthetic/evidence limitations. Source committed; not yet on HAIEC.com.
 
 
