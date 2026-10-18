@@ -1,5 +1,8 @@
 # HAIEC — P10 acceptance and P11 Reports, Receipts & Public Verification design / evidence-truth handoff
 
+> **Additive visual companion (2026-10-18):** [P11 standalone responsive HTML concept](design-references/p11-reports-receipts-public-verification-2026-10-18.html) is now available for Devin to inspect. Three demonstrator views: evaluation-first Reports Hub, public receipt status with accurate status simulator, and public verification selector. Includes a persistent SYNTHETIC DESIGN REFERENCE banner, sample IDs that must not be used as actual IDs and disabled form. All interactions are local UI preview, not live API/evaluation. **NOT_RUN:** independent Chromium/browser and accessibility audit of the new standalone HTML (source authored and stored only). Implementation remains source-bound to production U6 and private/public permissions.
+
+
 **Review: October 18, 2026. Status:** P10 DEPLOYED_VERIFIED; P11 SOURCE_REVIEWED / DESIGN_PLANNED, application code NOT modified. This is the canonical additive P11 design work order. Customer audiences: enterprise owner, reviewer, auditor, external recipient.
 
 ## I. P10 independent production acceptance
