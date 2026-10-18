@@ -1,5 +1,8 @@
 # Review of Six Uploaded HAIEC Architecture Images
 
+> **2026-10-18 independent current-SVG and live-topology addendum:** [Six tracked corrected architecture SVGs checked against current HAIEC Action Map engine, uploaded Action Topology mock and existing Mermaid exporter](ACTION-TOPOLOGY-MOCK-DETERMINISTIC-ENGINE-AND-SIX-DIAGRAMS-INDEPENDENT-REVIEW-2026-10-18.md). This original review of SIX HISTORICAL PNGs remains valid and unchanged below. Current six **corrected vector** assets under `diagrams/` were fetched separately: static title/desc/aria present, no script/foreignObject/external links/event handlers/duplicate IDs, and conceptual non-linear/source-qualified constraints substantially aligned. Preferred final official product taxonomy: Understand / Assure / Govern & Operate; Discover / Evaluate / Authorize / Monitor / Protect / Verify. Present four domains in `haiec-v3-architecture-corrected.svg` explicitly as engineering groupings; do not mistake static diagrams for live system evidence or E62 cross-system action proof. Existing actual scoped Action Map and `haiec_get_agent_trace(format:'mermaid')` can already generate deterministic source-bound diagrams — see addendum. The new HTML is NOT in repo; this doc is the curated decision record. No old PNG status upgraded.
+
+
 **Date:** 2026-10-16. **Scope:** All six user-supplied PNGs; five unique SHA-256 designs. These are reference artefacts, not the primary capability inventory. See `HAIEC-PRODUCT-CAPABILITY-WORKFLOW-MATRIX.md` for code anchors.
 
 ## Overall verdict
