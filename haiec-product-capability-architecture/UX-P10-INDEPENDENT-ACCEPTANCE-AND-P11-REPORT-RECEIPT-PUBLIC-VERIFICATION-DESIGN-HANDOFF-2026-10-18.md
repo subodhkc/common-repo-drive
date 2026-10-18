@@ -1,5 +1,8 @@
 # HAIEC — P10 acceptance and P11 Reports, Receipts & Public Verification design / evidence-truth handoff
 
+> **2026-10-18 additive reliability / language / science and ops reconciliation companion:** [P11 G01/G02 source-confirmed public status defect, canonical receipt-state vocabulary, report integrity tests, ISAF/CSM provenance mapping and 76-activity UI/API/MCP research protocol](REPORT-RELIABILITY-VOCABULARY-ISAF-CSM-AND-76-ACTIVITY-RECONCILIATION-PLAN-2026-10-18.md). This adds requirements and research inventory ONLY. P11 retains exclusive application implementation ownership, unchanged canonical U6 verifier and existing planned source-bound UI design; avoid parallel code or report-store creation. All optional template and upsell text must remain outside the actual integrity verifier.
+
+
 > **Additive visual companion (2026-10-18):** [P11 standalone responsive HTML concept](design-references/p11-reports-receipts-public-verification-2026-10-18.html) is now available for Devin to inspect. Three demonstrator views: evaluation-first Reports Hub, public receipt status with accurate status simulator, and public verification selector. Includes a persistent SYNTHETIC DESIGN REFERENCE banner, sample IDs that must not be used as actual IDs and disabled form. All interactions are local UI preview, not live API/evaluation. **NOT_RUN:** independent Chromium/browser and accessibility audit of the new standalone HTML (source authored and stored only). Implementation remains source-bound to production U6 and private/public permissions.
 
 
