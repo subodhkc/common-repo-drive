@@ -235,7 +235,7 @@ Do not claim “continuous” for periodic polling, sampled observations, config
 **Do not build another engine first.** Reuse existing E1 goal/capability guide, E4 source health, E5/E5.1 authority read, E6 decisions, actual P10 monitoring projection, existing Control Proof/test catalog and MCP registered tools. Compose a thin **Next Operational Action read projection**, per authenticated org/system/goal, optionally proposed later.
 
 Each recommendation record:
-\`\`\`yaml
+```yaml
 recommendation_id: REC-...
 goal: e.g. "Know whether a refund agent may issue a refund"
 system_id: scoped-system-id
@@ -252,7 +252,7 @@ destination: valid current UI route, not a fictional action
 actor: authenticated human or approved system
 risk_of_inaction: client scoped, not generic fear
 dependency: specific required gate, no unrelated global onboarding steps
-\`\`\`
+```
 
 **Ranking rule:** (1) unsafe active path / exposed high-impact grant / missing actual owner, (2) critical false-positive assurance state (stale data displayed active, unproven protection), (3) cheap existing-source improvement that materially closes evidence, (4) governance expiry/decision work, (5) optional high-effort integrations and optimization. Customer priority and consequence determine ordering; no generalized “trust score”. Prefer *one best next eligible action* + “Why” + what it proves + what remains unknown. Show “requires customer configuration” rather than executing unavailable steps.
 
@@ -265,7 +265,7 @@ dependency: specific required gate, no unrelated global onboarding steps
 - “No connected runtime source is necessary for the selected static-only code check. Run it with current repository evidence.”
 
 ## 8. Assurance confidence: dimensional, never a disguised compliance score
-Present a **claim-specific assurance case** with independent evidence axes, each \`ESTABLISHED / PARTIAL / STALE / NOT_ASSESSED / UNAVAILABLE\`, and exact source:
+Present a **claim-specific assurance case** with independent evidence axes, each `ESTABLISHED / PARTIAL / STALE / NOT_ASSESSED / UNAVAILABLE`, and exact source:
 1. Identity / system / owner and boundary qualified.
 2. Capability / side-effect reachability established.
 3. Approved authority and human decision effective for exact target.
@@ -287,7 +287,7 @@ Don't average UNKNOWN into success. A coverage vector gives useful assurance con
 | Evaluate / Assurance | baseline snapshot, reasoned applicable controls, targeted test choice, source-quality and regression basis |
 | Controls & Operations | applicable/configured/approved/distributed/wired/tested/observed/effect proven as separate lenses; remediation |
 | My Work | responsible owner, pending/rejected/approved/expired/revoked cases, scope, SoD; NO assistant approval |
-| \`/monitoring\` | fresh source, passive vs test vs guardrail vs PEP; signals, baseline anomalies, alerts vs ACK, drift and owner |
+| `/monitoring` | fresh source, passive vs test vs guardrail vs PEP; signals, baseline anomalies, alerts vs ACK, drift and owner |
 | Connections Center | source scope, credential/health/rotation, customer PEP installation, opt-in adapter, offboard |
 | Protect / Kill Switch | exact live native PEP scope, guard applicability, action HOLD, containment and recovery proof or NOT_WIRED |
 | Investigations / Incidents | source-qualified event→case→owner→response→closure; no fabricated case |
