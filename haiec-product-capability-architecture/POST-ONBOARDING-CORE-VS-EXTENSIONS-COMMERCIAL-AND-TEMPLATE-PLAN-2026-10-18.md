@@ -1,5 +1,8 @@
 # HAIEC — Post-Onboarding: Validated Core vs Optional Extensions, Packaging and Templates
 
+> **2026-10-18 source reconciliation UPDATE:** [76-row source-based current-HAIEC-SHA register](reconciliation/POST-ONBOARDING-76-CODE-API-MCP-AUDIT-v0.2.csv) and [source research findings](reconciliation/POST-ONBOARDING-76-CODE-API-MCP-AUDIT-AND-RECOMMENDATIONS-2026-10-18.md) now exist. These establish exact code anchors and relevant registered UI/API/MCP evidence, **not** 76 customer-available features. Preserve explicit 20 core-code / 33 conditional / 12 client-owned / 11 customer-target-unverified classification, no automatic upsell. P11.1 exact receipt join and MCP explanation follow-up is current; subsequent P12/P13 remain scheduled.
+
+
 > **2026-10-18 implementation audit plan:** [Reliable reporting, standardized terminology, ISAF/CSM use and all 76 activity UI/API/MCP/owner/release reconciliation](REPORT-RELIABILITY-VOCABULARY-ISAF-CSM-AND-76-ACTIVITY-RECONCILIATION-PLAN-2026-10-18.md); [initialized register](reconciliation/POST-ONBOARDING-76-ACTIVITY-SOURCE-TRUTH-REGISTER-v0.1.csv). No optional service can replace HAIEC's source-correct canonical results, repair inaccurate public verification labels or establish new assurances solely from a filled worksheet. Proposed family value remains separate from entitlement and product availability.
 
 **Review:** 2026-10-18. **State:** internally proposed grouping and generic client-template design, not an approved price list, newly granted entitlement, deployed adapter or verified customer protection.
