@@ -37,7 +37,8 @@
 ## 4. Production
 
 - `GET https://www.haiec.com/api/control-test/response-workflows` → 401 unauthenticated: #2277 deploy present (**LIVE_VERIFIED**, one-shot).
-- Follow-up merge deploy state: reported `DEPLOYING` after merge; liveness verified opportunistically, never polled.
+- Follow-up PR [#2278](https://github.com/subodhkc/haiec-website/pull/2278) merged to `Main` at `4d1b10a85`; deploy state `DEPLOYING` at merge time (one-shot probe: `/monitoring/cases` 404 — in-flight build). Liveness verified opportunistically, never polled.
+- CI at merge: `px0-product-truth` PASS, `U6 static validation` PASS, `U6 PostgreSQL integration` PASS, Vercel Preview Comments PASS; TypeScript + New-Violations Gate `PENDING` at merge (local tsc/eslint verified clean); full ESLint + Vercel branch preview = known baseline/Git-identity failures unchanged from prior merges.
 
 ## 5. Genuinely missing externals (unchanged, documented not fabricated)
 
