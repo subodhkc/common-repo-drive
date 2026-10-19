@@ -1,6 +1,6 @@
 # KestrelVoice → HAIEC external-customer MCP acceptance — master operations record
-**Initiated:** 2026-10-19. **Status:** PLANNED / NOT_RUN. **Test operator:** Devin in KestrelVoice repo/workspace; NO HAIEC repository or internal database access during primary customer acceptance.
-**HAIEC target:** https://www.haiec.com/api/mcp (production Streamable HTTP MCP). **Authorized HAIEC organization:** KestrelVoice Assurance Test. **Target system:** KestrelVoice QA Receptionist, pending confirmed customer-visible identity via `haiec_preflight` and `haiec_list_systems`.
+**Initiated:** 2026-10-19. **Status:** EXTERNAL MCP CONNECTED / CUSTOMER SMOKE REPORTED PASS; SOURCE/EVALUATION ACCEPTANCE NOT_RUN. **Test operator:** Devin in KestrelVoice repo/workspace; NO HAIEC repository or internal database access during primary customer acceptance.
+**HAIEC target:** https://www.haiec.com/api/mcp (production Streamable HTTP MCP). **Authorized HAIEC organization:** KestrelVoice Assurance Test (customer-reported through public MCP read). **Target system:** KestrelVoice QA Receptionist (customer-reported through `haiec_list_systems`; detailed `haiec_preflight` not yet evidenced).
 **Supporting playbook:** [MCP operational playbook v2](HAIEC-MCP-USER-CONSULTANT-OPERATIONAL-PLAYBOOK-AND-ACTION-COVERAGE-2026-10-19.md).
 **Phase 2 (later, separate comparison):** HAIEC IDE/internal developer-workspace assessment to compare available functionality, detect customer-facing MCP/API parity gaps, and debug source owner behavior. Its deeper access may NOT be silently imported into the external-customer results.
 
@@ -64,3 +64,28 @@ The existing private `ide-full` key reportedly has **11 scopes**, `isSandbox:fal
 
 ## API-scope completeness verified — 2026-10-19 (source registry)
 The customer confirmed they want to use the existing `ide-full` key for full external acceptance rather than issuing another credential as a precondition. **HAIEC's entire current API scope catalog comprises exactly 11 scopes, and `ide-full` includes all 11** (verified at `lib/api-auth.ts` on `Main` `4d1b10a851aa538d0387b560b6c6923cdbed6747`). Categories: `scan:create`, `scan:submit`, `scan:read`, `report:read`, `system:read`, `system:create`, `source:read`, `source:create`, `source:verify`, `evidence:ingest`, `package:write`. The canonical MCP server + IDE definitions contain **62 registered MCP tools** (24 core + 38 IDE), and every tool's declared `requiredScope` is among the 11. These are permission groups, NOT a limit of 11 operations. Therefore **a second API key is unnecessary for scope completeness**. `haiec_preflight` must still verify the actual issued key and tenant at runtime; scopes do not bypass source consent, availability, human approval, UI/session-only operations or verified native target integration. This source verification supersedes the earlier *recommendation* to mint a separate key as a requirement for the test; optional separate credentials are only operational hygiene, not capability completeness.
+
+## External-customer connection & estate smoke — received 2026-10-19
+
+**Provenance:** The user provided **two Devin response excerpts**, not the original prompts/tool-call transcripts. All below are *Devin-reported production interaction results* and are **not independently re-run** by this journal author. Do not invent the two original verbatim prompts or mark unrelated controls passed.
+
+| Journal ID | Prompt as sent | Actual customer-visible actions reported | Result / confidence |
+|---|---|---|---|
+| `KV-EXT-001` — MCP connection | **ORIGINAL PROMPT NOT PROVIDED**; Devin's reply indicates the goal was configuring HAIEC MCP. Do not present its explanatory prose as an exact prompt. | KestrelVoice workspace configured remote Streamable HTTP at `https://www.haiec.com/api/mcp` in a local, gitignored Devin MCP config. Devin reported authentic `initialize` over HTTP 200; server `haiec-assurance v1.2.0` and `tools` capability. Devin first thought new session was required, but its next result corrected that: current session had HAIEC tools. | `CUSTOMER_REPORTED_LIVE_VERIFIED` for handshake; no secret or local filesystem path retained. |
+| `KV-EXT-002` — read-only org smoke | **ORIGINAL PROMPT NOT PROVIDED**; Devin's reply indicates the goal was checking whether the server was loaded and querying customer-visible inventory. | `haiec_list_systems` returned **1** AI System: **KestrelVoice QA Receptionist**, type `AI_AGENT`, id `b4599e1d-734f-414e-af92-25d5b3b2713f`, created 2026-10-19 ~05:49 UTC. `haiec_get_estate_summary` returned org **KestrelVoice Assurance Test** (org ID masked in public record), 1 system, provider `kestrelvoice`, testing environment, registration state `DECLARED`; **3 completed evaluations** and latest REVIEW disposition; **enforcement `NOT_WIRED`** / protection unestablished; queue highlights evaluation review and missing native enforcement; framework catalog reported **5 releases**, with no observed finding mappings. | `CUSTOMER_REPORTED_LIVE_VERIFIED` for named MCP reads, no independent replay. |
+
+### Key insights — separate connection proof from assurance truth
+
+- **PASS:** A KestrelVoice-side Devin session can reach the external production HAIEC MCP endpoint and read the **correct dedicated org and system**. No HAIEC repository access was used **as reported**.
+- **Existing evaluations ≠ this acceptance's fresh source-qualified scan.** The 3 historical evaluations, including a REVIEW, must remain historical until we run a **new, source-backed, engine-enabled evaluation**. Record exact evaluation IDs/time basis before making comparative claims.
+- **System `DECLARED` ≠ discovered agents and mapped actions.** The next read should inspect preflight/source qualification and `haiec_get_agent_trace` / public capability coverage. The 1 registered AI System is not a denominator for individual AI agents or tools.
+- **No native enforcement yet** (`NOT_WIRED`); do not count it as a failure of this MCP connectivity test, but preserve it as a visible customer limitation and catalog enhancement candidate.
+- **No finding-to-framework mappings observed** in the returned estate summary; do not conflate 5 framework catalog releases with completed mapped assessments.
+- **Available tool/scope claim:** User's current key is reportedly `ide-full` (11/11 defined scopes), and Devin reports that run/source/evidence/package tools are available. An `initialize` handshake and two inventory reads do **not** prove all 62 registered MCP tools actually execute. Verify per-tool use as the test progresses.
+- **No UI interaction, source binding, fresh scan, telemetry ingestion, Kestrel mutation, human decision, case closure, or recorded video occurred in these excerpts.**
+
+### Next suggested single customer-natural-language step (proposed, NOT YET RUN)
+> Show me what HAIEC currently knows about the agents, tools and actions in my KestrelVoice QA Receptionist. Distinguish confirmed source evidence from declarations and missing coverage, and tell me what is needed for a fresh code-backed assessment. Don't make any changes.
+
+After the user actually sends this prompt, capture its **verbatim exact text**, returned tool names, sanitized parameters, source IDs and gaps under `KV-EXT-003`. Do not pre-mark outcomes. Continue one ordinary user prompt at a time; full playbook orchestration is not required.
+
