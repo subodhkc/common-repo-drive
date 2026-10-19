@@ -1,4 +1,6 @@
 # HAIEC Post-Onboarding Enhancements — Current-State Delta and Remaining Customer Value
+> **Execution alignment, 2026-10-19:** R1/P0–P1 + bounded P2a (qualified Consequence Delta and source/telemetry readiness) is the **single next HAIEC implementation**. Read the controlling [amended Agent & Action Explorer Devin handoff](AGENT-ACTION-CAPABILITY-EXPLORER-P0-P1-P2-DEVIN-HANDOFF-2026-10-19.md). R2 raw-event novelty/drift and R3 closed-loop governance remain **separate, later** slices. This review's e308ae36 SHA is its audit basis; HAIEC Main later reached f824cb13 for architecture explorer/public-site changes, which do not independently prove R1 implemented.
+
 **Review:** 2026-10-19. **Status:** source-backed planning delta, **docs-only**. **HAIEC Main inspected:** [e308ae361ebb9b5a4d22a62fadd1472dc0d2bec9](https://github.com/subodhkc/haiec-website/commit/e308ae361ebb9b5a4d22a62fadd1472dc0d2bec9). Preserves prior [76 source audit](reconciliation/POST-ONBOARDING-76-CODE-API-MCP-AUDIT-AND-RECOMMENDATIONS-2026-10-18.md) as a historical SHA-bound result, not the current production feature matrix.
 
 ## Status correction — do not repeat completed work
