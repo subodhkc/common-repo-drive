@@ -1,5 +1,8 @@
 # UX-P12.1 Provider Cost Attribution Integrity — Implementation Record
 
+> **2026-10-18 INDEPENDENT RELEASE ACCEPTANCE ADDENDUM:** [Authenticated exact-SHA production Vercel and CI confirmation, source-reviewed residual and P13 handoff](UX-P12.1-INDEPENDENT-ACCEPTANCE-AND-UX-P13-GLOBAL-SHELL-CROSS-PAGE-HANDOFF-2026-10-18.md). [PR #2263](https://github.com/subodhkc/haiec-website/pull/2263) merged Main **d146b40ea272eae9776b89c33555ed48f53b4861**, authentic Vercel deployment **dpl_627Xn6tipjdzriZgyVoExgksitsW** READY, Lint Baseline Gate and Consolidated CI both SUCCESS. Developer's numeric `7160581328` is GitHub deployment ID. Three-file scoped fix observed in source: one mutually-exclusive `groupBy(provider,projectId,workspaceId)` + source labels; reviewer did NOT rerun Devin's 6 new/19 P12 and 100 route tests or populated live provider source. Accepted. **P2 future metadata qualification:** project bucket can collapse distinct secondary workspaceId tuples and show last one only, not full set; sum/count remain correct and no proven live rendering incident. Record as maintenance, not new P12.2; move to P13 global shell next.
+
+
 **Date:** 2026-10-18 · **Status:** `DEPLOYED_VERIFIED`
 **PR:** [#2263](https://github.com/subodhkc/haiec-website/pull/2263) → `Main` **`d146b40ea272eae9776b89c33555ed48f53b4861`**
 **Vercel production:** GitHub deployment `7160581328` — **SUCCESS** on exact merge SHA `d146b40ea`
