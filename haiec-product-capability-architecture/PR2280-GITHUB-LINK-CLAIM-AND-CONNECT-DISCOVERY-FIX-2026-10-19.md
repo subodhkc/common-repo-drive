@@ -70,3 +70,62 @@ state. Login `OAuthAccountNotLinked` copy points to Dashboard → GitHub.
 - **Unproven:** Successful external OAuth authorization → claim screen → user confirmation → exact intended HAIEC account binding → organization link → Kestrel AI System repo/branch verified. No live customer completion established by deployment READY.
 - **Outstanding code/UX boundaries:** Claim row has no initiating session or user binding (any logged-in session holding the nonce may be able to adopt it); consume runs before persistence of `accounts` and `github_integrations`; the integration upsert error is swallowed; top-level OAuth callback error handler can return `true`; distinct GitHub-email HAIEC account needs correct *link* vs *sign-in* semantics; GitHub App dashboard's Full Assurance CTA still directs to inventory discovery, not an explicit AI-System source-bind wizard. Prior weak manual installation claim path remains out-of-scope for user workaround. Treat as narrow account integrity + onboarding closure, not another new connector.
 - **Recommended:** one focused external-user-assisted GitHub OAuth completion, server-authoritative readbacks of account and eligible installation, targeted code negatives for wrong-session and mid-write failure (and harden only confirmed exposed paths), single UI target for System Workspace source binding; then re-run Kestrel MCP preflight. No duplicate source/evaluation engine.
+
+### #2282 — account-link correctness + source-binding signposting (merged `50550e1e0`)
+
+Focused review of the GitHub connection journey after #2281. Confirmed fixes:
+
+**Ownership/identity**
+- `POST /api/github-app/link-installation` trusted a caller-supplied
+  `githubUsername`; `installations/[id]` GET/PATCH/DELETE then used the
+  `github_integrations.githubUsername` that route wrote as the ownership
+  check — an unbound-installation claim → org-bind IDOR. Ownership is now
+  proven from the OAuth-linked identity only
+  (`lib/github-app/installation-ownership.ts`): User installs match
+  `accounts.providerAccountId` or token-backed `githubUserId`; Org installs
+  require ACTIVE ADMIN membership via the linked OAuth token
+  (`GET /user/memberships/orgs/{org}`). Org-bound installs authorize via
+  bound-org membership (admin for writes). Indeterminate GitHub lookups
+  return retryable 502, never proof of non-ownership.
+- Claim POST order was consume → write: a failed write stranded the claim.
+  Now peek → validate → `prisma.$transaction` (accounts.create +
+  github_integrations.upsert) → consume. P2002 same-nonce races resolve to
+  the real owner (409) or idempotent success.
+- `signIn` catch returned `true` on mid-flow errors — for GitHub that let
+  the adapter silently bind the identity to the email-matched user. GitHub
+  now fails closed to `OAuthAccountNotLinked`; Google unchanged.
+- Claim confirm UI shows the signed-in email; placeholder
+  `github_integrations` rows (`githubUserId` '0', empty token) no longer
+  count as identity; manual-link no longer clobbers `accessToken`.
+
+**Onboarding signposting**
+- Dashboard "Connect repository to an AI System" CTA pointed at
+  `/dashboard/ai-inventory/connect` (discovery page) — now routes to
+  `/dashboard/ai-inventory`; canonical bind path: system workspace →
+  Assets → Add Source (CODE_REPOSITORY) → server verify
+  (`verifySourceRepositoryAsset` — org-installation coverage is the proof).
+- Manual-link form takes an organization target (owner/admin only);
+  ownership verify + org bind happen in one POST.
+- `haiec_github_preflight` / `haiec_list_github_repositories` describe the
+  "installed on GitHub but not linked to this org" state and point to
+  `HAIEC_URLS.GITHUB_DASHBOARD` (new `linkUrl` action field) — org-scoped
+  only, no cross-tenant leakage.
+
+**Verified:** 44 focused tests pass (claim retry/idempotency/race/410/409;
+ownership matrix incl. placeholder rows, org admin/non-member/indeterminate,
+org-bound vs unbound authz). `tsc --noEmit` clean. Dev-server render:
+/dashboard/github + /connect/github?claim= 200.
+**NOT_VERIFIED:** real GitHub OAuth round-trip and org-membership check
+(requires authorized human). Production probe post-merge: dashboard 200,
+claim endpoint 401 auth-gated.
+
+### Production state notes (Neon `empty-tree-81822125`)
+
+- Installation `105988004` (`subodhkc`, User, selected repos incl.
+  `subodhkc/AI-Service-Call-Agent-`) is bound to org **MunichTech Demo**.
+- Target system **KestrelVoice QA Receptionist** (`b4599e1d-…`) lives in org
+  **KestrelVoice Assurance Test** (`48298299-…`); `subodhkc@subodhkc.com` is
+  admin there but NOT a member of MunichTech Demo — cross-org rebind
+  requires a MunichTech owner (`suvodkc@gmail.com`) to unlink first.
+- Neither account has a github `accounts` row yet — the authorized human
+  must complete one OAuth claim to establish the linked identity.
