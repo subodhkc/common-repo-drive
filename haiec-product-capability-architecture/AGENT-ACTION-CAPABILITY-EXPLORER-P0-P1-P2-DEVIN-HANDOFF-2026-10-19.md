@@ -1,4 +1,6 @@
 # HAIEC — Agent & Action Capability Explorer, P0/P1/P2 Devin implementation handoff
+> **2026-10-19 SUPERSEDING EXECUTION ORDER (USER CORRECTION):** The earlier P0/P1/P2a-only release split below is retained as historical technical context, **NOT** the current build scope. Devin must run the [Integrated P0–P3 Agent Actions + Monitoring + Governance Devin work order](HAIEC-INTEGRATED-AGENT-ACTION-ASSURANCE-MONITOR-GOVERN-DEVIN-WORK-ORDER-2026-10-19.md). **R1 agent/action visibility, R2 existing behavioral monitoring enhancement and R3 existing response-workflow/closed-loop governance enhancement are ALL INCLUDED in one cohesive release**, reusing current source and operations engines. No separate R2/R3 deferral. Customer-native generic PEP still requires a separately authorized target. Preserve prior code/reuse inventory and DeepSeek references.
+
 
 > **2026-10-19 EXECUTION REALIGNMENT — controlling over later conflicting scope below.** Reconciled against [merged PR #18 post-onboarding current-state delta](POST-ONBOARDING-ENHANCEMENT-DELTA-CURRENT-STATE-2026-10-19.md) and HAIEC Main through `f824cb13adf50012c817608179ceafb0bc47aef9` (latest two commits in enterprise architecture explorer/public site, not core Agent & Action owners). **Do not paste/run the prior large P0/P1/P2 instruction without this amendment.**
 >
