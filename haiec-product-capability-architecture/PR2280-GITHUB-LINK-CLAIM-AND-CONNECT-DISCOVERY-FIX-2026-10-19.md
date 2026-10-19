@@ -62,3 +62,11 @@ state. Login `OAuthAccountNotLinked` copy points to Dashboard → GitHub.
   unauthenticated as designed.
 - Production: DEPLOYING — smoke path after deploy: Dashboard → GitHub →
   Connect → GitHub OAuth → claim confirm → linked to session account.
+
+
+## Independent follow-up after #2281 deploy — 2026-10-19
+- **Production VERIFIED READY:** exact `Main` SHA `be0edbf36e0f487917bb8f2c415e3383b458f990`, Vercel deployment `dpl_4fQ8u4c7HvdMQmCL92gGS8wjmp1Q` with live `haiec.com` and `www.haiec.com` aliases. Previous `DEPLOYING` note above is historical.
+- **Verified code:** replacement of Redis with `prisma.verification_tokens`, table schema has `token @unique`, so token-keyed `findUnique` is valid. 10 unit tests use a Prisma mock, not an actual human GitHub OAuth exchange.
+- **Unproven:** Successful external OAuth authorization → claim screen → user confirmation → exact intended HAIEC account binding → organization link → Kestrel AI System repo/branch verified. No live customer completion established by deployment READY.
+- **Outstanding code/UX boundaries:** Claim row has no initiating session or user binding (any logged-in session holding the nonce may be able to adopt it); consume runs before persistence of `accounts` and `github_integrations`; the integration upsert error is swallowed; top-level OAuth callback error handler can return `true`; distinct GitHub-email HAIEC account needs correct *link* vs *sign-in* semantics; GitHub App dashboard's Full Assurance CTA still directs to inventory discovery, not an explicit AI-System source-bind wizard. Prior weak manual installation claim path remains out-of-scope for user workaround. Treat as narrow account integrity + onboarding closure, not another new connector.
+- **Recommended:** one focused external-user-assisted GitHub OAuth completion, server-authoritative readbacks of account and eligible installation, targeted code negatives for wrong-session and mid-write failure (and harden only confirmed exposed paths), single UI target for System Workspace source binding; then re-run Kestrel MCP preflight. No duplicate source/evaluation engine.
