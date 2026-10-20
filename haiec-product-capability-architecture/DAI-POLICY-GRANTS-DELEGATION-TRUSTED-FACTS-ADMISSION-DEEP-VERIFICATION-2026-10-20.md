@@ -1,3 +1,5 @@
+> **2026-10-20 PRODUCT PRIORITY UPDATE:** [Findings-first DAI customer experience, precise follow-up language and no universal pre-evaluation gates](DAI-FINDINGS-FIRST-UX-AND-NONBLOCKING-ASSURANCE-PRODUCT-CONTRACT-2026-10-20.md) is the controlling UX/product direction. The source accuracy recommendations below remain useful **only as scoped engineering correctness**, not a barrier to early scanning, candidate risk findings or homepage improvements. Minimize new user evidence collection burdens.
+
 # HAIEC DAI — Deep Source Verification: Keep Policy Proven, Admit Genuine Delegation, Avoid Blanket UNKNOWN
 
 **Date:** 2026-10-20. **Status:** READ-ONLY SOURCE VERIFICATION + IMPLEMENTATION RECOMMENDATION, NO HAIEC ENGINE CHANGE.  
