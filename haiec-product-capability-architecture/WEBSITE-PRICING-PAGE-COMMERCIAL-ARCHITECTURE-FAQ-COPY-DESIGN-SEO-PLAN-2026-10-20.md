@@ -1,3 +1,5 @@
+> **Companion design reference:** [Interactive light/dark Enterprise-first Pricing concept](design-references/pricing-2026-10-20/pricing-enterprise-first-dual-theme-preservation-preview.html) (monthly/annual switch, three buyer motions, 15 sample FAQs; illustrative, not live billing or verified entitlements). [Seven-page CTA/copy/feature preservation contract](PUBLIC-WEBSITE-PRIOR-PAGES-COPY-DESIGN-AND-CTA-PRESERVATION-REVIEW-2026-10-20.md) is mandatory before later implementation.
+
 # HAIEC Pricing — Commercial Architecture, Entitlement Truth, Buyer Copy, FAQs, Dual-Theme Design & Preservation
 
 **Date:** 2026-10-20 · **Page:** https://www.haiec.com/pricing · **Page #7 in sequential audit**  
