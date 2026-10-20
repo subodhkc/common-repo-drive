@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light dark"><meta name="robots" content="noindex,nofollow">
+<title>Delegated Action Integrity (DAI) — HAIEC Interactive Page Design</title>
+<meta name="description" content="Internal design prototype: explore how HAIEC connects source action paths, policy, permissions, delegated business choice and consequential AI authority through deterministic evidence.">
+<style>
+:root{color-scheme:light;--bg:#f8faf7;--surface:#fff;--tint:#eef5ef;--tint2:#e7f1e9;--text:#19372d;--muted:#52695f;--border:#d8e3da;--accent:#116b48;--onAccent:#fff;--action:#195e48;--warm:#fff4df;--warmInk:#75521e;--heroWash:#e6f3e8;--shadow:0 19px 50px rgba(27,71,42,.065);--terminal:#112a31;--terminalText:#e6f5ee}
+:root[data-theme="dark"]{color-scheme:dark;--bg:#101c22;--surface:#1b2f33;--tint:#223e3a;--tint2:#24473b;--text:#edf5ef;--muted:#b8c8bf;--border:#3a5650;--accent:#a2e5bc;--onAccent:#112b1c;--action:#a2e5bc;--warm:#4a3d28;--warmInk:#efd1a4;--heroWash:#17382f;--shadow:0 18px 50px rgba(0,0,0,.22)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--text);font:16px/1.58 Inter,ui-sans-serif,system-ui,sans-serif}
+h1,h2,h3{font-family:"Space Grotesk",Inter,system-ui,sans-serif;letter-spacing:-.045em;line-height:1.11}
+h1{font-size:clamp(2.65rem,5.0vw,4.9rem);margin:16px 0 23px}
+h2{font-size:clamp(1.95rem,3.35vw,3.2rem);margin:12px 0 20px}
+h3{font-size:1.21rem;margin:8px 0 11px}
+p{margin:0 0 18px}a{color:var(--accent);text-underline-offset:4px}
+button{font:inherit;cursor:pointer}button:focus-visible,a:focus-visible,summary:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.wrap{width:min(1220px,100%);margin:auto;padding:0 27px}
+.notice{text-align:center;background:var(--warm);color:var(--warmInk);padding:8px 16px;font-size:.75rem}
+.head{background:var(--surface);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:10}
+.nav{min-height:70px;display:flex;align-items:center;justify-content:space-between;gap:14px}
+.logo{font-weight:900;font-size:1.35rem;letter-spacing:-.075em;text-decoration:none;color:var(--text)}.logo b{color:var(--accent)}
+.navlinks{display:flex;gap:15px;align-items:center}.navlinks a{font-size:.83rem;font-weight:670;text-decoration:none;color:var(--muted)}
+.themebtn,.miniBtn{background:var(--surface);border:1px solid var(--border);border-radius:9px;color:var(--text);font-size:.79rem;font-weight:800;padding:8px 12px}
+.eyebrow{color:var(--accent);font-weight:850;letter-spacing:.16em;font-size:.69rem;text-transform:uppercase}
+.lead{font-size:1.12rem;color:var(--muted);max-width:790px}
+.btn{display:inline-flex;justify-content:center;align-items:center;gap:7px;min-height:45px;padding:10px 16px;background:var(--accent);color:var(--onAccent);border:1px solid transparent;border-radius:9px;font-size:.86rem;font-weight:790;text-decoration:none}
+.btn.secondary{background:var(--surface);color:var(--text);border-color:var(--border)}
+.btn.textonly{background:transparent;color:var(--accent);padding-left:0}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin:26px 0 14px}
+.small{font-size:.78rem;color:var(--muted)}
+.hero{background:radial-gradient(circle at 72% 28%,rgba(29,148,87,.065),transparent 35%),linear-gradient(118deg,var(--heroWash),var(--bg));padding:72px 0;border-bottom:1px solid var(--border)}
+.split{display:grid;grid-template-columns:.93fr 1.07fr;gap:50px;align-items:center}
+.hero h1 span{color:var(--accent)}
+.tagline{border-left:3px solid var(--accent);padding:7px 0 7px 14px;font-size:.86rem;font-weight:820;line-height:1.55}
+.hero-foot{display:flex;gap:12px;align-items:center;flex-wrap:wrap;color:var(--muted);font-size:.73rem;margin-top:25px}.hero-foot b{color:var(--text)}
+.art{border-radius:19px;border:1px solid var(--border);background:var(--surface);box-shadow:var(--shadow);padding:22px;overflow:hidden}
+.art-header{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;border-bottom:1px solid var(--border);padding-bottom:14px}
+.art-header strong{font-size:.78rem;letter-spacing:.12em}
+.fixture{color:var(--muted);border:1px solid var(--border);border-radius:7px;padding:5px 9px;font-size:.66rem;font-weight:820;white-space:nowrap}
+.art h3{font-size:1.05rem;margin:18px 0 8px}
+.agentpath{display:grid;grid-template-columns:1fr auto 1fr auto 1fr auto 1fr;gap:6px;align-items:center;margin:19px 0}
+.pathnode{border:1px solid var(--border);background:var(--tint);border-radius:9px;padding:13px 6px;text-align:center;font-size:.73rem;font-weight:820;min-height:53px;display:grid;place-items:center}
+.patharrow{font-size:1.1rem;color:var(--accent);font-weight:800}
+.art-lens{border:1px solid var(--border);border-radius:12px;padding:15px;background:var(--tint)}
+.art-lens .n{font-size:.64rem;letter-spacing:.11em;font-weight:830;color:var(--accent)}
+.art-lens strong{display:block;margin:5px 0 6px;font-size:.93rem}
+.art-lens p{font-size:.78rem;color:var(--muted);margin:0}
+.five{display:grid;grid-template-columns:repeat(5,1fr);gap:5px;margin:15px 0}
+.five span{font-size:.61rem;font-weight:750;color:var(--text);text-align:center;padding:9px 3px;border:1px solid var(--border);background:var(--surface);border-radius:7px}
+.bridge{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:.74rem}.bridge b{color:var(--accent)}
+.signal{margin-top:17px;display:flex;gap:10px;align-items:flex-start;border-top:1px solid var(--border);padding-top:14px}.signal .dot{width:9px;height:9px;flex-shrink:0;margin-top:5px;background:var(--accent);border-radius:100%}.signal strong{font-size:.82rem;display:block}.signal p{font-size:.73rem;color:var(--muted);margin:4px 0 0}
+.sect{padding:76px 0;border-bottom:1px solid var(--border)}.alt{background:var(--surface)}
+.intro{color:var(--muted);font-size:1.06rem;max-width:830px}
+.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin:28px 0}
+.tile{background:var(--surface);border:1px solid var(--border);padding:24px;border-radius:14px}
+.tile .n{font-size:.68rem;letter-spacing:.1em;font-weight:850;color:var(--accent);text-transform:uppercase}
+.tile p{color:var(--muted);font-size:.87rem}
+.lab{background:var(--surface);border:1px solid var(--border);border-radius:17px;box-shadow:var(--shadow);overflow:hidden;margin:27px 0}
+.lab-head{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center;border-bottom:1px solid var(--border);padding:20px 25px}
+.lab-body{padding:24px}
+.tabrow{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px}
+.tab{background:var(--tint);border:1px solid var(--border);border-radius:9px;color:var(--text);padding:10px 13px;font-size:.81rem;font-weight:790}
+.tab[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--onAccent)}
+.labgrid{display:grid;grid-template-columns:.9fr 1.1fr;gap:18px}
+.labconst,.laboutput{border:1px solid var(--border);border-radius:12px;padding:20px;background:var(--tint)}
+.labconst h3,.laboutput h3{margin:7px 0 12px}
+.labconst p,.laboutput p{font-size:.84rem;color:var(--muted)}
+.evidence-row{display:flex;justify-content:space-between;gap:13px;padding:11px 0;border-top:1px solid var(--border);font-size:.8rem}
+.evidence-row:first-child{border-top:0}.evidence-row span{color:var(--muted)}.evidence-row strong{text-align:right;font-size:.78rem}
+.labstatus{font-size:.68rem;letter-spacing:.1em;font-weight:850;color:var(--accent)}
+.resulthead{font-size:1.17rem;line-height:1.3;font-weight:830;margin:9px 0 13px}
+.nextaction{background:var(--surface);border:1px solid var(--border);padding:13px;border-radius:9px;margin:15px 0}
+.nextaction strong{font-size:.72rem;color:var(--accent);text-transform:uppercase;letter-spacing:.08em}
+.nextaction p{margin:5px 0 0;font-size:.84rem;color:var(--text)}
+.labnote{margin:18px 0 0;font-size:.76rem;color:var(--muted)}
+.planes{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:9px;margin:25px 0}
+.plane{border:1px solid var(--border);background:var(--surface);border-radius:11px;color:var(--text);padding:16px 9px;min-height:110px;text-align:left}
+.plane span{display:block;font-weight:760;font-size:.8rem}.plane small{font-size:.68rem;color:var(--muted);display:block;margin-top:8px}
+.plane[aria-pressed=true]{background:var(--tint2);border-color:var(--accent)}
+.plane-detail{border:1px solid var(--border);border-radius:12px;background:var(--surface);padding:24px;display:grid;grid-template-columns:1fr 1fr;gap:23px}
+.plane-detail p{font-size:.88rem;color:var(--muted);margin:8px 0}
+.orient{padding:17px 22px;border-radius:11px;background:var(--tint);border:1px solid var(--border);margin-top:18px;font-size:.84rem;color:var(--muted)}
+.orient b{color:var(--accent)}
+.nine{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:23px 0}
+.nine>div{padding:17px;border:1px solid var(--border);border-radius:10px;background:var(--surface)}
+.nine strong{font-size:.81rem}.nine p{font-size:.76rem;margin:8px 0 0;color:var(--muted)}
+details{border:1px solid var(--border);background:var(--surface);padding:16px 19px;border-radius:10px;margin:9px 0}
+summary{font-size:.92rem;font-weight:790;cursor:pointer}
+details p{color:var(--muted);font-size:.87rem;margin:13px 0 0}
+.terminal{background:var(--terminal);color:var(--terminalText);border:1px solid #345557;border-radius:15px;overflow:hidden;margin:24px 0}
+.terminalhead{padding:15px 21px;background:#18363b;border-bottom:1px solid #355b55;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.terminalhead strong{font-size:.77rem}.terminalhead span{font-size:.65rem;color:#b6d7cb}
+.terminal pre{padding:22px;font:13px/1.8 ui-monospace,monospace;white-space:pre-wrap;overflow-wrap:anywhere;margin:0;color:var(--terminalText)}
+.terminalfoot{padding:14px 20px;border-top:1px solid #355b55;color:#b5d8c8;font-size:.8rem}
+.enterprise{background:linear-gradient(117deg,var(--heroWash),var(--bg));padding:79px 0}
+.enterprise .split{align-items:start}.enterprise-panel{border:1px solid var(--border);background:var(--surface);padding:27px;border-radius:15px;box-shadow:var(--shadow)}
+.enterprise-panel strong{font-size:1.04rem}
+.enterprise-panel p{color:var(--muted);font-size:.87rem}
+.footer{border-top:1px solid var(--border);padding:38px 0;background:var(--surface);font-size:.83rem;color:var(--muted)}
+@media(max-width:1000px){.split,.labgrid{grid-template-columns:1fr}.art{max-width:700px}.planes{grid-template-columns:repeat(3,minmax(0,1fr))}.grid3{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:680px){.wrap{padding:0 17px}.navlinks a{display:none}.hero{padding:49px 0}.sect{padding:50px 0}.art,.lab-body{padding:15px}.grid3,.plane-detail{grid-template-columns:1fr}.planes{grid-template-columns:repeat(2,minmax(0,1fr))}.nine{grid-template-columns:1fr 1fr}.pathnode{font-size:.61rem;padding:9px 3px;min-height:45px}.agentpath{gap:4px}.patharrow{font-size:.75rem}.five span{font-size:.52rem;padding:7px 1px}.lab-head{padding:15px}.evidence-row{font-size:.73rem}.evidence-row strong{font-size:.73rem}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{transition:none!important;animation:none!important}}
+</style></head>
+<body>
+<div class="notice">INTERNAL EDITORIAL DESIGN REFERENCE · The interactive refund scenario is fictional · No live HAIEC evaluation, transaction, approval or blocking is represented.</div>
+<header class="head"><div class="wrap nav"><a href="#top" class="logo" aria-label="HAIEC homepage">HAIEC<b>.</b></a><nav class="navlinks" aria-label="Page navigation"><a href="#why-dai">Why DAI</a><a href="#dai-lab">Interactive example</a><a href="#five-views">Five evidence views</a><a href="#faq">FAQs</a><button id="theme" class="themebtn" type="button" aria-label="Switch to dark theme">Dark theme</button></nav></div></header>
+<main>
+<section class="hero" id="top"><div class="wrap split"><div><div class="eyebrow">Delegated Action Integrity · DAI</div><h1>Your AI has permission to act. <span>Who authorized it to decide?</span></h1><p class="lead">An AI agent can hold a valid credential and follow an approved workflow, yet still reach a consequential choice. HAIEC connects supported action paths, policy, effective access and delegated authority to identify potential overreach—and supports decisions with deterministic evidence, not AI judging AI.</p><div class="tagline">Find the consequential path first. Understand the authority behind the choice. Move AI forward with defensible evidence.</div><div class="actions"><a class="btn" href="https://www.haiec.com/enterprise">Scope an Enterprise POC →</a><a class="btn secondary" href="#dai-lab">Explore DAI in Action</a><a class="btn textonly" href="https://www.haiec.com/sample-reports/kestrel">See a real assurance report ↗</a></div><p class="small">Part of HAIEC's deterministic assurance engine · Not a seventh capability or separate certification.</p></div>
+<aside class="art" aria-label="Conceptual action-path and authority visual"><div class="art-header"><strong>ONE AGENT · ONE CONSEQUENCE</strong><span class="fixture">FICTIONAL SOURCE EXAMPLE</span></div><h3>Can this agent choose the refund recipient?</h3><div class="agentpath" aria-label="Possible path through agent, tool, worker and refund API"><div class="pathnode">AI agent</div><span class="patharrow">→</span><div class="pathnode">MCP tool</div><span class="patharrow">→</span><div class="pathnode">Worker</div><span class="patharrow">→</span><div class="pathnode">Refund API</div></div><div class="art-lens"><span class="n">DELEGATED ACTION INTEGRITY</span><strong>Permission to call is not authority to choose.</strong><p>Connect the source-capable path to relevant operating policy, provider access and the business decision being delegated.</p><div class="five" aria-label="Independent evidence views"><span>Requested</span><span>Policy</span><span>Granted</span><span>Code</span><span>Observed</span></div><div class="bridge"><b>DAI ↔</b> A cross-cutting comparison of consequential choice, not a sixth plane</div></div><div class="signal"><span class="dot"></span><div><strong>Potential refund-recipient exposure worth investigating</strong><p>Source capability may be apparent before runtime or external approval evidence exists. It does not prove any refund was executed.</p></div></div></aside></div></section>
+
+<section class="sect alt" id="why-dai"><div class="wrap"><div class="eyebrow">The security question individual tools can't always resolve</div><h2>A credential can be valid. The business decision can still be wrong.</h2><p class="intro">IAM can show technical access. A code scan can show a possible tool path. Governance can establish operating policy. Each matters—but enterprises also need to understand whether an agent's consequential choice stays within authority.</p><div class="grid3"><div class="tile"><span class="n">01 / Find the action</span><h3>See potential consequences</h3><p>Identify supported agent-to-tool-to-service paths and the financial, operational or data effects they could enable.</p></div><div class="tile"><span class="n">02 / Compare authority</span><h3>Separate access from discretion</h3><p>Bring available policy, grants and actual delegated choice context alongside code capability, without assuming they are the same fact.</p></div><div class="tile"><span class="n">03 / Act with confidence</span><h3>Prioritize the specific gap</h3><p>Investigate the material decision, ask the right owner and establish a bounded assurance result when the applicable evidence supports one.</p></div></div></div></section>
+
+<section class="sect" id="dai-lab"><div class="wrap"><div class="eyebrow">Interactive DAI illustration</div><h2>The same AI action. Three very different authority stories.</h2><p class="intro">Start with a meaningful technical finding: a support AI can reach a refund handler. Now change only the *business authority context*. The source-based finding remains visible in every case.</p><div class="lab"><div class="lab-head"><strong>DAI Consequence Lab</strong><span class="fixture">TEACHING EXAMPLE · NOT ACTUAL DAI ENGINE OUTPUT</span></div><div class="lab-body"><div class="tabrow" role="group" aria-label="Select an example of consequential choice authority"><button type="button" class="tab" data-scenario="0" aria-pressed="true">Rule-grounded choice</button><button type="button" class="tab" data-scenario="1" aria-pressed="false">Delegated choice</button><button type="button" class="tab" data-scenario="2" aria-pressed="false">Potential overreach</button></div>
+<div class="labgrid"><div class="labconst"><span class="eyebrow">Technical finding stays visible</span><h3>Refund-action path identified</h3><p>Support agent → refund tool → handler. Selected repository source indicates a possible recipient-changing operation. This is an illustrative potential capability, not an observed payment.</p><div class="evidence-row"><span>Supported example fact</span><strong>Code-capable path</strong></div><div class="evidence-row"><span>Possible consequence</span><strong>Change refund destination</strong></div><div class="evidence-row"><span>Execution</span><strong>Not demonstrated</strong></div></div>
+<div class="laboutput" aria-live="polite" aria-atomic="true"><span class="labstatus" id="scenario-tag">CASE A / RULE-GROUNDED</span><div class="resulthead" id="scenario-head">Trusted rules determine the recipient.</div><p id="scenario-desc">An approved refund rule requires the original verified payment method. Trusted payment facts identify that method; if the chosen value conforms, the agent did not exercise independent recipient discretion.</p><div class="evidence-row"><span>Policy context</span><strong id="scenario-policy">Original method required</strong></div><div class="evidence-row"><span>Choice authority</span><strong id="scenario-authority">Rule determines recipient</strong></div><div class="evidence-row"><span>Exposure finding</span><strong id="scenario-finding">Source path still identified</strong></div><div class="nextaction"><strong>Useful next action</strong><p id="scenario-next">Compare the selected recipient with the verified original payment facts.</p></div></div></div><p class="labnote">This example teaches policy-grounded versus delegated business choice; it is not a claim that current shipped DAI v1 automatically performs the full ISAF2 research residual-choice classification.</p></div></div></div></section>
+
+<section class="sect alt" id="five-views"><div class="wrap"><div class="eyebrow">One consequential action · Five independent evidence views</div><h2>HAIEC doesn't mistake permission for the whole answer.</h2><p class="intro">Select any evidence view to see the question it answers. Each can establish useful facts independently, and DAI compares the relevant authority behind the consequential choice across those views.</p><div class="planes" role="group" aria-label="Select an evidence view"><button class="plane" type="button" data-plane="0" aria-pressed="true"><span>Requested</span><small>What did the task ask?</small></button><button class="plane" type="button" data-plane="1" aria-pressed="false"><span>Policy Authorized</span><small>What rules permit?</small></button><button class="plane" type="button" data-plane="2" aria-pressed="false"><span>Effectively Granted</span><small>What credentials allow?</small></button><button class="plane" type="button" data-plane="3" aria-pressed="false"><span>Code Capable</span><small>What could it reach?</small></button><button class="plane" type="button" data-plane="4" aria-pressed="false"><span>Observed</span><small>What was recorded?</small></button></div>
+<div class="plane-detail" aria-live="polite" aria-atomic="true"><div><span class="eyebrow" id="plane-eyebrow">REQUESTED / INTENT</span><h3 id="plane-head">What did the user or workflow request?</h3><p id="plane-main">A verified task, caller instruction or workflow request may establish the intended action and specific requested scope.</p></div><div><span class="eyebrow">Distinction that matters</span><p id="plane-limit">A request is not automatically approved policy, effective permission, or authorization to choose a consequential outcome.</p><a href="https://www.haiec.com/methodology">Understand the full methodology →</a></div></div>
+<div class="orient"><b>DAI is orthogonal:</b> It relates the protected decision and actual authority across available policy, granted capability, code and observations. Those five views are peers, **not** five sequential pass/fail checkpoints.</div></div></section>
+
+<section class="sect"><div class="wrap"><div class="eyebrow">Deterministic comparison, not an AI opinion</div><h2>Nine dimensions help make consequential authority inspectable.</h2><p class="intro">HAIEC's DAI evaluator compares supported facts across nine bounded dimensions. A result is meaningful only within the actual source, scope and evidence used; these dimensions aren't nine fabricated safety scores.</p><div class="nine"><div><strong>Operation</strong><p>Which action is in scope?</p></div><div><strong>Target</strong><p>Which service, resource or recipient?</p></div><div><strong>Scope</strong><p>Which customer, dataset or cohort?</p></div><div><strong>Magnitude</strong><p>How much or how broad?</p></div><div><strong>Duration</strong><p>For what effective period?</p></div><div><strong>Approval</strong><p>Which decision or review requirement?</p></div><div><strong>Data Class</strong><p>What type of information?</p></div><div><strong>Environment</strong><p>Development or production?</p></div><div><strong>Geography</strong><p>Which jurisdiction or region?</p></div></div><details><summary>What DAI's actual seven bounded technical states mean</summary><p>The existing typed evaluator distinguishes inside-established delegation, capability outside delegation with or without mediation evidence, broader effective grants, observed actions outside delegated scope, unresolved delegation exposure and not assessed. The labels depend on matching evidence and do not mean HAIEC universally verifies human authority or enforces customer-side blocking.</p></details><div class="actions"><a class="btn secondary" href="https://www.haiec.com/assurance">See HAIEC Assurance</a><a class="btn secondary" href="https://www.haiec.com/ai-action-access-map">Explore System Constellation</a></div></div></section>
+
+<section class="sect alt"><div class="wrap"><div class="eyebrow">Buyer outcome · One system, one consequential choice</div><h2>Find the risk. Establish the authority. Defend the decision.</h2><p class="intro">A source-visible path is actionable even before every source is connected. As the relevant evidence becomes available, HAIEC can distinguish supported authority context, potential scope mismatch and what actually happened—without relying on an LLM to pronounce the final evaluation.</p><div class="grid3"><div class="tile"><span class="n">Security engineering</span><h3>Investigate a path that matters</h3><p>Trace possible high-impact operations and how permission, policy and implementation intersect.</p><a href="https://www.haiec.com/ai-action-access-map">Explore action mapping →</a></div><div class="tile"><span class="n">Enterprise governance</span><h3>Focus review on the right decision</h3><p>Keep established policy facts visible, identify meaningful decision authority questions and support human accountability.</p><a href="https://www.haiec.com/enterprise">Scope an Enterprise POC →</a></div><div class="tile"><span class="n">Assurance & reporting</span><h3>Inspect the evidence behind the conclusion</h3><p>Connect exact evaluated facts and reported boundaries to the right assurance question.</p><a href="https://www.haiec.com/sample-reports/kestrel">View a real sample →</a></div></div></div></section>
+
+<section class="sect"><div class="wrap split"><div><div class="eyebrow">Use HAIEC from your existing AI workflow</div><h2>Your agent can start the workflow. HAIEC evaluates the evidence.</h2><p class="intro">Configure HAIEC in a compatible MCP-enabled IDE or AI assistant, using a scoped API key stored in the client's private connection settings. Request the goal, let the client perform readiness preflight, and inspect supported findings and qualified evaluations.</p><div class="actions"><a class="btn" href="https://www.haiec.com/docs/agent-integration">Connect HAIEC MCP →</a><button type="button" id="copy" class="miniBtn">Copy starting prompt</button></div><p class="small">MCP endpoint: <code>https://www.haiec.com/api/mcp</code>. A typed prompt does not grant permission or connect the source automatically.</p></div><div class="terminal"><div class="terminalhead"><strong>HAIEC · MCP in your IDE</strong><span>ILLUSTRATIVE OPERATOR FLOW</span></div><pre>You: Run HAIEC AI Assurance
+
+→ haiec_preflight
+  Check connection, eligible system and source
+
+→ Supported source analysis
+  Identify a consequential tool/action path
+
+→ haiec_run_assurance
+  If an authorized bounded evaluation is eligible
+
+→ Inspect HAIEC report
+  Technical finding, authority context, next action
+
+The AI guides the workflow.
+HAIEC determines the canonical evaluation.</pre><div class="terminalfoot">First findings can be useful without connecting every runtime or authority producer. No real request was executed in this mock.</div></div></div></section>
+
+<section class="sect alt" id="faq"><div class="wrap"><div class="eyebrow">Frequently asked questions</div><h2>Where DAI fits—and what it changes.</h2>
+<details><summary>What is Delegated Action Integrity?</summary><p>DAI is HAIEC's bounded method of comparing supported delegated decision authority with code capability, effective access and relevant observations across nine dimensions. It helps identify potential consequential overreach rather than judging the AI's prose.</p></details>
+<details><summary>Isn't IAM permission enough?</summary><p>IAM can establish whether a principal has technical access. It doesn't always establish the business authority to choose a customer, beneficiary, destination or other consequential outcome.</p></details>
+<details><summary>Do I need to upload delegation documents before HAIEC can find risks?</summary><p>No. Authorized source/code analysis can surface consequential paths and candidate exposure without a completed delegation history or runtime connection. Additional authority evidence matters to stronger, specific business-decision claims.</p></details>
+<details><summary>What if an approved policy already determines the choice?</summary><p>An explicit policy plus trusted applicable facts may fully determine the choice. The system still needs to compare the actual selected value before claiming compliance. The page's interactive example teaches this concept; it is not a claim that every ISAF2 research classification ships today.</p></details>
+<details><summary>Does potential reachability prove an unauthorized transaction occurred?</summary><p>No. A source-backed capability finding is distinct from a runtime observation and a confirmed target-side effect. You can investigate a supported risk before such an event is observed.</p></details>
+<details><summary>How does DAI relate to the five evidence planes?</summary><p>Requested, Policy Authorized, Effectively Granted, Code Capable and Observed are separate evidence questions. DAI is a cross-cutting delegated-choice comparison—not a sixth plane or mandatory sixth checkpoint.</p></details>
+<details><summary>Is DAI a seventh paid feature or capability?</summary><p>No. It is part of HAIEC's assurance approach. Access to particular reports or evaluations depends on actual plan, organization permissions, source eligibility and supported production functionality.</p></details>
+<details><summary>Does HAIEC automatically block agents when DAI detects a problem?</summary><p>No universal blocking is implied. Installed target-side protection requires an authorized, integrated execution point and separate verification. DAI findings can inform prevention or human decisions.</p></details>
+<details><summary>Can I run HAIEC through an AI IDE or MCP client?</summary><p>Yes, where the client supports compatible MCP and the customer has configured scoped credentials and authorized sources. HAIEC remains the official evaluator; the AI client guides authorized tool calls.</p></details>
+<details><summary>What makes HAIEC different from using another LLM to evaluate an agent?</summary><p>HAIEC's canonical rules operate over supported source and evidence facts and yield bounded, versioned results. An AI assistant may explain or operate the workflow but cannot replace the canonical evaluator's recorded result.</p></details>
+</div></section>
+<section class="enterprise"><div class="wrap split"><div><div class="eyebrow">High assurance in every consequence</div><h2>Know who authorized the consequential choice.</h2><p class="lead">Start with the action paths your sources can already show. Use DAI and HAIEC's deterministic assurance to examine authority and support an accountable decision as the evidence develops.</p><div class="actions"><a class="btn" href="https://www.haiec.com/enterprise">Scope an Enterprise POC</a><a class="btn secondary" href="https://www.haiec.com/sample-reports/kestrel">Explore a sample report</a></div></div><div class="enterprise-panel"><span class="eyebrow">A focused enterprise starting point</span><h3>One consequential AI system. One critical decision.</h3><p>Scope potential impact, source/capability paths, relevant policy and authority, evaluated evidence, and a technically defensible next step. Terms and timelines are governed by the actual engagement.</p><a href="https://www.haiec.com/enterprise">See Enterprise Assurance →</a></div></div></section>
+</main><footer class="footer"><div class="wrap">HAIEC · Evidence-Bound Assurance · Deterministic AI Action Assurance<p class="small">Internal HTML/UX reference only. This design is not a deployed HAIEC public DAI page, executed sample assessment or verified enterprise customer case.</p></div></footer>
+<script>
+(function(){
+ const root=document.documentElement,theme=document.getElementById('theme');
+ const get=id=>document.getElementById(id);
+ theme.addEventListener('click',()=>{const t=root.dataset.theme==='light'?'dark':'light';root.dataset.theme=t;theme.textContent=t==='light'?'Dark theme':'Light theme';theme.setAttribute('aria-label','Switch to '+(t==='light'?'dark':'light')+' theme')});
+ const scenarios=[
+  {tag:'CASE A / RULE-GROUNDED',title:'Trusted rules determine the recipient.',desc:'An approved refund rule requires the original verified payment method. Trusted payment facts identify that method; if the chosen value conforms, the agent did not exercise independent recipient discretion.',policy:'Original method required',authority:'Rule determines recipient',finding:'Source path still identified',next:'Compare the selected recipient with the verified original payment facts.'},
+  {tag:'CASE B / BOUNDED DELEGATION',title:'A business owner delegated a limited choice.',desc:'An authorized owner specifically permits this agent to choose recipients for a narrow customer cohort and bounded time/amount. The action should be compared with the exact recorded delegation.',policy:'Refund operation permitted within scope',authority:'Bounded recipient choice documented',finding:'Source path still identified',next:'Compare operation, recipient, amount, cohort and validity with the delegated scope.'},
+  {tag:'CASE C / POTENTIAL OVERREACH',title:'The source path is real. Recipient-choice authority needs review.',desc:'Code can select a different account while existing policy may limit the recipient. The current scenario has no authoritative basis for the alternative recipient choice; this is an investigation lead, not proof of a paid-out fraudulent refund.',policy:'Refund operation approved; recipient restriction',authority:'Alternative choice not established',finding:'Potential action-path exposure remains',next:'Inspect the recipient selector and identify who can authorize an exception.'}
+ ];
+ document.querySelectorAll('[data-scenario]').forEach(b=>b.addEventListener('click',()=>{const i=Number(b.dataset.scenario),s=scenarios[i];document.querySelectorAll('[data-scenario]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));get('scenario-tag').textContent=s.tag;get('scenario-head').textContent=s.title;get('scenario-desc').textContent=s.desc;get('scenario-policy').textContent=s.policy;get('scenario-authority').textContent=s.authority;get('scenario-finding').textContent=s.finding;get('scenario-next').textContent=s.next;}));
+ const planes=[
+  ['REQUESTED / INTENT','What did the user or workflow request?','A verified task, caller instruction or workflow request may establish the intended action and specific requested scope.','A request is not automatically approved policy, effective permission, or authorization to choose a consequential outcome.'],
+  ['POLICY AUTHORIZED','What does the operating policy permit?','A current, applicable approved policy can establish allowed operations, targets and conditions. That is useful evidence immediately.','A general authorization to call an operation is not automatically authority to choose every sensitive business outcome. Explicit policy delegation can be relevant where supported.'],
+  ['EFFECTIVELY GRANTED','What does actual credential access allow?','IAM and provider-grant evidence can show what the selected principal could access or invoke within a verified scope.','A valid credential does not prove that the holder had delegated business authority to decide the recipient.'],
+  ['CODE CAPABLE','Which consequential path does the source permit?','A tool, handler and API relation can establish a potential consequential capability within the inspected source. This is already an actionable source-level finding.','Code path reachability is not proof of runtime execution, downstream business effect or a target-side block.'],
+  ['OBSERVED / RUNTIME','Which action or effect was actually recorded?','Qualified telemetry or target-side records may support a bounded actual operation when a compatible source is connected.','No runtime source is not evidence that an event never occurred; observations only speak for connected, covered scope.']
+ ];
+ document.querySelectorAll('[data-plane]').forEach(b=>b.addEventListener('click',()=>{const i=Number(b.dataset.plane),p=planes[i];document.querySelectorAll('[data-plane]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));get('plane-eyebrow').textContent=p[0];get('plane-head').textContent=p[1];get('plane-main').textContent=p[2];get('plane-limit').textContent=p[3];}));
+ get('copy').addEventListener('click',async()=>{try{await navigator.clipboard.writeText('Run HAIEC AI Assurance');get('copy').textContent='Copied';}catch(e){get('copy').textContent='Select and copy the text above';}});
+})();
+</script></body></html>
