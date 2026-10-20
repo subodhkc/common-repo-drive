@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="dark">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -40,7 +40,7 @@
 </head>
 <body>
 <div class="demo">INTERNAL DESIGN REFERENCE · NOT HAIEC PRODUCTION · all diagrams illustrative · Light/Dark preview only</div>
-<header><div class="wrap top"><div class="logo">HAIEC<span>.</span> <span class="micro">Design review</span></div><nav aria-label="Preview page and theme"><button class="nav-button" type="button" id="nav-platform" aria-pressed="true">Platform</button><button class="nav-button" type="button" id="nav-products" aria-pressed="false">Products</button><button class="mode" type="button" id="theme" aria-label="Switch to dark theme">Dark theme</button></nav></div></header>
+<header><div class="wrap top"><div class="logo">HAIEC<span>.</span> <span class="micro">Design review</span></div><nav aria-label="Preview page and theme"><button class="nav-button" type="button" id="nav-platform" aria-pressed="true">Platform</button><button class="nav-button" type="button" id="nav-products" aria-pressed="false">Products</button><button class="mode" type="button" id="theme" aria-label="Switch to light theme">Light theme</button></nav></div></header>
 <main>
 <div id="platform-page">
 <section class="hero"><div class="wrap hero-grid"><div><div class="eyebrow">THE HAIEC PLATFORM</div><h1>Know what your AI can cause.<br>Decide with evidence.</h1><p class="lead">AI agents can call APIs, access sensitive records and trigger changes. HAIEC traces supported action paths across code, identity, authority and observed evidence, so teams can distinguish what is possible, what is permitted and what is actually proven.</p><p class="micro">DETERMINISTIC EVALUATION · EXPLICIT EVIDENCE GAPS · ACCOUNTABLE HUMAN DECISIONS</p><div class="actions"><a class="btn" href="https://www.haiec.com/enterprise">Scope an Enterprise POC</a><a class="btn secondary" href="https://www.haiec.com/sample-reports">Explore a sample report</a></div></div><figure class="diagram"><img src="../hero-architecture-2026-10-19/light-theme/03-enterprise-evidence-outcome-flow-light.svg" alt="Conceptual HAIEC action, evidence, authority and consequence relationships"><figcaption>Conceptual relationship map. Not a live customer evaluation, observed effect or automatic enforcement claim.</figcaption></figure></div></section>
@@ -100,7 +100,7 @@
   const root=document.documentElement, navP=document.getElementById('nav-platform'), navR=document.getElementById('nav-products'), theme=document.getElementById('theme'), platform=document.getElementById('platform-page'), products=document.getElementById('products-page');
   const setPage=(name)=>{ const p=name==='platform'; platform.classList.toggle('hidden',!p);products.classList.toggle('hidden',p);navP.setAttribute('aria-pressed',String(p));navR.setAttribute('aria-pressed',String(!p));document.title='HAIEC '+(p?'Platform':'Products')+' — Internal Editorial Concept';window.scrollTo({top:0,behavior:'instant'}); };
   const setTheme=(v)=>{root.dataset.theme=v;theme.textContent=v==='light'?'Dark theme':'Light theme';theme.setAttribute('aria-label','Switch to '+(v==='light'?'dark':'light')+' theme');};
-  setTheme('light'); navP.addEventListener('click',()=>setPage('platform'));navR.addEventListener('click',()=>setPage('products'));theme.addEventListener('click',()=>setTheme(root.dataset.theme==='light'?'dark':'light'));
+  setTheme(root.dataset.theme||'dark'); navP.addEventListener('click',()=>setPage('platform'));navR.addEventListener('click',()=>setPage('products'));theme.addEventListener('click',()=>setTheme(root.dataset.theme==='light'?'dark':'light'));
   document.querySelectorAll('[data-switch]').forEach(x=>x.addEventListener('click',()=>setPage(x.dataset.switch)));
 })();
 </script>
