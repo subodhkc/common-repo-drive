@@ -1,3 +1,5 @@
+> **Companion delivery references:** [Interactive Methodology proof-frontier and DAI light/dark design concept](design-references/methodology-2026-10-20/methodology-deterministic-proof-light-dark-preview.html); [exact Resources → Learn menu placement and audited-page navigation ownership](PUBLIC-WEBSITE-NAVIGATION-PLACEMENT-AND-METHODOLOGY-CROSS-LINK-CONTRACT-2026-10-20.md); [P0 DAI policy-vs-delegation admission engineering/release claim gate](DAI-DELEGATION-ADMISSION-ISAF2-SEMANTIC-ALIGNMENT-P0-2026-10-20.md). This editorial plan is committed to Common Repo only; **no HAIEC production change**.
+
 # HAIEC Methodology — Deterministic Evidence, Delegated Authority, Reachability & Proof Boundaries
 
 **Audit date:** 2026-10-20 · **Route:** https://www.haiec.com/methodology  
