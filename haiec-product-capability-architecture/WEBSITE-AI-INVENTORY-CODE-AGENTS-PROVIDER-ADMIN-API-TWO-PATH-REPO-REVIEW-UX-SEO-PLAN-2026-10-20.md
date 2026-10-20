@@ -186,3 +186,25 @@ NIST AI RMF / ISO/IEC 42001 management context, EU AI Act technical documentatio
 Refresh latest source, preserve /ai-inventory, check current admin API and source reachability code, inspect actual Main navigation/theme/CTA; implement semantics in existing /ai-inventory server page plus bounded interactive helper. Reuse exact authenticated operational routes. Crosslink source inventory from Repository Intelligence and provider admin from provider cost dashboard. No sample sensitive keys. No fabricated tenant/sample run stats. Capture note about remaining \`take:100\` and incomplete provider-usage semantics as engineering follow-ups rather than marketing copy. Keep reports and unknown states truthful, select user-goal CTAs rather than forcing all visitors to link a provider account. Existing product taxonomy stays **Discover → Evaluate → Authorize/Monitor/Protect/Verify as selectable jobs**, not six mandatory sequential steps.
 
 **Implementation permission:** Common Repo research and preview only. Do not change, PR, merge or deploy the HAIEC website without the separate authorized implementation task.
+
+
+## 7. MCP and agent-assisted inventory (source-verified)
+
+The existing HAIEC MCP inventory tooling is a third **access channel to the same scoped system and evidence reads**, not a third inventory product. Relevant source: \`lib/mcp/ide-tools.ts\`, \`lib/mcp/capability-guide.ts\`, \`lib/mcp/tool-registry.ts\`.
+
+- \`haiec_preflight\`: tenant/key readiness, permitted systems and next setup steps. It may return scoped inventory context but a successful preflight is not itself agent discovery.
+- \`haiec_list_systems\` (\`system:read\`): list registered AI Systems for the authorized tenant, using exact system IDs. Do not conflate with source-defined agent list or provider projects.
+- \`haiec_get_agent_trace\` (\`system:read\`): selected system's agent/tool trace and gaps; **declared IDE/MCP relationships stay declared**, and source-established relationships need their qualifying evidence. Do not claim this is always the same as the repository's source agent-definition inventory.
+- \`haiec_list_assets\` and source readiness tools: selected system's source assets, source authorization and coverage; no unbound repository inference.
+- \`haiec_get_agent_audit\` (\`report:read\`): bounded evaluation-bound Agent Audit results if the selected system has eligible completed evaluation. Not proof of current full estate coverage.
+- **No independently verified generic MCP operation for adding an OpenAI/Anthropic provider admin key or listing all underlying admin cost snapshot rows surfaced from the inspected capabilities.** The current operational provider path remains \`/dashboard/ai-inventory/admin-api\` and relevant authenticated APIs; do not advertise provider admin key import by chatbot as shipped.
+- User-oriented prompt examples can be:
+  - “List my HAIEC AI systems” → preflight + scoped system list, choosing exact system ID.
+  - “Inspect this system's agents” → selected system and qualified agent trace/repository evidence as available.
+  - “Show my OpenAI admin costs” → point the user to the Admin API dashboard if the MCP tool does not support that read.
+- The general site prompt **“Run HAIEC AI Assurance”** remains a separate goal, requires \`haiec_preflight\` and approved actions; inventory reads do not authorize a scan, source binding, billing credential connection or an Assurance run.
+- Keep HAIEC MCP bearer key separate from provider admin credentials in copy, examples and configuration. Do not paste provider secrets into an AI-agent chat or public UI demonstration.
+
+### Implementation follow-up
+
+When Devin executes, verify an exact registered tool list/permissions and only expose MCP CTAs that actually route to the stated read or guided setup. Reuse existing web and IDE/MCP ownership; do not build a second inventory API simply to serve a public page.
