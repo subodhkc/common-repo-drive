@@ -138,3 +138,31 @@ claim endpoint 401 auth-gated.
 - **New P0 missed by #2282:** `/dashboard/github` has no non-destructive org unlink/transfer UI. “Disconnect” invokes DELETE and sets `suspendedAt`, whereas authorized PATCH supports `organizationId:null`. The proposed MunichTech owner “unlink in dashboard” is therefore not yet possible through the shown customer controls. Next narrow release: reuse PATCH in a clearly separated **Unlink from organization** UI action requiring current-org admin/owner; never use Disconnect as substitute; display consequences/confirmation, preserve history and offer explicit target-org relink. If direct transfer is offered, require authority for both orgs.
 - **Narrow claim risks not fully closed:** claim bearer nonce not bound to initiating HAIEC session/user; displaying email alone is insufficient security binding. Claim consumption is outside account/integration DB transaction and its result ignored; check meaningful single-use/error semantics, but keep failed-write retry. Confirm actual OAuth user login/link branch with protected negative tests. No broad auth rewrite.
 - **Next external verification:** MunichTech authorized owner/admin consciously releases existing installation *after* reviewing impact, Kestrel account confirms GitHub OAuth and org bind, Kestrel-side public MCP verifies exact repo/branch and only then executes one qualified evaluation. If preserving MunichTech is more important, use existing authorized local-scan source route (different evidence type) to start customer acceptance without moving the GitHub installation.
+
+### #2283 — authorized organization unlink (merged `84fb54116`)
+
+The canonical `PATCH /api/github-app/installations/[id]` already supported
+`organizationId: null` with current-org owner/admin authorization, but the
+dashboard only exposed Disconnect (suspends the installation) — a customer
+could not release an org binding without suspending the GitHub App.
+
+- "Unlink from organization" action on the installation card, separate from
+  Disconnect: shows the bound org name, explicit confirm explaining effects
+  (future verifications unavailable until re-link; historical evaluations,
+  artifacts, receipts, audit records preserved; app stays installed and
+  unsuspended), then PATCHes `organizationId: null`.
+- Dashboard API returns `organizationName` for linked installs.
+- Fixed dead error display: `orgLinkError` stored the message while renders
+  compared it to the installation id — errors never surfaced.
+- Claim-boundary review after #2282: no new demonstrated problems —
+  peek→tx→consume, single-use, wrong-session visibility verified by tests.
+- Rebind A→B already fails closed: current-org release AND target-org
+  owner/admin authorization are both required (route-tested).
+
+Tests: 5 focused route tests — admin unlink without suspend, non-member
+denial, unbound-claim without linked identity → 404, authorized unbound
+link, A→B blocked without current-org release. tsc clean, eslint
+baseline-only, dev-server /dashboard/github 200.
+
+No MunichTech→KestrelVoice transfer was performed — release and re-link are
+authorized-human actions.
