@@ -1,3 +1,5 @@
+> **2026-10-20 positioning and commercial supplement (source-checked, controlling on these topics):** [Four-word descriptor, evidence-led USP, Veritasium-inspired story/keywords](HAIEC-POSITIONING-USP-FOUR-WORD-SEO-AND-STORY-SYSTEM-2026-10-20.md) and [platform capabilities, canonical tiers, standalone tools, optional services and verified MCP onboarding contract](HAIEC-SOURCE-BASED-CAPABILITIES-PACKAGES-MCP-TRYOUT-MATRIX-2026-10-20.md). Do not treat this as a new brand, a universal action-proof claim, or a deployed site change. **Adopt “Deterministic AI Action Assurance” as a four-word product descriptor; retain “Evidence-Bound Assurance” as category and “High assurance in every consequence” as tagline.** The companion [dual-theme HTML visual concept](design-references/platform-products-2026-10-20/platform-products-light-dark-editorial-preview.html) now includes a user-directed synthetic 4-beat explanation and a real documented MCP setup CTA; it does NOT run HAIEC.
+
 # HAIEC Public Brand, Copy & Dual-Theme Standard — v0.1
 
 **Date:** 2026-10-20  
