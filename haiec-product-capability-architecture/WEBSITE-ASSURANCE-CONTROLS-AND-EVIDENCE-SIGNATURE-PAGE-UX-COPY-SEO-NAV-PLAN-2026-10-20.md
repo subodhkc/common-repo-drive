@@ -1,3 +1,5 @@
+> **2026-10-20 CUSTOMER COPY ADJUSTMENT:** [Assurance Controls interactive HTML](design-references/assurance-controls-2026-10-20/assurance-controls-and-evidence-dual-theme-interactive.html) has been polished to remove internal banners, fictional/demo-status labels and em dashes in visible content. Keep accurate claim limits, but phrase them as product benefits, specific inspection questions and customer decisions, not design-stage disclaimers. The next ISAF v2 research framework page follows the same presentation standard. [Plan](WEBSITE-ISAF-V2-FRAMEWORK-PUBLIC-PAGE-MANUSCRIPT-RELEASE-UX-SEO-NAV-PLAN-2026-10-20.md).
+
 # HAIEC — Assurance Controls & Evidence: Dedicated Product Page, Design, Catalog Accuracy, SEO, Menu and CTA Plan
 
 **Reviewed 2026-10-20.** **Production:** not implemented. **Proposed canonical URL:** https://www.haiec.com/assurance-controls. **Companion complete interactive concept:** [Assurance Controls & Evidence — light/dark HTML](design-references/assurance-controls-2026-10-20/assurance-controls-and-evidence-dual-theme-interactive.html). Source owner: \`subodhkc/haiec-website\`. Canonical planning destination: this common repo.
