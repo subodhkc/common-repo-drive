@@ -1,3 +1,5 @@
+> **Interactive design companion (new):** [Light/Dark Platform + Products semantic HTML editorial preview](design-references/platform-products-2026-10-20/platform-products-light-dark-editorial-preview.html). This static concept demonstrates hierarchy, page switching, shared semantic tokens and equal-weight capability cards; it does not implement HAIEC site theming or qualify any product claim.
+
 # HAIEC — Platform & Products Public-Page Enhancement Plan, Copy and Design Contract
 
 **Date:** 2026-10-20  
