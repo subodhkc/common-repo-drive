@@ -4,9 +4,10 @@
   "note": "All five illustrative SVG/HTML derivatives in the Common Repo are editable SEO-readable references, not published site surfaces. Image-generated PNG reference binaries are staged in conversation ZIP and are NOT committed to GitHub as binary objects until the verified import script is run.",
   "status": {
     "editable_svg": "GITHUB_COMMITTED",
-    "standalone_html": "IN_PROGRESS",
+    "standalone_html": "GITHUB_COMMITTED",
     "png_reference_binary": "PENDING_BINARY_IMPORT",
-    "website_publication": "NOT_RUN"
+    "website_publication": "NOT_RUN",
+    "compact_hero_svg": "GITHUB_COMMITTED"
   },
   "sources": [
     {
