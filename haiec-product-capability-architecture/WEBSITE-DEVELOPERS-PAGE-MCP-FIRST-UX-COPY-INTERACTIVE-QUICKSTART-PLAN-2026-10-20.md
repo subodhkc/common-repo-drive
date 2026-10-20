@@ -1,3 +1,5 @@
+> **Adjacent GitHub guide enhancement (page #15):** [Source-verified GitHub install/binding and remote Assurance UX plan](WEBSITE-GITHUB-INTEGRATION-GUIDE-SOURCE-VERIFIED-INTERACTIVE-UX-PLAN-2026-10-20.md) + [interactive page](design-references/github-integration-2026-10-20/github-app-to-verified-source-assurance-interactive.html) is the canonical deeper implementation path behind this Developers hub's `Start with GitHub` CTA. The guide preserves the seven-step setup and differentiates PR comments from full repository evaluation; the Developers hub remains a shorter choice architecture. No change to HAIEC site production source authorized.
+
 # Developers page: MCP-first, finding-first UX and technical copy plan
 
 **Prepared:** 2026-10-20. **Existing URL:** https://www.haiec.com/developers. **Companion:** [interactive dual-theme HTML](design-references/developers-2026-10-20/developers-ide-to-deterministic-assurance-interactive.html). **Scope:** Common Repo design and planning; no HAIEC site changes.
