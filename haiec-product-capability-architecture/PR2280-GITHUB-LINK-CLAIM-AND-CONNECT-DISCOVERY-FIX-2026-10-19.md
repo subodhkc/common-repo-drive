@@ -166,3 +166,60 @@ baseline-only, dev-server /dashboard/github 200.
 
 No MunichTech→KestrelVoice transfer was performed — release and re-link are
 authorized-human actions.
+
+### #2284 — dashboard sweep fixes, workspace light theme, hero flow diagram (merged `e4e46c36c`)
+
+Post-sweep corrections on the customer journey surfaces audited after #2283.
+All changes reuse existing canonical owners; no parallel editors, engines,
+or truth models were created.
+
+- **Org shared assessments** (`/dashboard/organization/[id]/assessments`):
+  "View Details" and "Comments" routed to a nonexistent org-scoped detail
+  page (404 verified). View Details now targets the canonical assessment
+  owner `/wizard/{assessmentType}?assessmentId=` — the same destination
+  `/dashboard/assessments` uses; the underscore→kebab normalize is applied.
+  The Comments control had no reachable UI at all (the comments API exists
+  but no comments page) — replaced with a truthful read-only count label.
+- **settings/profile**: the save button was `setTimeout` theatre. Now
+  PATCHes `/api/user/profile` (new handler; zod-validated `name`/`company`
+  only — `email` is the auth identity, no `phone`/`location` write path is
+  claimed). Dead change-picture, password and 2FA controls removed rather
+  than left as misleading affordances. GET now selects `company`.
+- **settings/notifications**: fake save now loads and persists through
+  `/api/user/preferences` (`emailNotifications`, `complianceAlerts`,
+  `productUpdates`, `weeklyDigest` — all real `user_preferences` columns).
+  `securityAlerts` has no column and is now rendered as always-on
+  informational copy instead of a mutable-but-dead toggle. Save errors are
+  surfaced in the UI.
+- **settings/organization**: a 223-line static mock that duplicated real
+  org management (`/dashboard/organization`) with dead invites/roles/save.
+  Replaced with a redirect to the canonical owner — no parallel editor.
+- **Workspace light theme**: `styles/workspace-theme.css` gained a
+  `:root[data-theme='light']` palette covering the entire ws-* token
+  contract (surfaces, borders, text, status, shadows — GitHub-light
+  values). `WorkspaceThemeSync` mounts once in `DashboardShellLayout`,
+  applies localStorage instantly, then lets server-persisted
+  `user_preferences.theme` win. `ThemeToggle` lives on the settings hub
+  Appearance card and persists via POST `/api/user/preferences`.
+  Marketing surfaces use slate-* literals and are unaffected.
+- **Homepage hero**: `HeroMcpTerminal` replaced by `HeroFlowDiagram` —
+  the canonical operational dependency-flow SVG published at
+  `public/diagrams/haiec-operational-dependency-flow.svg` (from this
+  repo's `diagrams/` set), captioned as illustrative. The hero contract
+  test (`tests/unit/homepage-hero-diagram.test.ts`) was updated to the new
+  owner; two pre-existing em dashes in page copy were fixed so the
+  baseline-red metadata guard is green again.
+- **Floating widgets**: `FeedbackWidget` restyled slate/neutral with a
+  distinct tooltip so it is visually separable from the emerald
+  `KestrelChatWidget` chat bubble.
+
+Tests/verification: 38/38 hero-diagram unit tests (updated contract),
+tsc --noEmit clean, eslint on touched files 0 errors (2 acceptable
+warnings: pre-existing exhaustive-deps; `<img>` is correct for SVG).
+Dev-server probes: `/`, `/dashboard/settings`, `/settings/profile`,
+`/settings/notifications`, `/organization`, `/ai-inventory`, `/api-keys`,
+`/my-work`, `/billing` → 200; `/settings/organization` → client redirect
+307 to `/dashboard/organization`; `/api/user/profile` and
+`/api/user/preferences` → 401 unauthenticated (correct).
+NOT_RUN: authenticated save round-trips, theme toggle persistence click
+path, mobile-width visual pass — require a real session/browser.
