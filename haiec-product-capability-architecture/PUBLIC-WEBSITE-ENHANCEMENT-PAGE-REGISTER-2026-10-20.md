@@ -9,8 +9,8 @@
 | 3 | /assurance | [Assurance plan](WEBSITE-ASSURANCE-PAGE-COPY-DESIGN-SEO-MCP-ENHANCEMENT-PLAN-2026-10-20.md) | REVIEWED, COPY & DESIGN PLAN COMMITTED | NOT MODIFIED BY THIS CAMPAIGN |
 | 4 | /enterprise | [Enterprise plan](WEBSITE-ENTERPRISE-PAGE-COPY-DESIGN-SEO-CONVERSION-PLAN-2026-10-20.md) + [light/dark editorial concept](design-references/enterprise-2026-10-20/enterprise-dual-theme-decision-story-preview.html) | REVIEWED, COPY & DESIGN PLAN COMMITTED | NOT MODIFIED BY THIS CAMPAIGN |
 | 5 | /controls | [Controls proof, copy, catalog and SEO plan](WEBSITE-CONTROLS-PAGE-COPY-DESIGN-SEO-PROOF-ENHANCEMENT-PLAN-2026-10-20.md) + [light/dark interactive concept](design-references/controls-2026-10-20/controls-proof-light-dark-editorial-preview.html) | REVIEWED, COPY & DESIGN PLAN COMMITTED | NOT MODIFIED BY THIS CAMPAIGN |
-| 6 candidate | /methodology | Not yet authored in this page-by-page sequence | NEXT REVIEW | NOT STARTED |
-| 7 candidate | /pricing | Not yet authored in this page-by-page sequence | PENDING | NOT STARTED |
+| 6 | /methodology | [Deep Methodology plan](WEBSITE-METHODOLOGY-PAGE-DETERMINISTIC-DAI-REACHABILITY-EVIDENCE-AND-NAVIGATION-PLAN-2026-10-20.md), [interactive theme concept](design-references/methodology-2026-10-20/methodology-deterministic-proof-light-dark-preview.html), [nav placement](PUBLIC-WEBSITE-NAVIGATION-PLACEMENT-AND-METHODOLOGY-CROSS-LINK-CONTRACT-2026-10-20.md), [DAI P0 gate](DAI-DELEGATION-ADMISSION-ISAF2-SEMANTIC-ALIGNMENT-P0-2026-10-20.md) | REVIEWED, DETAILED COPY / DESIGN / IA PLAN COMMITTED | NOT MODIFIED BY THIS CAMPAIGN |
+| 7 candidate | /pricing | Not yet authored in this page-by-page sequence | NEXT REVIEW | NOT STARTED |
 
 These candidates follow the prior public audit; revise priority only when an explicit new customer risk, accuracy issue or user direction warrants it. Additional audit pages remain separately queued, not silently closed.
 
