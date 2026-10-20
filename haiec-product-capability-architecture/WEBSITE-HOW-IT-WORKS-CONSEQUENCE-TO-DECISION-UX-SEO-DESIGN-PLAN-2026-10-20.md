@@ -1,3 +1,5 @@
+> **Adjacent developer entry page reviewed:** [Developers hub plan](WEBSITE-DEVELOPERS-PAGE-MCP-FIRST-UX-COPY-INTERACTIVE-QUICKSTART-PLAN-2026-10-20.md) and [interactive MCP/GitHub/API page](design-references/developers-2026-10-20/developers-ide-to-deterministic-assurance-interactive.html) are a separate developer onboarding intent. `/how-it-works` continues to explain HAIEC's buyer-facing seven-phase journey and should contextual-link to `/developers` without duplicating its API specifics.
+
 > **Separate new education page, 2026-10-20:** [How LLMs & AI Agents Work](WEBSITE-HOW-LLMS-AND-AI-AGENTS-WORK-OBSERVABILITY-HAIEC-GAP-AWS-RESEARCH-PLAN-2026-10-20.md) + [interactive model/agent visibility experience](design-references/how-ai-systems-work-2026-10-20/llm-vs-agent-visibility-consequences-interactive.html) complements, but must **not replace**, the HAIEC operational `/how-it-works` page. Cross-link when deployed. No production changes authorized.
 
 # HAIEC /how-it-works: From Consequential Action to Evidence-Backed Decision
