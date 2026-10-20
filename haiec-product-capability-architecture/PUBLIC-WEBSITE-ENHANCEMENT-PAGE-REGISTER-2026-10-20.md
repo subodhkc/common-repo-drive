@@ -1,3 +1,5 @@
+> **2026-10-20 HERO V3 LATEST DESIGN:** [Same homepage HTML, updated in place with approved USP, two 10-second hero compositions, separate preserved six-capability explorer](design-references/homepage-2026-10-20/homepage-v2-hero-dai-mcp-playback-interactive-design.html). Planning/design only; no website deploy. For Homepage #8 implementation, **use this hero, not the earlier V2 in-hero capability card layout**. Keep CTA tracking, award and developer integration rail, light default, and existing terminal/demo components.
+
 # HAIEC Public Website — Page-by-Page Editorial Enhancement Register
 
 **Established 2026-10-20; homepage added as page #8.** Review the live source/owner at each new page before creating a distinct Common Repo document. This register tracks **planning artifacts**, not completed production upgrades or customer-qualified implementations.
