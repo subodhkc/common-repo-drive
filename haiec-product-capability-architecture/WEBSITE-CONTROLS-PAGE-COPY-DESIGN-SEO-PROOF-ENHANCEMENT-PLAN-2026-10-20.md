@@ -1,3 +1,5 @@
+> **Interactive design companion:** [Controls dual-theme editorial concept with two distinct catalogs, a fictional control-proof inspector and bounded visibility state selector](design-references/controls-2026-10-20/controls-proof-light-dark-editorial-preview.html). This prototype uses no protected tenant data, real test result, framework search backend or production deployment.
+
 # HAIEC Controls — Public Page Copy, Design, Control-Proof, SEO and Dual-Theme Plan
 
 **Review:** 2026-10-20. **Page:** https://www.haiec.com/controls. **Status:** EDITORIAL_REVIEWED / PLAN_COMMITTED / DESIGN_CONCEPT_OPTIONAL / WEBSITE_NOT_MODIFIED. This is sequential page #5 after Platform, Products, Assurance and Enterprise.
