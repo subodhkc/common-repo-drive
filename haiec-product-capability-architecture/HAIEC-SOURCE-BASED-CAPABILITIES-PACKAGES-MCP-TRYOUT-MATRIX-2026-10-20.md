@@ -1,3 +1,5 @@
+> **2026-10-20 public-facing prompt update:** Default **“Run HAIEC AI Assurance”**. This is **user intent**, not an immediate unconditional scan. The agent must first establish HAIEC connectivity, `haiec_preflight`, valid org/system/source, access, consent and explicit approval before a canonical run; otherwise guide setup. Retain **“Check my HAIEC setup”** for read-only troubleshooting and the existing 25-step playbook. [Assurance page plan](WEBSITE-ASSURANCE-PAGE-COPY-DESIGN-SEO-MCP-ENHANCEMENT-PLAN-2026-10-20.md).
+
 # HAIEC — Source-Based Capability, Packaging, MCP Tryout & Customer-Proof Inventory
 
 **Reviewed:** 2026-10-20 · **Status:** READ-ONLY source-reconciled messaging inventory, not a full route-by-route runtime release qualification; **no HAIEC production implementation or live customer mutation**.  
