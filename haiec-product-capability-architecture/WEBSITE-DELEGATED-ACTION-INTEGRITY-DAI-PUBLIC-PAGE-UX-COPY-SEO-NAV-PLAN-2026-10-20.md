@@ -1,3 +1,5 @@
+> **2026-10-20 CUSTOMER COPY ADJUSTMENT:** [DAI interactive page](design-references/dai-2026-10-20/delegated-action-integrity-dai-light-dark-interactive.html) no longer uses visible internal banners, fictional labels or em dashes. Keep evidential rigor in normal benefit-led public language. The ISAF v2 research framework and manuscript page is separately planned at [this source-backed plan](WEBSITE-ISAF-V2-FRAMEWORK-PUBLIC-PAGE-MANUSCRIPT-RELEASE-UX-SEO-NAV-PLAN-2026-10-20.md).
+
 # HAIEC — Delegated Action Integrity (DAI): Dedicated Public Page, Enterprise UX, Source-Based Copy, Navigation & SEO
 
 **Date:** 2026-10-20. **Status:** SOURCE-REVIEWED PUBLIC-PAGE PRODUCT PLAN + INTERACTIVE HTML DESIGN REFERENCE, not a deployed website route. **URL to implement:** https://www.haiec.com/delegated-action-integrity. **Editorial owner:** Platform → Signature Product Proof. **Companion interactive preview:** [DAI Light-First Interactive Page](design-references/dai-2026-10-20/delegated-action-integrity-dai-light-dark-interactive.html).
