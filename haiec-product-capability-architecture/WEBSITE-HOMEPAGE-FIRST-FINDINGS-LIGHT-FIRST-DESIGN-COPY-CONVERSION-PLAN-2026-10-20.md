@@ -1,3 +1,5 @@
+> **Companion light-first editorial preview:** [Homepage interactive HTML concept](design-references/homepage-2026-10-20/homepage-light-first-first-findings-enterprise-editorial-preview.html) (light by default in this preview, dark toggle, six peer capabilities, fictional first-finding source path, enterprise/developer CTAs, deliberate original component slots). Production code is **not** changed; replacing existing `HeroArchitectureExplorer`, `ProductShowcase`, `SampleMapPreview` or `ScenarioPlayer` with this simplified mock is **prohibited**.
+
 # HAIEC Homepage — Light-First Enterprise Design, Immediate Findings, Stronger Copy & Conversion
 
 **Reviewed 2026-10-20. Route:** https://www.haiec.com/  
