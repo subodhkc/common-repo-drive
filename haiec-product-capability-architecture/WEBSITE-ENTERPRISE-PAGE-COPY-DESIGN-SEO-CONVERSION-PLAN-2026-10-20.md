@@ -1,3 +1,5 @@
+> **Interactive design companion (2026-10-20):** [Enterprise dual-theme decision-dossier HTML concept](design-references/enterprise-2026-10-20/enterprise-dual-theme-decision-story-preview.html) demonstrates the retained core H1, four-value deliverable families, fictional authority gap, optional L0–L4 evidence selector, secondary MCP access and a source-safe POC CTA. **Not the live HAIEC page, a real evaluation, a working contact form or proof of offline Docker deployment.**
+
 # HAIEC Enterprise — Page Enhancement and Conversion Plan
 
 **Date:** 2026-10-20. **Scope:** /enterprise only, with shared public light/dark tokens from prior page plans. **Status:** PROPOSED IN COMMON REPO, NOT IMPLEMENTED ON LIVE HAIEC SITE.
