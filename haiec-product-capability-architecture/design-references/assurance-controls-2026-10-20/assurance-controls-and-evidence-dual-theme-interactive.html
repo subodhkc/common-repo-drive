@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en" data-theme="light"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light dark"><meta name="robots" content="noindex,nofollow"><title>HAIEC Assurance Controls & Evidence — Interactive Product Editorial</title><meta name="description" content="Interactive design reference: HAIEC assurance controls, findings, control visibility, recorded evaluations and proof of operating effect.">
+<style>
+:root{color-scheme:light;--bg:#f8faf8;--surface:#fff;--soft:#eff6f0;--soft2:#e7f1e9;--text:#19362c;--muted:#50675d;--line:#d8e4db;--brand:#116747;--onbrand:#fff;--warm:#fff3e3;--warmText:#714c1c;--code:#10252c;--codeText:#e8f8f0;--shadow:0 16px 42px rgba(33,72,47,.075)}
+:root[data-theme="dark"]{color-scheme:dark;--bg:#101d22;--surface:#1b2f35;--soft:#233e3b;--soft2:#295043;--text:#eef7f1;--muted:#b8ccc1;--line:#3a5550;--brand:#a6e8c1;--onbrand:#10301d;--warm:#493d2c;--warmText:#ebd2a8;--shadow:0 16px 42px rgba(0,0,0,.24)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{font:16px/1.55 Inter,ui-sans-serif,system-ui,sans-serif;margin:0;background:var(--bg);color:var(--text)}
+h1,h2,h3{font-family:Inter,ui-sans-serif,system-ui,sans-serif;letter-spacing:-.05em;line-height:1.13}h1{font-size:clamp(2.75rem,5.1vw,4.85rem);margin:15px 0 24px}h2{font-size:clamp(1.85rem,3.4vw,3.15rem);margin:12px 0 23px}h3{font-size:1.2rem;margin:7px 0 12px}
+p{margin:0 0 17px}button{cursor:pointer;font:inherit}a{color:var(--brand);text-underline-offset:3px}a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var(--brand);outline-offset:3px}
+.wrap{max-width:1230px;padding:0 25px;margin:auto}.notice{text-align:center;padding:9px 15px;background:var(--warm);color:var(--warmText);font-size:.73rem;border-bottom:1px solid var(--line)}
+.header{border-bottom:1px solid var(--line);background:var(--surface);position:sticky;top:0;z-index:25}
+.nav{display:flex;justify-content:space-between;align-items:center;min-height:69px;gap:15px}
+.logo{text-decoration:none;font-weight:900;font-size:1.31rem;color:var(--text);letter-spacing:-.08em}.logo b{color:var(--brand)}
+.navlinks{display:flex;gap:17px;align-items:center}.navlinks a{font-size:.83rem;text-decoration:none;color:var(--muted);font-weight:730}
+.btn{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;background:var(--brand);color:var(--onbrand);border:1px solid transparent;border-radius:9px;padding:10px 16px;min-height:45px;font-weight:810;font-size:.86rem}
+.btn.secondary{color:var(--text);background:var(--surface);border-color:var(--line)}.btn.link{background:transparent;color:var(--brand);padding-left:0}
+.toggle{border:1px solid var(--line);background:var(--surface);border-radius:9px;padding:8px 12px;color:var(--text);font-size:.8rem;font-weight:780}
+.eyebrow{color:var(--brand);font-weight:850;letter-spacing:.17em;text-transform:uppercase;font-size:.68rem}
+.lead{color:var(--muted);font-size:1.1rem;max-width:760px}.intro{color:var(--muted);font-size:1.05rem;max-width:840px}.small{color:var(--muted);font-size:.78rem}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin:25px 0}
+.hero{background:radial-gradient(ellipse at 80% 35%,rgba(41,161,94,.07),transparent 44%),linear-gradient(115deg,var(--soft2),var(--bg));border-bottom:1px solid var(--line);padding:67px 0 70px}
+.two{display:grid;grid-template-columns:.93fr 1.07fr;gap:44px;align-items:center}
+.hero h1 span{color:var(--brand)}
+.value{border-left:3px solid var(--brand);padding:8px 0 8px 14px;font-weight:810;font-size:.86rem;margin-top:21px}
+.demoCard{padding:19px;border:1px solid var(--line);border-radius:17px;box-shadow:var(--shadow);background:var(--surface);overflow:hidden}
+.demoHead{display:flex;align-items:center;justify-content:space-between;gap:9px;border-bottom:1px solid var(--line);padding:0 0 13px;font-size:.75rem;font-weight:830}
+.fixture{padding:5px 8px;font-size:.62rem;border-radius:7px;border:1px solid var(--line);color:var(--muted);font-weight:820}
+.actionflow{display:flex;align-items:center;gap:6px;margin:20px 0 16px}
+.actionflow span{border:1px solid var(--line);background:var(--soft);border-radius:8px;flex:1;text-align:center;padding:13px 5px;font-size:.7rem;font-weight:810}
+.actionflow i{font-size:1rem;font-style:normal;color:var(--brand)}
+.finding{border:1px solid var(--line);background:var(--soft);border-radius:9px;padding:12px 14px;margin-bottom:17px}
+.finding strong{display:block;font-size:.83rem}.finding p{font-size:.72rem;color:var(--muted);margin:4px 0}
+.tabrow{display:flex;gap:6px;flex-wrap:wrap;margin:14px 0}
+.tab{border:1px solid var(--line);border-radius:8px;padding:8px 10px;background:var(--surface);color:var(--text);font-size:.74rem;font-weight:800}
+.tab[aria-pressed="true"]{background:var(--brand);color:var(--onbrand);border-color:var(--brand)}
+.proofpanel{border:1px solid var(--line);border-radius:10px;padding:15px;background:var(--soft);min-height:150px}
+.proofpanel strong{font-size:.86rem;display:block}.proofpanel p{font-size:.78rem;color:var(--muted);margin:9px 0}.proofpanel em{font-style:normal;font-size:.7rem;font-weight:840;color:var(--brand)}
+.section{padding:75px 0;border-bottom:1px solid var(--line)}.alt{background:var(--surface)}
+.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px;margin:25px 0}
+.grid4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:26px 0}
+.card{border:1px solid var(--line);background:var(--surface);border-radius:13px;padding:22px}
+.card p{font-size:.86rem;color:var(--muted)}.card .num{font-size:.69rem;text-transform:uppercase;letter-spacing:.1em;color:var(--brand);font-weight:850}
+.metricband{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;padding:21px;border-radius:14px;background:var(--soft);border:1px solid var(--line);margin:26px 0}
+.metricband strong{font-size:2.25rem;display:block;letter-spacing:-.07em}
+.metricband span{display:block;font-size:.78rem;color:var(--muted)}
+.lab{border:1px solid var(--line);border-radius:17px;overflow:hidden;background:var(--surface);box-shadow:var(--shadow);margin:28px 0}
+.labtitle{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:11px;padding:16px 21px;border-bottom:1px solid var(--line);font-size:.81rem;font-weight:830}
+.labbody{padding:23px}.casegrid{display:grid;grid-template-columns:1fr 1.07fr;gap:13px}
+.inset{padding:17px;background:var(--soft);border:1px solid var(--line);border-radius:11px}
+.inset strong{font-size:.91rem}.inset p{font-size:.79rem;color:var(--muted);margin:9px 0}
+.factrow{display:flex;justify-content:space-between;gap:10px;border-top:1px solid var(--line);padding:10px 0;font-size:.78rem}
+.factrow span{color:var(--muted)}.factrow strong{font-size:.76rem;text-align:right}
+.result{font-size:1.11rem;font-weight:850;line-height:1.3}
+.next{border:1px solid var(--line);border-radius:8px;padding:12px;background:var(--surface);font-size:.8rem}
+.next b{color:var(--brand);display:block;letter-spacing:.1em;text-transform:uppercase;font-size:.65rem}
+.next p{margin:6px 0 0;font-size:.79rem}
+.families{display:flex;flex-wrap:wrap;gap:7px;margin:24px 0}
+.family{padding:9px 12px;border:1px solid var(--line);background:var(--surface);border-radius:8px;color:var(--text);font-size:.77rem;font-weight:790}
+.family[aria-pressed="true"]{background:var(--brand);color:var(--onbrand);border-color:var(--brand)}
+.familyresult{background:var(--surface);border:1px solid var(--line);border-radius:13px;padding:23px}
+.familyresult p{font-size:.88rem;color:var(--muted)}
+.states{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin:22px 0}
+.state{background:var(--surface);border:1px solid var(--line);border-radius:10px;color:var(--text);padding:15px 12px;text-align:left;font-size:.75rem;min-height:99px}
+.state b{display:block;font-size:.77rem;margin:0 0 7px}.state span{display:block;color:var(--muted);font-size:.7rem}
+.state[aria-pressed=true]{background:var(--soft);border-color:var(--brand)}
+.stateexplain{padding:21px;border:1px solid var(--line);border-radius:12px;background:var(--surface);display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.stateexplain p{font-size:.86rem;color:var(--muted)}
+.steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:24px 0}
+.step{border:1px solid var(--line);background:var(--surface);border-radius:11px;padding:15px}
+.step strong{font-size:.82rem}.step p{color:var(--muted);font-size:.76rem;margin:6px 0}
+.planes{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;margin:20px 0}
+.plane{padding:14px 8px;text-align:center;border:1px solid var(--line);background:var(--surface);border-radius:9px;font-size:.75rem;font-weight:740}
+.bridge{background:var(--soft);border-radius:10px;border:1px solid var(--line);padding:18px;font-size:.85rem;color:var(--muted)}
+.bridge b{color:var(--brand)}
+.terminal{background:var(--code);color:var(--codeText);border-radius:16px;border:1px solid #36595c;margin:25px 0;overflow:hidden}
+.termHead{background:#19363b;padding:14px 20px;display:flex;justify-content:space-between;gap:11px;border-bottom:1px solid #3b5a56;font-size:.76rem}
+.terminal pre{padding:20px;font:13px/1.78 ui-monospace,monospace;white-space:pre-wrap;overflow-wrap:anywhere;margin:0}
+.termFoot{padding:13px 20px;color:#c0dbcf;border-top:1px solid #3b5a56;font-size:.77rem}
+details{border:1px solid var(--line);background:var(--surface);padding:16px 19px;margin:9px 0;border-radius:10px}
+summary{font-weight:770;cursor:pointer;font-size:.89rem}details p{color:var(--muted);font-size:.88rem;margin:13px 0 0}
+.final{background:linear-gradient(120deg,var(--soft2),var(--bg));padding:78px 0}
+.footer{padding:35px 0;border-top:1px solid var(--line);background:var(--surface);color:var(--muted);font-size:.82rem}
+@media(max-width:950px){.two,.casegrid{grid-template-columns:1fr}.demoCard{max-width:730px}.grid4,.steps{grid-template-columns:repeat(2,1fr)}.states{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:660px){.wrap{padding:0 17px}.navlinks a{display:none}.hero{padding:48px 0}.section{padding:51px 0}.grid3,.stateexplain{grid-template-columns:1fr}.metricband{gap:7px;padding:13px}.metricband strong{font-size:1.75rem}.metricband span{font-size:.67rem}.grid4,.steps{grid-template-columns:1fr 1fr}.labbody{padding:14px}.actionflow span{font-size:.6rem;padding:8px 3px}.actionflow i{font-size:.68rem}.card{padding:17px}.planes{gap:4px}.plane{font-size:.59rem;padding:10px 1px}.demoCard{padding:14px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation:none!important;transition:none!important}}
+</style></head><body>
+<div class="notice">INTERNAL PRODUCT PAGE DESIGN · Fictional scenarios and example results are not live HAIEC scans, control tests or target-side enforcement.</div>
+<header class="header"><div class="wrap nav"><a class="logo" href="#top">HAIEC<b>.</b></a><nav class="navlinks" aria-label="Page navigation"><a href="#value">Why Controls</a><a href="#control-proof-lab">Control Proof</a><a href="#catalog">Catalog</a><a href="#evidence">Evidence &amp; Operation</a><a href="#faq">FAQ</a><button class="toggle" id="theme" type="button" aria-label="Switch to dark theme">Dark theme</button></nav></div></header>
+<main>
+<section class="hero" id="top"><div class="wrap two">
+<div><div class="eyebrow">HAIEC ASSURANCE CONTROLS &amp; EVIDENCE</div><h1>Don't just list AI controls. <span>Know what they actually establish.</span></h1>
+<p class="lead">HAIEC connects consequential AI action paths with control questions, source-backed findings, recorded evaluations and operating evidence. Know when a control is merely cataloged, when a risk has been found, what was actually tested and when a safeguard's effect has been verified.</p>
+<div class="value">Find the risk early. See the control evidence. Make an accountable decision.</div>
+<div class="actions"><a class="btn" href="https://www.haiec.com/enterprise">Scope an Enterprise POC →</a><a class="btn secondary" href="#control-proof-lab">Explore Control Proof</a><a class="btn link" href="https://www.haiec.com/sample-reports/kestrel">See a Real Assurance Report ↗</a></div><p class="small">Deterministic AI Action Assurance · Source-specific findings · Exact limits of proof</p></div>
+<div class="demoCard" aria-label="Illustrative interactive Control Proof Lens"><div class="demoHead"><span>HAIEC / CONTROL PROOF LENS</span><span class="fixture">FICTIONAL EXAMPLE</span></div>
+<div class="actionflow"><span>Agent</span><i>→</i><span>Refund tool</span><i>→</i><span>Worker</span><i>→</i><span>Payment API</span></div>
+<div class="finding"><strong>Potential financial-mutation route worth investigating</strong><p>A supported code path can be valuable to investigate before an actual control test or runtime observation exists.</p></div>
+<div class="eyebrow">Inspect what this control claim actually means</div>
+<div class="tabrow" role="group" aria-label="Select a proof lens"><button type="button" class="tab" data-proof="0" aria-pressed="true">Cataloged</button><button type="button" class="tab" data-proof="1" aria-pressed="false">Visibility</button><button type="button" class="tab" data-proof="2" aria-pressed="false">Recorded test</button><button type="button" class="tab" data-proof="3" aria-pressed="false">Operating effect</button></div>
+<div class="proofpanel" aria-live="polite"><strong id="proof-head">Control objective exists in the catalog</strong><p id="proof-copy">The control asks whether an AI agent could reach operations outside approved boundaries. A defined question is not proof of implementation or effective protection.</p><em id="proof-next">NEXT · Trace the supported action path.</em></div></div></div></section>
+
+<section class="section alt" id="value"><div class="wrap"><div class="eyebrow">The control question enterprises actually need answered</div><h2>Having a control isn't the same as knowing it worked.</h2><p class="intro">Compliance mappings describe expectations. A visibility finding concerns a specific source and control objective. A recorded test describes an actual evaluated scope. A protection claim requires evidence that the control really operated. These are different facts—and HAIEC helps teams keep them straight.</p>
+<div class="grid4"><article class="card"><span class="num">01 / Defined</span><h3>Cataloged</h3><p>What control objective exists? This does not mean the customer's system implements it.</p></article>
+<article class="card"><span class="num">02 / Source</span><h3>Visible</h3><p>What does an eligible source or bounded scan actually establish, and for which control?</p></article>
+<article class="card"><span class="num">03 / Test</span><h3>Evaluated</h3><p>Was an actual control test performed with applicable scope, approvals and recorded result?</p></article>
+<article class="card"><span class="num">04 / Effect</span><h3>Operating</h3><p>Did a connected target-side control trigger or mediate an action, supported by effect evidence?</p></article></div>
+<p class="small">Cataloged ≠ Implemented ≠ Evaluated ≠ Effective. This isn't a mandatory four-step gate for displaying an earlier meaningful source finding.</p></div></section>
+
+<section class="section" id="control-proof-lab"><div class="wrap"><div class="eyebrow">Interactive customer story</div><h2>One AI action. Different levels of control evidence.</h2><p class="intro">A support agent can reach a refund recipient-changing handler. The first technical exposure is already useful. Inspect what different source and test facts could establish about the relevant control question.</p>
+<div class="lab"><div class="labtitle"><strong>Control Assurance Investigation</strong><span class="fixture">EXPLANATORY FIXTURE — NOT A RECORDED CUSTOMER RESULT</span></div><div class="labbody">
+<div class="tabrow" role="group" aria-label="Choose an evidence scenario"><button class="tab" data-case="0" aria-pressed="true" type="button">First source lead</button><button class="tab" data-case="1" aria-pressed="false" type="button">Qualified control finding</button><button class="tab" data-case="2" aria-pressed="false" type="button">Test and effect evidence</button></div>
+<div class="casegrid"><div class="inset"><span class="eyebrow">Stable technical context</span><h3>Possible refund-recipient path</h3><p>Illustrative agent → tool → handler → API source relation. The technical exposure isn't erased when a narrower control-specific comparison has additional evidence needs.</p><div class="factrow"><span>Code source</span><strong>Possible path found</strong></div><div class="factrow"><span>Business consequence</span><strong>Change payment recipient</strong></div><div class="factrow"><span>Actual payment</span><strong>Not represented</strong></div></div>
+<div class="inset" aria-live="polite"><div class="eyebrow" id="case-step">FIRST PASS / SOURCE RISK</div><h3 class="result" id="case-title">A consequential code path merits investigation.</h3><p id="case-desc">The source shows possible reach. Without an exact matched control comparison, call this a candidate exposure, not a confirmed Control Visibility DETECTED_FINDING.</p><div class="factrow"><span>Control visibility</span><strong id="case-visibility">Not established for this objective</strong></div><div class="factrow"><span>Recorded Control Test</span><strong id="case-test">No result shown</strong></div><div class="factrow"><span>Operating effect</span><strong id="case-effect">No effect witness</strong></div><div class="next"><b>Practical next action</b><p id="case-next">Investigate recipient selection and compare the exact source path to approved policy.</p></div></div></div></div></div>
+</div></section>
+
+<section class="section alt" id="catalog"><div class="wrap"><div class="eyebrow">The canonical HAIEC assurance catalog</div><h2>Controls organized around what consequential AI systems can cause.</h2><p class="intro">This is HAIEC's separate system-oriented assurance catalog, not a second copy of the regulatory framework mapping registry. Catalog coverage is a product design inventory; it is not a claim that every test or real-world safeguard is active.</p>
+<div class="metricband"><div><strong>45</strong><span>Total catalog entries: 42 profiles + 3 specialized tests</span></div><div><strong>15</strong><span>Launch-priority entries; planning designation, not activation</span></div><div><strong>11</strong><span>Control visibility projections implemented in the reviewed source, not 11 native tested safeguards</span></div></div>
+<div class="families" role="group" aria-label="Explore HAIEC control catalog families"><button type="button" class="family" data-family="0" aria-pressed="true">Governance</button><button type="button" class="family" data-family="1" aria-pressed="false">App &amp; tool</button><button type="button" class="family" data-family="2" aria-pressed="false">Agent authority</button><button type="button" class="family" data-family="3" aria-pressed="false">Runtime &amp; effect</button><button type="button" class="family" data-family="4" aria-pressed="false">LLM reliability</button><button type="button" class="family" data-family="5" aria-pressed="false">Evidence &amp; audit</button><button type="button" class="family" data-family="6" aria-pressed="false">Responsible AI</button><button type="button" class="family" data-family="7" aria-pressed="false">Specialized tests</button></div>
+<div class="familyresult" aria-live="polite"><span class="eyebrow" id="family-code">G / GOVERNANCE &amp; LIFECYCLE</span><h3 id="family-name">What policy and lifecycle controls should exist for this AI system?</h3><p id="family-about">Examples include operating boundaries, change governance, approvals and accountable ownership.</p><div class="next"><b>Representative catalog question</b><p id="family-question">Are the agent's consequential actions subject to documented accountable policies?</p></div></div>
+<div class="actions"><a class="btn secondary" href="https://www.haiec.com/controls">Browse the Existing Framework Control Registry</a><a class="btn secondary" href="https://www.haiec.com/assurance">Understand Assurance Evaluation</a></div><p class="small">Family examples are editorial representations; actual family IDs and active control IDs come from the HAIEC source manifest. No customer controls were queried for this prototype.</p></div></section>
+
+<section class="section"><div class="wrap"><div class="eyebrow">Visibility is useful — but it isn't a test verdict</div><h2>Know what a control finding is actually saying.</h2><p class="intro">HAIEC's Control Visibility read model distinguishes four specific states. It should show useful technical leads and what each assessed control question supports, without inflating a scan into proof of safety or protection.</p>
+<div class="states" role="group" aria-label="Inspect the four Control Visibility states"><button class="state" type="button" data-state="0" aria-pressed="true"><b>Confirmed finding</b><span>Exact matched source/control question</span></button><button class="state" type="button" data-state="1" aria-pressed="false"><b>No finding in covered scan</b><span>Bounded observation, not safety proof</span></button><button class="state" type="button" data-state="2" aria-pressed="false"><b>Coverage needs review</b><span>Limited basis for this objective</span></button><button class="state" type="button" data-state="3" aria-pressed="false"><b>Not assessed in scope</b><span>No eligible projection or source</span></button></div>
+<div class="stateexplain" aria-live="polite"><div><span class="eyebrow" id="state-code">DETECTED_FINDING</span><h3 id="state-name">An exact relevant control issue was detected.</h3><p id="state-meaning">A confirmed, fully semantically matched observation supports the selected control objective within its evaluated basis.</p></div><div><span class="eyebrow">Meaningful next action</span><p id="state-next">Investigate the finding's source, exact policy/identity/action scope and possible business effect.</p><p class="small">Visibility ≠ Control Test verdict ≠ Canonical Assurance evaluation.</p></div></div>
+<div class="next" style="margin-top:18px"><b>Findings-first principle</b><p>A source-visible possible action path can remain a useful candidate while control-specific visibility coverage is insufficient. Label it as an investigation lead—never falsely as a confirmed matched Control Visibility finding.</p></div></div></section>
+
+<section class="section alt" id="evidence"><div class="wrap"><div class="eyebrow">Proof is a journey, not a badge</div><h2>From a catalog question to the evidence of what operated.</h2><p class="intro">The HAIEC Control Proof read model can connect existing owners for visibility, source evidence, TestSpecs, approvals, recorded results, replay and response workflows. The presence of an entry or a workflow does not invent any missing test, approval, execution or target effect.</p>
+<div class="steps"><div class="step"><strong>Control question</strong><p>What should this scope establish?</p></div><div class="step"><strong>Visibility &amp; evidence</strong><p>Which source and scan support a finding?</p></div><div class="step"><strong>Test &amp; result</strong><p>Was a real authorized test recorded?</p></div><div class="step"><strong>Operation &amp; effect</strong><p>What actually triggered or changed at the target?</p></div></div>
+<div class="grid3"><div class="card"><span class="num">Evidence quality</span><h3>Versioned facts, not impressions</h3><p>Source, identity, time, coverage, policy basis and exact test/record version matter. A hash binds an artifact; it cannot prove the business effect.</p></div><div class="card"><span class="num">Approval and replay</span><h3>A recorded decision isn't enforcement</h3><p>An approval or replay can establish a bounded governance or consistency fact. It doesn't automatically establish that a customer-side execution point honored it.</p></div><div class="card"><span class="num">Real operating proof</span><h3>Don't infer the block</h3><p>To claim prevention, verify an installed mediation path, trigger, action and relevant target/effect witness. “Control available” isn't “control worked.”</p></div></div>
+<div class="eyebrow">Five independent evidence views</div><div class="planes" aria-label="Independent HAIEC evidence views"><div class="plane">Requested</div><div class="plane">Policy Authorized</div><div class="plane">Effectively Granted</div><div class="plane">Code Capable</div><div class="plane">Observed</div></div>
+<div class="bridge"><b>Delegated Action Integrity (DAI)</b> compares relevant authority behind consequential choices across available evidence, not as a sixth sequential plane. Qualified fact in one view remains useful even if another view has a specific open question. <a href="https://www.haiec.com/methodology">Explore methodology →</a></div></div></section>
+
+<section class="section"><div class="wrap two"><div><div class="eyebrow">Fits your security and AI engineering workflow</div><h2>Use the AI agent to operate. Let HAIEC evaluate.</h2><p class="intro">With a compatible MCP-enabled IDE/assistant and an authorized scoped key, your agent can request HAIEC source analysis and eligible assurance workflow steps. HAIEC owns the canonical evaluation. Existing registered control-focused tools must be checked for tenant availability before claiming an actual executed test.</p><div class="actions"><a class="btn" href="https://www.haiec.com/docs/agent-integration">Connect HAIEC MCP</a><button class="toggle" type="button" id="copy">Copy starting goal</button></div><p class="small">Four-word instruction: <b>Run HAIEC AI Assurance</b>. Endpoint: <code>https://www.haiec.com/api/mcp</code>.</p></div>
+<div class="terminal"><div class="termHead"><strong>HAIEC · MCP CLIENT</strong><span>ILLUSTRATIVE SETUP, NOT LIVE</span></div><pre>You: Run HAIEC AI Assurance
+
+→ haiec_preflight
+  Check access, source eligibility and scope
+
+→ Analyze supported source/action capability
+  Potential consequential path → investigation lead
+
+→ Eligible assurance or control evidence lookup
+  Exact relevant scope and permissions
+
+→ Inspect findings and available recorded result
+  What is supported? What should happen next?
+
+The AI guides the workflow.
+HAIEC owns the bounded evaluation.</pre><div class="termFoot">A registered tool name alone does not establish customer entitlement, installed protection, completed control test or universal IDE compatibility.</div></div></div></section>
+
+<section class="section alt" id="faq"><div class="wrap"><div class="eyebrow">Frequently asked questions</div><h2>Know the difference between a control and its proof.</h2>
+<details><summary>What are HAIEC Assurance Controls?</summary><p>A system-oriented catalog of bounded control questions around agent authority, application/tool security, runtime consequences, governance, evidence, LLM reliability and responsible AI. The catalog itself doesn't mean every control is active, tested or effective.</p></details>
+<details><summary>How is this different from the existing Controls and Framework Registry?</summary><p>The existing /controls page browses mapped regulatory and framework requirements. HAIEC's 45-entry assurance catalog is a separate system-focused inventory for assessing what supported evidence and tests establish about consequential AI actions.</p></details>
+<details><summary>Does listing a control mean it was deployed or worked?</summary><p>No. Catalog definition, visibility implementation, recorded test result and proven target-side operating effect each answer different questions.</p></details>
+<details><summary>Can HAIEC find meaningful risks before all evidence sources are connected?</summary><p>Yes for eligible source-based technical findings. A reachable consequential handler or candidate exposure can be worth investigation while IAM, telemetry or control test evidence is incomplete. Specific stronger verdicts require their own applicable basis.</p></details>
+<details><summary>What does “No finding observed” prove?</summary><p>Only that no matching finding was observed within the specific completed and qualified scan scope. It doesn't prove that no risk exists or that any runtime protection operated.</p></details>
+<details><summary>Is a Control Visibility state the same as a Control Test verdict?</summary><p>No. Visibility is a bounded read projection. A Control Test needs an actual eligible execution and persisted result. HAIEC's canonical Assurance evaluation is another distinct claim type.</p></details>
+<details><summary>What does a recorded Control Test prove?</summary><p>It establishes the recorded test's bounded conclusion under its frozen policy, test contract, evidence and scope. It doesn't automatically establish continuous production enforcement.</p></details>
+<details><summary>How do you demonstrate an AI control really operated?</summary><p>Verify an integrated target-side decision/mediation path and relevant trigger and effect records. A declaration, approval or integrity hash is not proof that an external target was blocked.</p></details>
+<details><summary>How many controls are available?</summary><p>The reviewed source has 45 total catalog entries: 42 profiles and three specialized tests. Fifteen are tagged launch priority and 11 IDs have Control Visibility projection support. These numbers do not mean 45 runnable production protections.</p></details>
+<details><summary>How does DAI relate to assurance controls?</summary><p>Delegated Action Integrity addresses whether a consequential choice falls within supported delegated authority. It can inform applicable control questions, alongside the independent policy, granted, code-capable and observed evidence views.</p></details>
+<details><summary>Do I have to upload policies or runtime logs before HAIEC can discover an issue?</summary><p>No blanket upload requirement should suppress supported source-based findings. Evidence is connected as needed for the exact question, test or operational effect being claimed.</p></details>
+<details><summary>Can my AI agent use HAIEC controls through MCP?</summary><p>A compatible configured MCP client can guide authorized HAIEC workflows. Actual control-specific MCP tool availability, entitlements, system/source eligibility and permissions must be verified; a public demo can't authorize execution.</p></details>
+</div></section>
+
+<section class="final"><div class="wrap two"><div><div class="eyebrow">High assurance in every consequence</div><h2>Know which AI controls have evidence—and what to do next.</h2><p class="lead">Start with findings you can investigate. Connect the control questions and evidence needed for consequential decisions. Distinguish the claim that a control exists from proof that it was evaluated and actually operated.</p><div class="actions"><a class="btn" href="https://www.haiec.com/enterprise">Scope an Enterprise POC</a><a class="btn secondary" href="https://www.haiec.com/sample-reports/kestrel">See a Sample Report</a></div></div><div class="card"><span class="num">Enterprise control assurance</span><h3>One consequential system. One important question.</h3><p>Discover the relevant agent/tool/authority paths, investigate evidence-bearing control questions and produce an accountable scoped decision readout. Expand only when the business question and connected sources call for it.</p><a href="https://www.haiec.com/assurance">Learn about HAIEC Assurance →</a></div></div></section>
+</main><footer class="footer"><div class="wrap">HAIEC · Evidence-Bound Assurance · Deterministic AI Action Assurance<p class="small">Internal design prototype only · Framework entries, visibility projections, tests and actual operating effects remain different source-qualified facts · No live customer evaluations depicted.</p></div></footer>
+<script>
+(function(){
+ const get=id=>document.getElementById(id);
+ const root=document.documentElement,theme=get('theme');
+ theme.addEventListener('click',()=>{const mode=root.dataset.theme==='light'?'dark':'light';root.dataset.theme=mode;theme.textContent=mode==='light'?'Dark theme':'Light theme';theme.setAttribute('aria-label','Switch to '+(mode==='light'?'dark':'light')+' theme')});
+ const proof=[
+ ['Control objective exists in the catalog','The control asks whether an AI agent could reach operations outside approved boundaries. A defined question is not proof of implementation or effective protection.','NEXT · Trace the supported action path.'],
+ ['Control visibility examines the source basis','An implemented read projection can show a qualified detected finding or bounded observed absence for an exact control objective. An operation-level lead is still a candidate, not an automatic confirmed mismatch.','NEXT · Compare exact policy, code and source scope.'],
+ ['A particular executed test can have a recorded result','A TestSpec, appropriate approval and actual eligible execution may yield a versioned result. This illustration invents no test run, approval receipt or verdict.','NEXT · Inspect recorded result and source references when available.'],
+ ['Operating control effect needs its own witness','Only a connected, installed mediation path plus relevant trigger/action/target evidence can support a control-operated claim. A code scan and saved approval do not demonstrate the block.','NEXT · Verify the actual path-bound target-side effect.']
+ ];
+ document.querySelectorAll('[data-proof]').forEach(b=>b.addEventListener('click',()=>{const i=Number(b.dataset.proof);document.querySelectorAll('[data-proof]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));get('proof-head').textContent=proof[i][0];get('proof-copy').textContent=proof[i][1];get('proof-next').textContent=proof[i][2];}));
+ const cases=[
+ ['FIRST PASS / SOURCE RISK','A consequential code path merits investigation.','The source shows possible reach. Without an exact matched control comparison, call this a candidate exposure, not a confirmed Control Visibility DETECTED_FINDING.','Not established for this objective','No result shown','No effect witness','Investigate recipient selection and compare the exact source path to approved policy.'],
+ ['MATCHED CONTROL VISIBILITY','The relevant control objective now has a qualified finding.','Assume in this fictional comparison that the policy and code-capable path match the same action/principal/resource identity and a supported persisted evaluation shows undeclared capability. This may support a DETECTED_FINDING state for this exact objective, not an observed refund.','DETECTED_FINDING — only in example','No Control Test result shown','No effect witness','Inspect the qualified matched finding and decide whether test or mediation evidence is needed.'],
+ ['RECORDED TEST & OPERATING EFFECT','A test result and production effect answer distinct questions.','Assume a scoped test produced a real recorded result; its verdict speaks only to that test. A separate installed customer gateway would need independently verified trigger and effect data before any prevention claim. This fixture simulates neither source.','Qualified visibility depends on source','Example: eligible result may be recorded','Target effect must be independently verified','Read the actual test contract and evidence; request target-side effect witness only if operational prevention is being asserted.']
+ ];
+ document.querySelectorAll('[data-case]').forEach(b=>b.addEventListener('click',()=>{const i=Number(b.dataset.case),a=cases[i];document.querySelectorAll('[data-case]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));[['case-step',0],['case-title',1],['case-desc',2],['case-visibility',3],['case-test',4],['case-effect',5],['case-next',6]].forEach(v=>get(v[0]).textContent=a[v[1]]);}));
+ const families=[
+ ['G / GOVERNANCE & LIFECYCLE','What policy and lifecycle controls should exist for this AI system?','Operating boundaries, organization ownership, review processes and change governance can inform a concrete consequence decision.','Are high-impact agent actions subject to a defined, accountable operating boundary?'],
+ ['S / APPLICATION & TOOL SECURITY','Where can application or tool boundaries be crossed?','Checks may target agent tool security, untrusted inputs, invocation context and supply-chain/application surfaces.','Can untrusted source input influence a privileged agent tool?'],
+ ['A / AGENT AUTHORITY & DELEGATION','Could effective capability be broader than intended authority?','Consequence-specific action, principal continuity and delegated-choice comparisons are central to this family.','Can analyzed code reach an operation outside its approved scope?'],
+ ['R / RUNTIME & CONSEQUENCES','What side effects and runtime safeguards matter?','Focus on action lifecycle, operating envelope, observable consequences and path-bound interventions when integrated.','Did a claimed guardrail actually enforce its decision at the execution point?'],
+ ['L / LLM SAFETY & RELIABILITY','What can supported reliability and output checks establish?','Prompt injection, sensitivity of output, grounding and structured-output risks need source/test boundaries.','Did evaluated responses disclose protected information in tested scope?'],
+ ['E / EVIDENCE & AUDIT','Can the recorded basis support review and replay?','Evidence integrity, source provenance, event continuity, source correlation and deterministic replay questions.','Can another reviewer reproduce the exact frozen evaluation?'],
+ ['P / RESPONSIBLE AI','What fairness, transparency and data lineage were assessed?','Responsible-AI profile questions are cataloged, not automatic proof of completed bias or model evaluation.','Were relevant populations and harms assessed within a defined scope?'],
+ ['TMF / SPECIALIZED CONTROL TESTS','Three existing specialized competition test contracts','C7 audit completeness, C9 bounded duration and C16 token-spend cap are distinct specialized tests; their existence is not live deployment across organizations.','Does the actual scoped audit trail, duration or expenditure satisfy the frozen test policy?']
+ ];
+ document.querySelectorAll('[data-family]').forEach(b=>b.addEventListener('click',()=>{const i=Number(b.dataset.family),a=families[i];document.querySelectorAll('[data-family]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));get('family-code').textContent=a[0];get('family-name').textContent=a[1];get('family-about').textContent=a[2];get('family-question').textContent=a[3];}));
+ const states=[
+ ['DETECTED_FINDING','An exact relevant control issue was detected.','A confirmed, fully semantically matched observation supports the selected control objective within its evaluated basis.','Investigate the finding source, exact policy/identity/action scope and possible business effect.'],
+ ['NO_FINDING_OBSERVED','No matching issue appeared in a qualified bounded scan.','This means a completed scan over an eligible basis did not surface a matched issue. It is not a global PASS or evidence that a runtime intervention worked.','Review the scan scope and decide whether other consequences or sources require analysis.'],
+ ['COVERAGE_INSUFFICIENT','This control question needs a more exact source basis.','Some relevant context or candidate signal may exist, but the exact control comparison lacks the qualified coverage to support a stronger control-state claim.','Keep the candidate exposure visible and connect only the missing relevant source or correlation.'],
+ ['NOT_ASSESSED','This control was not evaluated in the selected scope.','An unimplemented visibility projection or absent eligible source cannot support a control-specific state. Other source risk findings can still stand independently.','Review whether this specific control is relevant and whether any supported producer exists.']
+ ];
+ document.querySelectorAll('[data-state]').forEach(b=>b.addEventListener('click',()=>{const i=Number(b.dataset.state),a=states[i];document.querySelectorAll('[data-state]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));get('state-code').textContent=a[0];get('state-name').textContent=a[1];get('state-meaning').textContent=a[2];get('state-next').textContent=a[3];}));
+ get('copy').addEventListener('click',async()=>{try{await navigator.clipboard.writeText('Run HAIEC AI Assurance');get('copy').textContent='Copied';}catch(e){get('copy').textContent='Copy: Run HAIEC AI Assurance';}});
+})();
+</script></body></html>
