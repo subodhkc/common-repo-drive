@@ -1,3 +1,5 @@
+> **CURRENT SOURCE UPDATE (2026-10-20):** HAIEC Main now **does** include Resources → Learn → Assurance Methodology in `components/AutoHideNavigation.tsx`. The historical “missing” statement below reflects the older Main reviewed at the time; **do not add a duplicate**. New [DAI signature product page and nav plan](WEBSITE-DELEGATED-ACTION-INTEGRITY-DAI-PUBLIC-PAGE-UX-COPY-SEO-NAV-PLAN-2026-10-20.md) proposes exactly one Platform → Core Capabilities → Delegated Action Integrity (DAI) entry **after System Constellation**. No dedicated public DAI route exists yet. This change is proposal-only and should be reconciled against live Main during implementation.
+
 # HAIEC Public Website — Navigation Ownership & Methodology Placement
 
 **Reviewed 2026-10-20.** **PLANNED ONLY** — no Main navigation changes. This is the nav-level companion to the sequential [Methodology page plan](WEBSITE-METHODOLOGY-PAGE-DETERMINISTIC-DAI-REACHABILITY-EVIDENCE-AND-NAVIGATION-PLAN-2026-10-20.md), grounded in HAIEC Main \`e4e46c36\`.
