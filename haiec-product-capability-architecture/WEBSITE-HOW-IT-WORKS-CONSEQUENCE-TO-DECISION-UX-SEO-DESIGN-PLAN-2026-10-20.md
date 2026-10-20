@@ -1,3 +1,5 @@
+> **Separate new education page, 2026-10-20:** [How LLMs & AI Agents Work](WEBSITE-HOW-LLMS-AND-AI-AGENTS-WORK-OBSERVABILITY-HAIEC-GAP-AWS-RESEARCH-PLAN-2026-10-20.md) + [interactive model/agent visibility experience](design-references/how-ai-systems-work-2026-10-20/llm-vs-agent-visibility-consequences-interactive.html) complements, but must **not replace**, the HAIEC operational `/how-it-works` page. Cross-link when deployed. No production changes authorized.
+
 # HAIEC /how-it-works: From Consequential Action to Evidence-Backed Decision
 **2026-10-20 | Source-grounded page #12 | Planning and editorial design only | HAIEC source unchanged**
 
