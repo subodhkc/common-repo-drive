@@ -1,3 +1,5 @@
+> **2026-10-20 /solutions as an upstream buyer hub:** [New three-audience Solutions landing page plan](WEBSITE-ENTERPRISE-SOLUTIONS-OVERVIEW-OUTCOME-LED-UX-SEO-NAV-PLAN-2026-10-20.md) + [interactive reference](design-references/solutions-2026-10-20/enterprise-solutions-outcome-led-interactive.html) should link into `/enterprise`, not replace its POC buyer conversion path, detailed proof depths or two-step lead form. Keep the same qualified one-system one-question engagement, the canonical commercial owner and the original Enterprise H1. `/solutions` is planning only, not a live page.
+
 > **Interactive design companion (2026-10-20):** [Enterprise dual-theme decision-dossier HTML concept](design-references/enterprise-2026-10-20/enterprise-dual-theme-decision-story-preview.html) demonstrates the retained core H1, four-value deliverable families, fictional authority gap, optional L0–L4 evidence selector, secondary MCP access and a source-safe POC CTA. **Not the live HAIEC page, a real evaluation, a working contact form or proof of offline Docker deployment.**
 
 # HAIEC Enterprise — Page Enhancement and Conversion Plan
