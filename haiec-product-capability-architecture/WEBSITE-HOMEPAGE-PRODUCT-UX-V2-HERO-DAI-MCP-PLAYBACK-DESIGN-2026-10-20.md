@@ -279,3 +279,17 @@ Keep native result enums intact for APIs, MCP, receipts and audit. UI labels are
 9. If website implementation is approved in active Devin work order: one PR to HAIEC Main, automatic Vercel deploy, verify live exact pages and update Common Repo with final commit and screenshot links. **This Common Repo source/design review alone is not a production deployment.**
 
 **Overall UX success:** Within seconds, a new visitor learns that HAIEC finds consequential agent risks early and can go deeper deterministically. Clicking any hero capability demonstrates an actual type of output. DAI is an understandable differentiator, not an evidence intake lecture. MCP setup looks practical. Playback adds operational trust without hijacking the hero or falsely implying auto-enforcement.
+
+## 10. Implementation-record update — V3 hero test contract (2026-10-20, local)
+
+**Status:** implemented and validated in the `subodhkc/haiec-website` working tree; **not committed, pushed, merged or deployed** pending explicit authorization.
+
+The pre-existing hero unit tests in `tests/unit/homepage-hero-diagram.test.ts` encoded the pre-V3 contract: no autoplay carousel, the hero visual required in the first section, and the refund-boundary dossier treated as forbidden hero content. The approved V3 design intentionally supersedes all three constraints. The test file has been updated locally to lock the **new** contract instead of the old one:
+
+- A controlled two-scene hero carousel is **permitted** provided it carries: 10-second rotation, manual scene selection, an explicit Pause/Resume control, pause on hover/keyboard focus/offscreen/page-hide, ArrowLeft/ArrowRight keyboard navigation, `prefers-reduced-motion` starting paused with no progress animation, `aria-live` announcements, and both scenes present in SSR markup with the inactive scene hidden.
+- The **illustrative refund-recipient dossier** (Executive Decision scene) is permitted in the hero provided it is labeled illustrative/not-live and does not imply a completed transaction, intercepted action or enforcement.
+- The six-capability explorer lives outside the hero in its own section; DAI remains a cross-cutting authority comparison, not a seventh capability.
+
+Regression intent preserved: pause/manual/reduced-motion/illustrative-labeling invariants are now the tested contract (40/40 focused tests pass locally).
+
+**Suggested doc follow-up:** when the homepage V3 implementation is committed and shipped, update this record with the PR/commit reference and add a Homepage V3 implementation record to this directory alongside WEBSITE-SEVEN-PAGE-ENHANCEMENT-IMPLEMENTATION-RECORD-2026-10-20.md.
