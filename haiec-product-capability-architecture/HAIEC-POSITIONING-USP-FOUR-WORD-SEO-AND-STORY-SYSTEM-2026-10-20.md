@@ -1,3 +1,5 @@
+> **2026-10-20 universal MCP starting prompt decision:** **“Run HAIEC AI Assurance”** (Run=1, HAIEC=2, AI=3, Assurance=4) supersedes “Check my HAIEC setup” as **primary public intent CTA**, not as a change to the canonical technical preflight. The agent should discover its authorized HAIEC MCP/API connection, call `haiec_preflight` when connected, select/reuse an eligible AI System and verified source, request consent/scopes where applicable, run `haiec_run_assurance` only when authorized, and return actual result or setup limitation. “Check my HAIEC setup” stays a **secondary troubleshooting/read-only prompt**. [Assurance page plan](WEBSITE-ASSURANCE-PAGE-COPY-DESIGN-SEO-MCP-ENHANCEMENT-PLAN-2026-10-20.md).
+
 # HAIEC — Positioning, USP, Four-Word Messaging, Search Strategy & Curiosity-Led Story System
 
 **Reviewed:** 2026-10-20 · **Status:** EDITORIAL PROPOSAL / current source-reconciled guidance. Not a rebrand, production claim, site release or independent comparative performance benchmark.  
