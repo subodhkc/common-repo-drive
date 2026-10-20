@@ -1,3 +1,5 @@
+> **HOME #8 ADDED (2026-10-20):** [Homepage preservation and first-pass-finding redesign plan](WEBSITE-HOMEPAGE-FIRST-FINDINGS-LIGHT-FIRST-DESIGN-COPY-CONVERSION-PLAN-2026-10-20.md). MUST preserve currently deployed `HeroArchitectureExplorer` interactive 6-peer hero, ProductShowcase 3 animated IDE terminal demos, 26-second ScenarioPlayer, SampleMapPreview, AuthorityPlanesFigure, FrameworkArtifactGrid, AmbientMount, RevealSection, TrackedLink events, award/incident/telecom case details, Kestrel reports, all 4 buyer CTAs, and final enterprise CTA. **No initial risk-finding suppression merely because policy/identity/delegation/runtime/target evidence incomplete.** Existing partial light CSS remapper is not first-paint light default. Do not use prototype as replacement production JSX.
+
 # HAIEC Website Enhancement Campaign — Preservation and Non-Regression Contract
 
 **Date 2026-10-20.** Applies to the seven Common Repo plans for Platform, Products, Assurance, Enterprise, Controls, Methodology and Pricing. **This is a document/source review, not a post-deployment comparison or completed implementation.** Source Main must be refreshed during execution.
