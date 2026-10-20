@@ -34,14 +34,178 @@
 .demo-controls{display:flex;gap:7px;align-items:center;flex-wrap:wrap}.demo-controls button{border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--text);padding:8px 11px;font-size:.77rem;font-weight:740}
 .demo-progress{height:5px;border-radius:3px;background:var(--line);margin:13px 0}.demo-progress span{display:block;height:5px;background:var(--brand);border-radius:3px;transition:width .25s}
 @media(max-width:620px){.rich-grid,.demo-lanes{grid-template-columns:1fr}.rich-detail{min-height:0}.codezone pre{min-height:0}}
+
+/* Homepage Hero V3 — one stable commercial headline, two art-directed scenes */
+.hero-v3{background:radial-gradient(ellipse at 75% 22%,rgba(81,171,120,.08),transparent 42%),linear-gradient(125deg,var(--hero),var(--bg) 66%);padding:60px 0 30px}
+.hc-grid{display:grid;grid-template-columns:minmax(0,.87fr) minmax(0,1.13fr);gap:46px;align-items:center}
+.hc-copy h1{font-size:clamp(2.55rem,4.35vw,4.65rem);line-height:1.07;max-width:660px;margin:15px 0 24px;letter-spacing:-.057em}
+.hc-copy h1 span{color:var(--brand)}
+.hc-copy .lead{font-size:clamp(1rem,1.26vw,1.14rem);line-height:1.65;max-width:670px}
+.hc-value{display:flex;gap:12px;align-items:flex-start;margin:24px 0;background:var(--surface);padding:15px 17px;border:1px solid var(--line);border-left:3px solid var(--brand);border-radius:9px;color:var(--text);font-size:.83rem;line-height:1.55}
+.hc-value-mark{font-size:1.23rem;line-height:1.2;color:var(--brand)}
+.hc-actions{margin:25px 0 10px}.hc-actions .btn{font-size:.83rem}
+.hc-proof-link{font-size:.82rem;font-weight:800}
+.hc-quickstart{border:1px solid var(--line);border-radius:10px;display:flex;align-items:center;justify-content:space-between;gap:12px;background:var(--surface);padding:11px 13px;margin:26px 0 10px;max-width:435px}
+.hc-quicklabel{display:block;color:var(--muted);font-size:.62rem;font-weight:820;letter-spacing:.1em}
+.hc-quickstart code{font-size:.86rem;color:var(--text);font-weight:790}
+.hc-copy-button{font-size:.76rem;font-weight:800;color:var(--brand);border:1px solid var(--line);background:var(--surface2);border-radius:7px;padding:7px 10px}
+.hc-fineprint{max-width:475px}
+.hc-stage{--hc-local-ink:var(--text);min-width:0;background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:20px 22px 16px;box-shadow:var(--shadow);overflow:hidden}
+.hc-stage-top{display:flex;justify-content:space-between;align-items:center;gap:12px;padding-bottom:13px;border-bottom:1px solid var(--line)}
+.hc-illustration-kicker{font-size:.62rem;letter-spacing:.14em;color:var(--brand);font-weight:850}
+.hc-stage-context{font-size:.71rem;color:var(--muted);margin:3px 0 0}
+.hc-illustration-label{border-radius:7px;padding:5px 8px;color:var(--muted);border:1px solid var(--line);white-space:nowrap;font-size:.62rem;font-weight:850}
+.hc-view{min-height:510px;padding:22px 0 3px;animation:hc-fade .32s ease-out both}
+.hc-view[hidden]{display:none!important}
+.hc-scene-heading{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;margin-bottom:17px}
+.hc-scene-heading h2{font-size:clamp(1.33rem,2.1vw,1.75rem);line-height:1.17;letter-spacing:-.04em;margin:6px 0 0}
+.hc-step,.hc-case-kicker{font-size:.61rem;letter-spacing:.15em;color:var(--brand);font-weight:880}
+.hc-mini-tag{font-size:.59rem;letter-spacing:.03em;color:var(--muted);border:1px solid var(--line);border-radius:7px;padding:5px 7px;text-align:center;white-space:nowrap}
+.hc-tool-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
+.hc-tool{border:1px solid var(--line);border-radius:10px;padding:13px 11px;background:var(--surface2);min-height:97px}
+.hc-tool strong{display:block;font-size:.77rem}.hc-tool small{display:block;font-size:.68rem;line-height:1.45;color:var(--muted);margin-top:6px}
+.hc-check{display:inline-flex;align-items:center;justify-content:center;float:right;height:17px;width:17px;background:var(--soft);color:var(--softtext);border-radius:50%;font-size:.7rem;font-weight:900}
+.hc-gap-bridge{display:flex;align-items:center;gap:10px;margin:14px 1px 12px;color:var(--muted);font-size:.66rem}
+.hc-gap-bridge strong{color:var(--brand);font-size:.67rem}
+.hc-gap-line{flex:1;height:1px;background:var(--line);position:relative}
+.hc-gap-line:after{content:"↓";position:absolute;left:45%;top:-11px;background:var(--surface);padding:0 7px;color:var(--brand);font-size:1rem}
+.hc-actionmap{border:1px solid var(--line);border-radius:11px;background:linear-gradient(125deg,var(--surface2),var(--surface));padding:15px 13px 10px}
+.hc-path-nodes{display:flex;align-items:center;justify-content:space-between;gap:4px}
+.hc-path-nodes span{border:1px solid var(--line);background:var(--surface);border-radius:7px;padding:8px 10px;font-size:.68rem;font-weight:820;white-space:nowrap}
+.hc-path-nodes i{font-style:normal;color:var(--brand);font-size:.95rem}
+.hc-flow-svg{width:100%;height:30px;margin:-1px 0 0;color:var(--brand);display:block}
+.hc-dash{animation:hc-flow 2.4s linear infinite}
+.hc-outcome{margin:0;color:var(--text);font-size:.72rem;font-weight:830;line-height:1.5}
+.hc-outcome span{color:var(--brand);margin-right:6px}
+.hc-proof-stack{margin-top:14px}
+.hc-strip-title{font-size:.59rem;color:var(--muted);font-weight:880;letter-spacing:.12em}
+.hc-plane-row{display:grid;grid-template-columns:repeat(5,1fr);gap:5px;margin:8px 0}
+.hc-plane-row span{background:var(--surface2);border:1px solid var(--line);font-size:.64rem;font-weight:770;text-align:center;padding:7px 2px;border-radius:6px}
+.hc-dai-strip{font-size:.72rem;line-height:1.5;color:var(--muted);margin:7px 0 0}
+.hc-dai-strip strong{color:var(--brand)}
+.hc-scene-foot{display:flex;align-items:flex-start;gap:9px;margin-top:15px;padding-top:12px;border-top:1px solid var(--line)}
+.hc-finding-dot{width:8px;height:8px;background:var(--brand);border-radius:50%;margin-top:5px;flex-shrink:0}
+.hc-scene-foot strong{display:block;font-size:.74rem}
+.hc-scene-foot small{display:block;color:var(--muted);line-height:1.45;font-size:.67rem;margin-top:3px}
+.hc-decision-shell{border:1px solid var(--line);background:var(--surface2);border-radius:12px;overflow:hidden}
+.hc-case-top{padding:15px;display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.hc-case-top h3{font-size:.99rem;margin:5px 0}.hc-case-top p{font-size:.69rem;color:var(--muted);margin:2px 0 0}
+.hc-case-status{background:var(--soft);border:1px solid var(--line);color:var(--softtext);border-radius:7px;padding:5px 7px;font-size:.67rem;font-weight:820;white-space:nowrap}
+.hc-decision-evidence{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.hc-decision-evidence>div{padding:13px 11px;min-height:122px;background:var(--surface)}
+.hc-evidence-icon{font-size:1.1rem;color:var(--brand);display:block;line-height:1.2}
+.hc-decision-evidence strong{font-size:.71rem;display:block;margin:7px 0 4px}
+.hc-decision-evidence small{display:block;font-size:.67rem;color:var(--muted);line-height:1.4}
+.hc-decision-evidence em{display:block;font-style:normal;font-size:.58rem;letter-spacing:.08em;color:var(--brand);font-weight:880;margin-top:8px}
+.hc-result-split{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;padding:13px}
+.hc-result-split>div{background:var(--surface);padding:12px;border:1px solid var(--line);border-radius:9px}
+.hc-result-split strong{display:block;font-size:.73rem;margin:7px 0}
+.hc-result-split p{font-size:.68rem;line-height:1.5;color:var(--muted);margin:0}
+.hc-decision-next{display:flex;align-items:flex-start;gap:11px;margin:0 13px 13px;padding:12px;background:var(--soft);border:1px solid var(--line);border-radius:9px;color:var(--text)}
+.hc-decision-next>span{color:var(--brand)}
+.hc-decision-next strong{display:block;font-size:.78rem}
+.hc-decision-next small{display:block;font-size:.68rem;color:var(--muted);line-height:1.5}
+.hc-carousel-controls{border-top:1px solid var(--line);padding-top:11px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.hc-slide-dots{display:flex;flex-wrap:wrap;gap:6px}
+.hc-dot{border-radius:8px;border:1px solid var(--line);color:var(--muted);padding:8px 10px;background:var(--surface);font-size:.69rem;font-weight:850}
+.hc-dot span{color:var(--brand)}
+.hc-dot[aria-pressed="true"]{background:var(--soft);color:var(--text);border-color:var(--brand)}
+.hc-play{border:0;background:var(--surface2);color:var(--text);font-size:.71rem;font-weight:850;padding:8px 10px;border-radius:8px}
+.hc-rotation-progress{height:3px;background:var(--line);border-radius:3px;margin-top:12px;overflow:hidden}
+.hc-rotation-progress span{display:block;height:100%;background:var(--brand);width:0}
+.hc-rotation-progress.is-rotating span{animation:hc-progress 10s linear both}
+.hc-sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.hc-truststrip{border-top:1px solid var(--line);margin-top:44px;padding:17px 0 0;display:flex;align-items:center;flex-wrap:wrap;gap:11px}
+.hc-truststrip a,.hc-trust-title{font-size:.73rem;color:var(--muted);font-weight:680;text-decoration:none}
+.hc-truststrip a:not(.hc-award){padding:5px 8px;border:1px solid var(--line);border-radius:7px;background:var(--surface)}
+.hc-award{font-weight:820!important;color:var(--text)!important}
+.hc-award span{color:var(--brand);font-size:1.15rem}
+.hc-trust-divider{height:17px;width:1px;background:var(--line)}
+.hc-capabilities-container{max-width:790px;margin:30px auto}
+.hc-capabilities-container .cap-shell{box-shadow:var(--shadow)}
+@keyframes hc-fade{from{opacity:.55;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
+@keyframes hc-flow{from{stroke-dashoffset:68}to{stroke-dashoffset:0}}
+@keyframes hc-progress{from{width:0}to{width:100%}}
+@media(max-width:1120px){.hc-grid{grid-template-columns:1fr}.hc-copy h1{max-width:820px}.hc-copy .lead{max-width:820px}.hc-stage{max-width:780px;width:100%;margin:auto}.hero-v3{padding-top:46px}}
+@media(max-width:640px){.hc-grid{gap:22px}.hc-copy h1{font-size:clamp(2.35rem,8vw,3.1rem)}.hc-stage{padding:13px}.hc-stage-top{flex-wrap:wrap}.hc-view{min-height:0}.hc-scene-heading{flex-direction:column}.hc-scene-heading h2{font-size:1.26rem}.hc-mini-tag{display:none}.hc-path-nodes span{font-size:.54rem;padding:7px 5px}.hc-path-nodes i{font-size:.7rem}.hc-tool{padding:9px 7px;min-height:110px}.hc-tool small{font-size:.59rem}.hc-decision-evidence>div{padding:9px 7px}.hc-decision-evidence strong{font-size:.62rem}.hc-decision-evidence small{font-size:.6rem}.hc-decision-evidence em{font-size:.49rem}.hc-plane-row span{font-size:.52rem;padding:7px 1px}.hc-result-split{grid-template-columns:1fr}.hc-carousel-controls{align-items:flex-start}.hc-dot{font-size:.61rem;padding:7px 6px}.hc-truststrip{margin-top:29px}.hc-trust-divider,.hc-trust-title{display:none}.hc-actions .btn{width:100%}}
+@media(prefers-reduced-motion:reduce){.hc-dash,.hc-rotation-progress span,.hc-view{animation:none!important}.hc-rotation-progress{display:none}}
+
 </style>
 </head>
 <body>
 <div class="notice">Internal homepage design concept · Not live HAIEC UI · Fictional first-finding example · Existing production animations MUST be preserved during implementation</div>
 <header class="header"><div class="wrap bar"><div class="brand">HAIEC<span>.</span> <span class="small">Evidence-Bound Assurance</span></div><nav class="nav" aria-label="Preview page navigation"><a href="#why">Why HAIEC</a><a href="#product">Platform</a><a href="#proof">Proof</a><a href="#enterprise">Enterprise</a><button class="toggle" type="button" id="theme" aria-label="Switch to dark theme">Dark theme</button></nav></div></header>
 <main>
-<section class="hero"><div class="wrap"><div class="proofline"><a class="award" href="https://www.haiec.com/awards/munichtech-expo-2026.html">MunichTech Grand Challenge Winner</a><a href="https://www.haiec.com/docs/github-integration">GitHub App</a><a href="https://www.haiec.com/docs/integrations/cicd-setup">GitHub Action</a><a href="https://www.npmjs.com/package/ai-appsec">AI AppSec · npm</a><a href="https://www.npmjs.com/package/mcp-tenant-isolation">MCP Isolation · npm</a><a href="https://www.haiec.com/docs/agent-integration">MCP Server</a></div><div class="split"><div class="hero-intro"><div class="eyebrow">AI Agent Security · Evidence-Bound Assurance</div><h1>Know what your AI can do. <span>See what it could cause.</span></h1><p class="lead">HAIEC finds supported agent actions, reachable systems and consequential exposures from code and connected sources. Investigate useful findings immediately, then apply deterministic assurance when you need a defensible decision.</p><div class="storyline">First findings now. Defensible assurance when it matters.</div><div class="actions"><a class="btn" href="https://www.haiec.com/enterprise">Scope an Enterprise POC</a><a class="btn secondary" href="https://www.haiec.com/docs/agent-integration">Run HAIEC with Your AI Agent</a><a class="btn link" href="https://www.haiec.com/sample-reports/kestrel">See a Real Assurance Report →</a></div><p class="small">Four-word agent prompt: <strong>Run HAIEC AI Assurance</strong>. Connect a compatible authenticated MCP client first. The sample result below is illustrative.</p></div>
-<aside class="cap-shell" aria-label="Interactive educational capability model"><div class="cap-top">One Platform · Six Independent Capabilities</div><div class="cap-title">AI System Workspace</div><p class="cap-intro">Systems · Sources · Agent paths · Evidence · Decisions</p><div class="cap-ws"><b>Choose the question that matters</b><p>Each capability is selectable. None is a mandatory stage or automatically installed control.</p></div><div class="cap-grid" role="group" aria-label="Explore HAIEC capability explanations"><button class="cap" type="button" data-cap="0" aria-pressed="true"><strong>Discover</strong><small>Find paths and risks</small></button><button class="cap" type="button" data-cap="1" aria-pressed="false"><strong>Evaluate</strong><small>Apply exact rules</small></button><button class="cap" type="button" data-cap="2" aria-pressed="false"><strong>Authorize</strong><small>Human decisions</small></button><button class="cap" type="button" data-cap="3" aria-pressed="false"><strong>Monitor</strong><small>Connected signals</small></button><button class="cap" type="button" data-cap="4" aria-pressed="false"><strong>Protect</strong><small>Integrated controls</small></button><button class="cap" type="button" data-cap="5" aria-pressed="false"><strong>Verify</strong><small>Reports and receipts</small></button></div><div class="rich-detail" id="rich-detail" aria-live="polite" aria-atomic="true">
+<section class="hero hero-v3" id="top">
+<div class="wrap">
+<div class="hc-grid">
+ <div class="hc-copy">
+  <div class="eyebrow">HAIEC · EVIDENCE-BOUND AI ASSURANCE</div>
+  <h1>Go beyond checking AI components. <span>Understand and assess the consequential actions they enable.</span></h1>
+  <p class="lead">Your security scans, access controls and policies each answer important questions. HAIEC connects those answers to the actions AI agents can reach, including indirect paths through tools and systems. Deterministic evaluation helps your team investigate real exposure and move AI forward with evidence you can defend.</p>
+  <div class="hc-value"><span class="hc-value-mark" aria-hidden="true">✳</span><span><strong>Deterministic AI Action Assurance.</strong> Source-backed findings first. Five independent evidence views. Delegated Action Integrity.</span></div>
+  <div class="actions hc-actions">
+   <a class="btn" href="https://www.haiec.com/enterprise">Scope an Enterprise POC <span aria-hidden="true">↗</span></a>
+   <a class="btn secondary" href="https://www.haiec.com/docs/agent-integration">Try HAIEC with Your AI Agent <span aria-hidden="true">→</span></a>
+  </div>
+  <a class="hc-proof-link" href="https://www.haiec.com/sample-reports/kestrel">See a real assurance report <span aria-hidden="true">↗</span></a>
+  <div class="hc-quickstart"><div><span class="hc-quicklabel">FOUR-WORD STARTING GOAL</span><code>Run HAIEC AI Assurance</code></div><button type="button" class="hc-copy-button" id="hero-copy-prompt" aria-label="Copy Run HAIEC AI Assurance">Copy</button></div>
+  <p class="small hc-fineprint">Connect once in a compatible MCP-enabled IDE or AI agent, with a scoped key and authorized source. The illustration is not a live customer run.</p>
+ </div>
+ <div class="hc-stage" id="hero-compositions" role="region" aria-roledescription="carousel" aria-label="Two illustrated HAIEC value propositions">
+  <div class="hc-stage-top"><div><span class="hc-illustration-kicker">HAIEC / WHY ANOTHER CHECK ISN'T ENOUGH</span><p class="hc-stage-context">An action-aware assurance layer across existing tools</p></div><span class="hc-illustration-label">ILLUSTRATIVE · NOT LIVE</span></div>
+  <div class="hc-view" id="hero-scene-a" role="group" aria-roledescription="slide" aria-label="1 of 2: The Consequence Gap">
+   <div class="hc-scene-heading"><div><span class="hc-step">01 / THE CONSEQUENCE GAP</span><h2>Each tool checked its part. Who checks the whole action?</h2></div><span class="hc-mini-tag">BEYOND COMPONENT CHECKS</span></div>
+   <div class="hc-tool-grid" aria-label="Three separate scope-limited assurances">
+    <div class="hc-tool"><span class="hc-check"><icon aria-hidden="true">✓</icon></span><strong>Security</strong><small>No selected finding in scan scope</small></div>
+    <div class="hc-tool"><span class="hc-check">✓</span><strong>IAM</strong><small>Valid API credential</small></div>
+    <div class="hc-tool"><span class="hc-check">✓</span><strong>Governance</strong><small>Approved operating policy</small></div>
+   </div>
+   <div class="hc-gap-bridge"><span>Separately valid views</span><div class="hc-gap-line"></div><strong>Consequential path</strong></div>
+   <div class="hc-actionmap" aria-label="Illustrative agent through MCP tool, worker and payment service">
+    <div class="hc-path-nodes"><span>AI agent</span><i aria-hidden="true">→</i><span>MCP tool</span><i aria-hidden="true">→</i><span>Worker</span><i aria-hidden="true">⇢</i><span>Payment API</span></div>
+    <svg class="hc-flow-svg" viewBox="0 0 500 39" role="img" aria-label="Illustrative potential derived action path; not observed execution"><path d="M18 18 H480" fill="none" stroke="currentColor" stroke-width="1.5" stroke-opacity=".16" stroke-dasharray="5 7"/><path d="M18 18 H480" class="hc-dash" stroke="#29936e" stroke-width="2.5" fill="none" stroke-dasharray="7 10"/><circle cx="480" cy="18" r="4" fill="#29936e"/></svg>
+    <p class="hc-outcome"><span aria-hidden="true">↳</span> Potential financial consequence identified from a supported source path</p>
+   </div>
+   <div class="hc-proof-stack"><span class="hc-strip-title">FIVE INDEPENDENT EVIDENCE VIEWS</span><div class="hc-plane-row"><span>Requested</span><span>Policy</span><span>Granted</span><span>Code</span><span>Observed</span></div><p class="hc-dai-strip"><strong>DAI</strong> · A credential can permit the API. Who authorized the agent to choose the recipient?</p></div>
+   <div class="hc-scene-foot"><span class="hc-finding-dot"></span><div><strong>Action-path exposure surfaced</strong><small>Potential capability is distinct from a completed transaction. Qualify other evidence as needed for the decision.</small></div></div>
+  </div>
+  <div class="hc-view" id="hero-scene-b" role="group" aria-roledescription="slide" aria-label="2 of 2: Executive Decision" hidden>
+   <div class="hc-scene-heading"><div><span class="hc-step">02 / THE EXECUTIVE DECISION</span><h2>Move AI forward with findings a reviewer can actually use.</h2></div><span class="hc-mini-tag">DEPLOYMENT CONFIDENCE</span></div>
+   <div class="hc-decision-shell">
+    <div class="hc-case-top"><div><span class="hc-case-kicker">ASSURANCE DOSSIER · EXAMPLE</span><h3>Support agent · Refund destination</h3><p>One consequential choice examined across relevant sources</p></div><span class="hc-case-status"><span aria-hidden="true">●</span> Actionable finding</span></div>
+    <div class="hc-decision-evidence">
+      <div><span class="hc-evidence-icon">↗</span><strong>Source capability</strong><small>Refund-handler path identified</small><em>FOUND IN CODE</em></div>
+      <div><span class="hc-evidence-icon">≡</span><strong>Operating policy</strong><small>Approved refund boundary available</small><em>POLICY IN CONTEXT</em></div>
+      <div><span class="hc-evidence-icon">◇</span><strong>Delegated choice</strong><small>Who may select a new recipient?</small><em>SPECIFIC FOLLOW-UP</em></div>
+    </div>
+    <div class="hc-result-split"><div><span class="hc-case-kicker">WHAT HAIEC CONNECTS</span><strong>Source → Authority → Potential consequence</strong><p>One actionable risk record with known facts, scoped questions and an accountable next decision.</p></div><div><span class="hc-case-kicker">DETERMINISTIC BASIS</span><strong>Evidence, not an AI's opinion</strong><p>The official evaluation applies consistent rules to the relevant evidence available for this decision.</p></div></div>
+    <div class="hc-decision-next"><span aria-hidden="true">➜</span><div><strong>Next: investigate recipient selection</strong><small>Review the specific authority question or evaluate an eligible source-bound action; don't stop unrelated permitted work.</small></div></div>
+   </div>
+   <div class="hc-scene-foot"><span class="hc-finding-dot"></span><div><strong>Decisions supported, not merely scored</strong><small>Fictional composition. Actual assurance conclusions depend on exact evaluated sources, scope and rules.</small></div></div>
+  </div>
+  <div class="hc-carousel-controls">
+   <div class="hc-slide-dots" role="group" aria-label="Choose hero composition"><button type="button" class="hc-dot" data-hero-slide="0" aria-pressed="true" aria-label="Show Consequence Gap hero scene"><span>01</span> Consequence Gap</button><button type="button" class="hc-dot" data-hero-slide="1" aria-pressed="false" aria-label="Show Executive Decision hero scene"><span>02</span> Executive Decision</button></div>
+   <button type="button" class="hc-play" id="hero-carousel-play" aria-label="Pause automatic hero rotation">Pause <span aria-hidden="true">Ⅱ</span></button>
+  </div>
+  <div class="hc-rotation-progress" aria-hidden="true"><span id="hc-progress-bar"></span></div>
+  <p id="hero-carousel-announcement" class="hc-sr-only" aria-live="polite" aria-atomic="true"></p>
+ </div>
+</div>
+<div class="hc-truststrip" aria-label="Proof and developer integration resources">
+ <a href="https://www.haiec.com/awards/munichtech-expo-2026.html" class="hc-award"><span aria-hidden="true">✦</span> MunichTech Grand Challenge Winner</a>
+ <span class="hc-trust-divider" aria-hidden="true"></span>
+ <span class="hc-trust-title">Works with your development workflow</span>
+ <a href="https://www.haiec.com/docs/github-integration">GitHub App</a><a href="https://www.haiec.com/docs/integrations/cicd-setup">GitHub Action</a><a href="https://www.npmjs.com/package/ai-appsec">AI AppSec</a><a href="https://www.npmjs.com/package/mcp-tenant-isolation">MCP Isolation</a><a href="https://www.haiec.com/docs/agent-integration">MCP / IDE</a>
+</div>
+</div></section>
+
+<section class="seg alt" id="why"><div class="wrap"><div class="eyebrow">The value of the first pass</div><h2>A useful finding doesn't need the whole picture.</h2><p class="intro">Your code may already reveal an agent-to-API path that can move money, expose data or modify production. HAIEC can surface that candidate risk without waiting for every IAM integration, human decision record or runtime log. The missing evidence matters when interpreting the finding; it doesn't erase the path.</p>
+<div class="finding"><div class="finding-head"><span>FIRST SOURCE FINDING · POSSIBLE FINANCIAL MUTATION</span><span class="fiction">FICTIONAL TEACHING EXAMPLE</span></div><div class="finding-body"><div class="journey"><span>Support Agent</span><em>→</em><span>Refund Tool</span><em>→</em><span>Refund Handler</span><em>→</em><span>Possible recipient change</span></div><div class="statusgrid"><article class="tile"><div class="micro">FOUND IN EXAMPLE SOURCE</div><h3>Reachable handler</h3><p>A selected code path supports a possible refund operation. A real finding would link its source and version.</p></article><article class="tile"><div class="micro">SEPARATE QUESTIONS</div><h3>Authorization and effect</h3><p>Policy may already establish limits. Credential scope, discretionary choices and actual execution require separate evidence.</p></article><article class="tile"><div class="micro">NEXT USEFUL ACTION</div><h3>Investigate or assure</h3><p>Review the path immediately. Add other evidence only to answer the specific operational decision.</p></article></div></div></div><div class="actions"><a class="btn secondary" href="https://www.haiec.com/sample-ai-action-access-map">Explore a Sample AI System</a><a class="btn secondary" href="https://www.haiec.com/assurance">How Assurance Works</a></div></div></section>
+<section class="seg alt hc-capabilities-section" id="six-capabilities"><div class="wrap">
+<div class="eyebrow">A unified platform · Independent capabilities</div><h2>Explore what HAIEC can do beyond the hero.</h2>
+<p class="intro">The hero explains the consequence and enterprise value. Here you can explore HAIEC's six separately selectable capabilities and how Delegated Action Integrity compares policy, access and consequential choices.</p>
+<div class="hc-capabilities-container"><aside class="cap-shell" aria-label="Interactive educational capability model"><div class="cap-top">One Platform · Six Independent Capabilities</div><div class="cap-title">AI System Workspace</div><p class="cap-intro">Systems · Sources · Agent paths · Evidence · Decisions</p><div class="cap-ws"><b>Choose the question that matters</b><p>Each capability is selectable. None is a mandatory stage or automatically installed control.</p></div><div class="cap-grid" role="group" aria-label="Explore HAIEC capability explanations"><button class="cap" type="button" data-cap="0" aria-pressed="true"><strong>Discover</strong><small>Find paths and risks</small></button><button class="cap" type="button" data-cap="1" aria-pressed="false"><strong>Evaluate</strong><small>Apply exact rules</small></button><button class="cap" type="button" data-cap="2" aria-pressed="false"><strong>Authorize</strong><small>Human decisions</small></button><button class="cap" type="button" data-cap="3" aria-pressed="false"><strong>Monitor</strong><small>Connected signals</small></button><button class="cap" type="button" data-cap="4" aria-pressed="false"><strong>Protect</strong><small>Integrated controls</small></button><button class="cap" type="button" data-cap="5" aria-pressed="false"><strong>Verify</strong><small>Reports and receipts</small></button></div><div class="rich-detail" id="rich-detail" aria-live="polite" aria-atomic="true">
   <div class="eyebrow" id="cap-kind">Discover · Consequential action</div>
   <div class="q" id="cap-q">What consequential actions can this agent reach?</div>
   <div class="rich-grid">
@@ -61,10 +225,10 @@
   </div>
   <div class="dai-answer" id="dai-answer" aria-live="polite">RULE-GROUNDED: Approved policy and trusted transaction facts determine the original payment recipient, if the actual chosen value conforms. No independent discretionary recipient selection is necessary.</div>
   <p><a href="https://www.haiec.com/methodology">Understand DAI methodology →</a></p>
-</div><p class="cap-note">Illustrative interactive concept. In production, retain the existing <strong>HeroArchitectureExplorer</strong> component; do not rebuild these six cards as a separate widget.</p></aside></div></div></section>
+</div><p class="cap-note">Standalone product-capability explainer. In production, retain and enhance the existing <strong>HeroArchitectureExplorer</strong> component in this section, rather than rebuilding it as a competing new widget.</p></aside></div>
+<div class="actions"><a class="btn secondary" href="https://www.haiec.com/platform">Explore the Platform</a><a class="btn secondary" href="https://www.haiec.com/methodology">Understand HAIEC Methodology</a></div>
+</div></section>
 
-<section class="seg alt" id="why"><div class="wrap"><div class="eyebrow">The value of the first pass</div><h2>A useful finding doesn't need the whole picture.</h2><p class="intro">Your code may already reveal an agent-to-API path that can move money, expose data or modify production. HAIEC can surface that candidate risk without waiting for every IAM integration, human decision record or runtime log. The missing evidence matters when interpreting the finding; it doesn't erase the path.</p>
-<div class="finding"><div class="finding-head"><span>FIRST SOURCE FINDING · POSSIBLE FINANCIAL MUTATION</span><span class="fiction">FICTIONAL TEACHING EXAMPLE</span></div><div class="finding-body"><div class="journey"><span>Support Agent</span><em>→</em><span>Refund Tool</span><em>→</em><span>Refund Handler</span><em>→</em><span>Possible recipient change</span></div><div class="statusgrid"><article class="tile"><div class="micro">FOUND IN EXAMPLE SOURCE</div><h3>Reachable handler</h3><p>A selected code path supports a possible refund operation. A real finding would link its source and version.</p></article><article class="tile"><div class="micro">SEPARATE QUESTIONS</div><h3>Authorization and effect</h3><p>Policy may already establish limits. Credential scope, discretionary choices and actual execution require separate evidence.</p></article><article class="tile"><div class="micro">NEXT USEFUL ACTION</div><h3>Investigate or assure</h3><p>Review the path immediately. Add other evidence only to answer the specific operational decision.</p></article></div></div></div><div class="actions"><a class="btn secondary" href="https://www.haiec.com/sample-ai-action-access-map">Explore a Sample AI System</a><a class="btn secondary" href="https://www.haiec.com/assurance">How Assurance Works</a></div></div></section>
 
 <section class="seg" id="product"><div class="wrap"><div class="eyebrow">Understand → Assure → Govern &amp; Operate</div><h2>From first finding to a defensible operating decision.</h2><p class="intro">One system, several independently available jobs. Connect only the sources relevant to your question and work forward as far as the evidence supports.</p><div class="grid3"><article class="tile"><div class="n">01 / Understand</div><h3>See hidden paths</h3><p>Map reachable tools, roles, implementations, resources, potential effects and unexamined edges in supported sources.</p></article><article class="tile"><div class="n">02 / Assure</div><h3>Make evidence count</h3><p>Apply deterministic claim rules to supported facts and expose exact authority, coverage or runtime limitations.</p></article><article class="tile"><div class="n">03 / Govern &amp; Operate</div><h3>Respond with accountability</h3><p>Support human decisions, review receipts and connected monitoring or protection when the target integration exists.</p></article></div><a class="btn secondary" href="https://www.haiec.com/platform">Explore the Platform</a></div></section>
 
@@ -178,5 +342,55 @@ theme.addEventListener('click',function(){const next=root.dataset.theme==='light
 id('copy').addEventListener('click',async function(){try{await navigator.clipboard.writeText('Run HAIEC AI Assurance');this.textContent='Copied';}catch(e){this.textContent='Select and copy the visible prompt';}});
 showChapter(0,false);setEvent(0);
 })();
+
+/* Hero compositions: fixed H1, two distinct animated visuals, 10s rotation */
+(function(){
+ const stage=document.getElementById('hero-compositions');
+ const scenes=[document.getElementById('hero-scene-a'),document.getElementById('hero-scene-b')];
+ const controls=Array.from(document.querySelectorAll('[data-hero-slide]'));
+ const play=document.getElementById('hero-carousel-play');
+ const announcement=document.getElementById('hero-carousel-announcement');
+ const progress=document.querySelector('.hc-rotation-progress');
+ const reduce=window.matchMedia('(prefers-reduced-motion: reduce)');
+ const labels=['Consequence Gap','Executive Decision'];
+ let current=0, timer=null, userPaused=false, visible=true, hovering=false, focused=false;
+ function motionAllowed(){return !reduce.matches && !document.hidden;}
+ function stop(){if(timer!==null){clearInterval(timer);timer=null;}progress.classList.remove('is-rotating');}
+ function show(i,announce){
+   current=(i+scenes.length)%scenes.length;
+   scenes.forEach((scene,index)=>{scene.hidden=index!==current;scene.setAttribute('aria-hidden',String(index!==current));});
+   controls.forEach((button,index)=>button.setAttribute('aria-pressed',String(index===current)));
+   if(announce)announcement.textContent='Showing '+labels[current]+' hero composition';
+ }
+ function canRotate(){return !userPaused && visible && !hovering && !focused && motionAllowed();}
+ function run(){stop();if(!canRotate())return;void progress.offsetWidth;progress.classList.add('is-rotating');timer=setInterval(()=>{show(current+1,false);progress.classList.remove('is-rotating');void progress.offsetWidth;progress.classList.add('is-rotating');},10000);}
+ function manual(i){userPaused=true;show(i,true);stop();updatePlay();}
+ function updatePlay(){play.innerHTML=userPaused?'Play <span aria-hidden="true">▶</span>':'Pause <span aria-hidden="true">Ⅱ</span>';play.setAttribute('aria-label',userPaused?'Resume automatic hero rotation':'Pause automatic hero rotation');}
+ controls.forEach(btn=>btn.addEventListener('click',()=>manual(Number(btn.dataset.heroSlide))));
+ play.addEventListener('click',()=>{userPaused=!userPaused;updatePlay();run();});
+ stage.addEventListener('mouseenter',()=>{hovering=true;stop();});
+ stage.addEventListener('mouseleave',()=>{hovering=false;run();});
+ stage.addEventListener('focusin',()=>{focused=true;stop();});
+ stage.addEventListener('focusout',e=>{if(!stage.contains(e.relatedTarget)){focused=false;run();}});
+ stage.addEventListener('keydown',e=>{
+   if(!['ArrowLeft','ArrowRight'].includes(e.key))return;
+   if(!controls.some(c=>c===document.activeElement))return;
+   e.preventDefault();manual(current+(e.key==='ArrowRight'?1:-1));controls[current].focus();
+ });
+ document.addEventListener('visibilitychange',()=>document.hidden?stop():run());
+ if(reduce.addEventListener)reduce.addEventListener('change',()=>{if(reduce.matches){userPaused=true;updatePlay();stop();}else run();});
+ if('IntersectionObserver' in window){
+   new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;run();},{threshold:.25}).observe(stage);
+ }
+ const copy=document.getElementById('hero-copy-prompt');
+ copy.addEventListener('click',async()=>{
+   try{await navigator.clipboard.writeText('Run HAIEC AI Assurance');copy.textContent='Copied';}
+   catch(e){copy.textContent='Select the goal to copy';}
+ });
+ show(0,false);
+ if(reduce.matches){userPaused=true;}
+ updatePlay();run();
+})();
+
 </script>
 </body></html>
