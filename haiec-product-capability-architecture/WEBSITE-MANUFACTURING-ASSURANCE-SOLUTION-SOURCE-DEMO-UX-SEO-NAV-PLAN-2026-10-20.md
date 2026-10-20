@@ -1,3 +1,5 @@
+> **Other Industry Solution:** [Telecom Assurance & Network Action Integrity source and TM Forum plan](WEBSITE-TELECOM-ORAN-ASSURANCE-SOURCE-ONTOLOGY-TMFORUM-PROOF-UX-SEO-PLAN-2026-10-20.md) + [interactive telecom design](design-references/telecom-2026-10-20/telecom-action-integrity-ontology-tmforum-interactive.html). Telecom and Manufacturing share the canonical HAIEC assurance engine but differ in domain entity vocabulary, scenarios, source adapters and evidence owners. Crosslink under Solutions > Industry Solutions only when the new Manufacturing route is approved for implementation.
+
 # Manufacturing Assurance Solution | HAIEC source and demonstration review
 Date: 2026-10-20. Page #17. Planned canonical URL: /solutions/manufacturing. Common Repo research and preview only.
 
