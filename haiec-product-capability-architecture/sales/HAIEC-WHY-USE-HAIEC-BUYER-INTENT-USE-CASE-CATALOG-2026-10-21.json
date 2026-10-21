@@ -1,0 +1,902 @@
+{
+  "name": "HAIEC Why Use HAIEC: Buyer-Intent/Use-Case Library",
+  "date": "2026-10-21",
+  "status": "RESEARCH-BASED HYPOTHESES, NOT MEASURED KEYWORD DEMAND OR CLAIMS OF CURRENT CUSTOMER OUTCOMES",
+  "terms": "Buyer questions and exact search phrases are editorial hypotheses. P0/P1/P2 are conversion/editorial prioritization, not Semrush search volumes or proven SERP rankings.",
+  "commercialPath": "/enterprise",
+  "sourceReferences": [
+    "https://www.haiec.com/enterprise",
+    "https://www.haiec.com/solutions",
+    "https://www.haiec.com/ai-security",
+    "https://www.haiec.com/assurance",
+    "https://www.haiec.com/sample-reports/kestrel",
+    "https://github.com/subodhkc/common-repo-drive/blob/main/haiec-product-capability-architecture/HAIEC-POSITIONING-USP-FOUR-WORD-SEO-AND-STORY-SYSTEM-2026-10-20.md"
+  ],
+  "count": 46,
+  "counts": {
+    "Launch & production decisions": 6,
+    "Actions, access & authority": 7,
+    "Security & attack paths": 6,
+    "Operations & response": 6,
+    "Audits, evidence & trust": 6,
+    "Vendor & third-party assurance": 5,
+    "Developer workflows & change": 4,
+    "Industry-specific consequences": 6
+  },
+  "entries": [
+    {
+      "id": "BUY-01",
+      "cluster": "Launch & production decisions",
+      "question": "Our AI pilot works, but security will not approve production",
+      "searchPhrase": "AI agent POC stuck security approval",
+      "value": "Unblock a stalled AI pilot with a scoped, evidence-backed production-readiness review.",
+      "priority": "P0",
+      "buyer": "CTO / AI platform owner",
+      "primaryCTA": {
+        "label": "Scope a relevant assurance POC",
+        "href": "/enterprise"
+      },
+      "secondaryProof": {
+        "label": "Explore source-backed context",
+        "href": "/sample-reports/kestrel"
+      },
+      "truthBoundary": "Production go/no-go and proof gaps",
+      "contentRole": "PRIMARY_HUB_CARD"
+    },
+    {
+      "id": "BUY-02",
+      "cluster": "Launch & production decisions",
+      "question": "Can we safely deploy this AI agent?",
+      "searchPhrase": "AI agent production readiness assessment",
+      "value": "Make a defensible release decision from actual action paths, authority and applicable evidence.",
+      "priority": "P0",
+      "buyer": "CISO / engineering lead",
+      "primaryCTA": {
+        "label": "Scope a relevant assurance POC",
+        "href": "/enterprise"
+      },
+      "secondaryProof": {
+        "label": "Explore source-backed context",
+        "href": "/assurance"
+      },
+      "truthBoundary": "Bounded assurance, not guaranteed go-live",
+      "contentRole": "PRIMARY_HUB_CARD"
+    },
+    {
+      "id": "BUY-03",
+      "cluster": "Launch & production decisions",
+      "question": "We need evidence before releasing an agent",
+      "searchPhrase": "AI agent deployment approval evidence",
+      "value": "Document what was assessed, what remains unresolved and who owns the next decision.",
+      "priority": "P0",
+      "buyer": "Security architect / platform",
+      "primaryCTA": {
+        "label": "Scope a relevant assurance POC",
+        "href": "/enterprise"
+      },
+      "secondaryProof": {
+        "label": "Explore source-backed context",
+        "href": "/sample-reports/kestrel"
+      },
+      "truthBoundary": "Separate U5 verdict from human deployment approval",
+      "contentRole": "PRIMARY_HUB_CARD"
+    },
+    {
+      "id": "BUY-04",
+      "cluster": "Launch & production decisions",
+      "question": "How do we take an AI agent from proof of concept to production?",
+      "searchPhrase": "AI POC to production governance checklist",
+      "value": "Move beyond model demos to a review of consequential actions, controls and missing proof.",
+      "priority": "P0",
+      "buyer": "CIO / innovation lead",
+      "primaryCTA": {
+        "label": "Scope a relevant assurance POC",
+        "href": "/enterprise"
+      },
+      "secondaryProof": {
+        "label": "Explore source-backed context",
+        "href": "/how-it-works"
+      },
+      "truthBoundary": "Scoping before production",
+      "contentRole": "PRIMARY_HUB_CARD"
+    },
+    {
+      "id": "BUY-05",
+      "cluster": "Launch & production decisions",
+      "question": "Do our controls still apply after the latest agent release?",
+      "searchPhrase": "AI agent release change security assessment",
+      "value": "Compare source versions and evidence boundaries before relying on an earlier evaluation.",
+      "priority": "P1",
+      "buyer": "Engineering director",
+      "primaryCTA": {
+        "label": "Scope a relevant assurance POC",
+        "href": "/enterprise"
+      },
+      "secondaryProof": {
+        "label": "Explore source-backed context",
+        "href": "/sample-reports/kestrel/compare"
+      },
+      "truthBoundary": "Version/source comparability required",
+      "contentRole": "SUPPORTING_CATALOG"
+    },
+    {
+      "id": "BUY-06",
+      "cluster": "Launch & production decisions",
+      "question": "Will our AI pass architecture and risk review?",
+      "searchPhrase": "enterprise AI architecture risk review",
+      "value": "Give architecture, security and business owners a shared source-backed decision basis.",
+      "priority": "P1",
+      "buyer": "Enterprise architect",
+      "primaryCTA": {
+        "label": "Scope a relevant assurance POC",
+        "href": "/enterprise"
+      },
+      "secondaryProof": {
+        "label": "Explore source-backed context",
+        "href": "/enterprise/architecture"
+      },
+      "truthBoundary": "Evidence is limited to scoped system",
+      "contentRole": "SUPPORTING_CATALOG"
+    },
+    {
+      "id": "BUY-07",
+      "cluster": "Actions, access & authority",
+      "question": "What can our AI agent actually change?",
+      "searchPhrase": "what actions can AI agent take tools API",
+      "value": "Map supported paths from an agent through tools and APIs to business operations and resources.",
+      "priority": "P0",
+      "buyer": "CISO / AppSec / platform",
+      "primaryCTA": {
+        "label": "Scope a relevant assurance POC",
+        "href": "/enterprise"
+      },
+      "secondaryProof": {
+        "label": "Explore source-backed context",
+        "href": "/sample-reports/kestrel/constellation"
+      },
+      "truthBoundary": "Code reachable does not prove execution",
+      "contentRole": "PRIMARY_HUB_CARD"
+    },
+    {
+      "id": "BUY-08",
+      "cluster": "Actions, access & authority",
+      "question": "Is this AI agent overprivileged?",
+      "searchPhrase": "AI agent excessive permissions audit",
+      "value": "Compare tool capabilities, relevant authority and actual grants where source evidence is available.",
+      "priority": "P0",
+      "buyer": "IAM / Security",
+      "primaryCTA": {
+        "label": "Scope a relevant assurance POC",
+        "href": "/enterprise"
+      },
+      "secondaryProof": {
+        "label": "Explore source-backed context",
+        "href": "/assurance"
+      },
+      "truthBoundary": "Grant and code are distinct",
+      "contentRole": "PRIMARY_HUB_CARD"
+    },
+    {
+      "id": "BUY-09",
+      "cluster": "Actions, access & authority",
+      "question": "Who authorized the AI to make that decision?",
+      "searchPhrase": "AI agent delegated authority governance",
+      "value": "Determine whether the business choice was fixed by policy or legitimately delegated to the agent.",
+      "priority": "P0",
+      "buyer": "Risk / architecture / security",
+      "primaryCTA": {
+        "label": "Scope a relevant assurance POC",
+        "href": "/enterprise"
+      },
+      "secondaryProof": {
+        "label": "Explore source-backed context",
+        "href": "/assurance"
+      },
+      "truthBoundary": "DAI may be source-dependent",
+      "contentRole": "PRIMARY_HUB_CARD"
+    },
+    {
+      "id": "BUY-10",
+      "cluster": "Actions, access & authority",
+      "question": "Does our AI have access it should not have?",
+      "searchPhrase": "AI agent IAM permission risk assessment",
+      "value": "Expose relevant mismatches between approved boundaries, effective grants and source capability.",
+      "priority": "P0",
+      "buyer": "IAM / CISO",
+      "primaryCTA": {
+        "label": "Scope a relevant assurance POC",
+        "href": "/enterprise"
+      },
+      "secondaryProof": {
+        "label": "Explore source-backed context",
+        "href": "/ai-security"
+      },
+      "truthBoundary": "Do not infer effective grants from code",
+      "contentRole": "PRIMARY_HUB_CARD"
+    },
+    {
+      "id": "BUY-11",
+      "cluster": "Actions, access & authority",
+      "question": "How do we enforce human review for consequential AI actions?",
+      "searchPhrase": "AI agent human approval controls",
+      "value": "Review action-bound approval evidence and the actual mediation boundary for material decisions.",
+      "priority": "P1",
+      "buyer": "GRC / operations",
+      "primaryCTA": {
+        "label": "Scope a relevant assurance POC",
+        "href": "/enterprise"
+      },
+      "secondaryProof": {
+        "label": "Explore source-backed context",
+        "href": "/assurance"
+      },
+      "truthBoundary": "Human decision != native target enforcement",
+      "contentRole": "SUPPORTING_CATALOG"
+    },
+    {
+      "id": "BUY-12",
+      "cluster": "Actions, access & authority",
+      "question": "Can a child agent exceed its parent's authority?",
+      "searchPhrase": "multi agent delegation security assessment",
+      "value": "Trace parent-child authority continuity and clarify unresolved actor and scope joins.",
+      "priority": "P1",
+      "buyer": "Agent architect",
+      "primaryCTA": {
+        "label": "Scope a relevant assurance POC",
+        "href": "/enterprise"
+      },
+      "secondaryProof": {
+        "label": "Explore source-backed context",
+        "href": "/assurance"
+      },
+      "truthBoundary": "Full identity chain may require connected sources",
+      "contentRole": "SUPPORTING_CATALOG"
+    },
+    {
+      "id": "BUY-13",
+      "cluster": "Actions, access & authority",
+      "question": "Which systems can my AI agents reach?",
+      "searchPhrase": "AI agent attack surface action path map",
+      "value": "See supported agent, tool, credential and resource relationships and the consequences they enable.",
+      "priority": "P0",
+      "buyer": "AI platform / security",
+      "primaryCTA": {
+        "label": "Scope a relevant assurance POC",
+        "href": "/enterprise"
+      },
+      "secondaryProof": {
+        "label": "Explore source-backed context",
+        "href": "/ai-inventory"
+      },
+      "truthBoundary": "Supported reach only, unknown paths remain unknown",
+      "contentRole": "PRIMARY_HUB_CARD"
+    },
+    {
+      "id": "BUY-14",
+      "cluster": "Security & attack paths",
+      "question": "How do we secure MCP servers and AI tools?",
+      "searchPhrase": "MCP server security tool permission assessment",
+      "value": "Inspect tool exposure, server-side checks, privilege boundaries and source-linked action paths.",
+      "priority": "P0",
+      "buyer": "AI AppSec / developers",
+      "primaryCTA": {
+        "label": "Scope a relevant assurance POC",
+        "href": "/enterprise"
+      },
+      "secondaryProof": {
+        "label": "Explore source-backed context",
+        "href": "/ai-security"
+      },
+      "truthBoundary": "Safe scoped test and access rights required",
+      "contentRole": "PRIMARY_HUB_CARD"
+    },
+    {
+      "id": "BUY-15",
+      "cluster": "Security & attack paths",
+      "question": "Could prompt injection make our agent take harmful actions?",
+      "searchPhrase": "prompt injection agent tool consequences",
+      "value": "Follow unsafe input-to-tool paths and identify where actual server authorization is required.",
+      "priority": "P0",
+      "buyer": "AppSec",
+      "primaryCTA": {
+        "label": "Scope a relevant assurance POC",
+        "href": "/enterprise"
+      },
+      "secondaryProof": {
+        "label": "Explore source-backed context",
+        "href": "/ai-security"
+      },
+      "truthBoundary": "Risk path is not necessarily exploited",
+      "contentRole": "PRIMARY_HUB_CARD"
+    },
+    {
+      "id": "BUY-16",
+      "cluster": "Security & attack paths",
+      "question": "Can one tenant's AI see another tenant's data?",
+      "searchPhrase": "AI agent tenant isolation audit",
+      "value": "Examine trusted tenant-to-principal binding and protected resource access, not just a tenant parameter.",
+      "priority": "P0",
+      "buyer": "SaaS CISO / architect",
+      "primaryCTA": {
+        "label": "Scope a relevant assurance POC",
+        "href": "/enterprise"
+      },
+      "secondaryProof": {
+        "label": "Explore source-backed context",
+        "href": "/ai-security"
+      },
+      "truthBoundary": "Cross-tenant result requires qualified evidence",
+      "contentRole": "PRIMARY_HUB_CARD"
+    },
+    {
+      "id": "BUY-17",
+      "cluster": "Security & attack paths",
+      "question": "Can our RAG agent leak confidential information?",
+      "searchPhrase": "RAG data leakage security assessment",
+      "value": "Map protected retrieval, response audience and egress paths with precise source limitations.",
+      "priority": "P1",
+      "buyer": "Data security / developer",
+      "primaryCTA": {
+        "label": "Scope a relevant assurance POC",
+        "href": "/enterprise"
+      },
+      "secondaryProof": {
+        "label": "Explore source-backed context",
+        "href": "/ai-security"
+      },
+      "truthBoundary": "Actual exfiltration requires observed proof",
+      "contentRole": "SUPPORTING_CATALOG"
+    },
+    {
+      "id": "BUY-18",
+      "cluster": "Security & attack paths",
+      "question": "Are privileged agent API calls properly controlled?",
+      "searchPhrase": "AI agent privileged API authorization assessment",
+      "value": "Review which privileged actions are technically reachable and whether server-side restrictions apply.",
+      "priority": "P1",
+      "buyer": "API security / AppSec",
+      "primaryCTA": {
+        "label": "Scope a relevant assurance POC",
+        "href": "/enterprise"
+      },
+      "secondaryProof": {
+        "label": "Explore source-backed context",
+        "href": "/ai-security"
+      },
+      "truthBoundary": "Guard configuration is not verified enforcement",
+      "contentRole": "SUPPORTING_CATALOG"
+    },
+    {
+      "id": "BUY-19",
+      "cluster": "Security & attack paths",
+      "question": "Is an AI scanner finding an actual security risk?",
+      "searchPhrase": "AI security scanner false positive evidence",
+      "value": "Separate raw rule matches, source-qualified security findings, path reachability and target effects.",
+      "priority": "P2",
+      "buyer": "AppSec / security reviewer",
+      "primaryCTA": {
+        "label": "Scope a relevant assurance POC",
+        "href": "/enterprise"
+      },
+      "secondaryProof": {
+        "label": "Explore source-backed context",
+        "href": "/sample-reports/kestrel"
+      },
+      "truthBoundary": "Scan coverage and source semantics matter",
+      "contentRole": "OPTIONAL_DEEP_DIVE"
+    },
+    {
+      "id": "BUY-20",
+      "cluster": "Operations & response",
+      "question": "What did our agent actually do?",
+      "searchPhrase": "AI agent action audit trail evidence",
+      "value": "Separate available code paths and permissions from qualified action-correlated observations.",
+      "priority": "P0",
+      "buyer": "SOC / AI platform",
+      "primaryCTA": {
+        "label": "Scope a relevant assurance POC",
+        "href": "/enterprise"
+      },
+      "secondaryProof": {
+        "label": "Explore source-backed context",
+        "href": "/assurance"
+      },
+      "truthBoundary": "Runtime telemetry conditional",
+      "contentRole": "PRIMARY_HUB_CARD"
+    },
+    {
+      "id": "BUY-21",
+      "cluster": "Operations & response",
+      "question": "Are our AI agents continuously monitored?",
+      "searchPhrase": "AI agent continuous monitoring audit",
+      "value": "Check each connected runtime source's freshness, scope and coverage before making a monitoring claim.",
+      "priority": "P1",
+      "buyer": "SOC / operations",
+      "primaryCTA": {
+        "label": "Scope a relevant assurance POC",
+        "href": "/enterprise"
+      },
+      "secondaryProof": {
+        "label": "Explore source-backed context",
+        "href": "/how-it-works"
+      },
+      "truthBoundary": "No blanket 24x7 coverage promise",
+      "contentRole": "SUPPORTING_CATALOG"
+    },
+    {
+      "id": "BUY-22",
+      "cluster": "Operations & response",
+      "question": "Did the AI guardrail really block that action?",
+      "searchPhrase": "AI agent guardrail enforcement verification",
+      "value": "Distinguish policy decision, dispatch, provider acknowledgment and independently witnessed target outcome.",
+      "priority": "P0",
+      "buyer": "CISO / operations",
+      "primaryCTA": {
+        "label": "Scope a relevant assurance POC",
+        "href": "/enterprise"
+      },
+      "secondaryProof": {
+        "label": "Explore source-backed context",
+        "href": "/assurance"
+      },
+      "truthBoundary": "Customer-native PEP integration may be missing",
+      "contentRole": "PRIMARY_HUB_CARD"
+    },
+    {
+      "id": "BUY-23",
+      "cluster": "Operations & response",
+      "question": "Can we shut down a runaway agent?",
+      "searchPhrase": "AI agent kill switch containment effectiveness",
+      "value": "Assess which stopping or containment controls are actually wired and what target-side evidence is available.",
+      "priority": "P1",
+      "buyer": "Incident commander",
+      "primaryCTA": {
+        "label": "Scope a relevant assurance POC",
+        "href": "/enterprise"
+      },
+      "secondaryProof": {
+        "label": "Explore source-backed context",
+        "href": "/assurance"
+      },
+      "truthBoundary": "Do not promise universal kill switch",
+      "contentRole": "SUPPORTING_CATALOG"
+    },
+    {
+      "id": "BUY-24",
+      "cluster": "Operations & response",
+      "question": "How do we investigate a suspicious agent action?",
+      "searchPhrase": "AI agent incident response investigation evidence",
+      "value": "Correlate qualified alerts, actor identity, source findings and missing target witnesses.",
+      "priority": "P1",
+      "buyer": "SOC / IR",
+      "primaryCTA": {
+        "label": "Scope a relevant assurance POC",
+        "href": "/enterprise"
+      },
+      "secondaryProof": {
+        "label": "Explore source-backed context",
+        "href": "/ai-security"
+      },
+      "truthBoundary": "Alert delivery != human acknowledgment",
+      "contentRole": "SUPPORTING_CATALOG"
+    },
+    {
+      "id": "BUY-25",
+      "cluster": "Operations & response",
+      "question": "When is it safe to restart the agent after an incident?",
+      "searchPhrase": "AI agent recovery authorization retesting",
+      "value": "Document scoped retest, accountable human decision and pending effect reconciliation.",
+      "priority": "P2",
+      "buyer": "Operations lead",
+      "primaryCTA": {
+        "label": "Scope a relevant assurance POC",
+        "href": "/enterprise"
+      },
+      "secondaryProof": {
+        "label": "Explore source-backed context",
+        "href": "/assurance"
+      },
+      "truthBoundary": "Recovery record != verified external effect",
+      "contentRole": "OPTIONAL_DEEP_DIVE"
+    },
+    {
+      "id": "BUY-26",
+      "cluster": "Audits, evidence & trust",
+      "question": "How do we prepare evidence for an AI regulator or auditor?",
+      "searchPhrase": "AI audit evidence readiness agentic systems",
+      "value": "Create an inspectable report basis with source references, limitations and verification records where issued.",
+      "priority": "P0",
+      "buyer": "GRC / internal audit",
+      "primaryCTA": {
+        "label": "Scope a relevant assurance POC",
+        "href": "/enterprise"
+      },
+      "secondaryProof": {
+        "label": "Explore source-backed context",
+        "href": "/sample-reports/kestrel"
+      },
+      "truthBoundary": "No regulatory approval/certification promise",
+      "contentRole": "PRIMARY_HUB_CARD"
+    },
+    {
+      "id": "BUY-27",
+      "cluster": "Audits, evidence & trust",
+      "question": "Can we trust this AI assurance report?",
+      "searchPhrase": "verify AI assurance report evidence receipt",
+      "value": "Read what the report established, what was not assessed and what a decision receipt actually verifies.",
+      "priority": "P0",
+      "buyer": "Auditor / vendor risk",
+      "primaryCTA": {
+        "label": "Scope a relevant assurance POC",
+        "href": "/enterprise"
+      },
+      "secondaryProof": {
+        "label": "Explore source-backed context",
+        "href": "/sample-reports/kestrel"
+      },
+      "truthBoundary": "Integrity != upstream truth or safety",
+      "contentRole": "PRIMARY_HUB_CARD"
+    },
+    {
+      "id": "BUY-28",
+      "cluster": "Audits, evidence & trust",
+      "question": "We need reproducible AI audit findings",
+      "searchPhrase": "deterministic AI assurance evidence report",
+      "value": "Use frozen evaluation and source-bound report outputs to support repeatable evidence review.",
+      "priority": "P0",
+      "buyer": "Assurance reviewer",
+      "primaryCTA": {
+        "label": "Scope a relevant assurance POC",
+        "href": "/enterprise"
+      },
+      "secondaryProof": {
+        "label": "Explore source-backed context",
+        "href": "/assurance"
+      },
+      "truthBoundary": "Exact schema/run and source scope",
+      "contentRole": "PRIMARY_HUB_CARD"
+    },
+    {
+      "id": "BUY-29",
+      "cluster": "Audits, evidence & trust",
+      "question": "How can we prove controls are operating?",
+      "searchPhrase": "AI agent control operating effectiveness evidence",
+      "value": "Separate cataloged controls, observed findings, executed tests, human review and target-native effect proof.",
+      "priority": "P1",
+      "buyer": "GRC / auditor",
+      "primaryCTA": {
+        "label": "Scope a relevant assurance POC",
+        "href": "/enterprise"
+      },
+      "secondaryProof": {
+        "label": "Explore source-backed context",
+        "href": "/assurance"
+      },
+      "truthBoundary": "Not all 45 cataloged controls executed",
+      "contentRole": "SUPPORTING_CATALOG"
+    },
+    {
+      "id": "BUY-30",
+      "cluster": "Audits, evidence & trust",
+      "question": "How do we demonstrate AI governance to our board?",
+      "searchPhrase": "board AI agent risk oversight evidence",
+      "value": "Translate consequential paths and source limitations into an accountable executive decision packet.",
+      "priority": "P1",
+      "buyer": "CISO / CIO",
+      "primaryCTA": {
+        "label": "Scope a relevant assurance POC",
+        "href": "/enterprise"
+      },
+      "secondaryProof": {
+        "label": "Explore source-backed context",
+        "href": "/sample-reports/kestrel"
+      },
+      "truthBoundary": "Risk context not numeric certainty",
+      "contentRole": "SUPPORTING_CATALOG"
+    },
+    {
+      "id": "BUY-31",
+      "cluster": "Audits, evidence & trust",
+      "question": "What evidence is missing from this AI review?",
+      "searchPhrase": "AI assurance evidence gap assessment",
+      "value": "Identify the smallest additional authoritative source needed to answer an unresolved control or action claim.",
+      "priority": "P0",
+      "buyer": "Auditor / technical reviewer",
+      "primaryCTA": {
+        "label": "Scope a relevant assurance POC",
+        "href": "/enterprise"
+      },
+      "secondaryProof": {
+        "label": "Explore source-backed context",
+        "href": "/assurance"
+      },
+      "truthBoundary": "Missing != failed",
+      "contentRole": "PRIMARY_HUB_CARD"
+    },
+    {
+      "id": "BUY-32",
+      "cluster": "Vendor & third-party assurance",
+      "question": "Can we trust this AI vendor before buying?",
+      "searchPhrase": "third party AI agent vendor due diligence",
+      "value": "Ask for source, authority, tool and deployment proof beyond a vendor questionnaire, within accessible evidence.",
+      "priority": "P0",
+      "buyer": "TPRM / procurement",
+      "primaryCTA": {
+        "label": "Scope a relevant assurance POC",
+        "href": "/enterprise"
+      },
+      "secondaryProof": {
+        "label": "Explore source-backed context",
+        "href": "/sample-reports/kestrel"
+      },
+      "truthBoundary": "Vendor access and consent matter",
+      "contentRole": "PRIMARY_HUB_CARD"
+    },
+    {
+      "id": "BUY-33",
+      "cluster": "Vendor & third-party assurance",
+      "question": "Is this vendor's AI safe to connect to our systems?",
+      "searchPhrase": "AI agent vendor security assessment integrations",
+      "value": "Assess what a supplier agent could access or change through enterprise APIs and tools.",
+      "priority": "P0",
+      "buyer": "Vendor security / CISO",
+      "primaryCTA": {
+        "label": "Scope a relevant assurance POC",
+        "href": "/enterprise"
+      },
+      "secondaryProof": {
+        "label": "Explore source-backed context",
+        "href": "/ai-security"
+      },
+      "truthBoundary": "Requires access to actual integration configuration",
+      "contentRole": "PRIMARY_HUB_CARD"
+    },
+    {
+      "id": "BUY-34",
+      "cluster": "Vendor & third-party assurance",
+      "question": "Can our customers audit our AI SaaS feature?",
+      "searchPhrase": "AI SaaS customer assurance evidence package",
+      "value": "Share appropriately bounded technical findings and supported verification artifacts with customer reviewers.",
+      "priority": "P1",
+      "buyer": "AI SaaS founder / GTM",
+      "primaryCTA": {
+        "label": "Scope a relevant assurance POC",
+        "href": "/enterprise"
+      },
+      "secondaryProof": {
+        "label": "Explore source-backed context",
+        "href": "/sample-reports/kestrel"
+      },
+      "truthBoundary": "Never issue fake independent certification",
+      "contentRole": "SUPPORTING_CATALOG"
+    },
+    {
+      "id": "BUY-35",
+      "cluster": "Vendor & third-party assurance",
+      "question": "Does a vendor's SOC 2 prove their AI agents are safe?",
+      "searchPhrase": "SOC 2 AI agent security gap third party",
+      "value": "Separate organizational controls attestations from an agent's reachable actions and authorization evidence.",
+      "priority": "P1",
+      "buyer": "Procurement / auditor",
+      "primaryCTA": {
+        "label": "Scope a relevant assurance POC",
+        "href": "/enterprise"
+      },
+      "secondaryProof": {
+        "label": "Explore source-backed context",
+        "href": "/assurance"
+      },
+      "truthBoundary": "SOC 2 is not source path proof",
+      "contentRole": "SUPPORTING_CATALOG"
+    },
+    {
+      "id": "BUY-36",
+      "cluster": "Vendor & third-party assurance",
+      "question": "How do we review our suppliers' embedded AI?",
+      "searchPhrase": "AI supplier subprocessors action audit",
+      "value": "Map consequential third-party AI actions and evidence gaps, with a scoped due diligence record.",
+      "priority": "P2",
+      "buyer": "TPRM / compliance",
+      "primaryCTA": {
+        "label": "Scope a relevant assurance POC",
+        "href": "/enterprise"
+      },
+      "secondaryProof": {
+        "label": "Explore source-backed context",
+        "href": "/solutions"
+      },
+      "truthBoundary": "Black-box vendors cannot claim full source coverage",
+      "contentRole": "OPTIONAL_DEEP_DIVE"
+    },
+    {
+      "id": "BUY-37",
+      "cluster": "Developer workflows & change",
+      "question": "Can we assess AI agents from our IDE or CI/CD?",
+      "searchPhrase": "AI agent assurance developer IDE MCP",
+      "value": "Use authorized source and HAIEC MCP-assisted workflow to request deterministic evaluation and inspect outputs.",
+      "priority": "P0",
+      "buyer": "AI engineer / DevSecOps",
+      "primaryCTA": {
+        "label": "Scope a relevant assurance POC",
+        "href": "/enterprise"
+      },
+      "secondaryProof": {
+        "label": "Explore source-backed context",
+        "href": "/docs/agent-integration"
+      },
+      "truthBoundary": "Authorized connector/source required",
+      "contentRole": "PRIMARY_HUB_CARD"
+    },
+    {
+      "id": "BUY-38",
+      "cluster": "Developer workflows & change",
+      "question": "How do we verify an agent tool change before release?",
+      "searchPhrase": "AI agent tool schema release audit",
+      "value": "Compare relevant tool and source paths with their frozen evaluated versions and close new evidence gaps.",
+      "priority": "P1",
+      "buyer": "CI security / release manager",
+      "primaryCTA": {
+        "label": "Scope a relevant assurance POC",
+        "href": "/enterprise"
+      },
+      "secondaryProof": {
+        "label": "Explore source-backed context",
+        "href": "/sample-reports/kestrel/compare"
+      },
+      "truthBoundary": "Not universal automatic PR gate",
+      "contentRole": "SUPPORTING_CATALOG"
+    },
+    {
+      "id": "BUY-39",
+      "cluster": "Developer workflows & change",
+      "question": "We already use scanners, IAM and GRC. What is missing?",
+      "searchPhrase": "AI assurance complement SAST IAM GRC",
+      "value": "Connect qualified outputs to consequential action and authority questions instead of replacing existing tools.",
+      "priority": "P0",
+      "buyer": "CISO / CxO",
+      "primaryCTA": {
+        "label": "Scope a relevant assurance POC",
+        "href": "/enterprise"
+      },
+      "secondaryProof": {
+        "label": "Explore source-backed context",
+        "href": "/platform"
+      },
+      "truthBoundary": "Transport/reuse existing systems",
+      "contentRole": "PRIMARY_HUB_CARD"
+    },
+    {
+      "id": "BUY-40",
+      "cluster": "Developer workflows & change",
+      "question": "Our scanner tests pass. Is the AI agent ready?",
+      "searchPhrase": "AI security testing vs production assurance",
+      "value": "Relate component tests to protected action, delegated choice, identity, policy and observed effect gaps.",
+      "priority": "P0",
+      "buyer": "Security engineer",
+      "primaryCTA": {
+        "label": "Scope a relevant assurance POC",
+        "href": "/enterprise"
+      },
+      "secondaryProof": {
+        "label": "Explore source-backed context",
+        "href": "/assurance"
+      },
+      "truthBoundary": "Passing tests are bounded",
+      "contentRole": "PRIMARY_HUB_CARD"
+    },
+    {
+      "id": "BUY-41",
+      "cluster": "Industry-specific consequences",
+      "question": "Can we approve AI agents that move money?",
+      "searchPhrase": "AI payment agent authorization audit",
+      "value": "Review recipient/amount choice, applicable authority, effective access and observed payment effect separately.",
+      "priority": "P0",
+      "buyer": "Financial services / fintech",
+      "primaryCTA": {
+        "label": "Scope a relevant assurance POC",
+        "href": "/enterprise"
+      },
+      "secondaryProof": {
+        "label": "Explore source-backed context",
+        "href": "/assurance"
+      },
+      "truthBoundary": "No payment compliance certificate",
+      "contentRole": "PRIMARY_HUB_CARD"
+    },
+    {
+      "id": "BUY-42",
+      "cluster": "Industry-specific consequences",
+      "question": "Can we deploy AI touching sensitive healthcare data?",
+      "searchPhrase": "healthcare AI agent audit evidence access control",
+      "value": "Assess access paths and evidence for protected data actions before relying on operational safety claims.",
+      "priority": "P1",
+      "buyer": "Health IT / CISO",
+      "primaryCTA": {
+        "label": "Scope a relevant assurance POC",
+        "href": "/enterprise"
+      },
+      "secondaryProof": {
+        "label": "Explore source-backed context",
+        "href": "/solutions/industries"
+      },
+      "truthBoundary": "Never claim blanket HIPAA certification",
+      "contentRole": "SUPPORTING_CATALOG"
+    },
+    {
+      "id": "BUY-43",
+      "cluster": "Industry-specific consequences",
+      "question": "How do we assess AI agents writing to ERP or MES?",
+      "searchPhrase": "manufacturing AI agent ERP MES assurance",
+      "value": "Follow procurement, supplier and manufacturing system write paths with qualified source and authority checks.",
+      "priority": "P1",
+      "buyer": "Manufacturing security / plant IT",
+      "primaryCTA": {
+        "label": "Scope a relevant assurance POC",
+        "href": "/enterprise"
+      },
+      "secondaryProof": {
+        "label": "Explore source-backed context",
+        "href": "/solutions/manufacturing"
+      },
+      "truthBoundary": "Demo vs actual plant effects distinct",
+      "contentRole": "SUPPORTING_CATALOG"
+    },
+    {
+      "id": "BUY-44",
+      "cluster": "Industry-specific consequences",
+      "question": "How do we control AI-initiated network changes?",
+      "searchPhrase": "telecom network AI agent change assurance",
+      "value": "Investigate OSS/BSS and network control paths, qualified permissions and resulting evidence.",
+      "priority": "P1",
+      "buyer": "Telco security / network engineering",
+      "primaryCTA": {
+        "label": "Scope a relevant assurance POC",
+        "href": "/enterprise"
+      },
+      "secondaryProof": {
+        "label": "Explore source-backed context",
+        "href": "/solutions/telecom"
+      },
+      "truthBoundary": "No automatic carrier native control",
+      "contentRole": "SUPPORTING_CATALOG"
+    },
+    {
+      "id": "BUY-45",
+      "cluster": "Industry-specific consequences",
+      "question": "Can we audit AI claims or underwriting decisions?",
+      "searchPhrase": "insurance AI agent claims decision audit",
+      "value": "Examine consequential decisions, delegated authority, source/identity scope and audit artifacts.",
+      "priority": "P1",
+      "buyer": "Insurance risk / operations",
+      "primaryCTA": {
+        "label": "Scope a relevant assurance POC",
+        "href": "/enterprise"
+      },
+      "secondaryProof": {
+        "label": "Explore source-backed context",
+        "href": "/solutions/industries"
+      },
+      "truthBoundary": "No fair outcome or compliance guarantee",
+      "contentRole": "SUPPORTING_CATALOG"
+    },
+    {
+      "id": "BUY-46",
+      "cluster": "Industry-specific consequences",
+      "question": "Is our HR screening AI evidence ready for oversight?",
+      "searchPhrase": "hiring AI oversight evidence audit",
+      "value": "Qualify applicable assessment and evidence coverage for specific hiring decisions and access paths.",
+      "priority": "P2",
+      "buyer": "HR AI governance",
+      "primaryCTA": {
+        "label": "Scope a relevant assurance POC",
+        "href": "/enterprise"
+      },
+      "secondaryProof": {
+        "label": "Explore source-backed context",
+        "href": "/solutions/industries"
+      },
+      "truthBoundary": "Do not claim full bias audit from action paths alone",
+      "contentRole": "OPTIONAL_DEEP_DIVE"
+    }
+  ]
+}
