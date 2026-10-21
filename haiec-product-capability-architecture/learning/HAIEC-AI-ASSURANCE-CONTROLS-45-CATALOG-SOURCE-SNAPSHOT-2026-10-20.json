@@ -1,0 +1,483 @@
+{
+  "kind": "HAIEC_CONTROL_TRAINING_CATALOG_SNAPSHOT",
+  "purpose": "Educational content authoring; not source of truth for current customer control execution or visibility",
+  "capturedDate": "2026-10-20",
+  "sourceRepository": "subodhkc/haiec-website",
+  "sourcePath": "lib/control-visibility/catalog.ts",
+  "sourceBlobSha": "c659416e523363938d31342f88e8eae37fd5457e",
+  "counts": {
+    "total": 45,
+    "byFamily": {
+      "TMF": 3,
+      "G": 7,
+      "S": 7,
+      "A": 8,
+      "R": 7,
+      "L": 5,
+      "E": 5,
+      "P": 3
+    },
+    "launchPriority": 15,
+    "visibilityImplemented": 11
+  },
+  "states": {
+    "controlVisibility": [
+      "DETECTED_FINDING",
+      "NO_FINDING_OBSERVED",
+      "COVERAGE_INSUFFICIENT",
+      "NOT_ASSESSED"
+    ]
+  },
+  "records": [
+    {
+      "id": "C7",
+      "family": "TMF",
+      "title": "Audit trail completeness",
+      "question": "Are required audit categories captured under a frozen policy?",
+      "source": "Specialized competition-bundle test",
+      "kind": "SPECIALIZED_TEST",
+      "launchPriority": true,
+      "visibilityImplemented": false
+    },
+    {
+      "id": "C9",
+      "family": "TMF",
+      "title": "Duration anomaly threshold",
+      "question": "Does measured duration meet the bounded frozen policy?",
+      "source": "Specialized competition-bundle test",
+      "kind": "SPECIALIZED_TEST",
+      "launchPriority": true,
+      "visibilityImplemented": false
+    },
+    {
+      "id": "C16",
+      "family": "TMF",
+      "title": "Token expenditure cap",
+      "question": "Does measured token expenditure satisfy the frozen cap?",
+      "source": "Specialized competition-bundle test",
+      "kind": "SPECIALIZED_TEST",
+      "launchPriority": true,
+      "visibilityImplemented": false
+    },
+    {
+      "id": "G01",
+      "family": "G",
+      "title": "AI estate inventory completeness",
+      "question": "Which AI systems and agents are actually in scope?",
+      "source": "Inventory / source discovery",
+      "kind": "CATALOG_PROFILE",
+      "launchPriority": false,
+      "visibilityImplemented": false
+    },
+    {
+      "id": "G02",
+      "family": "G",
+      "title": "Accountable ownership and responsibility",
+      "question": "Who is accountable for the AI system and its decisions?",
+      "source": "Governance records",
+      "kind": "CATALOG_PROFILE",
+      "launchPriority": false,
+      "visibilityImplemented": false
+    },
+    {
+      "id": "G03",
+      "family": "G",
+      "title": "AI acceptable use and approval",
+      "question": "Has the use case and operating scope been approved?",
+      "source": "Approved use policy",
+      "kind": "CATALOG_PROFILE",
+      "launchPriority": false,
+      "visibilityImplemented": false
+    },
+    {
+      "id": "G04",
+      "family": "G",
+      "title": "AI risk and impact assessment",
+      "question": "What risks and impacts were assessed before use?",
+      "source": "Risk registry",
+      "kind": "CATALOG_PROFILE",
+      "launchPriority": false,
+      "visibilityImplemented": false
+    },
+    {
+      "id": "G05",
+      "family": "G",
+      "title": "Regulatory applicability and obligations",
+      "question": "Which obligations apply to this deployment?",
+      "source": "Framework mappings",
+      "kind": "CATALOG_PROFILE",
+      "launchPriority": false,
+      "visibilityImplemented": false
+    },
+    {
+      "id": "G06",
+      "family": "G",
+      "title": "Third-party AI and vendor assurance",
+      "question": "Are model, provider and upstream risks evaluated?",
+      "source": "Vendor inventory",
+      "kind": "CATALOG_PROFILE",
+      "launchPriority": false,
+      "visibilityImplemented": false
+    },
+    {
+      "id": "G07",
+      "family": "G",
+      "title": "Change and lifecycle governance",
+      "question": "Can governance scope be linked to system changes?",
+      "source": "Build provenance / CI",
+      "kind": "CATALOG_PROFILE",
+      "launchPriority": false,
+      "visibilityImplemented": false
+    },
+    {
+      "id": "S01",
+      "family": "S",
+      "title": "Privileged tool authorization paths",
+      "question": "Can privileged tools bypass approved mediation?",
+      "source": "Static security analysis",
+      "kind": "CATALOG_PROFILE",
+      "launchPriority": false,
+      "visibilityImplemented": false
+    },
+    {
+      "id": "S02",
+      "family": "S",
+      "title": "Multi-tenant isolation",
+      "question": "Are tenant identity and data accesses correctly scoped?",
+      "source": "Tenant-isolation analyzer",
+      "kind": "CATALOG_PROFILE",
+      "launchPriority": true,
+      "visibilityImplemented": false
+    },
+    {
+      "id": "S03",
+      "family": "S",
+      "title": "MCP and tool exposure",
+      "question": "Are tool capabilities exposed beyond intended authority?",
+      "source": "MCP/AI AppSec analysis",
+      "kind": "CATALOG_PROFILE",
+      "launchPriority": true,
+      "visibilityImplemented": false
+    },
+    {
+      "id": "S04",
+      "family": "S",
+      "title": "Secrets and credential protection",
+      "question": "Could agents expose or misuse secrets?",
+      "source": "Static and LLM heuristics",
+      "kind": "CATALOG_PROFILE",
+      "launchPriority": true,
+      "visibilityImplemented": false
+    },
+    {
+      "id": "S05",
+      "family": "S",
+      "title": "Prompt and input trust boundaries",
+      "question": "Do untrusted inputs cross into privileged instructions?",
+      "source": "Static and runtime probes",
+      "kind": "CATALOG_PROFILE",
+      "launchPriority": true,
+      "visibilityImplemented": false
+    },
+    {
+      "id": "S06",
+      "family": "S",
+      "title": "RAG retrieval and exfiltration paths",
+      "question": "Can retrieval cross trust or data boundaries?",
+      "source": "RAG/dataflow analysis",
+      "kind": "CATALOG_PROFILE",
+      "launchPriority": false,
+      "visibilityImplemented": false
+    },
+    {
+      "id": "S07",
+      "family": "S",
+      "title": "Secure AI SDLC and build provenance",
+      "question": "Can source, artifacts and release lineage be established?",
+      "source": "CI/SARIF provenance",
+      "kind": "CATALOG_PROFILE",
+      "launchPriority": false,
+      "visibilityImplemented": false
+    },
+    {
+      "id": "A01",
+      "family": "A",
+      "title": "Excessive effective authority",
+      "question": "Does effective access exceed approved authority?",
+      "source": "Five-plane IAM/policy",
+      "kind": "CATALOG_PROFILE",
+      "launchPriority": true,
+      "visibilityImplemented": false
+    },
+    {
+      "id": "A02",
+      "family": "A",
+      "title": "Undeclared executable capability",
+      "question": "Can analyzed code reach an operation outside its approved scope?",
+      "source": "U5 five-plane + static source",
+      "kind": "CATALOG_PROFILE",
+      "launchPriority": true,
+      "visibilityImplemented": true
+    },
+    {
+      "id": "A03",
+      "family": "A",
+      "title": "Delegated Action Integrity",
+      "question": "Does delegated authority cover the intended, granted and observed action?",
+      "source": "DAI nine dimensions",
+      "kind": "CATALOG_PROFILE",
+      "launchPriority": true,
+      "visibilityImplemented": true
+    },
+    {
+      "id": "A04",
+      "family": "A",
+      "title": "Observed action outside approved policy",
+      "question": "Was an action observed beyond its approved envelope?",
+      "source": "Qualified action witness",
+      "kind": "CATALOG_PROFILE",
+      "launchPriority": true,
+      "visibilityImplemented": true
+    },
+    {
+      "id": "A05",
+      "family": "A",
+      "title": "Agent and principal identity continuity",
+      "question": "Is the runtime principal authoritatively bound to the agent?",
+      "source": "Identity continuity",
+      "kind": "CATALOG_PROFILE",
+      "launchPriority": true,
+      "visibilityImplemented": true
+    },
+    {
+      "id": "A06",
+      "family": "A",
+      "title": "Human approval and mediation integrity",
+      "question": "Was required human authorization applied at the action boundary?",
+      "source": "Approval / mediation",
+      "kind": "CATALOG_PROFILE",
+      "launchPriority": true,
+      "visibilityImplemented": true
+    },
+    {
+      "id": "A07",
+      "family": "A",
+      "title": "Least privilege and unused grants",
+      "question": "Do granted privileges exceed required capabilities?",
+      "source": "IAM plus capability",
+      "kind": "CATALOG_PROFILE",
+      "launchPriority": false,
+      "visibilityImplemented": false
+    },
+    {
+      "id": "A08",
+      "family": "A",
+      "title": "Cross-agent delegation propagation",
+      "question": "Was authority preserved across A2A handoffs?",
+      "source": "Delegation lineage",
+      "kind": "CATALOG_PROFILE",
+      "launchPriority": false,
+      "visibilityImplemented": true
+    },
+    {
+      "id": "R01",
+      "family": "R",
+      "title": "Action lifecycle and side-effect traceability",
+      "question": "Can request, authorization and applied effect be reconciled?",
+      "source": "Action lifecycle witness",
+      "kind": "CATALOG_PROFILE",
+      "launchPriority": false,
+      "visibilityImplemented": false
+    },
+    {
+      "id": "R02",
+      "family": "R",
+      "title": "Consequential effect envelope",
+      "question": "Were measured side effects within approved magnitude and scope?",
+      "source": "Effect bound comparator",
+      "kind": "CATALOG_PROFILE",
+      "launchPriority": true,
+      "visibilityImplemented": true
+    },
+    {
+      "id": "R03",
+      "family": "R",
+      "title": "Runtime guardrail enforcement evidence",
+      "question": "Did a declared guardrail actually enforce a decision?",
+      "source": "Decision + denial witness",
+      "kind": "CATALOG_PROFILE",
+      "launchPriority": false,
+      "visibilityImplemented": true
+    },
+    {
+      "id": "R04",
+      "family": "R",
+      "title": "Emergency intervention effectiveness",
+      "question": "Did a kill-switch action actually stop execution?",
+      "source": "Kill-switch witnesses",
+      "kind": "CATALOG_PROFILE",
+      "launchPriority": false,
+      "visibilityImplemented": false
+    },
+    {
+      "id": "R05",
+      "family": "R",
+      "title": "Recovery and resumption authorization",
+      "question": "Was recovery governed and attributable?",
+      "source": "Recovery audit",
+      "kind": "CATALOG_PROFILE",
+      "launchPriority": false,
+      "visibilityImplemented": false
+    },
+    {
+      "id": "R06",
+      "family": "R",
+      "title": "AI incident response and recovery",
+      "question": "Can material AI incidents be investigated and recovered?",
+      "source": "Incident workflow",
+      "kind": "CATALOG_PROFILE",
+      "launchPriority": false,
+      "visibilityImplemented": false
+    },
+    {
+      "id": "R07",
+      "family": "R",
+      "title": "Continuous runtime monitoring",
+      "question": "Are sources sufficiently complete to detect relevant events?",
+      "source": "OTel and source continuity",
+      "kind": "CATALOG_PROFILE",
+      "launchPriority": false,
+      "visibilityImplemented": false
+    },
+    {
+      "id": "L01",
+      "family": "L",
+      "title": "Prompt-injection resistance under test",
+      "question": "How does the system respond to scoped adversarial prompts?",
+      "source": "Runtime / LLMVerify",
+      "kind": "CATALOG_PROFILE",
+      "launchPriority": false,
+      "visibilityImplemented": false
+    },
+    {
+      "id": "L02",
+      "family": "L",
+      "title": "Sensitive output leakage",
+      "question": "Did tested responses expose protected information?",
+      "source": "PII/secret signal",
+      "kind": "CATALOG_PROFILE",
+      "launchPriority": false,
+      "visibilityImplemented": false
+    },
+    {
+      "id": "L03",
+      "family": "L",
+      "title": "Hallucination risk and grounding",
+      "question": "What evidence supports content grounding reliability?",
+      "source": "LLMVerify heuristics",
+      "kind": "CATALOG_PROFILE",
+      "launchPriority": false,
+      "visibilityImplemented": false
+    },
+    {
+      "id": "L04",
+      "family": "L",
+      "title": "Unsafe output risk",
+      "question": "What harmful-output risks were detected in tested scenarios?",
+      "source": "LLM risk indicator",
+      "kind": "CATALOG_PROFILE",
+      "launchPriority": false,
+      "visibilityImplemented": false
+    },
+    {
+      "id": "L05",
+      "family": "L",
+      "title": "Structured output and consistency",
+      "question": "Do generated responses meet a specified output contract?",
+      "source": "Schema / consistency",
+      "kind": "CATALOG_PROFILE",
+      "launchPriority": false,
+      "visibilityImplemented": false
+    },
+    {
+      "id": "E01",
+      "family": "E",
+      "title": "Evidence integrity and provenance",
+      "question": "Can we verify evidence origin, binding and modification?",
+      "source": "Evidence Core",
+      "kind": "CATALOG_PROFILE",
+      "launchPriority": true,
+      "visibilityImplemented": true
+    },
+    {
+      "id": "E02",
+      "family": "E",
+      "title": "Event stream coverage and continuity",
+      "question": "Is telemetry coverage complete enough for the claimed window?",
+      "source": "OTel continuity",
+      "kind": "CATALOG_PROFILE",
+      "launchPriority": false,
+      "visibilityImplemented": false
+    },
+    {
+      "id": "E03",
+      "family": "E",
+      "title": "Source authority and plane correlation",
+      "question": "Are identity, system and action joins source-qualified?",
+      "source": "Environment binder",
+      "kind": "CATALOG_PROFILE",
+      "launchPriority": false,
+      "visibilityImplemented": true
+    },
+    {
+      "id": "E04",
+      "family": "E",
+      "title": "Contradiction and source reconciliation",
+      "question": "Do independent sources disagree or lack reconciliation?",
+      "source": "Evidence projections",
+      "kind": "CATALOG_PROFILE",
+      "launchPriority": false,
+      "visibilityImplemented": false
+    },
+    {
+      "id": "E05",
+      "family": "E",
+      "title": "Independent deterministic replay",
+      "question": "Can another verifier reproduce the exact frozen result?",
+      "source": "Replay manifest",
+      "kind": "CATALOG_PROFILE",
+      "launchPriority": false,
+      "visibilityImplemented": true
+    },
+    {
+      "id": "P01",
+      "family": "P",
+      "title": "Bias and fairness evaluation coverage",
+      "question": "Were affected groups and relevant harms assessed?",
+      "source": "Bias testing",
+      "kind": "CATALOG_PROFILE",
+      "launchPriority": false,
+      "visibilityImplemented": false
+    },
+    {
+      "id": "P02",
+      "family": "P",
+      "title": "Transparency and explainability",
+      "question": "Can users and owners understand reasons and limitations?",
+      "source": "Documentation review",
+      "kind": "CATALOG_PROFILE",
+      "launchPriority": false,
+      "visibilityImplemented": false
+    },
+    {
+      "id": "P03",
+      "family": "P",
+      "title": "Training data governance and lineage",
+      "question": "Is training data provenance established and reviewable?",
+      "source": "ISAF lineage",
+      "kind": "CATALOG_PROFILE",
+      "launchPriority": false,
+      "visibilityImplemented": false
+    }
+  ]
+}
