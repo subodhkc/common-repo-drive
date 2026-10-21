@@ -1,3 +1,5 @@
+> **2026-10-21 DESIGN V2 SUPERSEDES EARLIER STILLS.** [Enhanced Adobe-style editorial vector, 7 static + 7 subtle-motion SVG variants, source-accurate section placement, risk-free background symbolism, animation behavior, accessibility and QA](WEBSITE-SEVEN-BACKGROUNDS-ADOBE-STYLE-V2-STATIC-MOTION-REVIEW-SECTIONS-2026-10-21.md). The V2 gallery HTML, SVGs, contact sheet and ZIP are linked in the current conversation sandbox, not yet committed as raw binary/vector assets to Common Repo. Six capabilities plus one Platform frame. No HAIEC website changes.
+
 # HAIEC light-theme visual design study | Seven reusable capability background templates
 
 Date: 2026-10-21. Status: DESIGN CONCEPT ONLY, not website source implementation or production deployment. User requested a review of core capability pages, 6–7 light-theme HTML/SVG background concepts, page assignments and visual preview links.
