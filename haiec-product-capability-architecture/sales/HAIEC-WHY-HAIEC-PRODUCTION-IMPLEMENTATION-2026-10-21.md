@@ -1,7 +1,7 @@
 # Why HAIEC — Production Implementation Record
 
 Date: 2026-10-21
-Status: IMPLEMENTED (production route, pending deploy verification at time of writing)
+Status: IMPLEMENTED AND LIVE_VERIFIED
 Production route: https://www.haiec.com/why-haiec
 
 ## Implementation
@@ -70,7 +70,7 @@ Production route: https://www.haiec.com/why-haiec
   owner decision (nav breakpoint adjustment in AutoHideNavigation).
 - Desktop nav dropdown items render on interaction only (existing pattern); the new
   item is registered in the shared NAV structure so mobile nav picks it up too.
-- Deploy verification pending at time of writing; update after merge.
+- LIVE_VERIFIED 2026-10-21: PR #2322 merged as ef0b0f02a; Vercel Production deployment at 08:29 UTC; https://www.haiec.com/why-haiec returns 200 with all 46 questions, canonical, JSON-LD and zero em dashes in served HTML.
 
 ## Source reference preserved
 
