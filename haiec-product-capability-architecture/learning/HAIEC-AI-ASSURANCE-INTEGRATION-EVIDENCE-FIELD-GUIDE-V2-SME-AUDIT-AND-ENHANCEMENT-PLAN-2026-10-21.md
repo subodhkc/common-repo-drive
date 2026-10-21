@@ -1,3 +1,5 @@
+> **2026-10-21 FIELD GUIDE V2 WITH OFFICIAL HAIEC LOGO COMPLETED.** The reviewed V2 improvements have now been built into the original [interactive guide HTML](HAIEC-AI-Assurance-Integration-Evidence-Field-Guide-Interactive-2026-10-21.html). The author-supplied HAIEC logo is self-contained in the HTML. Implemented accurate source-to-plane distinctions, source-specific preflight/failure outputs, minimum-first-source decision paths, evidence/identity/time diagrams, correct AWS IAM/OTLP/MCP limitations, first-render source and question content for SEO, local evidence-plan exports and original exercises. [View actual build and QA record](HAIEC-INTEGRATION-EVIDENCE-FIELD-GUIDE-V2-HAIEC-LOGO-BUILD-AND-VALIDATION-2026-10-21.md). Earlier proposal text below is retained as review provenance; it does not represent current build status. The HTML is not published on HAIEC production.
+
 # HAIEC Integration & Evidence Field Guide: V2 Practitioner SME Review and Focused Enhancement Plan
 
 **Reviewed:** 2026-10-21
