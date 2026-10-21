@@ -1,3 +1,5 @@
+> **2026-10-21 CASE BLUEPRINT AUTHORED:** [Twelve source-bound report-trust cases with thirty-six reviewed answer keys and explanations](HAIEC-REPORT-TRUST-AND-AUDIT-READINESS-12-CASE-EXERCISE-BLUEPRINT-2026-10-21.json). Two cases link to actual public Kestrel report/comparison sources; remaining cases are clearly educational fixtures. The quiz distinguishes warranted claim, minimum missing evidence and permissible audit wording. Use it for the future interactive HTML. The answer feedback is authored course content, never a new HAIEC engine disposition, independent verification or audit opinion.
+
 # HAIEC Learning Series #5: Can You Trust This AI Assurance Report?
 
 **Working title:** Can You Trust This AI Assurance Report?
