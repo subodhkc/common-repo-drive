@@ -1,0 +1,608 @@
+{
+  "type": "HAIEC_REPORT_TRUST_LEARNING_FIXTURE",
+  "version": "2026-10-21-authoring-1",
+  "status": "PLANNING AND EDUCATIONAL CASE AUTHORING ONLY. HTML NOT BUILT.",
+  "sourceReview": [
+    "https://www.haiec.com/sample-reports",
+    "https://www.haiec.com/sample-reports/kestrel",
+    "https://www.haiec.com/sample-reports/kestrel/compare",
+    "https://github.com/subodhkc/haiec-website/blob/Main/lib/assurance/types.ts",
+    "https://github.com/subodhkc/haiec-website/blob/Main/lib/assurance/public-verification-display.ts"
+  ],
+  "cases": [
+    {
+      "id": "T01",
+      "title": "Kestrel source findings and REVIEW",
+      "truthClass": "REAL_PUBLIC_REFERENCE",
+      "fixture": "The public Kestrel sample states REVIEW and 44 source-backed consequential paths at source commit 5e65843; policy, effective grant and observed runtime are not established.",
+      "expected": {
+        "warrantedClaim": "Source-backed code capability in 44 paths, with bounded REVIEW.",
+        "nextRequiredEvidence": "Request qualified policy, actual principal/permission and runtime/target observations matched to the paths.",
+        "permissibleAuditStatement": "Report that the sample established 44 code-capable paths but did not establish authorization or observed execution."
+      },
+      "questions": [
+        {
+          "id": "T01-Q1",
+          "prompt": "What does this report or source actually establish?",
+          "options": [
+            "44 proven attacks or 44 observed unauthorized payments.",
+            "Source-backed code capability in 44 paths, with bounded REVIEW.",
+            "All execution permissions are denied."
+          ],
+          "answerIndex": 1,
+          "explanation": "The correct claim stays within the exact evidence, identity, scope and observation basis of this case."
+        },
+        {
+          "id": "T01-Q2",
+          "prompt": "What is the most useful next source or verification?",
+          "options": [
+            "Assume code capability proves active IAM authorization.",
+            "Replace the frozen source commit with a newer investigation without a fresh evaluation.",
+            "Request qualified policy, actual principal/permission and runtime/target observations matched to the paths."
+          ],
+          "answerIndex": 2,
+          "explanation": "The required fact directly qualifies the unresolved issue. A summary badge, old source or unrelated evidence cannot supply it."
+        },
+        {
+          "id": "T01-Q3",
+          "prompt": "Which wording belongs in a defensible reviewer conclusion?",
+          "options": [
+            "Report that the sample established 44 code-capable paths but did not establish authorization or observed execution.",
+            "Certify the system free of security vulnerabilities.",
+            "Say the receipt proves all real-world target effects."
+          ],
+          "answerIndex": 0,
+          "explanation": "Reviewer language must preserve the established scope, explicit unknowns, provenance and remaining source/approval limitations."
+        }
+      ],
+      "sourceLinks": [
+        "https://www.haiec.com/sample-reports/kestrel",
+        "https://www.haiec.com/sample-reports"
+      ],
+      "note": "Educational quiz response is not a HAIEC canonical evaluation, audit opinion or cryptographic verification."
+    },
+    {
+      "id": "T02",
+      "title": "Scope-bound ALLOW is not deployment permission",
+      "truthClass": "EDUCATIONAL_REPORT_FIXTURE",
+      "fixture": "One frozen U5 evaluation reports ALLOW for exact source and mandatory claim scope. A separate current human operating approval was not supplied.",
+      "expected": {
+        "warrantedClaim": "ALLOW within evaluated scope only.",
+        "nextRequiredEvidence": "Review exact evaluated operation, time, current operating policy and required human authorization.",
+        "permissibleAuditStatement": "The U5 result supports mandatory claims within the frozen scope, not a live deployment decision."
+      },
+      "questions": [
+        {
+          "id": "T02-Q1",
+          "prompt": "What does this report or source actually establish?",
+          "options": [
+            "The company has approved production deployment.",
+            "ALLOW within evaluated scope only.",
+            "Every potential agent action is globally safe."
+          ],
+          "answerIndex": 1,
+          "explanation": "The correct claim stays within the exact evidence, identity, scope and observation basis of this case."
+        },
+        {
+          "id": "T02-Q2",
+          "prompt": "What is the most useful next source or verification?",
+          "options": [
+            "Treat historical ALLOW as unexpiring human approval.",
+            "Infer an installed native runtime guard from report color.",
+            "Review exact evaluated operation, time, current operating policy and required human authorization."
+          ],
+          "answerIndex": 2,
+          "explanation": "The required fact directly qualifies the unresolved issue. A summary badge, old source or unrelated evidence cannot supply it."
+        },
+        {
+          "id": "T02-Q3",
+          "prompt": "Which wording belongs in a defensible reviewer conclusion?",
+          "options": [
+            "The U5 result supports mandatory claims within the frozen scope, not a live deployment decision.",
+            "HAIEC has certified the product secure in all environments.",
+            "The human reviewer accepted the system by reading the report."
+          ],
+          "answerIndex": 0,
+          "explanation": "Reviewer language must preserve the established scope, explicit unknowns, provenance and remaining source/approval limitations."
+        }
+      ],
+      "sourceLinks": [],
+      "note": "Educational quiz response is not a HAIEC canonical evaluation, audit opinion or cryptographic verification."
+    },
+    {
+      "id": "T03",
+      "title": "BLOCK verdict versus actual runtime denial",
+      "truthClass": "EDUCATIONAL_REPORT_FIXTURE",
+      "fixture": "An applicable critical policy comparison is contradicted and U5 returns BLOCK. No native target intervention record is supplied.",
+      "expected": {
+        "warrantedClaim": "A critical assurance contradiction and BLOCK disposition.",
+        "nextRequiredEvidence": "Request native guard decision and target-bound dispatch/effect witness for the exact action.",
+        "permissibleAuditStatement": "The assurance result blocks a favorable assurance claim, not necessarily actual execution."
+      },
+      "questions": [
+        {
+          "id": "T03-Q1",
+          "prompt": "What does this report or source actually establish?",
+          "options": [
+            "The payment API was physically denied.",
+            "A critical assurance contradiction and BLOCK disposition.",
+            "Every affected record was rolled back."
+          ],
+          "answerIndex": 1,
+          "explanation": "The correct claim stays within the exact evidence, identity, scope and observation basis of this case."
+        },
+        {
+          "id": "T03-Q2",
+          "prompt": "What is the most useful next source or verification?",
+          "options": [
+            "Use report BLOCK as a kill switch.",
+            "Assume provider HTTP 200 establishes a completed effect.",
+            "Request native guard decision and target-bound dispatch/effect witness for the exact action."
+          ],
+          "answerIndex": 2,
+          "explanation": "The required fact directly qualifies the unresolved issue. A summary badge, old source or unrelated evidence cannot supply it."
+        },
+        {
+          "id": "T03-Q3",
+          "prompt": "Which wording belongs in a defensible reviewer conclusion?",
+          "options": [
+            "The assurance result blocks a favorable assurance claim, not necessarily actual execution.",
+            "The runtime middleware definitely blocked all traffic.",
+            "The incident is resolved with no business impact."
+          ],
+          "answerIndex": 0,
+          "explanation": "Reviewer language must preserve the established scope, explicit unknowns, provenance and remaining source/approval limitations."
+        }
+      ],
+      "sourceLinks": [],
+      "note": "Educational quiz response is not a HAIEC canonical evaluation, audit opinion or cryptographic verification."
+    },
+    {
+      "id": "T04",
+      "title": "Evidence-only evaluation without source scan",
+      "truthClass": "EDUCATIONAL_REPORT_FIXTURE",
+      "fixture": "Evaluation basis is EVIDENCE_ONLY and no qualified source scan is bound to the evaluation.",
+      "expected": {
+        "warrantedClaim": "Code reachability/source coverage is not assessed in this evaluation.",
+        "nextRequiredEvidence": "Obtain bound executed source scan and frozen commit/coverage for the same evaluated system.",
+        "permissibleAuditStatement": "No source scan was evaluated, so no conclusion about code reachability can be drawn."
+      },
+      "questions": [
+        {
+          "id": "T04-Q1",
+          "prompt": "What does this report or source actually establish?",
+          "options": [
+            "No code paths exist.",
+            "Code reachability/source coverage is not assessed in this evaluation.",
+            "The repository contains no vulnerabilities."
+          ],
+          "answerIndex": 1,
+          "explanation": "The correct claim stays within the exact evidence, identity, scope and observation basis of this case."
+        },
+        {
+          "id": "T04-Q2",
+          "prompt": "What is the most useful next source or verification?",
+          "options": [
+            "Declare clean code because the report contains zero code findings.",
+            "Use IAM evidence as substitute for executed scanner provenance.",
+            "Obtain bound executed source scan and frozen commit/coverage for the same evaluated system."
+          ],
+          "answerIndex": 2,
+          "explanation": "The required fact directly qualifies the unresolved issue. A summary badge, old source or unrelated evidence cannot supply it."
+        },
+        {
+          "id": "T04-Q3",
+          "prompt": "Which wording belongs in a defensible reviewer conclusion?",
+          "options": [
+            "No source scan was evaluated, so no conclusion about code reachability can be drawn.",
+            "No scanner findings means complete risk coverage.",
+            "The agent does not contain privileged operations."
+          ],
+          "answerIndex": 0,
+          "explanation": "Reviewer language must preserve the established scope, explicit unknowns, provenance and remaining source/approval limitations."
+        }
+      ],
+      "sourceLinks": [],
+      "note": "Educational quiz response is not a HAIEC canonical evaluation, audit opinion or cryptographic verification."
+    },
+    {
+      "id": "T05",
+      "title": "Candidate action path, incomplete semantic binding",
+      "truthClass": "EDUCATIONAL_REPORT_FIXTURE",
+      "fixture": "A parser maps a generic tool verb but principal/target identity and complete reachability have not qualified.",
+      "expected": {
+        "warrantedClaim": "A candidate mapping and explicitly unestablished exact action path.",
+        "nextRequiredEvidence": "Seek exact handler, principal, resource and semantics plus source analyzer frontier evidence.",
+        "permissibleAuditStatement": "A possible consequential action deserves review, but the current record does not establish the full path."
+      },
+      "questions": [
+        {
+          "id": "T05-Q1",
+          "prompt": "What does this report or source actually establish?",
+          "options": [
+            "Confirmed data exfiltration.",
+            "A candidate mapping and explicitly unestablished exact action path.",
+            "The path is impossible to execute."
+          ],
+          "answerIndex": 1,
+          "explanation": "The correct claim stays within the exact evidence, identity, scope and observation basis of this case."
+        },
+        {
+          "id": "T05-Q2",
+          "prompt": "What is the most useful next source or verification?",
+          "options": [
+            "Inflate candidate into a high-confidence exploited vulnerability.",
+            "Ignore the candidate because it is not yet fully proved.",
+            "Seek exact handler, principal, resource and semantics plus source analyzer frontier evidence."
+          ],
+          "answerIndex": 2,
+          "explanation": "The required fact directly qualifies the unresolved issue. A summary badge, old source or unrelated evidence cannot supply it."
+        },
+        {
+          "id": "T05-Q3",
+          "prompt": "Which wording belongs in a defensible reviewer conclusion?",
+          "options": [
+            "A possible consequential action deserves review, but the current record does not establish the full path.",
+            "The target was accessed by a malicious agent.",
+            "The absence of full mapping proves authorization."
+          ],
+          "answerIndex": 0,
+          "explanation": "Reviewer language must preserve the established scope, explicit unknowns, provenance and remaining source/approval limitations."
+        }
+      ],
+      "sourceLinks": [],
+      "note": "Educational quiz response is not a HAIEC canonical evaluation, audit opinion or cryptographic verification."
+    },
+    {
+      "id": "T06",
+      "title": "Stale evidence added after the report",
+      "truthClass": "EDUCATIONAL_REPORT_FIXTURE",
+      "fixture": "The frozen evaluation time precedes a newly ingested runtime event, and a policy changed in between.",
+      "expected": {
+        "warrantedClaim": "The old report is a frozen snapshot; the later event does not retroactively alter it.",
+        "nextRequiredEvidence": "Inspect evidence admission time, policy version, new evaluation and exact source-identity continuity.",
+        "permissibleAuditStatement": "The historical conclusion remains fixed and current reliance requires appropriately new evidence/evaluation."
+      },
+      "questions": [
+        {
+          "id": "T06-Q1",
+          "prompt": "What does this report or source actually establish?",
+          "options": [
+            "The report updates itself to include the new event.",
+            "The old report is a frozen snapshot; the later event does not retroactively alter it.",
+            "An old ALLOW is automatically valid today."
+          ],
+          "answerIndex": 1,
+          "explanation": "The correct claim stays within the exact evidence, identity, scope and observation basis of this case."
+        },
+        {
+          "id": "T06-Q2",
+          "prompt": "What is the most useful next source or verification?",
+          "options": [
+            "Edit the old report digest to add the event.",
+            "Mix today's incident investigation into old evaluated source membership.",
+            "Inspect evidence admission time, policy version, new evaluation and exact source-identity continuity."
+          ],
+          "answerIndex": 2,
+          "explanation": "The required fact directly qualifies the unresolved issue. A summary badge, old source or unrelated evidence cannot supply it."
+        },
+        {
+          "id": "T06-Q3",
+          "prompt": "Which wording belongs in a defensible reviewer conclusion?",
+          "options": [
+            "The historical conclusion remains fixed and current reliance requires appropriately new evidence/evaluation.",
+            "The new event was evaluated in the prior report.",
+            "The current policy retroactively authorized the old action."
+          ],
+          "answerIndex": 0,
+          "explanation": "Reviewer language must preserve the established scope, explicit unknowns, provenance and remaining source/approval limitations."
+        }
+      ],
+      "sourceLinks": [],
+      "note": "Educational quiz response is not a HAIEC canonical evaluation, audit opinion or cryptographic verification."
+    },
+    {
+      "id": "T07",
+      "title": "Registered analyzer versus actually executed components",
+      "truthClass": "EDUCATIONAL_REPORT_FIXTURE",
+      "fixture": "The analyzer catalog lists twelve components but persisted execution identity is partial and participation for several is unknown.",
+      "expected": {
+        "warrantedClaim": "The registered list does not establish that all analyzers ran.",
+        "nextRequiredEvidence": "Find exact scan-bound execution records, component state and build/environment identity.",
+        "permissibleAuditStatement": "Execution participation is incompletely established, so the report must disclose it."
+      },
+      "questions": [
+        {
+          "id": "T07-Q1",
+          "prompt": "What does this report or source actually establish?",
+          "options": [
+            "Twelve analyzers completed their scans.",
+            "The registered list does not establish that all analyzers ran.",
+            "Missing execution identity proves zero analyzers ran."
+          ],
+          "answerIndex": 1,
+          "explanation": "The correct claim stays within the exact evidence, identity, scope and observation basis of this case."
+        },
+        {
+          "id": "T07-Q2",
+          "prompt": "What is the most useful next source or verification?",
+          "options": [
+            "Use registered count as complete denominator.",
+            "Treat absence of provenance as a security vulnerability itself.",
+            "Find exact scan-bound execution records, component state and build/environment identity."
+          ],
+          "answerIndex": 2,
+          "explanation": "The required fact directly qualifies the unresolved issue. A summary badge, old source or unrelated evidence cannot supply it."
+        },
+        {
+          "id": "T07-Q3",
+          "prompt": "Which wording belongs in a defensible reviewer conclusion?",
+          "options": [
+            "Execution participation is incompletely established, so the report must disclose it.",
+            "Every security rule ran and passed.",
+            "No analyzed paths have material gaps."
+          ],
+          "answerIndex": 0,
+          "explanation": "Reviewer language must preserve the established scope, explicit unknowns, provenance and remaining source/approval limitations."
+        }
+      ],
+      "sourceLinks": [],
+      "note": "Educational quiz response is not a HAIEC canonical evaluation, audit opinion or cryptographic verification."
+    },
+    {
+      "id": "T08",
+      "title": "Locally consistent receipt without issuer record",
+      "truthClass": "EDUCATIONAL_REPORT_FIXTURE",
+      "fixture": "An offline bundle recomputes an identical SHA-256 digest; no issuer-record comparison or public verification result is available.",
+      "expected": {
+        "warrantedClaim": "Local/internal consistency of the copied artifact only.",
+        "nextRequiredEvidence": "Use the legitimate issuer-anchored verification route for the exact published receipt/version.",
+        "permissibleAuditStatement": "Offline consistency can support tamper checks but cannot establish trusted issuer-record equivalence."
+      },
+      "questions": [
+        {
+          "id": "T08-Q1",
+          "prompt": "What does this report or source actually establish?",
+          "options": [
+            "The public issuer definitely signed the document.",
+            "Local/internal consistency of the copied artifact only.",
+            "The underlying AI policy is authentic and approved."
+          ],
+          "answerIndex": 1,
+          "explanation": "The correct claim stays within the exact evidence, identity, scope and observation basis of this case."
+        },
+        {
+          "id": "T08-Q2",
+          "prompt": "What is the most useful next source or verification?",
+          "options": [
+            "Publish 'HAIEC-verified' based only on local checksum.",
+            "Interpret the hash as a digital signature of the policy author.",
+            "Use the legitimate issuer-anchored verification route for the exact published receipt/version."
+          ],
+          "answerIndex": 2,
+          "explanation": "The required fact directly qualifies the unresolved issue. A summary badge, old source or unrelated evidence cannot supply it."
+        },
+        {
+          "id": "T08-Q3",
+          "prompt": "Which wording belongs in a defensible reviewer conclusion?",
+          "options": [
+            "Offline consistency can support tamper checks but cannot establish trusted issuer-record equivalence.",
+            "The receipt is an active public compliance certificate.",
+            "The target runtime guard was independently checked."
+          ],
+          "answerIndex": 0,
+          "explanation": "Reviewer language must preserve the established scope, explicit unknowns, provenance and remaining source/approval limitations."
+        }
+      ],
+      "sourceLinks": [],
+      "note": "Educational quiz response is not a HAIEC canonical evaluation, audit opinion or cryptographic verification."
+    },
+    {
+      "id": "T09",
+      "title": "Multiple receipt versions and one revoked package",
+      "truthClass": "EDUCATIONAL_REPORT_FIXTURE",
+      "fixture": "One evaluation has versioned U6 packages: a previous public version revoked and another private package present; summary selection is governed by exact resolver state.",
+      "expected": {
+        "warrantedClaim": "Receipt states differ by package version and publication; deep validation is separate.",
+        "nextRequiredEvidence": "Resolve exact evaluation, package/schema version, publication state and independent verification result.",
+        "permissibleAuditStatement": "Only the selected current eligible package may support its precise recorded status; revocation remains visible."
+      },
+      "questions": [
+        {
+          "id": "T09-Q1",
+          "prompt": "What does this report or source actually establish?",
+          "options": [
+            "Every package is public and verified.",
+            "Receipt states differ by package version and publication; deep validation is separate.",
+            "Revocation deletes all historical records."
+          ],
+          "answerIndex": 1,
+          "explanation": "The correct claim stays within the exact evidence, identity, scope and observation basis of this case."
+        },
+        {
+          "id": "T09-Q2",
+          "prompt": "What is the most useful next source or verification?",
+          "options": [
+            "Use a revoked public link as current audit evidence without disclosure.",
+            "Treat the receipt badge as a full Merkle/package verification run.",
+            "Resolve exact evaluation, package/schema version, publication state and independent verification result."
+          ],
+          "answerIndex": 2,
+          "explanation": "The required fact directly qualifies the unresolved issue. A summary badge, old source or unrelated evidence cannot supply it."
+        },
+        {
+          "id": "T09-Q3",
+          "prompt": "Which wording belongs in a defensible reviewer conclusion?",
+          "options": [
+            "Only the selected current eligible package may support its precise recorded status; revocation remains visible.",
+            "The auditor can assume both versions carry identical evidence.",
+            "Every receipt state proves deployment approval."
+          ],
+          "answerIndex": 0,
+          "explanation": "Reviewer language must preserve the established scope, explicit unknowns, provenance and remaining source/approval limitations."
+        }
+      ],
+      "sourceLinks": [],
+      "note": "Educational quiz response is not a HAIEC canonical evaluation, audit opinion or cryptographic verification."
+    },
+    {
+      "id": "T10",
+      "title": "Valid package digest, missing source authenticity",
+      "truthClass": "EDUCATIONAL_REPORT_FIXTURE",
+      "fixture": "A public receipt matches issuer-record hash and Merkle membership, while IAM and independently attested target effect were not supplied.",
+      "expected": {
+        "warrantedClaim": "Recorded package integrity and binding, not truth of unavailable IAM or target outcomes.",
+        "nextRequiredEvidence": "Request qualified IAM/provider principal evidence and exact correlated target-side witness.",
+        "permissibleAuditStatement": "Issuer-record integrity verification is real, but assurance stays limited to accepted source contents."
+      },
+      "questions": [
+        {
+          "id": "T10-Q1",
+          "prompt": "What does this report or source actually establish?",
+          "options": [
+            "Production authorization was cryptographically verified.",
+            "Recorded package integrity and binding, not truth of unavailable IAM or target outcomes.",
+            "A customer billing mutation is independently confirmed."
+          ],
+          "answerIndex": 1,
+          "explanation": "The correct claim stays within the exact evidence, identity, scope and observation basis of this case."
+        },
+        {
+          "id": "T10-Q2",
+          "prompt": "What is the most useful next source or verification?",
+          "options": [
+            "Use integrity to claim every source fact is trustworthy.",
+            "Assume a Merkle root is independent proof of transaction correctness.",
+            "Request qualified IAM/provider principal evidence and exact correlated target-side witness."
+          ],
+          "answerIndex": 2,
+          "explanation": "The required fact directly qualifies the unresolved issue. A summary badge, old source or unrelated evidence cannot supply it."
+        },
+        {
+          "id": "T10-Q3",
+          "prompt": "Which wording belongs in a defensible reviewer conclusion?",
+          "options": [
+            "Issuer-record integrity verification is real, but assurance stays limited to accepted source contents.",
+            "The supplier account definitely remained unchanged.",
+            "The report is a regulatory certification."
+          ],
+          "answerIndex": 0,
+          "explanation": "Reviewer language must preserve the established scope, explicit unknowns, provenance and remaining source/approval limitations."
+        }
+      ],
+      "sourceLinks": [],
+      "note": "Educational quiz response is not a HAIEC canonical evaluation, audit opinion or cryptographic verification."
+    },
+    {
+      "id": "T11",
+      "title": "Kestrel two-release comparison with incomplete reachability",
+      "truthClass": "REAL_PUBLIC_REFERENCE",
+      "fixture": "The public Kestrel comparison describes an established source control-binding change and unresolved path addition/removal questions under partial coverage, overall INCONCLUSIVE.",
+      "expected": {
+        "warrantedClaim": "Qualified selected control change with unresolved additions/removals.",
+        "nextRequiredEvidence": "Check exact baseline/candidate commits, analyzer comparability and the missing reachability coverage.",
+        "permissibleAuditStatement": "The control change is established, while path additions/removals remain inconclusive in the published comparison."
+      },
+      "questions": [
+        {
+          "id": "T11-Q1",
+          "prompt": "What does this report or source actually establish?",
+          "options": [
+            "The new release is universally safer.",
+            "Qualified selected control change with unresolved additions/removals.",
+            "No other source changes occurred."
+          ],
+          "answerIndex": 1,
+          "explanation": "The correct claim stays within the exact evidence, identity, scope and observation basis of this case."
+        },
+        {
+          "id": "T11-Q2",
+          "prompt": "What is the most useful next source or verification?",
+          "options": [
+            "Treat INCONCLUSIVE as the U5 BLOCK status.",
+            "Count unresolved as confirmed absence of added/removed paths.",
+            "Check exact baseline/candidate commits, analyzer comparability and the missing reachability coverage."
+          ],
+          "answerIndex": 2,
+          "explanation": "The required fact directly qualifies the unresolved issue. A summary badge, old source or unrelated evidence cannot supply it."
+        },
+        {
+          "id": "T11-Q3",
+          "prompt": "Which wording belongs in a defensible reviewer conclusion?",
+          "options": [
+            "The control change is established, while path additions/removals remain inconclusive in the published comparison.",
+            "The candidate release has no remaining action risk.",
+            "All controls passed because the comparison repeated deterministically."
+          ],
+          "answerIndex": 0,
+          "explanation": "Reviewer language must preserve the established scope, explicit unknowns, provenance and remaining source/approval limitations."
+        }
+      ],
+      "sourceLinks": [
+        "https://www.haiec.com/sample-reports/kestrel/compare"
+      ],
+      "note": "Educational quiz response is not a HAIEC canonical evaluation, audit opinion or cryptographic verification."
+    },
+    {
+      "id": "T12",
+      "title": "Audit committee reliance on an incomplete report",
+      "truthClass": "EDUCATIONAL_REPORT_FIXTURE",
+      "fixture": "A procurement team has a current report summary, incomplete runtime evidence, unverified target effects and a receipt with unclear public status.",
+      "expected": {
+        "warrantedClaim": "A bounded report requiring explicit reliance scope and unresolved evidence.",
+        "nextRequiredEvidence": "Resolve exact evaluation, source provenance, required claims, receipt verification and accountable owner.",
+        "permissibleAuditStatement": "Produce a scoped reliance statement with established facts, required sources and assigned follow-up."
+      },
+      "questions": [
+        {
+          "id": "T12-Q1",
+          "prompt": "What does this report or source actually establish?",
+          "options": [
+            "Sufficient material for unrestricted enterprise certification.",
+            "A bounded report requiring explicit reliance scope and unresolved evidence.",
+            "Proof that no action has occurred at runtime."
+          ],
+          "answerIndex": 1,
+          "explanation": "The correct claim stays within the exact evidence, identity, scope and observation basis of this case."
+        },
+        {
+          "id": "T12-Q2",
+          "prompt": "What is the most useful next source or verification?",
+          "options": [
+            "Approve every connected agent because the report PDF exists.",
+            "Hide absent evidence from the audit conclusion.",
+            "Resolve exact evaluation, source provenance, required claims, receipt verification and accountable owner."
+          ],
+          "answerIndex": 2,
+          "explanation": "The required fact directly qualifies the unresolved issue. A summary badge, old source or unrelated evidence cannot supply it."
+        },
+        {
+          "id": "T12-Q3",
+          "prompt": "Which wording belongs in a defensible reviewer conclusion?",
+          "options": [
+            "Produce a scoped reliance statement with established facts, required sources and assigned follow-up.",
+            "Represent unknown status as a passing control.",
+            "Treat vendor-provided marketing report as independent audit opinion."
+          ],
+          "answerIndex": 0,
+          "explanation": "Reviewer language must preserve the established scope, explicit unknowns, provenance and remaining source/approval limitations."
+        }
+      ],
+      "sourceLinks": [],
+      "note": "Educational quiz response is not a HAIEC canonical evaluation, audit opinion or cryptographic verification."
+    }
+  ],
+  "truthLock": "Never treat fictional fixture events, integrity results, approvals or source gaps as actual Kestrel findings or real HAIEC receipts.",
+  "curriculumTags": [
+    "exactEvaluation",
+    "fiveEvidencePlanes",
+    "u5Claims",
+    "agentAudit",
+    "provenance",
+    "currentness",
+    "u6Receipt",
+    "publication",
+    "issuerVerification",
+    "reviewerReliance"
+  ]
+}
