@@ -1,3 +1,5 @@
+> **2026-10-21 AUTHORED SCENARIO BLUEPRINT ADDED:** [Eight timed incident injects with 24 reviewed teaching questions, correct answers and explanations](HAIEC-AI-INCIDENT-RESPONSE-TABLETOP-8-INJECT-AUTHORED-SCENARIO-BLUEPRINT-2026-10-21.json). The structured teaching fixture is ready to drive the future static HTML, not a simulation of HAIEC's canonical evaluation logic, live monitoring or actual customer financial transactions. Each inject has an owner, selected controls and evidence-limited answer keys. Four separate elective variants and five counterfactual topics are specified. Use the scenario blueprint as a build-time curriculum input after expert and current source review.
+
 # HAIEC Learning Series #3: AI Incident Response & Continuous Monitoring Tabletop
 
 **Review date:** 2026-10-21  
