@@ -1,0 +1,491 @@
+{
+  "scenarioId": "TRAINING-SUPPLIER-PAYMENT-CHANGE",
+  "truthClass": "EDUCATIONAL_FIXTURE",
+  "scope": "One procurement AI agent, one tool/path to supplier record, no real supplier or payout",
+  "org": "TRAINING-ORG",
+  "aiSystemId": "TRAINING-PROCUREMENT-AGENT",
+  "timestampNotice": "Times and IDs are educational, not actual event logs.",
+  "title": "When an AI Agent Crosses the Line: HAIEC incident response training fixture",
+  "authoringState": "PLAN_SCENARIO_BLUEPRINT_ONLY; DO NOT CLAIM SHIPPED HTML, LIVE INCIDENT OR ENGINE OUTPUT",
+  "stages": [
+    {
+      "id": "I01",
+      "index": 1,
+      "title": "Detect: suspicious tool capability",
+      "syntheticClock": "00:00",
+      "role": "SOC analyst",
+      "scenarioFact": "Source analysis maps a candidate path for modifying a supplier payout destination. A detection notification flags unusual tool-argument shape; target readback is absent.",
+      "relatedControls": [
+        "S03",
+        "A02",
+        "E03",
+        "R01"
+      ],
+      "questions": [
+        {
+          "id": "I01-Q1",
+          "prompt": "Which conclusion is justified?",
+          "correctAnswer": "A source-backed potential path and an alert fact; no proven destination change.",
+          "options": [
+            "A fraudulent payout has definitely completed.",
+            "A source-backed potential path and an alert fact; no proven destination change.",
+            "There is no risk until we observe runtime payout."
+          ],
+          "explanation": "A source finding remains actionable without target-effect proof; an alert is not itself a completed incident.",
+          "answerIndex": 1
+        },
+        {
+          "id": "I01-Q2",
+          "prompt": "What should the analyst do first?",
+          "correctAnswer": "Preserve exact path/source IDs and confirm actor, target and relevant scope.",
+          "options": [
+            "Trigger every kill switch without understanding target ownership.",
+            "Preserve exact path/source IDs and confirm actor, target and relevant scope.",
+            "Close as harmless because telemetry is incomplete."
+          ],
+          "explanation": "A bounded initial triage preserves useful evidence, narrows exposure and identifies necessary responders.",
+          "answerIndex": 1
+        },
+        {
+          "id": "I01-Q3",
+          "prompt": "What would establish that the actual supplier record changed?",
+          "correctAnswer": "Authenticated target-side record/readback correlated to the specific action.",
+          "options": [
+            "The string supplier.bank in source.",
+            "The alert severity alone.",
+            "Authenticated target-side record/readback correlated to the specific action."
+          ],
+          "explanation": "Source capability and alert severity do not establish actual business state.",
+          "answerIndex": 2
+        }
+      ]
+    },
+    {
+      "id": "I02",
+      "index": 2,
+      "title": "Qualify: monitoring blind spot",
+      "syntheticClock": "00:05",
+      "role": "Monitoring owner",
+      "scenarioFact": "One OTLP producer's last accepted receipt is outside its declared cadence. A separate source has a recent receipt but does not observe supplier destination writes.",
+      "relatedControls": [
+        "R07",
+        "E02",
+        "E03"
+      ],
+      "questions": [
+        {
+          "id": "I02-Q1",
+          "prompt": "Can the system be described as comprehensively monitored for this action?",
+          "correctAnswer": "No. One source is stale and the fresh source lacks relevant target coverage.",
+          "options": [
+            "Yes. Any fresh receipt means all operations are observed.",
+            "No. One source is stale and the fresh source lacks relevant target coverage.",
+            "Yes. Zero violations appeared, so nothing happened."
+          ],
+          "explanation": "Fresh delivery for one source is not evidence of complete action coverage.",
+          "answerIndex": 1
+        },
+        {
+          "id": "I02-Q2",
+          "prompt": "What is the highest-value next data request?",
+          "correctAnswer": "Confirm configured producer identity/cadence and obtain scoped supplier-write/target event readback.",
+          "options": [
+            "Increase the global dashboard risk score.",
+            "Confirm configured producer identity/cadence and obtain scoped supplier-write/target event readback.",
+            "Wait until daily summary without assigning an owner."
+          ],
+          "explanation": "The evidence gap is specific to source identity, freshness and action coverage.",
+          "answerIndex": 1
+        },
+        {
+          "id": "I02-Q3",
+          "prompt": "What does missing telemetry prove?",
+          "correctAnswer": "The incident's action execution cannot be established or excluded from that missing source.",
+          "options": [
+            "The attempted change was blocked.",
+            "The incident's action execution cannot be established or excluded from that missing source.",
+            "The system was safe during the gap."
+          ],
+          "explanation": "No observation is not evidence of non-occurrence.",
+          "answerIndex": 1
+        }
+      ]
+    },
+    {
+      "id": "I03",
+      "index": 3,
+      "title": "Notify: alert delivery versus acknowledgment",
+      "syntheticClock": "00:10",
+      "role": "Incident commander",
+      "scenarioFact": "Alert rule fired, webhook provider accepted its delivery attempt, email delivery is unconfirmed, and an assigned reviewer has not acknowledged the response case.",
+      "relatedControls": [
+        "R06",
+        "E01",
+        "G02"
+      ],
+      "questions": [
+        {
+          "id": "I03-Q1",
+          "prompt": "What response fact is established?",
+          "correctAnswer": "Provider accepted webhook dispatch; human ACK and email delivery remain unconfirmed.",
+          "options": [
+            "The human owner is informed and approved containment.",
+            "The incident is resolved because the webhook returned success.",
+            "Provider accepted webhook dispatch; human ACK and email delivery remain unconfirmed."
+          ],
+          "explanation": "Provider acceptance, delivery confirmation and recipient acknowledgment are separate states.",
+          "answerIndex": 2
+        },
+        {
+          "id": "I03-Q2",
+          "prompt": "What should the incident commander do?",
+          "correctAnswer": "Escalate according to actual response deadline and establish a named accountable recipient.",
+          "options": [
+            "Mark the response case ACKNOWLEDGED on the recipient's behalf.",
+            "Escalate according to actual response deadline and establish a named accountable recipient.",
+            "Treat the email failure as cancellation of the underlying finding."
+          ],
+          "explanation": "Governed escalation and authenticated acknowledgment preserve responsibility.",
+          "answerIndex": 1
+        },
+        {
+          "id": "I03-Q3",
+          "prompt": "What proves human awareness in the governed workflow?",
+          "correctAnswer": "A valid authenticated human ACK record for that workflow/recipient.",
+          "options": [
+            "A configured Slack channel.",
+            "A valid authenticated human ACK record for that workflow/recipient.",
+            "An automatic escalation counter."
+          ],
+          "explanation": "A notification attempt is not an authenticated acknowledgment.",
+          "answerIndex": 1
+        }
+      ]
+    },
+    {
+      "id": "I04",
+      "index": 4,
+      "title": "Investigate: grant, policy and delegated choice",
+      "syntheticClock": "00:18",
+      "role": "AI assurance analyst",
+      "scenarioFact": "Approved policy restricts bank changes to verified owners. IAM evidence shows a broad write credential. Source path is identified but the agent/principal mapping and recipient-choice delegation are not fully qualified.",
+      "relatedControls": [
+        "A01",
+        "A03",
+        "A05",
+        "E03",
+        "E04"
+      ],
+      "questions": [
+        {
+          "id": "I04-Q1",
+          "prompt": "What is the defensible finding?",
+          "correctAnswer": "A potentially consequential technical write path and broad grant merit review; recipient-choice authority is unresolved.",
+          "options": [
+            "Confirmed fraudulent payment and actor identity.",
+            "A potentially consequential technical write path and broad grant merit review; recipient-choice authority is unresolved.",
+            "An approved operating policy automatically delegates recipient choice."
+          ],
+          "explanation": "IAM permission and business delegation remain separate, while qualified source findings remain visible.",
+          "answerIndex": 1
+        },
+        {
+          "id": "I04-Q2",
+          "prompt": "What should be checked before attributing the write to this agent?",
+          "correctAnswer": "Exact principal identity, system/target mapping, policy basis and time-correct action evidence.",
+          "options": [
+            "The assistant's confidence in its explanation.",
+            "Exact principal identity, system/target mapping, policy basis and time-correct action evidence.",
+            "A matching control ID from any system in the organization."
+          ],
+          "explanation": "Cross-source correlation must use exact system and principal scope, not narrative similarity.",
+          "answerIndex": 1
+        },
+        {
+          "id": "I04-Q3",
+          "prompt": "What would prove completed payout?",
+          "correctAnswer": "Independent qualified payment ledger/target effect for this specific action.",
+          "options": [
+            "A source-level sink method.",
+            "The fact that IAM permitted the call.",
+            "Independent qualified payment ledger/target effect for this specific action."
+          ],
+          "explanation": "Even qualified API invocation is distinct from target-side business effect.",
+          "answerIndex": 2
+        }
+      ]
+    },
+    {
+      "id": "I05",
+      "index": 5,
+      "title": "Govern: human response decision",
+      "syntheticClock": "00:28",
+      "role": "Authorized reviewer",
+      "scenarioFact": "A historical approval covered verified destination updates under an older policy version. An operator proposes holding the agent's new destination choice; the current request and approver role must be checked.",
+      "relatedControls": [
+        "A06",
+        "G03",
+        "G07"
+      ],
+      "questions": [
+        {
+          "id": "I05-Q1",
+          "prompt": "Does the old approval authorize this new protected change?",
+          "correctAnswer": "Not automatically; verify exact request, version, scope, actor and current status.",
+          "options": [
+            "Yes, any prior APPROVED state is timeless.",
+            "Not automatically; verify exact request, version, scope, actor and current status.",
+            "Yes, an assurance ALLOW automatically gives approval."
+          ],
+          "explanation": "Human approvals must be current, scoped and genuinely authorized.",
+          "answerIndex": 1
+        },
+        {
+          "id": "I05-Q2",
+          "prompt": "Who should make a deployment/operational decision?",
+          "correctAnswer": "A legitimate role-entitled human reviewer of the exact request.",
+          "options": [
+            "The AI agent itself.",
+            "Any analyst who saw the alert.",
+            "A legitimate role-entitled human reviewer of the exact request."
+          ],
+          "explanation": "An educational choice never stands in for a persisted authorized human decision.",
+          "answerIndex": 2
+        },
+        {
+          "id": "I05-Q3",
+          "prompt": "What does an approved hold/restriction prove on its own?",
+          "correctAnswer": "A governed decision, not target-native interruption until enforcement is independently evidenced.",
+          "options": [
+            "No target dispatch can ever occur.",
+            "A governed decision, not target-native interruption until enforcement is independently evidenced.",
+            "The incident case is closed."
+          ],
+          "explanation": "Policy and human decisions are not equivalent to actual enforcement.",
+          "answerIndex": 1
+        }
+      ]
+    },
+    {
+      "id": "I06",
+      "index": 6,
+      "title": "Contain: requested stop and target outcome",
+      "syntheticClock": "00:36",
+      "role": "IAM/target operator",
+      "scenarioFact": "Legacy kill-switch trigger event was recorded and a guardrail reports DENY, but target action dispatch appears in a separate source and authenticated target effect is not yet available.",
+      "relatedControls": [
+        "R03",
+        "R04",
+        "R02",
+        "E04"
+      ],
+      "questions": [
+        {
+          "id": "I06-Q1",
+          "prompt": "Can the team truthfully claim every action was blocked?",
+          "correctAnswer": "No; require exact control-point/dispatch and independent target outcome evidence.",
+          "options": [
+            "Yes, because kill-switch state is CLOSED.",
+            "No; require exact control-point/dispatch and independent target outcome evidence.",
+            "Yes, because the guard policy says DENY."
+          ],
+          "explanation": "Triggered or configured protection is not target-bound verified protection.",
+          "answerIndex": 1
+        },
+        {
+          "id": "I06-Q2",
+          "prompt": "What proportionate containment step is appropriate?",
+          "correctAnswer": "Have an authorized owner restrict exact risky credential/path and check queue and target effects.",
+          "options": [
+            "Delete all historical monitoring evidence.",
+            "Have an authorized owner restrict exact risky credential/path and check queue and target effects.",
+            "Auto-restart the target based on the dashboard."
+          ],
+          "explanation": "Constrain risk through real owned IAM/target controls with source-qualified proof.",
+          "answerIndex": 1
+        },
+        {
+          "id": "I06-Q3",
+          "prompt": "If HTTP 200 is present, what has it established?",
+          "correctAnswer": "At most an API/provider response, not independent final supplier-record state.",
+          "options": [
+            "The bank account changed and was paid.",
+            "The incident is fully contained.",
+            "At most an API/provider response, not independent final supplier-record state."
+          ],
+          "explanation": "Provider acknowledgment and actual effect are separate facts.",
+          "answerIndex": 2
+        }
+      ]
+    },
+    {
+      "id": "I07",
+      "index": 7,
+      "title": "Remediate: verify fresh correction",
+      "syntheticClock": "00:50",
+      "role": "Assurance and remediation owner",
+      "scenarioFact": "Developer asserts a fix was applied. The only test result references an old build and another AI-system ID; no exact fresh post-change retest exists.",
+      "relatedControls": [
+        "E05",
+        "R06",
+        "S07",
+        "G07"
+      ],
+      "questions": [
+        {
+          "id": "I07-Q1",
+          "prompt": "Is the response workflow verified closed?",
+          "correctAnswer": "No. Remediation attestation is not a fresh server-verified exact-system retest.",
+          "options": [
+            "Yes, a developer comment proves the fix.",
+            "No. Remediation attestation is not a fresh server-verified exact-system retest.",
+            "Yes, a replay from another system is good enough."
+          ],
+          "explanation": "Exact system, control, result, code/policy basis and time must align.",
+          "answerIndex": 1
+        },
+        {
+          "id": "I07-Q2",
+          "prompt": "What is the appropriate next step?",
+          "correctAnswer": "Obtain authorized fresh scoped negative retest on the corrected version, with exact result binding.",
+          "options": [
+            "Copy the old evaluation ID to the new system.",
+            "Obtain authorized fresh scoped negative retest on the corrected version, with exact result binding.",
+            "Change the monitoring status to DELIVERING."
+          ],
+          "explanation": "A repair claim becomes useful proof only when scoped retest actually qualifies.",
+          "answerIndex": 1
+        },
+        {
+          "id": "I07-Q3",
+          "prompt": "What may a valid retest closure NOT establish?",
+          "correctAnswer": "It does not automatically prove external target effect or produce an unrelated U5/U6 disposition.",
+          "options": [
+            "It does not automatically prove external target effect or produce an unrelated U5/U6 disposition.",
+            "That the test's recorded result matches its frozen input.",
+            "That the workflow followed its own case state transitions."
+          ],
+          "explanation": "Workflow closure, U5 Assurance, U6 receipt and target witness are distinct.",
+          "answerIndex": 0
+        }
+      ]
+    },
+    {
+      "id": "I08",
+      "index": 8,
+      "title": "Recover and report: residual proof",
+      "syntheticClock": "01:05",
+      "role": "Incident commander and recovery reviewer",
+      "scenarioFact": "A fresh scoped retest now qualifies for the repaired path, but in-flight requests and target-ledger reconciliation are incomplete. An operator wants to recover execution and declare zero impact.",
+      "relatedControls": [
+        "R05",
+        "R06",
+        "R01",
+        "E01"
+      ],
+      "questions": [
+        {
+          "id": "I08-Q1",
+          "prompt": "Can operations declare no target impact?",
+          "correctAnswer": "No. Reconcile pending actions and independent target records; retain unknown impact explicitly.",
+          "options": [
+            "Yes, a passing retest proves historical non-occurrence.",
+            "No. Reconcile pending actions and independent target records; retain unknown impact explicitly.",
+            "Yes, a successful recovery API means no money moved."
+          ],
+          "explanation": "Fresh retest cannot retroactively prove absence of prior target effects.",
+          "answerIndex": 1
+        },
+        {
+          "id": "I08-Q2",
+          "prompt": "What is appropriate for resumption?",
+          "correctAnswer": "A separately authorized, condition-bound decision with current policy, queue review and target checks.",
+          "options": [
+            "Any admin click returning OPEN.",
+            "A separately authorized, condition-bound decision with current policy, queue review and target checks.",
+            "The AI agent's request to be resumed."
+          ],
+          "explanation": "Recovery requires authentic owner authority and stated validation conditions.",
+          "answerIndex": 1
+        },
+        {
+          "id": "I08-Q3",
+          "prompt": "What must the executive report separate?",
+          "correctAnswer": "Established technical findings, unverified target impact, decisions, corrective actions and source limitations.",
+          "options": [
+            "A global HAIEC safe certificate.",
+            "Established technical findings, unverified target impact, decisions, corrective actions and source limitations.",
+            "An unqualified claim all incidents were prevented."
+          ],
+          "explanation": "The report must not transform absent evidence into safe/certified conclusions.",
+          "answerIndex": 1
+        }
+      ]
+    }
+  ],
+  "variants": [
+    {
+      "id": "TRAINING-MCP-TENANT",
+      "title": "MCP tool and multi-tenant retrieval",
+      "controlIds": [
+        "S02",
+        "S03",
+        "S06",
+        "E03"
+      ],
+      "focus": "Candidate cross-tenant path versus qualified exposure."
+    },
+    {
+      "id": "TRAINING-VOICE-ROUTING",
+      "title": "Voice receptionist after-hours routing",
+      "controlIds": [
+        "A03",
+        "A06",
+        "R01",
+        "R03"
+      ],
+      "focus": "Scoped routing approval, provider acknowledgment and verified configuration readback."
+    },
+    {
+      "id": "TRAINING-TELECOM-CONFIG",
+      "title": "Telecom maintenance action",
+      "controlIds": [
+        "A08",
+        "R02",
+        "C7",
+        "C9",
+        "C16"
+      ],
+      "focus": "Delegation window, special tests with explicit frozen scenario and independent network state."
+    },
+    {
+      "id": "TRAINING-RELEASE-REGRESSION",
+      "title": "Agent tool schema release regression",
+      "controlIds": [
+        "G07",
+        "S07",
+        "E05",
+        "A02"
+      ],
+      "focus": "Source/version drift, old approval and evaluation evidence, qualified retest."
+    }
+  ],
+  "requiredTeachingCounterfactuals": [
+    "STALE_TO_FRESH_BUT_PARTIAL",
+    "GRANT_NARROWED_CODE_CAPABILITY_REMAINS",
+    "TARGET_LEDGER_CONTRADICTS_API_SUCCESS",
+    "NOT_WIRED_VS_BLOCKED_AT_TARGET",
+    "OLD_APPROVAL_EXPIRED"
+  ],
+  "deliverables": [
+    "triage",
+    "monitoringSourceHealth",
+    "notificationChronology",
+    "fivePlaneAuthorityInvestigation",
+    "humanDecisionPacket",
+    "containmentTargetProof",
+    "retestRecoveryDecision",
+    "executiveAfterActionReport"
+  ],
+  "safety": "No active calls, no customer data or credentials, no actual human approvals, no target execution, no auto-contained or auto-recovered incidents."
+}
