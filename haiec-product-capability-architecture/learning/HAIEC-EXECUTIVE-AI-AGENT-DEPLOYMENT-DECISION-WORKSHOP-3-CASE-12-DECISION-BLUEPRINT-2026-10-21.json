@@ -1,0 +1,330 @@
+{
+  "program": "Before You Deploy an AI Agent: Executive Decision Workshop",
+  "form": "AUTHOR-REVIEWED EDUCATIONAL BLUEPRINT FOR FUTURE HTML, NOT CUSTOMER EVALUATION",
+  "version": "2026-10-21.1",
+  "noActualSystemsOrApprovals": true,
+  "canonicalSources": [
+    "https://github.com/subodhkc/haiec-website/blob/Main/lib/assurance/deployment-decision.ts",
+    "https://github.com/subodhkc/haiec-website/blob/Main/lib/assurance/types.ts",
+    "https://github.com/subodhkc/haiec-website/blob/Main/lib/assurance/enforcement-read-model.ts",
+    "https://github.com/subodhkc/haiec-website/blob/Main/lib/assurance/master-report-product.ts",
+    "https://github.com/subodhkc/haiec-website/blob/Main/lib/assurance/assurance-question-projection.ts"
+  ],
+  "learningContract": {
+    "scenarios": 3,
+    "decisionsPerScenario": 4,
+    "quizDecisions": 12,
+    "estimatedExecutiveMinutes": 20,
+    "lanes": [
+      "Assurance claim",
+      "Human deployment decision",
+      "Native enforcement / target proof",
+      "Residual risk and owner"
+    ],
+    "lockedDistinctions": [
+      "U5_ALLOW_NOT_HUMAN_APPROVAL",
+      "U5_BLOCK_NOT_RUNTIME_INTERCEPTION",
+      "HUMAN_APPROVAL_NOT_NATIVE_EXECUTION_PERMISSION",
+      "OLD_APPROVAL_MAY_BE_STALE_OR_EXPIRED",
+      "SOURCE_CAPABILITY_NOT_RUNTIME_EXECUTION",
+      "PROVIDER_ACK_NOT_TARGET_EFFECT",
+      "MISSING_EVIDENCE_NOT_AUTOMATIC_FAILURE_OR_SAFE"
+    ]
+  },
+  "scenarios": [
+    {
+      "id": "EX01",
+      "title": "The pilot can change supplier payment details",
+      "sector": "Enterprise procurement / finance",
+      "riskMoment": "A purchasing AI agent passed functional demonstrations. Authorized repository analysis now establishes a source path from the agent through a tool handler to supplier bank-detail updates. Current effective IAM grants, approved delegated business choice, customer-side target enforcement and action outcomes have not been established.",
+      "truthClass": "EDUCATIONAL_FIXTURE",
+      "stage": "Pre-production",
+      "outcome": "A bounded initial pilot may be considered only within independently controlled operations. Payment-detail mutation cannot be represented as approved or safely protected without its specific prerequisites.",
+      "fivePlanes": {
+        "requested": "Documented business goal: draft purchase orders",
+        "policyAuthorized": "Not established for changes to banking instructions",
+        "effectivelyGranted": "Not established in this exercise",
+        "codeCapable": "Source-qualified path to supplier bank-detail write established",
+        "observed": "No qualified action witness provided"
+      },
+      "targetEffect": "NOT_ESTABLISHED",
+      "executiveExposure": "Unauthorized payment routing, supplier trust, treasury loss",
+      "responsibleOwners": [
+        "Chief financial officer or delegated payment-control owner",
+        "CISO or appointed security reviewer",
+        "AI system owner"
+      ],
+      "questions": [
+        {
+          "id": "EX01-D1",
+          "topic": "Understand the finding",
+          "prompt": "What can leadership responsibly conclude from the source-backed finding?",
+          "options": [
+            "The system already changed a real supplier bank account.",
+            "The agent implementation contains a path that can reach a supplier banking write, but permission, authority and real execution remain unresolved.",
+            "Because runtime evidence is missing, no consequential action is possible."
+          ],
+          "correct": 1,
+          "explanation": "Qualified code reachability is valuable evidence of a potential business consequence. It neither establishes effective deployment permission nor proves a completed payment change.",
+          "badReasons": [
+            "A code path is not an observed mutation.",
+            "Missing runtime evidence cannot be converted into proof the action did not occur."
+          ]
+        },
+        {
+          "id": "EX01-D2",
+          "topic": "Choose the evidence",
+          "prompt": "What minimum additional proof is relevant before expanding to bank-detail changes?",
+          "options": [
+            "A good model benchmark and supplier satisfaction survey.",
+            "An executive email saying the pilot is promising.",
+            "An action-specific approved policy and delegated choice, the deployed principal's relevant effective permission, and customer-side mediation/target evidence appropriate to the action."
+          ],
+          "correct": 2,
+          "explanation": "The open question is who can authorize a sensitive choice and what actually limits or records it. Source capability is only one plane.",
+          "badReasons": [
+            "Performance does not bind authorization.",
+            "Business interest is not a scoped technical permission or valid operational control."
+          ]
+        },
+        {
+          "id": "EX01-D3",
+          "topic": "Make the decision",
+          "prompt": "Which operating decision fits the evidence and preserves business progress?",
+          "options": [
+            "Permit a narrow pilot only for approved low-consequence operations, with bank-detail changes out of scope until their gates are evidenced and separately approved.",
+            "Approve all capabilities because the functional test passed.",
+            "Reject the whole AI investment permanently solely because IAM evidence is absent."
+          ],
+          "correct": 0,
+          "explanation": "A restricted pilot may be an option if those operations have their own adequate controls. The sensitive mutation is not silently included. Human approval is not enforcement.",
+          "badReasons": [
+            "A working demo is not sufficient authority.",
+            "Evidence gaps can call for conditions or restrictions rather than permanent rejection."
+          ]
+        },
+        {
+          "id": "EX01-D4",
+          "topic": "Accept residual risk",
+          "prompt": "How should the executive record the remaining risk?",
+          "options": [
+            "Mark the agent safe and leave acceptance implicit.",
+            "Assign an accountable owner, state excluded operations and unresolved evidence, define expiry/review triggers and record a scoped decision subject to organizational risk tolerance.",
+            "Treat the generated assurance PDF as a substitute for treasury approval."
+          ],
+          "correct": 1,
+          "explanation": "Risk acceptance is an accountable human decision for a named scope, with conditions and re-review triggers, never a blanket assurance score.",
+          "badReasons": [
+            "Unrecorded risk acceptance is not defensible.",
+            "An assurance report does not replace payment governance."
+          ]
+        }
+      ],
+      "sourcePrompts": [
+        "Confirm repository commit and exact handler/action target",
+        "Provide policy envelope and delegated decision owner",
+        "Bind the deployed service principal and effective grants for the action",
+        "Provide target-side enforcement/outcome records if claiming intervention",
+        "Define pilot exclusions, expiry and owner"
+      ],
+      "recommendedDecision": "Scoped pilot for unrelated permitted tasks, sensitive payment mutation not approved",
+      "decisionBoundary": "A workshop recommendation is educational and not a persisted HAIEC deployment decision."
+    },
+    {
+      "id": "EX02",
+      "title": "A third-party AI assistant wants customer-system access",
+      "sector": "Vendor procurement / regulated customer data",
+      "riskMoment": "A vendor provides a current SOC 2 report and model security test results, and asks for an enterprise CRM connection. The enterprise has not assessed the integration's tool scopes, tenant-to-subject binding, resource ownership checks or outbound data paths.",
+      "truthClass": "EDUCATIONAL_FIXTURE",
+      "stage": "Procurement to controlled evaluation",
+      "outcome": "Vendor attestations and model tests can inform diligence, but they do not independently establish this integration's access boundaries or business consequences.",
+      "fivePlanes": {
+        "requested": "Proposed scope: answer authorized customer support questions",
+        "policyAuthorized": "Internal data-use/role policy not yet mapped to the vendor integration",
+        "effectivelyGranted": "Token and resource-specific permissions not assessed",
+        "codeCapable": "Vendor code and API call paths not available to this exercise",
+        "observed": "No permitted tenant-scoped test or live witness provided"
+      },
+      "targetEffect": "NOT_ASSESSED",
+      "executiveExposure": "Customer confidentiality, cross-tenant data access, unintended CRM writes",
+      "responsibleOwners": [
+        "Third-party risk lead",
+        "Customer data owner",
+        "CISO or security architect"
+      ],
+      "questions": [
+        {
+          "id": "EX02-D1",
+          "topic": "Interpret third-party proof",
+          "prompt": "What do the vendor's SOC 2 report and model benchmark establish for this specific CRM integration?",
+          "options": [
+            "They certify the agent's exact tenant isolation and allowed tool actions.",
+            "They prove the vendor cannot leak customer data.",
+            "They contribute relevant diligence evidence but do not on their own establish this integration's principal, object-level scope, tool paths or observed outcomes."
+          ],
+          "correct": 2,
+          "explanation": "Organizational controls and model tests are different from the exact permissions, identity joins and data flows of the proposed customer integration.",
+          "badReasons": [
+            "The report does not substitute for the actual integration authorization chain.",
+            "Safety benchmarks do not independently prove private data containment."
+          ]
+        },
+        {
+          "id": "EX02-D2",
+          "topic": "Request bounded proof",
+          "prompt": "Which request is most useful before production CRM access?",
+          "options": [
+            "A vendor-controlled demonstration using unrestricted real customer records.",
+            "A documented integration scope, effective token permissions, trusted tenant/subject-to-resource checks, data egress controls and an agreed authorized negative test.",
+            "A signed statement that the model follows a prompt instructing it to protect data."
+          ],
+          "correct": 1,
+          "explanation": "The organization needs to qualify the integration's sensitive access boundary, not merely obtain persuasive assurances.",
+          "badReasons": [
+            "Production private data should not be the default unbounded test material.",
+            "Instructions alone are not independent access controls."
+          ]
+        },
+        {
+          "id": "EX02-D3",
+          "topic": "Choose a controlled next step",
+          "prompt": "What is the most defensible next step?",
+          "options": [
+            "Proceed with isolated, least-privilege synthetic-data evaluation and defer sensitive CRM access until evidence and approvals are adequate.",
+            "Enable broad CRM write and export permissions to save integration time.",
+            "Declare the product unusable forever because the vendor cannot share all source code."
+          ],
+          "correct": 0,
+          "explanation": "The decision can preserve learning progress with controlled fixtures while withholding sensitive production privileges. Access to unavailable vendor source remains a stated limitation.",
+          "badReasons": [
+            "Unrestricted access outruns the verified scope.",
+            "Black-box limits require scoped risk treatment, not a fabricated clean or unsafe verdict."
+          ]
+        },
+        {
+          "id": "EX02-D4",
+          "topic": "Own the accepted scope",
+          "prompt": "Who must own the integration decision and what must be recorded?",
+          "options": [
+            "The vendor alone, because it built the product.",
+            "Nobody, because an existing attestation transfers responsibility.",
+            "The enterprise's authorized data owner and risk/security reviewers, with allowed APIs/data, exclusions, test results, expiry and review trigger."
+          ],
+          "correct": 2,
+          "explanation": "Vendor evidence can support due diligence, but accepting access risks is an enterprise decision with explicit scope and accountable people.",
+          "badReasons": [
+            "The customer still owns its tenant access decision.",
+            "Third-party certifications do not transfer all operational accountability."
+          ]
+        }
+      ],
+      "sourcePrompts": [
+        "Vendor and customer integration scope",
+        "Token permission and tenant-object authorization",
+        "Data egress and retention evidence",
+        "Authorized synthetic negative test and result",
+        "Data owner review and access recertification date"
+      ],
+      "recommendedDecision": "Proceed only to a synthetic-data least-privilege evaluation until sensitive access is justified",
+      "decisionBoundary": "Do not claim vendor source analysis, observed cross-tenant exploit or certification when none exists."
+    },
+    {
+      "id": "EX03",
+      "title": "The rollout approval belongs to an older release",
+      "sector": "Telecom or other high-impact operational agent",
+      "riskMoment": "A network operations agent has an existing scoped human approval and historical assurance ALLOW for release A. Release B adds a tool path, the operating policy changed, and an event states that a request was accepted by a provider. There is no exact correlated target-system confirmation of the new operation.",
+      "truthClass": "EDUCATIONAL_FIXTURE",
+      "stage": "Release expansion / change management",
+      "outcome": "Previously valid assurance and human approval may be stale. Provider acknowledgment is not independent proof the native target action was applied or blocked.",
+      "fivePlanes": {
+        "requested": "Release B proposes an additional network-control operation",
+        "policyAuthorized": "Older policy version was approved; current binding changed",
+        "effectivelyGranted": "New tool permission not independently assessed",
+        "codeCapable": "Release A evaluated; release B added an unassessed source path",
+        "observed": "Provider acceptance event exists; target effect not qualified"
+      },
+      "targetEffect": "NOT_ESTABLISHED",
+      "executiveExposure": "Unauthorized network state change, customer outage, altered operational configuration",
+      "responsibleOwners": [
+        "Accountable network operations executive",
+        "Change advisory or deployment approver",
+        "AI system and security owner"
+      ],
+      "questions": [
+        {
+          "id": "EX03-D1",
+          "topic": "Read the old approval",
+          "prompt": "Does the existing historical ALLOW and approval cover release B automatically?",
+          "options": [
+            "Yes, an ALLOW result is a permanent permission for all future agent versions.",
+            "No, a policy/release change requires the current approval/evaluation binding to be rechecked before treating the old scope as current.",
+            "Yes, when the same model provider is used."
+          ],
+          "correct": 1,
+          "explanation": "HAIEC's deployment-decision contract explicitly distinguishes current approvals from expired, stale-policy and stale-evaluation records. U5 ALLOW is not deployment approval.",
+          "badReasons": [
+            "An assurance disposition is bounded in time and scope.",
+            "A model vendor label does not preserve code, tool, policy or execution identity."
+          ]
+        },
+        {
+          "id": "EX03-D2",
+          "topic": "Verify operating effects",
+          "prompt": "What does the provider acceptance event prove?",
+          "options": [
+            "A qualified provider accepted a request, but the native target operation's applied effect remains unestablished.",
+            "The new network configuration definitely changed at the target.",
+            "The enforcement middleware definitely blocked the operation."
+          ],
+          "correct": 0,
+          "explanation": "Dispatch, provider acknowledgment, applied-at-target and independent effect evidence are separate claims with their own source requirements.",
+          "badReasons": [
+            "Acknowledgment is not a target witness.",
+            "An acceptance event does not imply a block."
+          ]
+        },
+        {
+          "id": "EX03-D3",
+          "topic": "Decide on expansion",
+          "prompt": "What decision best protects operations without discarding all prior work?",
+          "options": [
+            "Expand automatically because the previous source report was reproducible.",
+            "Disable all telecom AI indefinitely because the new release has unknowns.",
+            "Do not extend the old approval to the new operation; require fresh scoped evaluation, policy/permission binding, accountable approval and target-specific evidence before higher-impact use."
+          ],
+          "correct": 2,
+          "explanation": "Unchanged low-risk approved work may be governed separately; a new consequential operation should not borrow an old approval without new evidence.",
+          "badReasons": [
+            "Repeatability of an older evaluation does not make it current.",
+            "Permanent shutdown is not the only proportionate response to an evidence gap."
+          ]
+        },
+        {
+          "id": "EX03-D4",
+          "topic": "Define monitoring and re-review",
+          "prompt": "What should the decision memo require if a narrower rollout is considered?",
+          "options": [
+            "A green icon on the monitoring dashboard, regardless of producer coverage.",
+            "Specified permitted operations, target guard owner, telemetry/source coverage, failure response, renewal trigger and a reviewable decision expiry.",
+            "No review date because the project was previously approved."
+          ],
+          "correct": 1,
+          "explanation": "Residual risk treatment needs an explicit operating envelope and review trigger. Configured monitoring without source freshness and target checks is not verified protection.",
+          "badReasons": [
+            "Monitoring configuration is not equivalent to qualified coverage.",
+            "Prior approval can become stale or expired."
+          ]
+        }
+      ],
+      "sourcePrompts": [
+        "Pin exact release A and B source/build/deployment identities",
+        "Bind current policy digest and exact approval request version",
+        "Assess changed tool and IAM access for new operation",
+        "Correlate native target outcome with exact dispatched action",
+        "Set stop condition and human reapproval trigger"
+      ],
+      "recommendedDecision": "No automatic expansion; reassess new operation and obtain current scoped approval",
+      "decisionBoundary": "No educational answer can directly set real runtime entitlement, native guard status or customer deployment decision."
+    }
+  ]
+}
