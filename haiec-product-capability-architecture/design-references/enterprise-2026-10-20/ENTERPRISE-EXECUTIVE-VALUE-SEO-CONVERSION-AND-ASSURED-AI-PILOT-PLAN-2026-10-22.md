@@ -1,3 +1,5 @@
+> **2026-10-22 EXECUTIVE SALES V2 SUPERSEDING DIRECTION:** Preserve this research and metric framework, but use the [Enterprise Executive Sales Interactive V2 HTML](../enterprise-2026-10-22/enterprise-executive-sales-interactive-v2.html) and [sales-review / Devin handoff](../enterprise-2026-10-22/ENTERPRISE-SALES-SME-REVIEW-AND-DEVIN-HANDOFF.md) as the controlling source for marketing-page editorial order, CTA structure and case-study display. **Do not lead with the repo case or its numeric finding.** Present it later as **Telecom AI SaaS** in /enterprise copy, keep underlying artifact provenance unchanged. The current /contact page does not have dedicated Demo/Pilot intents and states HAIEC does not provide consulting: reconcile offer and routing before deploying.
+
 # HAIEC Enterprise: Executive Value, Deterministic Proof, Search Demand and Two POC Entry Paths
 
 Date: 2026-10-22
