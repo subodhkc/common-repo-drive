@@ -1,3 +1,5 @@
+> **2026-10-22 COMPLETE INTERACTIVE DESIGN AND LATEST BUYER DIRECTION:** [NYC LL144 interactive HTML](design-references/nyc-ll144-2026-10-22/nyc-ll144-enterprise-audit-software-monitoring-interactive.html) and [Devin integration handoff](design-references/nyc-ll144-2026-10-22/NYC-LL144-INTERACTIVE-PAGE-DEVIN-HANDOFF.md) are the current design references for this page. Serve THREE buyer paths: pre-booked professional **audit availability request**, dedicated **software demo for auditors/audit firms**, and **enterprise continuous monitoring demo**. Audit availability is not a reservation. Existing Resend/contact/email/ticket stack is reused for implementation. Preserve this document's source audit and terminology contracts. Standalone HTML is design only and no submission is connected until Devin implements it.
+
 # HAIEC NYC LL144 Enterprise Solution: Audit Service, Software and Verifiable Evidence
 
 Date: 2026-10-22
