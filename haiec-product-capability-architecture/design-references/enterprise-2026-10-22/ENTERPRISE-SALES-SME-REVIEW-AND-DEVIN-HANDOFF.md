@@ -18,6 +18,14 @@ Existing:
 
 The October 22 V2 HTML is a **new sales-first composition**, not a substitute for production Next.js, existing HAIEC code, canonical 12-view /enterprise/architecture resource or the /assurance lab. Maintain existing truth and product architecture.
 
+## 0. Newly verified cross-page sales blocker, October 22
+
+Current public **/contact** states in its FAQ: **"HAIEC is a software platform ... It does not provide consulting"**, while the proposed Assured AI Pilot Lab includes a paid, bounded prototype-build service. The contact page currently routes categories such as Enterprise POC and General / Product; it has **no dedicated Executive Demo or Assured AI Pilot Lab intent**. The contact-page Enterprise POC description also says "across multiple AI systems and teams", while the canonical /enterprise wedge is **one consequential system and one priority decision**.
+
+**Required launch reconciliation:** Before activating this new offer on the live website, decide whether the Pilot Lab is (A) HAIEC product-enabled pilot delivery, (B) explicitly identified partner-delivered build services, or (C) a restricted discovery offering. Update /contact, enterprise qualification, commercial/SOW owner, FAQ and intent routing consistently. Keep HAIEC's central assurance-platform category. Do not launch a form link that silently labels Executive Demo or Assured AI Pilot leads "General / Product" without internal sales routing/intent capture. The static V2 HTML intentionally links existing working public routes only; it does not claim those routes currently preserve the three selected intents.
+
+Also verify the 2026-10-22 marketing assertion concerning self-contained/local Docker and telemetry-disabled delivery against an actually validated deployment contract. Do not conflate source-only access with an always-supported offline install.
+
 ## 1. Enterprise sales SME-style editorial review
 
 The page was reviewed against an enterprise buying motion using **economic-buyer value, technical champion enablement, measurable decision criteria, procurement friction, and commercial handoff**. This is an analytical sales-review pass, not a claim of external third-party human signoff.
